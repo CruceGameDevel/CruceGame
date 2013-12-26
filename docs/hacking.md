@@ -42,3 +42,4 @@ Tutors/Coordinators
 ======
 
 * Flavius Aspra (<flavius.as@gmail.com>)
+* Dani J (<dani.user@gmail.com>)

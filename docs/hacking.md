@@ -17,6 +17,8 @@ Must-Haves:
   * code coverage should be over 50%
 * the communication must be carried out in English (the source code, the documents,
   the mailing list if there will be one)
+* a coding standard - you can choose which one and how fine grained you want it
+  to be, but you must stick to it once you have chosen one
 
 
 Communication

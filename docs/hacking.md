@@ -31,6 +31,8 @@ Authors
 
 Please document your names and your e-mail addresses.
 
+* Gafton Paul (<paul.gafton@gmail.com>)
+
 
 Contributors
 =======

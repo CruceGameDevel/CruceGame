@@ -10,6 +10,7 @@ Game Rules
 
 The card deck consists of 24 different cards:
 * __4 suits__ whose names vary with the region you are playing. I know them as Bell, Leaf (or green), Acorn and Heart (or red). For now, none of this colors is superior to another. 
+* Well Known Deck representation: Clubs for Bell, Spades for (Green) Leaf, Diamonds for Acorn, Hearts remains unchanged.
 * __6 values__ of each suit: II, III, IV, IX, X and A (ace).
 
 # The game board

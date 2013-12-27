@@ -1,4 +1,4 @@
-*Status*: This document is currently a *DRAFT*.
+**Status**: This document is currently a **DRAFT**.
 
 
 Game Rules

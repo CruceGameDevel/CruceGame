@@ -24,7 +24,9 @@ Must-Haves:
 Communication
 ======
 
-There should be a mailing list. 
+ * There is this group on Google+ available at the following URL: https://plus.google.com/u/0/communities/105057231196596797294/. 
+
+ * Although the group is private anyone is free to apply for entry.
 
 Authors
 =======
@@ -32,7 +34,11 @@ Authors
 Please document your names and your e-mail addresses.
 
 * Gafton Paul (<paul.gafton@gmail.com>)
+<<<<<<< HEAD
 * Radu Szasz (<radu.szasz@gmail.com>)
+=======
+* MarianG (<gherca.marian@gmail.com>)
+>>>>>>> Dani/master
 
 Contributors
 =======

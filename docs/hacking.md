@@ -26,7 +26,7 @@ Communication
 
  * There is this group on Google+ available at the following URL: https://plus.google.com/u/0/communities/105057231196596797294/. 
 
- * Although the group is private anyone is free to apply for entry.
+ * Although the group is private anyone is free to send a join request.
 
 Authors
 =======

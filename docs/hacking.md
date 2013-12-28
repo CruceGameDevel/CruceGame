@@ -92,6 +92,16 @@ If you want to join the group, please write an e-mail and tell us your intention
 
 The client or users may contact the development team using the mailing list.
 
+Every discussion on mailing list should have a tag, placed in brackets at the beginning of the subject.
+For example ```[Doc] - Document communication channels``` is a possible subject for a discussion.
+The available tags are:  
+\- ```Feature``` - discuss about developing a feature  
+\- ```Doc``` - discuss about documentation  
+\- ```Release``` - discuss about a release  
+\- ```Programming``` - ask a programming question  
+\- ```Meta``` - discussions about project that can not be fitted in one of above categories  
+\- ```Talk``` - any other discussions, not related to the project  
+
  * Another communication channel used is the IRC channel #cruce-devel on the Freenode network.
 Its primary purpose is instant communication between developers. Note that discussions on this channel are not official.
 The decisions made on this channel *MUST* be consemnated on the mailing list. This channel is open.

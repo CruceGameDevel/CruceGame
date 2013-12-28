@@ -24,9 +24,19 @@ Must-Haves:
 Communication
 ======
 
- * There is this group on Google+ available at the following URL: https://plus.google.com/u/0/communities/105057231196596797294/. 
+ * Our main communication channel is the mailing list (abbreviated ML).
+The ML address is cruce-development@googlegroups.com. This group is public (anyone can see the discussions and can send e-mails).
+If you want to join the group, please write an e-mail and tell us your intentions.
 
- * Although the group is private anyone is free to send a join request.
+The client or users may contact the development team using the mailing list.
+
+ * Another communication channel used is the IRC channel #cruce-devel on the Freenode network.
+Its primary purpose is instant communication between developers. Note that discussions on this channel are not official.
+The decisions made on this channel *MUST* be consemnated on the mailing list. This channel is open.
+
+ * There is also this group on Google+ available at the following URL: https://plus.google.com/u/0/communities/105057231196596797294/.
+Although the group is private anyone is free to send a join request. Its primary purpose is to inform the client and the users about
+the development of the application.
 
 Authors
 =======

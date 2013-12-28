@@ -21,6 +21,67 @@ Must-Haves:
   to be, but you must stick to it once you have chosen one
 
 
+Working with Git
+======
+
+If you want to contribute to our project, you need to create a fork.
+After you commit your changes, create a pull request. Your commits will be reviewed and integrated in project.
+
+Branching model
+------
+
+There are 2 main branches with infinite lifetime: master and develop.
+We consider origin/master to be the main branch where the source code of HEAD always reflects a production-ready state.
+We consider origin/develop to be the main branch where the source code of HEAD always reflects a state with the latest delivered development changes for the next release.
+
+So, every time you make a patch, it will be integrated in develop branch. 
+At every release, the master is merged with develop.
+
+###Feature branches
+
+No one should make commits directly to develop branch. Instead, when you create a patch, you should create a feature branch.
+All feature branches MUST be merged into develop. Also, they should only exist in developers' forks, not in origin.
+They can hava any name, excep master, develop, release-*, hotfix-*.
+
+When starting work on a new feature, branch of from develop branch:
+
+'''$git checkout -b myfeature develop'''
+
+To integrate a feature branch into develop:
+
+'''$ git checkout develop
+Switched to branch 'develop'
+$ git merge --no-ff myfeature
+Updating ea1b82a..05e9557
+(Summary of changes)
+$ git branch -d myfeature
+Deleted branch myfeature (was 05e9557).
+$ git push origin develop'''
+
+The --no-ff flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward.
+This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. 
+
+###Release branches
+
+Release branches support preparation for a new production release. Their purpose is to allow small changes (correcting typos
+small bug fixes), while develop branch remins open for new patches. All features tagged for the current version must
+be integrated into develop by this time. Patches added to develop branch after this one was created will be added to the
+next release. Release branches should be merged with master and develop.
+
+Their name should be release-* and should indicate the version number.
+
+###Hotfix branches
+
+Hotfix branches are used to fix bugs in a production version. When a bug is found in a production version, a hotfix branch
+should be branched off from master. After fixing the bug, it should be merged into master and develop. When a release branch
+currently exists, hotfix branches must be merged into that instead of develop.
+
+Their name should be hotfix-* and should indicate the version number.
+
+
+The creation and merge of release and hotfix branches is simillar to those from feature branches.
+
+
 Communication
 ======
 

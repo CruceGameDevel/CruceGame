@@ -110,6 +110,8 @@ Please document your names and your e-mail addresses.
 
 * MarianG (<gherca.marian@gmail.com>)
 
+* Sarvsav Sharma (<sarvsav@gmail.com>)
+
 
 Contributors
 =======

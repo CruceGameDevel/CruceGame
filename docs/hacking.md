@@ -27,6 +27,13 @@ Working with Git
 If you want to contribute to our project, you need to create a fork.
 After you commit your changes, create a pull request. Your commits will be reviewed and integrated in project.
 
+The commits
+------
+Do commit often small changes. The commits should be modular, every commit
+representing one modification. The commit messages should be as short as
+possible, yet useful. They should tell the story of the developing process
+of the project.
+
 Branching model
 ------
 

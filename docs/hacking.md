@@ -1,8 +1,9 @@
 CruceGame Community Guide (a.k.a. "HACKING")
 =========
 
-*Use ideas from [Apache Subversion Community Guide (aka "HACKING")](http://subversion.apache.org/docs/community-guide/)
-to document as many aspects of the development as possible.*
+*Use ideas from [Apache Subversion Community Guide (aka "HACKING")]
+(http://subversion.apache.org/docs/community-guide/) to document as many aspects
+of the development as possible.*
 
 *Must-Haves:*
 
@@ -10,13 +11,13 @@ to document as many aspects of the development as possible.*
   * *use github to assign tasks to milestones. There will be five milestones
     during the initial development (until 1.0.0: 0.2.0, 0.4.0, 0.6.0 and 0.8.0)*
 * *a branching model, for example http://nvie.com/posts/a-successful-git-branching-model/
-  but there are other ones inspired by this just as successful. What matters most
-  is to stick to it, once you've decided how you want to proceed*
+  but there are other ones inspired by this just as successful. What matters
+  most is to stick to it, once you've decided how you want to proceed*
 * *test-driven development or at least testing after development - but each
   milestone must have complete tests which pass*
   * *code coverage should be over 50%*
-* *the communication must be carried out in English (the source code, the documents,
-  the mailing list if there will be one)*
+* *the communication must be carried out in English (the source code, the 
+  documents, the mailing list if there will be one)*
 * *a coding standard - you can choose which one and how fine grained you want it
   to be, but you must stick to it once you have chosen one*
 
@@ -25,7 +26,8 @@ Working with Git
 ======
 
 If you want to contribute to our project, you need to create a fork.
-After you commit your changes, create a pull request. Your commits will be reviewed and integrated in project.
+After you commit your changes, create a pull request. Your commits will be
+reviewed and integrated in project.
 
 The commits
 ------
@@ -55,17 +57,21 @@ Branching model
 ------
 
 There are 2 main branches with infinite lifetime: master and develop.
-* We consider origin/master to be the main branch where the source code of HEAD always reflects a production-ready state.
-* We consider origin/develop to be the main branch where the source code of HEAD always reflects a state with the latest
-delivered development changes for the next release.
+* We consider origin/master to be the main branch where the source code of HEAD
+  always reflects a production-ready state.
+* We consider origin/develop to be the main branch where the source code of HEAD
+  always reflects a state with the latest delivered development changes for the
+  next release.
 
 So, every time you make a patch, it will be integrated in develop branch. 
 At every release, the master is merged with develop.
 
 ###Feature branches
 
-No one should make commits directly to develop branch. Instead, when you create a patch, you should create a feature branch.
-All feature branches MUST be merged into develop. Also, they should only exist in developers' forks, not in origin.
+No one should make commits directly to develop branch. Instead, when you create
+a patch, you should create a feature branch.
+All feature branches MUST be merged into develop. Also, they should only exist
+in developers' forks, not in origin.
 They can have any name, except master, develop, release-\*, hotfix-\*.
 
 When starting work on a new feature, branch out of from develop branch:
@@ -83,56 +89,73 @@ $ git branch -d myfeature
 Deleted branch myfeature (was 05e9557).
 $ git push origin develop```
 
-The --no-ff flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward.
-This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. 
+The --no-ff flag causes the merge to always create a new commit object, even if
+the merge could be performed with a fast-forward.
+This avoids losing information about the historical existence of a feature
+branch and groups together all commits that together added the feature. 
 
 ###Release branches
 
-Release branches support preparation for a new production release. Their purpose is to allow small changes (correcting typos
-small bug fixes), while develop branch remins open for new patches. All features tagged for the current version must
-be integrated into develop by this time. Patches added to develop branch after this one was created will be added to the
-next release. Release branches should be merged with master and develop.
+Release branches support preparation for a new production release. Their purpose
+is to allow small changes (correcting typos small bug fixes), while develop
+branch remins open for new patches. All features tagged for the current version
+must be integrated into develop by this time. Patches added to develop branch
+after this one was created will be added to the next release. Release branches
+should be merged with master and develop.
 
 Their name should be release-\* and should indicate the version number.
 
 ###Hotfix branches
 
-Hotfix branches are used to fix bugs in a production version. When a bug is found in a production version, a hotfix branch
-should be branched off from master. After fixing the bug, it should be merged into master and develop. When a release branch
-currently exists, hotfix branches must be merged into that instead of develop.
+Hotfix branches are used to fix bugs in a production version. When a bug is
+found in a production version, a hotfix branch should be branched off from
+master. After fixing the bug, it should be merged into master and develop. When
+a release branch currently exists, hotfix branches must be merged into that
+instead of develop.
 
 Their name should be hotfix-\* and should indicate the version number.
 
 
-The creation and merge of release and hotfix branches is simillar to those from feature branches.
+The creation and merge of release and hotfix branches is simillar to those from
+feature branches.
 
 
 Communication
 ======
 
  * Our main communication channel is the mailing list (abbreviated ML).
-The ML address is cruce-development@googlegroups.com. This group is public (anyone can see the discussions and can send e-mails).
-If you want to join the group, please write an e-mail and tell us your intentions.
+The ML address is cruce-development@googlegroups.com. This group is public 
+(anyone can see the discussions and can send e-mails).
+If you want to join the group, please write an e-mail and tell us your
+intentions.
 
 The client or users may contact the development team using the mailing list.
 
-Every discussion on mailing list should have a tag, placed in brackets at the beginning of the subject.
-For example ```[Doc] - Document communication channels``` is a possible subject for a discussion.
+Every discussion on mailing list should have a tag, placed in brackets at the
+beginning of the subject.
+For example ```[Doc] - Document communication channels``` is a possible subject
+for a discussion.
 The available tags are:  
 \- ```Feature``` - discuss about developing a feature  
 \- ```Doc``` - discuss about documentation  
 \- ```Release``` - discuss about a release  
 \- ```Programming``` - ask a programming question  
-\- ```Meta``` - discussions about project that can not be fitted in one of above categories  
+\- ```Meta``` - discussions about project that can not be fitted in one of above
+                categories  
 \- ```Talk``` - any other discussions, not related to the project  
 
- * Another communication channel used is the IRC channel #cruce-devel on the Freenode network.
-Its primary purpose is instant communication between developers. Note that discussions on this channel are not official.
-The decisions made on this channel *MUST* be consemnated on the mailing list. This channel is open.
+ * Another communication channel used is the IRC channel #cruce-devel on the
+   Freenode network.
+   Its primary purpose is instant communication between developers. Note that
+   discussions on this channel are not official.
+   The decisions made on this channel *MUST* be consemnated on the mailing list.
+   This channel is open.
 
- * There is also this group on Google+ available at the following URL: https://plus.google.com/u/0/communities/105057231196596797294/.
-Although the group is private anyone is free to send a join request. Its primary purpose is to inform the client and the users about
-the development of the application.
+ * There is also this group on Google+ available at the following URL:
+ https://plus.google.com/u/0/communities/105057231196596797294/.
+ Although the group is private anyone is free to send a join request.
+ Its primary purpose is to inform the client and the users about the development
+ of the application.
 
 Authors
 =======

@@ -34,6 +34,23 @@ representing one modification. The commit messages should be as short as
 possible, yet useful. They should tell the story of the developing process
 of the project.
 
+Being up-to-date
+------
+Add other forks and the main repository as remotes:
+
+```git remote add remote_name remote_adress```
+
+In our case, the main repository should be added as remote as follows:
+
+```git remote add upstream https://github.com/danij/CruceGame.git```
+
+Note that this is using https. You may use ssh as well.
+
+Use ```git remote -v``` to view your remotes.
+
+Use ```git fetch --all``` often to find out what other members of the team
+done in the meanwile.
+
 Branching model
 ------
 

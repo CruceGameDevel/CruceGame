@@ -49,7 +49,7 @@ Note that this is using https. You may use ssh as well.
 Use ```git remote -v``` to view your remotes.
 
 Use ```git fetch --all``` often to find out what other members of the team
-done in the meanwile.
+have done in the meanwile.
 
 Branching model
 ------

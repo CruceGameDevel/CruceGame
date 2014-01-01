@@ -10,7 +10,7 @@ These are the requirements from user's perspective:
 by any means. They should see the cards from all users and their choices.
 * The players and the observers may interact using an in-game chat.
 * A player must not be allowed to cheat, i.e. to make an illegal move, as
-described in docs/game-rules.md.
+described in docs/game-rules_en.md.
 * If there is more than one player, they should play over the network: one
 player creates a host and the other players, using some login details, join the
 host.

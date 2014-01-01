@@ -21,5 +21,7 @@ planned UIs, etc)
 - There must be an API, to allow other developers to build other interfaces.
   The interface should not interfere with the game. It's only purpose is user
   interaction.
+- The business logic of the application must be packed into one library (or
+  more, if it is needed) in order to use it for UI development.
 - The build must be tested with valgrind.
 

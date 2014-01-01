@@ -172,6 +172,9 @@ Please document your names and your e-mail addresses.
 
 * Ionut Grt. (<ionut.grt@gmail.com>)
 
+* Marius Leustean	(<marius.leus@gmail.com>)
+
+
 Contributors
 =======
 

@@ -12,8 +12,8 @@ by any means. They should see the cards from all users and their choices.
 * A player must not be allowed to cheat, i.e. to make an illegal move, as
 described in docs/game-rules_en.md.
 * If there is more than one player, they should play over the network: one
-player creates a host and the other players, using some login details, join the
-host.
+player creates a host and the other players join the host, using only the
+host's ip.
 * Observers may observe the game using the game by joining it. An observer may
 enter the game at any moment, while players may not join the game after it
 started.

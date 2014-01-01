@@ -180,12 +180,6 @@ Versioning
 For versioning we use semantic versioning: http://www.semver.org. The most
 important things you need to know and modifications to that reference are:
 
-A version is described using 3 numbers, in the format MAJOR.MINOR.PATCH. 
-You should increment:
-- MAJOR when releasing a version that has incompatibilites with older versions
-- MINOR when you add backwards-compatible functionality
-- PATCH when you make backwards-compatible bug-fixes
-
 1. Once a version has been released, its contents must not modified.
 2. Version 0.x.y is for initial development.
 3. The patch version must be reset to 0 when a new minor version is released.

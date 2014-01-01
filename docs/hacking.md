@@ -177,8 +177,11 @@ mistakes (for example, a post in another language than English).
 Versioning
 =======
 
-This project uses semantic versioning. A version is described using 3 numbers,
-in the format MAJOR.MINOR.PATCH. You should increment:
+For versioning we use semantic versioning: http://www.semver.org. The most
+important things you need to know and modifications to that reference are:
+
+A version is described using 3 numbers, in the format MAJOR.MINOR.PATCH. 
+You should increment:
 - MAJOR when releasing a version that has incompatibilites with older versions
 - MINOR when you add backwards-compatible functionality
 - PATCH when you make backwards-compatible bug-fixes
@@ -194,6 +197,7 @@ docs/requirements.md and all features described in docs/features.md.
 5. Before releasing a version, make sure it is functional and passes all tests.
 For testing, use tools described in docs/features.md. Do not release versions
 with known bugs or with undocumented parts.
+
 
 
 Authors

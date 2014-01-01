@@ -122,6 +122,9 @@ Their name should be hotfix-\* and should indicate the version number.
 The creation and merge of release and hotfix branches is simillar to those from
 feature branches.
 
+For more details about a simillar branching model, read the following resource:
+http://nvie.com/posts/a-successful-git-branching-model/.
+
 
 Communication
 ======

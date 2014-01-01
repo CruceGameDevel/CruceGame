@@ -173,6 +173,29 @@ mistakes (for example, a post in another language than English).
  Its primary purpose is to inform the client and the users about the development
  of the application.
 
+
+Versioning
+=======
+
+This project uses semantic versioning. A version is described using 3 numbers,
+in the format MAJOR.MINOR.PATCH. You should increment:
+- MAJOR when releasing a version that has incompatibilites with older versions
+- MINOR when you add backwards-compatible functionality
+- PATCH when you make backwards-compatible bug-fixes
+
+1. Once a version has been released, its contents must not modified.
+2. Version 0.x.y is for initial development.
+3. The patch version must be reset to 0 when a new minor version is released.
+Simillar, the minor and patch versions should be reset to 0 when a major version
+is released.
+4. This project will have 5 milestones: 0.2.0, 0.4.0, 0.6.0, 0.8.0 and 1.0.0.
+The version 1.0.0 should respect all requirements described in
+docs/requirements.md and all features described in docs/features.md.
+5. Before releasing a version, make sure it is functional and passes all tests.
+For testing, use tools described in docs/features.md. Do not release versions
+with known bugs or with undocumented parts.
+
+
 Authors
 =======
 

@@ -34,7 +34,10 @@ The commits
 Do commit often small changes. The commits should be modular, every commit
 representing one modification. The commit messages should be as short as
 possible, yet useful. They should tell the story of the developing process
-of the project.
+of the project. Commit names should start with a capital letter and use past
+tense. A commit description is not needed.  
+If your commit fixes an issue, include issue number in commit (e.g #14). This
+will link your commit to the issue.
 
 Being up-to-date
 ------

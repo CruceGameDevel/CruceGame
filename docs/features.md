@@ -18,7 +18,7 @@ planned UIs, etc)
   do not forget to add build rules for it in the Makefile.
 - The UI interface should be developed in 2 stages: a CLI interface, using
   ncurses, and a GUI interface using GTK.
-- There must be an api, to allow other developers to build other interfaces.
+- There must be an API, to allow other developers to build other interfaces.
   The interface should not interfere with the game. It's only purpose is user
   interaction.
 - The build must be tested with valgrind.

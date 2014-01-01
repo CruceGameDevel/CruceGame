@@ -170,6 +170,7 @@ Please document your names and your e-mail addresses.
 
 * Sarvsav Sharma (<sarvsav@gmail.com>)
 
+* Ionut Grt. (<ionut.grt@gmail.com>)
 
 Contributors
 =======

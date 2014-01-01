@@ -149,6 +149,16 @@ The available tags are:
 \- ```Meta``` - discussions about project that can not be fitted in one of above
                 categories  
 \- ```Talk``` - any other discussions, not related to the project  
+\- ```Sign-up``` - send a sign in request
+
+The mailing list automatically adds a discussion id to the subject. For example:
+```[Cruce-devel: 233] [Feature] - This is a new feature```. When referring
+to this discussion, please mention it's id, 233.
+
+Also, note that the mailing list is moderated. If you make a mistake (i.e. a
+wrong post), you will be asked to repost your message following our conventions
+and your old message will be deleted. This shall be used only for flagrant
+mistakes (for example, a post in another language than English).
 
  * Another communication channel used is the IRC channel #cruce-devel on the
    Freenode network.

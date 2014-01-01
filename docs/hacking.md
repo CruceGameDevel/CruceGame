@@ -34,7 +34,10 @@ The commits
 Do commit often small changes. The commits should be modular, every commit
 representing one modification. The commit messages should be as short as
 possible, yet useful. They should tell the story of the developing process
-of the project.
+of the project. Commit names should start with a capital letter and use past
+tense. A commit description is not needed.  
+If your commit fixes an issue, include issue number in commit (e.g #14). This
+will link your commit to the issue.
 
 Being up-to-date
 ------
@@ -119,6 +122,9 @@ Their name should be hotfix-\* and should indicate the version number.
 The creation and merge of release and hotfix branches is simillar to those from
 feature branches.
 
+For more details about a simillar branching model, read the following resource:
+http://nvie.com/posts/a-successful-git-branching-model/.
+
 
 Communication
 ======
@@ -143,6 +149,16 @@ The available tags are:
 \- ```Meta``` - discussions about project that can not be fitted in one of above
                 categories  
 \- ```Talk``` - any other discussions, not related to the project  
+\- ```Sign-up``` - send a sign in request
+
+The mailing list automatically adds a discussion id to the subject. For example:
+```[Cruce-devel: 233] [Feature] - This is a new feature```. When referring
+to this discussion, please mention it's id, 233.
+
+Also, note that the mailing list is moderated. If you make a mistake (i.e. a
+wrong post), you will be asked to repost your message following our conventions
+and your old message will be deleted. This shall be used only for flagrant
+mistakes (for example, a post in another language than English).
 
  * Another communication channel used is the IRC channel #cruce-devel on the
    Freenode network.
@@ -156,6 +172,27 @@ The available tags are:
  Although the group is private anyone is free to send a join request.
  Its primary purpose is to inform the client and the users about the development
  of the application.
+
+
+Versioning
+=======
+
+For versioning we use semantic versioning: http://www.semver.org. The most
+important things you need to know and modifications to that reference are:
+
+1. Once a version has been released, its contents must not modified.
+2. Version 0.x.y is for initial development.
+3. The patch version must be reset to 0 when a new minor version is released.
+Simillar, the minor and patch versions should be reset to 0 when a major version
+is released.
+4. This project will have 5 milestones: 0.2.0, 0.4.0, 0.6.0, 0.8.0 and 1.0.0.
+The version 1.0.0 should respect all requirements described in
+docs/requirements.md and all features described in docs/features.md.
+5. Before releasing a version, make sure it is functional and passes all tests.
+For testing, use tools described in docs/features.md. Do not release versions
+with known bugs or with undocumented parts.
+
+
 
 Authors
 =======

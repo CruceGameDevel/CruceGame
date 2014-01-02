@@ -33,7 +33,6 @@ Networking: C, sockets, encrypt/decrypt functions and methods
 
 * Create host and accept user connections
 * Send commands over network
-* Encrypt the traffic
 * Chat
 
 

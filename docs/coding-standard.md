@@ -104,3 +104,9 @@ the implementation.
 explain a certain expression for example). Make your code as easy to read
 and understand as possible.
 
+Miscellaneous
+-----
+* Do not leave dangling pointers. After you free a memory location, make
+sure you set the pointer to NULL.
+
+

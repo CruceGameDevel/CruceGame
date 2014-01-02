@@ -211,6 +211,8 @@ Please document your names and your e-mail addresses.
 
 * Marius Leustean	(<marius.leus@gmail.com>)
 
+* Vladu Emilian Sorin (<vladuemilian@gmail.com>)
+
 
 Contributors
 =======

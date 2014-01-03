@@ -12,7 +12,7 @@ void deckInit(struct Deck *deck)
 {
     struct Card newCard;
     int k = 0;
-    for (enum Suit i = 0; i < end; i++) {
+    for (enum Suit i = 0; i < SuitEnd; i++) {
         for (int j = 0; VALUES[j] != -1; j++) {
             newCard.suit = i;
             newCard.value = VALUES[j];

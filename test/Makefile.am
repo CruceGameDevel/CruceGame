@@ -8,10 +8,12 @@ echo-cutter:
 
 TESTS = run-test.sh
 
-noinst_LTLIBRARIES = test_deck.la
-LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libdeck.la
+noinst_LTLIBRARIES = test_deck.la test_team.la
+LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libdeck.la \
+                      ${top_builddir}/src/libteam.la
 
 test_deck_la_SOURCES = test-deck.c
+test_team_la_SOURCES = test-team.c
 
 # For every module you create:
 # - create a file test-MODULE.c, where you will put tests

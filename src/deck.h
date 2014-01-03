@@ -26,7 +26,7 @@
  *
  * end is a flag used when iterating
  */
-enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, end};
+enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
 
 /**
  * @brief Game values for cards
@@ -70,6 +70,6 @@ void deckInit(struct Deck *deck);
  * @param deck The deck to be shuffled.
  * @return void
  */
-void shuffleDeck(struct Deck*);
+void shuffleDeck(struct Deck* deck);
 
 #endif

@@ -16,29 +16,36 @@ int cardsEqual(struct Card a, struct Card b)
     return 0;
 }
 
-void testNewDeck()
+void test_NewDeck()
 {
     for (int i = 0; i < DECK_SIZE; i++) {
         for (int j = 0; j < DECK_SIZE; j++) {
             if (i != j) {
-                cut_assert_false(cardsEqual(deck[i], deck[j]));
+                cut_assert_false(cardsEqual(deck.cards[i], deck.cards[j]));
             }
         }
     }
 }
 
-void testDeckShuffle()
+void test_DeckShuffle()
 {
     struct Deck shuffled = deck;
     deckShuffle(&shuffled);
 
     int differences = 0;
     for (int i = 0; i < DECK_SIZE; i++) {
-        if (!cardsEqual(shuffled[i], deck[i])) {
+        if (!cardsEqual(shuffled.cards[i], deck.cards[i])) {
             differences++;
         }
     }
 
     cut_assert_not_equal_int(differences, 0);
+}
+
+void test_extensive_DeckShuffle()
+{
+    for (int i = 0; i < 100; i++) {
+        test_DeckShuffle();
+    }
 }
 

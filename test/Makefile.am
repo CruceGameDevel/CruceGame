@@ -1,6 +1,7 @@
 INCLUDES = $(CUTTER_CFLAGS) -I$(top_srcdir)/src
 
 LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined
+CFLAGS = -std=c99
 TESTS_ENVIRONMENT = NO_MAKE=yes CUTTER="$(CUTTER)"
 echo-cutter:
 	@echo $(CUTTER)

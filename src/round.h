@@ -63,5 +63,15 @@ int placeBid(struct Player *player, int bid, struct Hand *hand);
  */
 int addPlayer(struct Player* player, struct Hand *hand);
 
+/**
+ * @brief Function to give cards from players.
+ *
+ * @param player Player who gives the card.
+ * @param card Card id given by player (id from Player.cards).
+ * @param hand Hand in which the card is given.
+ * @return 0 on success, non-zero on failure.
+ */
+int giveCard(struct Player *player, int cardId, struct Hand *hand);
+
 #endif
 

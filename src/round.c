@@ -74,3 +74,19 @@ int addPlayer(struct Player *player, struct Hand *hand)
     return 0;
 }
 
+int giveCard(struct Player *player, int cardId, struct Hand *hand)
+{
+    if (player == NULL || player->hand[cardId] == NULL || hand == NULL)
+        return -1;
+
+    int index = findPlayerIndexHand(player, hand);
+
+    if(index < 0)
+        return -1;
+
+    hand->cards[index] = player->hand[cardId];
+    player->hand[cardId] = NULL;
+
+    return 0;
+}
+

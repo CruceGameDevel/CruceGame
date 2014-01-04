@@ -36,5 +36,13 @@ struct Round{
     struct Hand *hands[MAX_HANDS + 1];
 };
 
+/**
+ * @brief function to find the bid winner in a hand.
+ *
+ * @param hand The Hand where to find the bid winner.
+ * @return The bid winner.
+ */
+struct Player *getBidWinner(struct Hand *hand);
+
 #endif
 

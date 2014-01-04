@@ -93,3 +93,21 @@ void test_placeBid()
     cut_assert_equal_int(hand->bids[3], 4);
 }
 
+void test_getBidWinner()
+{
+    addPlayer(player1, hand);
+    addPlayer(player2, hand);
+    addPlayer(player3, hand);
+    addPlayer(player4, hand);
+
+    placeBid(player1, 0, hand);
+    placeBid(player2, 3, hand);
+    placeBid(player3, 2, hand);
+    placeBid(player4, 4, hand);
+
+    cut_assert_equal_pointer(NULL, getBidWinner(NULL));
+
+    cut_assert_equal_pointer(player4, getBidWinner(hand));
+}
+
+

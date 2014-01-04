@@ -53,3 +53,19 @@ void test_addPlayer()
     cut_assert_equal_pointer(hand->players[3], player4);
 }
 
+void printHand()
+{
+    fprintf(stderr, "%p %p\n", player1, hand->players[0]);
+    fprintf(stderr, "%p %p\n", player2, hand->players[1]);
+    fprintf(stderr, "%p %p\n", player3, hand->players[2]);
+    fprintf(stderr, "%p %p\n", player4, hand->players[3]);
+}
+
+void printBids()
+{
+    fprintf(stderr, "%d\n", hand->bids[0]);
+    fprintf(stderr, "%d\n", hand->bids[1]);
+    fprintf(stderr, "%d\n", hand->bids[2]);
+    fprintf(stderr, "%d\n", hand->bids[3]);
+}
+

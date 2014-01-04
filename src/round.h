@@ -54,5 +54,14 @@ struct Player *getBidWinner(struct Hand *hand);
  */
 int placeBid(struct Player *player, int bid, struct Hand *hand);
 
+/**
+ * @brief Function to add player to a hand.
+ *
+ * @param hand Hand where to add player.
+ * @param player Player to be added.
+ * @return 0 on success, non-zero on failure.
+ */
+int addPlayer(struct Player* player, struct Hand *hand);
+
 #endif
 

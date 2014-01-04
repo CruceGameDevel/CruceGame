@@ -55,3 +55,22 @@ int placeBid(struct Player *player, int bid, struct Hand *hand)
     return 0;
 }
 
+int addPlayer(struct Player *player, struct Hand *hand)
+{
+    if (player == NULL || hand == NULL)
+        return -1;
+
+    int index = findPlayerIndexHand(player, hand);
+    if(index >= 0) //impossible to add same player multimple time
+        return -1;
+
+    int i = 0;
+    while(hand->players[i] != NULL)
+        i++;
+
+    hand->players[i]     = player;
+    hand->players[i + 1] = NULL;
+
+    return 0;
+}
+

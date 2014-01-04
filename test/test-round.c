@@ -69,3 +69,27 @@ void printBids()
     fprintf(stderr, "%d\n", hand->bids[3]);
 }
 
+void test_placeBid()
+{
+    addPlayer(player1, hand);
+    addPlayer(player2, hand);
+    addPlayer(player3, hand);
+    addPlayer(player4, hand);
+
+    cut_assert_not_equal_int(0, placeBid(NULL, 2, hand));
+    cut_assert_not_equal_int(0, placeBid(player1, -1, hand));
+    cut_assert_not_equal_int(0, placeBid(player1, 2, NULL));
+
+    cut_assert_equal_int(0, placeBid(player1, 0, hand));
+    cut_assert_equal_int(hand->bids[0], 0);
+
+    cut_assert_equal_int(0, placeBid(player2, 2, hand));
+    cut_assert_equal_int(hand->bids[1], 2);
+
+    cut_assert_equal_int(0, placeBid(player3, 3, hand));
+    cut_assert_equal_int(hand->bids[2], 3);
+
+    cut_assert_equal_int(0, placeBid(player4, 4, hand));
+    cut_assert_equal_int(hand->bids[3], 4);
+}
+

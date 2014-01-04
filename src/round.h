@@ -44,5 +44,15 @@ struct Round{
  */
 struct Player *getBidWinner(struct Hand *hand);
 
+/**
+ * @brief Function to place bid for a player.
+ *
+ * @param player The player who places the bid.
+ * @param bid The value of the bid.
+ * @param hand The hand where to place the bid.
+ * @return 0 on success, non-zero on failure.
+ */
+int placeBid(struct Player *player, int bid, struct Hand *hand);
+
 #endif
 

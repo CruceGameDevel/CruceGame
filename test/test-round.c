@@ -29,3 +29,27 @@ void cut_teardown()
     free(player4);
 }
 
+void test_addPlayer()
+{
+    cut_assert_not_equal_int(0, addPlayer(NULL, hand));
+    cut_assert_not_equal_int(0, addPlayer(player1, NULL));
+    cut_assert_not_equal_int(0, addPlayer(NULL, NULL));
+
+    cut_assert_equal_int(0, addPlayer(player1, hand));
+    cut_assert_equal_pointer(hand->players[1], NULL);
+
+    cut_assert_equal_int(0, addPlayer(player2, hand));
+    cut_assert_equal_pointer(hand->players[2], NULL);
+
+    cut_assert_equal_int(0, addPlayer(player3, hand));
+    cut_assert_equal_pointer(hand->players[3], NULL);
+
+    cut_assert_equal_int(0, addPlayer(player4, hand));
+    cut_assert_equal_pointer(hand->players[4], NULL);
+
+    cut_assert_equal_pointer(hand->players[0], player1);
+    cut_assert_equal_pointer(hand->players[1], player2);
+    cut_assert_equal_pointer(hand->players[2], player3);
+    cut_assert_equal_pointer(hand->players[3], player4);
+}
+

@@ -90,3 +90,20 @@ int giveCard(struct Player *player, int cardId, struct Hand *hand)
     return 0;
 }
 
+int computeScore(struct Hand *hand)
+{
+    if (hand == NULL)
+        return -1;
+
+    int cardsScore = 0;
+    for (int i = 0; hand->players[i] != NULL; i++) {
+        if (hand->cards[i] == NULL)
+            return -1;
+        cardsScore += hand->cards[i]->value;
+    }
+
+    int gameScore = cardsScore / 33;
+
+    return gameScore;
+}
+

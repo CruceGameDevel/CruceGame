@@ -72,6 +72,14 @@ int addPlayer(struct Player* player, struct Hand *hand);
  * @return 0 on success, non-zero on failure.
  */
 int giveCard(struct Player *player, int cardId, struct Hand *hand);
+ 
+/**
+ * @brief Function to find the score of the hand (in game points).
+ *
+ * @param hand Hand to compute score.
+ * @return score on success, negative on failure.
+ */
+int computeScore(struct Hand *hand);
 
 #endif
 

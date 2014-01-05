@@ -125,6 +125,32 @@ feature branches.
 For more details about a simillar branching model, read the following resource:
 http://nvie.com/posts/a-successful-git-branching-model/.
 
+Issues
+-----
+
+When working on an issue, you will make another branch. Please name it
+accordingly (*-bugfix for issues maked as bugs, no special name for features
+and so on). It is not necessary to make one branch for each issue (some may
+require more branches, or more related issues may be fixed in the same branch).
+The commit names in that branch will contain in their message #xx, where xx is
+the issue number (for example, #58), so git will automatically link the commit
+to the issue. After your work has been reviewed, you will have to merge your
+branch to the develop branch. When mergeing with no fast forward (as described
+above), you will be asked for a commit message (as a merge commit will be
+created). Please include after the default name 'Fix #xx', without quotes.
+For example: Fix #58. Add this on a separate line. Make sure you specified
+all fixed issues. For example:
+
+```Merge branch 'doc-issues' into develop  
+Fix #30  
+Fix #48
+```
+
+Do not use any other ways to close an issue that require code. Do not comment
+things like "I have fixed the issue". If you use the commit names as I
+described above, they will be automatically liked to the issue and we will see
+them.
+
 
 Communication
 ======

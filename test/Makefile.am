@@ -1,4 +1,4 @@
-INCLUDES = $(CUTTER_CFLAGS) -I$(top_srcdir)/src
+AM_CPPFLAGS = $(CUTTER_CFLAGS) -I$(top_srcdir)/src
 
 LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined
 CFLAGS = -std=c99

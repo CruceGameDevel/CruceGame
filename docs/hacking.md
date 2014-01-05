@@ -209,7 +209,8 @@ as it covers both the use of cutter framework and build tools. Our build
 scrips are very similar to those.
 In cutter's reference: http://cutter.sourceforge.net/reference/ you will find
 all the informations you need about installing and using the framework.
-All functions MUST be tested.
+All functions MUST be tested. There should be tests for non-valid parameters
+too (like NULLs for pointers).
 
 
 Versioning

@@ -123,7 +123,7 @@ Please document your names and your e-mail addresses.
 
 * Sarvsav Sharma (<sarvsav@gmail.com>)
 
-* Enachescu Alin (<alinenachescu033@gmail.com>)
+* Alin Enachescu (<alinenachescu033@gmail.com>)
 
 
 Contributors

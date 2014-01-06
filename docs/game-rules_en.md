@@ -35,7 +35,7 @@ A round has the following stages:
     1. In a game with 4 players (it will be called game of four), every player
        will get 6 cards.
     2. In a game with 3 players, every player will get 8 cards.
-    3. In a game witn 2 players, every player will get 8 cards and 8 cards
+    3. In a game with 2 players, every player will get 8 cards and 8 cards
        remain on the table (Cards face down).
 
 * Every player, counting clockwise from the first who recived the cards, will

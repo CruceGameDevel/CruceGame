@@ -141,10 +141,9 @@ created). Please include after the default name 'Fix #xx', without quotes.
 For example: Fix #58. Add this on a separate line. Make sure you specified
 all fixed issues. For example:
 
-```Merge branch 'doc-issues' into develop  
-Fix #30  
-Fix #48
-```
+```Merge branch 'doc-issues' into develop```
+```Fix #30```
+```Fix #48```
 
 Do not use any other ways to close an issue that require code. Do not comment
 things like "I have fixed the issue". If you use the commit names as I

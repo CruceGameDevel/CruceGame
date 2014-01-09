@@ -251,6 +251,7 @@ Please document your names and your e-mail addresses.
 
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
+* Alin Enachescu (<alinenachescu033@gmail.com>)
 
 Contributors
 =======

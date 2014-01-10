@@ -70,6 +70,6 @@ void deck_deckInit(struct Deck *deck);
  * @param deck The deck to be shuffled.
  * @return void
  */
-void deck_shuffleDeck(struct Deck* deck);
+void deck_deckShuffle(struct Deck* deck);
 
 #endif

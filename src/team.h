@@ -48,7 +48,7 @@ struct Team{
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-struct Player *createPlayer(char *name, int sockfd, int isHuman);
+struct Player *team_createPlayer(char *name, int sockfd, int isHuman);
 
 /**
  * @brief Function for basic team creation.
@@ -57,7 +57,7 @@ struct Player *createPlayer(char *name, int sockfd, int isHuman);
  *
  * @return Pointer to the created team. Needs to be freed.
  */
-struct Team *createTeam(char *name);
+struct Team *team_createTeam(char *name);
 
 
 #endif

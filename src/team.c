@@ -1,7 +1,7 @@
 #include "team.h"
 #include <stdlib.h>
 
-struct Player *createPlayer(char *name, int sockfd, int isHuman)
+struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
 {
     static int id = 0; //needs rethinking
     struct Player *newPlayer = malloc(sizeof(struct Player));
@@ -15,7 +15,7 @@ struct Player *createPlayer(char *name, int sockfd, int isHuman)
     return newPlayer;
 }
 
-struct Team *createTeam(char *name)
+struct Team *team_createTeam(char *name)
 {
     static int id = 0; //needs rethinking
     struct Team *newTeam = malloc(sizeof(struct Team));

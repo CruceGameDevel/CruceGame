@@ -8,7 +8,7 @@
  * This function initializes a deck by iterating over all values and suits
  * available. The deck will be always the same.
  */
-void deckInit(struct Deck *deck)
+void deck_deckInit(struct Deck *deck)
 {
     struct Card newCard;
     int k = 0;
@@ -30,7 +30,7 @@ void deckInit(struct Deck *deck)
  * @param b
  * @return void
  */
-void swap(struct Card *a, struct Card *b)
+void deck_swap(struct Card *a, struct Card *b)
 {
     struct Card c = *a;
     *a = *b;
@@ -43,7 +43,7 @@ void swap(struct Card *a, struct Card *b)
  * The shuffle is performed by random swaps. The number of swaps is also
  * random, but it is at least SWAP_MIN and smaller then SWAP_MAX.
  */
-void deckShuffle(struct Deck *deck)
+void deck_deckShuffle(struct Deck *deck)
 {
     srand(time(NULL));
     int swapInterval = SWAP_MAX - SWAP_MIN;
@@ -53,7 +53,7 @@ void deckShuffle(struct Deck *deck)
         int swapA = rand() % DECK_SIZE;
         int swapB = rand() % DECK_SIZE;
         if (swapA != swapB) {
-            swap(&deck->cards[swapA], &deck->cards[swapB]);
+            deck_swap(&deck->cards[swapA], &deck->cards[swapB]);
         }
     }
 }

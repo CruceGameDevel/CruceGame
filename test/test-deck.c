@@ -5,7 +5,7 @@ static struct Deck deck;
 
 void cut_setup()
 {
-    deckInit(&deck);
+    deck_deckInit(&deck);
 }
 
 int cardsEqual(struct Card a, struct Card b)
@@ -16,7 +16,7 @@ int cardsEqual(struct Card a, struct Card b)
     return 0;
 }
 
-void test_NewDeck()
+void test_deck_test_NewDeck()
 {
     for (int i = 0; i < DECK_SIZE; i++) {
         for (int j = 0; j < DECK_SIZE; j++) {
@@ -27,10 +27,10 @@ void test_NewDeck()
     }
 }
 
-void test_DeckShuffle()
+void test_deck_test_DeckShuffle()
 {
     struct Deck shuffled = deck;
-    deckShuffle(&shuffled);
+    deck_deckShuffle(&shuffled);
 
     int differences = 0;
     for (int i = 0; i < DECK_SIZE; i++) {
@@ -42,10 +42,10 @@ void test_DeckShuffle()
     cut_assert_not_equal_int(differences, 0);
 }
 
-void test_extensive_DeckShuffle()
+void test_deck_test_extensive_DeckShuffle()
 {
     for (int i = 0; i < 100; i++) {
-        test_DeckShuffle();
+        test_deck_test_DeckShuffle();
     }
 }
 

@@ -60,7 +60,7 @@ struct Deck{
  * @param deck The deck to be initialised.
  * @return void
  */
-void deckInit(struct Deck *deck);
+void deck_deckInit(struct Deck *deck);
 
 /**
  * @brief Shuffle a deck.
@@ -70,6 +70,6 @@ void deckInit(struct Deck *deck);
  * @param deck The deck to be shuffled.
  * @return void
  */
-void shuffleDeck(struct Deck* deck);
+void deck_shuffleDeck(struct Deck* deck);
 
 #endif

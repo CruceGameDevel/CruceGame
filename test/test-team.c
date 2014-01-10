@@ -3,7 +3,7 @@
 
 static struct Team team;
 
-void test_player()
+void test_team_createPlayer()
 {
     int check[100];
     for (int i = 0; i < 100; i++) 
@@ -23,7 +23,7 @@ void test_player()
         cut_assert_not_equal_int(check[i], 0);
 }
 
-void test_team()
+void test_team_createTeam()
 {
     int check[100];
     for (int i = 0; i < 100; i++) 

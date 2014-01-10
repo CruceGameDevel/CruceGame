@@ -3,8 +3,8 @@
  * @brief Card and Deck structures, as well as helper functions.
  */
 
-#ifndef CARD_H
-#define CARD_H
+#ifndef DECK_H
+#define DECK_H
 
 /**
  * @brief Deck size

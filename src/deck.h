@@ -33,7 +33,7 @@ enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
  *
  * -1 is a flag used whe iterating
  */
-const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
+extern const int VALUES[7];
 
 /**
  * @brief Card structure, to keep suit and value.

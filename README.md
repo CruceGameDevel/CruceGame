@@ -1,8 +1,8 @@
 "Cruce" Game
 =========
 
-This is an open source effort to create a PC Game based on the Romanian card
-game "Cruce".
+This is an open source effort to create a free PC Game based on the Romanian
+card game "Cruce".
 
 The Project's main goal is teaching students how to develop software from start
 to finish.

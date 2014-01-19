@@ -230,6 +230,18 @@ docs/requirements.md and all features described in docs/features.md.
 For testing, use tools described in docs/features.md. Do not release versions
 with known bugs or with undocumented parts.
 
+Having an overview
+=======
+As you are a beginner, it may be pretty hard for you to keep in mind the big
+picture of the project. So, we made a diagram of the entire project. It's pdf
+version is docs/CruceGame_architecture.pdf. There is also a freemind version,
+CruceGame_architecture.mm that you can modify to be up to date.
+
+This diagrams respect the following legend:
+- functions are colored in dark blue  
+- constants are colored in sky blue  
+- file names and module names are colored in black  
+- ! icon marks an item that has not been implemented yet  
 
 
 Authors

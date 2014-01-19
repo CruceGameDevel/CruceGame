@@ -85,9 +85,9 @@ verifică dacă funcția `adună`, apelată cu parametrii `2` și `3`, returneaz
 un set de utilitare denumite `autotools`. Acestea prezintă avantajul că necesită doar o
 ușoară configurare, iar apoi generează scripturi care se ocupă de tot, de la găsirea 
 locației compilatorului, la compilarea codului și execuția testelor. 
-* Cu toate că utilitarele `autotools` sunt la ele acasă sub Unix/Linux, voi scrie curând 
-un tutorial despre cum pot fi folosite cu succes și de sub Windows, astfel încât doritorii
-ce folosesc acest sistem de operare să nu se simtă descurajați.
+* Cu toate că utilitarele `autotools` sunt la ele acasă sub Unix/Linux, am scris un 
+[ghid pentru Windows](https://github.com/danij/CruceGame/blob/develop/docs/windows.md),
+astfel încât doritorii ce folosesc acest sistem de operare să nu se simtă descurajați.
 
 Un aspect foarte important atunci când se lucrează în echipă este partajarea codului. 
 Codul nu va fi trimis pur și simplu prin email de la o persoană la alta, ci se va folosi

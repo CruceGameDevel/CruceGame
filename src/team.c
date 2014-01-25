@@ -29,7 +29,7 @@ struct Team *team_createTeam(char *name)
 int team_computeScore(const struct Team *team)
 {
     int returnScore = 0;
-    for (int i = 0; i<MAX_PLAYERS; i++) {
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         returnScore += (team->players[i])->score;
     }
     return returnScore;

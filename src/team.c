@@ -26,9 +26,9 @@ struct Team *team_createTeam(char *name)
     return newTeam;
 }
 
-int team_computeScore(struct Team const *team)
+int team_computeScore(const struct Team *team)
 {
-    returnScore = 0;
+    int returnScore = 0;
     for (int i = 0; i<MAX_PLAYERS; i++) {
         returnScore += (team->players[i])->score;
     }

@@ -22,8 +22,8 @@ struct Team *team_createTeam(char *name)
 
     newTeam->id   = id++;
     newTeam->name = name;
+    newTeam->players[0] = NULL;
     newTeam->players[1] = NULL;
-    newTeam->players[2] = NULL;
 
     return newTeam;
 }

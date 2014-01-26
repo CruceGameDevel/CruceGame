@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "deck.h"
+#include "errors.h"
 
 #include <stdio.h>
 
@@ -14,7 +15,7 @@ const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
  * This function initializes a deck by iterating over all values and suits
  * available. The deck will be always the same.
  */
-void deck_deckInit(struct Deck *deck)
+int deck_deckInit(struct Deck *deck)
 {
     struct Card newCard;
     int k = 0;
@@ -25,6 +26,8 @@ void deck_deckInit(struct Deck *deck)
             deck->cards[k++]= newCard;
         }
     }
+
+    return NO_ERROR;
 }
 
 /**
@@ -49,7 +52,7 @@ void deck_swap(struct Card *a, struct Card *b)
  * The shuffle is performed by random swaps. The number of swaps is also
  * random, but it is at least SWAP_MIN and smaller then SWAP_MAX.
  */
-void deck_deckShuffle(struct Deck *deck)
+int deck_deckShuffle(struct Deck *deck)
 {
     srand(time(NULL));
     int swapInterval = SWAP_MAX - SWAP_MIN;
@@ -62,6 +65,8 @@ void deck_deckShuffle(struct Deck *deck)
             deck_swap(&deck->cards[swapA], &deck->cards[swapB]);
         }
     }
+
+    return NO_ERROR;
 }
 
 

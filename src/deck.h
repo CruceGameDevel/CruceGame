@@ -58,9 +58,9 @@ struct Deck{
  * @brief Function to initialize a Deck.
  *
  * @param deck The deck to be initialised.
- * @return void
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
-void deck_deckInit(struct Deck *deck);
+int deck_deckInit(struct Deck *deck);
 
 /**
  * @brief Shuffle a deck.
@@ -68,8 +68,8 @@ void deck_deckInit(struct Deck *deck);
  * Randomly shuffles a deck.
  *
  * @param deck The deck to be shuffled.
- * @return void
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
-void deck_deckShuffle(struct Deck* deck);
+int deck_deckShuffle(struct Deck* deck);
 
 #endif

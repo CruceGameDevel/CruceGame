@@ -8,6 +8,11 @@ void cut_setup()
     deck_deckInit(&deck);
 }
 
+void test_deck_test_deckInit()
+{
+    cut_assert_equal_int(0, deck_deckInit(&deck));
+}
+
 int cardsEqual(struct Card a, struct Card b)
 {
     if (a.suit == b.suit && a.value == b.value) {
@@ -30,7 +35,7 @@ void test_deck_test_NewDeck()
 void test_deck_test_DeckShuffle()
 {
     struct Deck shuffled = deck;
-    deck_deckShuffle(&shuffled);
+    cut_assert_equal_int(0, deck_deckShuffle(&shuffled));
 
     int differences = 0;
     for (int i = 0; i < DECK_SIZE; i++) {

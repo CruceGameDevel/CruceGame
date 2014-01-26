@@ -31,24 +31,18 @@ struct Team *team_createTeam(char *name)
 int team_addPlayer(struct Team *team, struct Player *player)
 {
     int i;
-    int freePlace=0; //0 If not more is free place in team. Otherwise non-zero. 
     
-    if (team == NULL) return -1;
-    if (player == NULL) return -1;
+    if (team == NULL) 
+        return -1;
+    if (player == NULL) 
+        return -1;
     
-    for(i=0; i<MAX_PLAYERS; i++)
-    {
-        if (team->players[i] == NULL) 
-            {
-                freePlace++;
-                break;
+    for(i=0; i<MAX_PLAYERS; i++) {
+        if (team->players[i] == NULL) {
+                team->players[i] = player;
+                return 0;
             }
     }
     
-    if (freePlace == 0) return -1;
-    else 
-    {
-        team->players[i] = player;
-        return 0;
-    }
+    return -1;
 }

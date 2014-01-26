@@ -27,26 +27,22 @@ void test_team_createTeam()
 }
 
 void test_team_addPlayer()
-{
-    struct Player *player1 = NULL;
-    struct Player *testPlayer[MAX_PLAYERS];
-    struct Team *team1     = NULL;
-    int playerAdded; //0 the player was added. Otherwise -1.
-    
+{  
     cut_assert_equal_int(-1, team_addPlayer(NULL, NULL));
     
-    team1 = team_createTeam("E");
+    struct Team *team1     = team_createTeam("E");
     cut_assert_equal_int(-1, team_addPlayer(team1, NULL));
     
-    player1 = team_createPlayer("A", 0, 0);
+    struct Player *player1 = team_createPlayer("A", 0, 0);
     cut_assert_equal_int(-1, team_addPlayer(NULL, player1));
     
+    struct Player *testPlayer[MAX_PLAYERS];
     for (int i = 0; i < MAX_PLAYERS; i++)
         testPlayer[i] = team_createPlayer("A", i, i);
     
     for (int i = 0; i < MAX_PLAYERS; i++) {
         cut_assert_equal_int(0, team_addPlayer(team1, testPlayer[i]));
-        playerAdded = -1;
+        int playerAdded = -1; //0 the player was added. Otherwise -1.
         for (int j = 0; j < MAX_PLAYERS; j++)
             if (team1->players[j] == testPlayer[i])
                 playerAdded = 0;

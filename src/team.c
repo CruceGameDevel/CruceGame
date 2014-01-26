@@ -37,7 +37,9 @@ int team_addPlayer(struct Team *team, struct Player *player)
     if (player == NULL) 
         return -1;
     
-    for(i=0; i<MAX_PLAYERS; i++) {
+    for(i = 0; i<MAX_PLAYERS; i++) {
+        if (team->players[i] == player || team->players[MAX_PLAYERS-i-1] == player)
+            return -1;
         if (team->players[i] == NULL) {
                 team->players[i] = player;
                 return 0;

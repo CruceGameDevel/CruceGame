@@ -65,9 +65,8 @@ struct Team *team_createTeam(char *name);
 * @param team The team in that is added the player.
 * @param player The player that to be added in the team.
 *
-* @return 0 If the player was added in team.
-* @return -1 If the player not was added in team.
+* @return 0 If the player was added in team. Otherwise -1.
 */
-int team_addPlayer(struct Team *team, struct Player *player)
+int team_addPlayer(struct Team *team, struct Player *player);
 
 #endif

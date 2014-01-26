@@ -59,5 +59,15 @@ struct Player *team_createPlayer(char *name, int sockfd, int isHuman);
  */
 struct Team *team_createTeam(char *name);
 
+/**
+* @brief Function for adding a player in a team.
+*
+* @param team The team in that is added the player.
+* @param player The player that to be added in the team.
+*
+* @return 0 If the player was added in team.
+* @return -1 If the player not was added in team.
+*/
+int team_addPlayer(struct Team *team, struct Player *player)
 
 #endif

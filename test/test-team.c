@@ -31,9 +31,6 @@ void test_team_addPlayer()
     struct Player *player1 = NULL;
     struct Player *testPlayer[MAX_PLAYERS];
     struct Team *team1     = NULL;
-    int maxPlayers = MAX_PLAYERS;
-    int i;
-    int j;
     int playerAdded; //0 the player was added. Otherwise -1.
     
     cut_assert_equal_int(-1, team_addPlayer(NULL, NULL));
@@ -44,13 +41,13 @@ void test_team_addPlayer()
     player1 = team_createPlayer("A", 0, 0);
     cut_assert_equal_int(-1, team_addPlayer(NULL, player1));
     
-    for (i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
         testPlayer[i] = team_createPlayer("A", i, i);
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         cut_assert_equal_int(0, team_addPlayer(team1, testPlayer[i]));
         playerAdded = -1;
-        for (j = 0; j < MAX_PLAYERS; j++)
+        for (int j = 0; j < MAX_PLAYERS; j++)
             if (team1->players[j] == testPlayer[i])
                 playerAdded = 0;
         cut_assert_equal_int(0, playerAdded);
@@ -58,4 +55,9 @@ void test_team_addPlayer()
         
     cut_assert_equal_int(-1, team_addPlayer(team1, player1));
     cut_assert_equal_int(-1, team_addPlayer(team1, testPlayer[0]));
+    
+    for (int i = 0; i < MAX_PLAYERS; i++)
+        free(testPlayer[i]);
+    free(team1);
+    free(player1);
 }

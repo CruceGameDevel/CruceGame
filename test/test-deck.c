@@ -59,7 +59,7 @@ void test_deck_deckShuffle()
 void test_extensive_deck_deckShuffle()
 {
     for (int i = 0; i < 100; i++) {
-        test_deck_test_DeckShuffle();
+        test_deck_deckShuffle();
     }
 }
 

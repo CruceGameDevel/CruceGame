@@ -27,6 +27,16 @@
 #define SWAP_MAX 200
 
 /**
+ * @brief Maximum number of hands in a round.
+ */
+#define MAX_HANDS 8
+
+/**
+ * @brief Maximum number of players in a game
+ */
+#define MAX_GAME_PLAYERS 4
+
+/**
  * @brief Constants for suit.
  *
  * end is a flag used when iterating

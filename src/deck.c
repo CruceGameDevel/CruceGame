@@ -75,10 +75,14 @@ int deck_deckShuffle(struct Deck *deck)
 
 int deck_deleteDeck(struct Deck **deck)
 {
-    if (*deck == NULL)
+    if(deck == NULL)
         return POINTER_NULL;
+    if (*deck == NULL)
+        return DECK_NULL;
 
     free(*deck);
     *deck = NULL;
+
+    return NO_ERROR;
 }
 

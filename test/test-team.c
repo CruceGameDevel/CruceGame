@@ -39,13 +39,13 @@ void test_team_addPlayer()
     cut_assert_not_equal_int(NO_ERROR, team_addPlayer(NULL, NULL));
 
     struct Team *team1 = team_createTeam("E");
-    struct Player *testPlayer[MAX_PLAYERS];
-    for (int i = 0; i < MAX_PLAYERS; i++) {
+    struct Player *testPlayer[MAX_TEAM_PLAYERS];
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         testPlayer[i] = team_createPlayer("A", i, i);
         cut_assert_equal_int(NO_ERROR, team_addPlayer(team1, testPlayer[i]));
         cut_assert_equal_int(DUPLICATE, team_addPlayer(team1, testPlayer[i]));
         int playerAdded = -1; //0 the player was added. Otherwise -1.
-        for (int j = 0; j < MAX_PLAYERS; j++)
+        for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
             if (team1->players[j] == testPlayer[i])
                 playerAdded = 0;
         cut_assert_equal_int(0, playerAdded);
@@ -59,7 +59,7 @@ void test_team_addPlayer()
     team_deletePlayer(&player1);
     team_deleteTeam(&team1);
 
-    for (int i = 0; i < MAX_PLAYERS; i++) {
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         team_deletePlayer(&testPlayer[i]);
     }
 }
@@ -69,8 +69,8 @@ void test_team_removePlayer()
     cut_assert_not_equal_int(NO_ERROR, team_removePlayer(NULL, NULL));
 
     struct Team *team1 = team_createTeam("A"); 
-    struct Player *testPlayer[MAX_PLAYERS];
-    for (int i = 0; i < MAX_PLAYERS; i++) {
+    struct Player *testPlayer[MAX_TEAM_PLAYERS];
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         testPlayer[i] = team_createPlayer("A", i, i);
         team_addPlayer(team1, testPlayer[i]);
     }
@@ -78,11 +78,11 @@ void test_team_removePlayer()
     cut_assert_equal_int(PLAYER_NULL, team_removePlayer(team1, NULL));
     cut_assert_equal_int(TEAM_NULL, team_removePlayer(NULL, testPlayer[0]));
 
-    for (int i = 0; i < MAX_PLAYERS; i++) {
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         cut_assert_equal_int(NO_ERROR, team_removePlayer(team1, testPlayer[i]));
 
         int removed = 1;
-        for (int j = 0; j < MAX_PLAYERS; j++) {
+        for (int j = 0; j < MAX_TEAM_PLAYERS; j++) {
             if (team1->players[j] == testPlayer[i])
                 removed = 0;
         }
@@ -92,7 +92,7 @@ void test_team_removePlayer()
                              team_removePlayer(team1, testPlayer[i]));
     }
 
-    for (int i = 0; i < MAX_PLAYERS; i++) {
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         team_deletePlayer(&testPlayer[i]);
     }
 

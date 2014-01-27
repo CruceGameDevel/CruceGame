@@ -26,7 +26,7 @@ struct Player{
 struct Team{
     int id;
     char *name;
-    struct Player *players[MAX_PLAYERS];
+    struct Player *players[MAX_TEAM_PLAYERS];
 };
 
 /**

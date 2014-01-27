@@ -42,6 +42,7 @@ void test_team_addPlayer()
     
     for (int i = 0; i < MAX_PLAYERS; i++) {
         cut_assert_equal_int(0, team_addPlayer(team1, testPlayer[i]));
+        cut_assert_equal_int(-1, team_addPlayer(team1, testPlayer[i]));
         int playerAdded = -1; //0 the player was added. Otherwise -1.
         for (int j = 0; j < MAX_PLAYERS; j++)
             if (team1->players[j] == testPlayer[i])
@@ -49,13 +50,17 @@ void test_team_addPlayer()
         cut_assert_equal_int(0, playerAdded);
     }
         
-    cut_assert_equal_int(-1, team_addPlayer(team1, player1));
     cut_assert_equal_int(-1, team_addPlayer(team1, testPlayer[0]));
     
-    for (int i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         free(testPlayer[i]);
+        testPlayer[i] = NULL;
+    }
+    
     free(team1);
+    team1 = NULL;
     free(player1);
+    player1 = NULL;
 }
 
 void test_team_removePlayer()
@@ -67,7 +72,9 @@ void test_team_removePlayer()
     
     struct Player *player1 = team_createPlayer("P", 1, 1);
     cut_assert_equal_int(-1, team_removePlayer(NULL, player1));
+    cut_assert_equal_int(-1, team_removePlayer(team1, player1));
     free(player1);
+    player1 = NULL;
     
     struct Player *testPlayer[MAX_PLAYERS];
     for (int i = 0; i < MAX_PLAYERS; i++) {
@@ -75,7 +82,9 @@ void test_team_removePlayer()
         cut_assert_equal_int(0, team_addPlayer(team1, testPlayer[i]));
         cut_assert_equal_int(0, team_removePlayer(team1, testPlayer[i]));
         free(testPlayer[i]);
+        testPlayer[i] = NULL;
     }
     
     free(team1);
+    team1 = NULL;
 }

@@ -46,21 +46,21 @@ struct Team *team_createTeam(char *name)
 
 int team_addPlayer(struct Team *team, struct Player *player)
 {
-    if (team == NULL) 
+    if (team == NULL)
         return TEAM_NULL;
-    if (player == NULL) 
+    if (player == NULL)
         return PLAYER_NULL;
-        
+
     for (int i = 0; i < MAX_PLAYERS; i++)
-        if (team->players[i] == player) 
+        if (team->players[i] == player)
             return DUPLICATE;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == NULL) {
-                team->players[i] = player;
-                return NO_ERROR;
+            team->players[i] = player;
+            return NO_ERROR;
     }
-    
+
     return TEAM_FULL;
 }
 
@@ -70,13 +70,13 @@ int team_removePlayer(struct Team *team, struct Player *player)
         return TEAM_NULL;
     if (player == NULL)
         return PLAYER_NULL;
-        
+
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) {
             team->players[i] = NULL;
             return NO_ERROR;
         }
-        
+
     return NOT_FOUND;
 }
 
@@ -105,4 +105,3 @@ int team_deletePlayer(struct Player **player)
 
     return NO_ERROR;
 }
-

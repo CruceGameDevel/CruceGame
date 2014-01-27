@@ -63,7 +63,7 @@ struct Team *team_createTeam(char *name);
 * @brief Function for adding a player in a team.
 *
 * @param team The team in that is added the player.
-* @param player The player that to be added in the team.
+* @param player The player to be added in the team.
 *
 * @return 0 If the player was added in team. Otherwise -1.
 */

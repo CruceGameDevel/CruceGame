@@ -105,5 +105,14 @@ int round_deleteRound(struct Round **round);
  */
 struct Hand *round_newHand();
 
+/**
+ * @brief Function to free memory of a Hand. Makes pointer NULL.
+ *
+ * @param round Hand to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int round_deleteHand(struct Hand **hand);
+
 #endif
 

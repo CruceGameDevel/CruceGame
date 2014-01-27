@@ -49,6 +49,19 @@ struct Hand *round_newHand()
     return hand;
 }
 
+int round_deleteHand(struct Hand **hand)
+{
+    if (hand == NULL)
+        return POINTER_NULL;
+    if (*hand == NULL)
+        return HAND_NULL;
+
+    free(*hand);
+    *hand = NULL;
+
+    return NO_ERROR;
+}
+
 struct Player *round_getBidWinner(struct Hand *hand)
 {
     if (hand == NULL)

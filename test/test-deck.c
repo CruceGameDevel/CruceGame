@@ -30,6 +30,8 @@ void test_deck_test_NewDeck()
             }
         }
     }
+    cut_assert_equal_int(duplicates, 0);
+
     deck_deleteDeck(&deck);
 }
 

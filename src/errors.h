@@ -1,3 +1,6 @@
+#ifndef ERRORS_H
+#define ERRORS_H
+
 enum ERROR_CODE {
     NO_ERROR = 0,
 
@@ -15,3 +18,5 @@ enum ERROR_CODE {
     DUPLICATE = -9,
     NOT_FOUND = -10
 };
+
+#endif

@@ -40,36 +40,36 @@ int team_addPlayer(struct Team *team, struct Player *player)
     int i;
     
     if (team == NULL) 
-        return -1;
+        return TEAM_NULL;
     if (player == NULL) 
-        return -1;
+        return PLAYER_NULL;
         
     for (i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) 
-            return -1;
+            return DUPLICATE;
     
     for (i = 0; i<MAX_PLAYERS; i++)
         if (team->players[i] == NULL) {
                 team->players[i] = player;
-                return 0;
-            }
+                return NO_ERROR;
+    }
     
-    return -1;
+    return TEAM_FULL;
 }
 
 int team_removePlayer(struct Team *team, struct Player *player)
 {
     if (team == NULL)
-        return -1;
+        return TEAM_NULL;
     if (player == NULL)
-        return -1;
+        return PLAYER_NULL;
         
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) {
             free(team->players[i]);
             team->players[i] = NULL;
-            return 0;
+            return NO_ERROR;
         }
         
-    return -1;
+    return NOT_FOUND;
 }

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct Round *round_newRound(enum Suit trump)
+struct Round *round_createRound(enum Suit trump)
 {
     struct Round *round = malloc(sizeof(struct Round));
 
@@ -31,7 +31,7 @@ int round_deleteRound(struct Round **round)
     return NO_ERROR;
 }
 
-struct Hand *round_newHand()
+struct Hand *round_createHand()
 {
     struct Hand *hand = malloc(sizeof(struct Hand));
     if (hand == NULL)

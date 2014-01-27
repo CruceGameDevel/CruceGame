@@ -125,6 +125,31 @@ feature branches.
 For more details about a simillar branching model, read the following resource:
 http://nvie.com/posts/a-successful-git-branching-model/.
 
+Issues
+-----
+
+When working on an issue, you will make another branch. Please name it
+accordingly (*-bugfix for issues maked as bugs, no special name for features
+and so on). It is not necessary to make one branch for each issue (some may
+require more branches, or more related issues may be fixed in the same branch).
+The commit names in that branch will contain in their message #xx, where xx is
+the issue number (for example, #58), so git will automatically link the commit
+to the issue. After your work has been reviewed, you will have to merge your
+branch to the develop branch. When mergeing with no fast forward (as described
+above), you will be asked for a commit message (as a merge commit will be
+created). Please include after the default name 'Fix #xx', without quotes.
+For example: Fix #58. Add this on a separate line. Make sure you specified
+all fixed issues. For example:
+
+```Merge branch 'doc-issues' into develop```
+```Fix #30```
+```Fix #48```
+
+Do not use any other ways to close an issue that require code. Do not comment
+things like "I have fixed the issue". If you use the commit names as I
+described above, they will be automatically liked to the issue and we will see
+them.
+
 
 Communication
 ======
@@ -174,6 +199,19 @@ mistakes (for example, a post in another language than English).
  of the application.
 
 
+Testing
+=======
+
+For testing we use the cutter framework. It is recommended you read and
+follow their tutorial: http://cutter.sourceforge.net/reference/tutorial.html,
+as it covers both the use of cutter framework and build tools. Our build
+scrips are very similar to those.
+In cutter's reference: http://cutter.sourceforge.net/reference/ you will find
+all the informations you need about installing and using the framework.
+All functions MUST be tested. There should be tests for non-valid parameters
+too (like NULLs for pointers).
+
+
 Versioning
 =======
 
@@ -192,6 +230,18 @@ docs/requirements.md and all features described in docs/features.md.
 For testing, use tools described in docs/features.md. Do not release versions
 with known bugs or with undocumented parts.
 
+Having an overview
+=======
+As you are a beginner, it may be pretty hard for you to keep in mind the big
+picture of the project. So, we made a diagram of the entire project. It's pdf
+version is docs/CruceGame_architecture.pdf. There is also a freemind version,
+CruceGame_architecture.mm that you can modify to be up to date.
+
+This diagrams respect the following legend:
+- functions are colored in dark blue  
+- constants are colored in sky blue  
+- file names and module names are colored in black  
+- ! icon marks an item that has not been implemented yet  
 
 
 Authors
@@ -213,6 +263,7 @@ Please document your names and your e-mail addresses.
 
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
+* Alin Enachescu (<alinenachescu033@gmail.com>)
 
 Contributors
 =======

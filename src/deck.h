@@ -3,37 +3,10 @@
  * @brief Card and Deck structures, as well as helper functions.
  */
 
-#ifndef CARD_H
-#define CARD_H
+#ifndef DECK_H
+#define DECK_H
 
-/**
- * @brief Deck size
- */
-#define DECK_SIZE 24
-
-/**
- * @brief Minimum number of swaps performed by deckShuffle
- */
-#define SWAP_MIN 100
-
-/**
- * @brief Maximum number of swaps performed by deckSuffle
- */
-#define SWAP_MAX 200
-
-/**
- * @brief Constants for suit.
- *
- * end is a flag used when iterating
- */
-enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
-
-/**
- * @brief Game values for cards
- *
- * -1 is a flag used whe iterating
- */
-const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
+#include "constants.h"
 
 /**
  * @brief Card structure, to keep suit and value.
@@ -55,12 +28,11 @@ struct Deck{
 };
 
 /**
- * @brief Function to initialize a Deck.
+ * @brief Function to allocate and initialize a Deck.
  *
- * @param deck The deck to be initialised.
- * @return void
+ * @return Pointer to the new Deck on success, NULL on failure.
  */
-void deckInit(struct Deck *deck);
+struct Deck *deck_newDeck();
 
 /**
  * @brief Shuffle a deck.
@@ -68,8 +40,17 @@ void deckInit(struct Deck *deck);
  * Randomly shuffles a deck.
  *
  * @param deck The deck to be shuffled.
- * @return void
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
-void shuffleDeck(struct Deck* deck);
+int deck_deckShuffle(struct Deck *deck);
+
+/**
+ * @brief Free memory for a Deck. Sets the pointer to NULL.
+ *
+ * @param deck Pointer to the deck to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int deck_deleteDeck(struct Deck **deck);
 
 #endif

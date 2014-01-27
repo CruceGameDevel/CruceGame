@@ -8,16 +8,6 @@
 
 #include "deck.h"
 
-/*
- * @brief The maximum number of cards in a player's hand.
- */
-#define MAX_CARDS 8
-
-/*
- * @brief The maximum number of players in a team.
- */
-#define MAX_PLAYERS 2
-
 /**
  * @brief Player structure.
  */
@@ -48,7 +38,7 @@ struct Team{
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-struct Player *createPlayer(char *name, int sockfd, int isHuman);
+struct Player *team_createPlayer(char *name, int sockfd, int isHuman);
 
 /**
  * @brief Function for basic team creation.
@@ -57,7 +47,44 @@ struct Player *createPlayer(char *name, int sockfd, int isHuman);
  *
  * @return Pointer to the created team. Needs to be freed.
  */
-struct Team *createTeam(char *name);
+struct Team *team_createTeam(char *name);
 
+/**
+* @brief Function for adding a player in a team.
+*
+* @param team The team in that is added the player.
+* @param player The player to be added in the team.
+*
+* @return 0 If the player was added in team. Otherwise -1.
+*/
+int team_addPlayer(struct Team *team, struct Player *player);
+
+/**
+* @brief Function for removing a player from a team.
+*
+* @param team The team from that is remove the player.
+* @param player The player that will be removed.
+*
+* @return 0 If the player was removed from a team. Otherwise -1.
+*/
+int team_removePlayer(struct Team *team, struct Player *player);
+
+/**
+ * @brief Function for deleting a Team. Sets pointer to NULL.
+ *
+ * @param team The team to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int team_deleteTeam(struct Team **team);
+
+/**
+ * @brief Function for deleting a Player. Sets pointer to NULL.
+ *
+ * @param player The player to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int team_deletePlayer(struct Player **player);
 
 #endif

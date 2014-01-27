@@ -14,8 +14,8 @@ planned UIs, etc)
   POSIX conformant.
 - The cutter framework will be used for unit testing.
 - gcc should be used as the main compiler.
-- Use make to write a compile script for the game. When you write a module,
-  do not forget to add build rules for it in the Makefile.
+- We are using autotools for building the project as they are helpful for
+  designing portable application.
 - The UI interface should be developed in 2 stages: a CLI interface, using
   ncurses, and a GUI interface using GTK.
 - There must be an API, to allow other developers to build other interfaces.

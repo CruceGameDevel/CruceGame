@@ -1,10 +1,14 @@
 #include "team.h"
+#include "errors.h"
 #include <stdlib.h>
 
 struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
 {
     static int id = 0; //needs rethinking
     struct Player *newPlayer = malloc(sizeof(struct Player));
+
+    if (newPlayer == NULL)
+        return NULL;
 
     newPlayer->name    = name;
     newPlayer->id      = id++;
@@ -19,6 +23,9 @@ struct Team *team_createTeam(char *name)
 {
     static int id = 0; //needs rethinking
     struct Team *newTeam = malloc(sizeof(struct Team));
+
+    if (newTeam == NULL)
+        return NULL;
 
     newTeam->id   = id++;
     newTeam->name = name;

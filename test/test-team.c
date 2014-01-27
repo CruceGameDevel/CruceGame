@@ -1,11 +1,12 @@
 #include <team.h>
 #include <cutter.h>
+#include "../src/errors.h"
 
 static struct Team team;
 
 void test_team_createPlayer()
 {
-    cut_assert_equal_int(POINTER_NULL, team_createPlayer(NULL, 0, 0));
+    cut_assert_equal_pointer(NULL, team_createPlayer(NULL, 0, 0));
 
     struct Player *player;
     for (int i = 0; i < 100; i++) {
@@ -20,7 +21,7 @@ void test_team_createPlayer()
 
 void test_team_createTeam()
 {
-    cut_assert_equal_int(POINTER_NULL, team_createTeam(NULL, 0, 0));
+    cut_assert_equal_pointer(NULL, team_createTeam(NULL));
 
     struct Team *team;
     for (int i = 0; i < 100; i++) {
@@ -71,6 +72,7 @@ void test_team_removePlayer()
     struct Player *testPlayer[MAX_PLAYERS];
     for (int i = 0; i < MAX_PLAYERS; i++) {
         testPlayer[i] = team_createPlayer("A", i, i);
+        team_addPlayer(team, testPlayer[i]);
     }
     
     cut_assert_equal_int(PLAYER_NULL, team_removePlayer(team1, NULL));
@@ -78,8 +80,20 @@ void test_team_removePlayer()
     
     for (int i = 0; i < MAX_PLAYERS; i++) {
         cut_assert_equal_int(NO_ERROR, team_removePlayer(team1, testPlayer[i]));
-        cut_assert_equal_pointer(team1->players[i], NULL);   
+
+        int removed = 1;
+        for (int j = 0; j < MAX_PLAYERS; j++) {
+            if (team->players[j] == testPlayer[i])
+                removed = 0;
+        }
+        cut_assert_equal_int(1, removed);
+
         cut_assert_equal_int(NOT_FOUND, team_removePlayer(team1, testPlayer[i]));
+    }
+
+    for (int i = 0; i < MAX_PLAYERS; i++) {
+        free(testPlayer[i]);
+        testPlayer[i] = NULL;
     }
     
     free(team1);

@@ -38,12 +38,12 @@ struct Hand *round_newHand()
         return NULL;
 
     for (int i = 0; i < MAX_GAME_PLAYERS + 1; i++) {
-        hand->cards = NULL;
-        hand->players = NULL;
+        hand->cards[i]   = NULL;
+        hand->players[i] = NULL;
     }
 
     for (int i = 0; i < MAX_GAME_PLAYERS + 1; i++) {
-        hand->bids = 0;
+        hand->bids[i] = 0;
     }
 
     return hand;

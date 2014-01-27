@@ -80,5 +80,14 @@ int round_giveCard(struct Player *player, int cardId, struct Hand *hand);
  */
 int round_computeScore(struct Hand *hand);
 
+/**
+ * @brief Function to allocate memory for and initialize a Round.
+ *
+ * @param trump Trump used in this round.
+ *
+ * @return Pointer to the new Round on success, NULL otherwise.
+ */
+struct Round *round_newRound(enum Suit trump);
+
 #endif
 

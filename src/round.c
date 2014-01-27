@@ -3,6 +3,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+struct Round *round_newRound(enum Suit trump)
+{
+    struct Round *round = malloc(sizeof(struct Round));
+
+    if (round == NULL)
+        return NULL;
+
+    round->trump = trump;
+
+    for (int i = 0; i < MAX_HANDS + 1; i++)
+        round->hands[i] = NULL;
+
+    return round;
+}
+
 struct Player *round_getBidWinner(struct Hand *hand)
 {
     if (hand == NULL)

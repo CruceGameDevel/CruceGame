@@ -91,19 +91,23 @@ int findPlayerIndexHand(struct Player *player, struct Hand *hand)
         return HAND_NULL;
 
     int i = 0;
-    while (hand->players[i] != player && hand->players[i] != NULL)
+    while (hand->players[i] != player && 
+           hand->players[i] != NULL   &&
+           i < MAX_GAME_PLAYERS)
         i++;
 
-    if (hand->players[i] == NULL)
-        return PLAYER_NULL;
+    if (i == MAX_GAME_PLAYERS)
+        return NOT_FOUND;
 
     return i;
 }
 
 int round_placeBid(struct Player *player, int bid, struct Hand *hand)
 {
-    if (player == NULL || hand == NULL)
+    if (player == NULL)
         return PLAYER_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
     if (bid < 0)
         return ILLEGAL_VALUE;
 
@@ -129,11 +133,13 @@ int round_addPlayer(struct Player *player, struct Hand *hand)
         return DUPLICATE;
 
     int i = 0;
-    while(hand->players[i] != NULL)
+    while(hand->players[i] != NULL && i < MAX_GAME_PLAYERS)
         i++;
 
-    hand->players[i]     = player;
-    hand->players[i + 1] = NULL;
+    if (i == MAX_GAME_PLAYERS)
+        return FULL;
+
+    hand->players[i] = player;
 
     return 0;
 }

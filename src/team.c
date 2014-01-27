@@ -5,7 +5,7 @@
 struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
 {
     if (name == NULL)
-        return POINTER_NULL;
+        return NULL;
 
     static int id = 0; //needs rethinking
     struct Player *newPlayer = malloc(sizeof(struct Player));
@@ -25,7 +25,7 @@ struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
 struct Team *team_createTeam(char *name)
 {
     if (name == NULL)
-        return POINTER_NULL;
+        return NULL;
 
     static int id = 0; //needs rethinking
     struct Team *newTeam = malloc(sizeof(struct Team));

@@ -51,11 +51,11 @@ int team_addPlayer(struct Team *team, struct Player *player)
     if (player == NULL)
         return PLAYER_NULL;
 
-    for (int i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
         if (team->players[i] == player)
             return DUPLICATE;
 
-    for (int i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
         if (team->players[i] == NULL) {
             team->players[i] = player;
             return NO_ERROR;
@@ -71,7 +71,7 @@ int team_removePlayer(struct Team *team, struct Player *player)
     if (player == NULL)
         return PLAYER_NULL;
 
-    for (int i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
         if (team->players[i] == player) {
             team->players[i] = NULL;
             return NO_ERROR;

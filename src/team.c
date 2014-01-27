@@ -94,3 +94,16 @@ int team_deleteTeam(struct Team **team)
     return NO_ERROR;
 }
 
+int team_deletePlayer(struct Player **player)
+{
+    if (player == NULL)
+        return POINTER_NULL;
+    if (*player == NULL)
+        return PLAYER_NULL;
+
+    free(*player);
+    *player = NULL;
+
+    return NO_ERROR;
+}
+

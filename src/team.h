@@ -8,16 +8,6 @@
 
 #include "deck.h"
 
-/*
- * @brief The maximum number of cards in a player's hand.
- */
-#define MAX_CARDS 8
-
-/*
- * @brief The maximum number of players in a team.
- */
-#define MAX_PLAYERS 2
-
 /**
  * @brief Player structure.
  */

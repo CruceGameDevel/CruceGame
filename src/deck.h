@@ -6,34 +6,7 @@
 #ifndef DECK_H
 #define DECK_H
 
-/**
- * @brief Deck size
- */
-#define DECK_SIZE 24
-
-/**
- * @brief Minimum number of swaps performed by deckShuffle
- */
-#define SWAP_MIN 100
-
-/**
- * @brief Maximum number of swaps performed by deckSuffle
- */
-#define SWAP_MAX 200
-
-/**
- * @brief Constants for suit.
- *
- * end is a flag used when iterating
- */
-enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
-
-/**
- * @brief Game values for cards
- *
- * -1 is a flag used whe iterating
- */
-extern const int VALUES[7];
+#include "constants.h"
 
 /**
  * @brief Card structure, to keep suit and value.

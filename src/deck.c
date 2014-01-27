@@ -2,6 +2,7 @@
 #include <time.h>
 #include "deck.h"
 #include "errors.h"
+#include "constants.h"
 
 #include <stdio.h>
 

@@ -21,6 +21,14 @@ int cardsEqual(struct Card a, struct Card b)
     return 0;
 }
 
+void test_deck_deleteDeck()
+{
+    struct Deck *deck = deck_newDeck();
+
+    deck_deleteDeck(&deck);
+    cut_assert_equal_pointer(deck, NULL);
+}
+
 void test_deck_test_NewDeck()
 {
     int duplicates = 0;

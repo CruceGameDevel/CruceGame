@@ -89,5 +89,14 @@ int round_computeScore(struct Hand *hand);
  */
 struct Round *round_newRound(enum Suit trump);
 
+/**
+ * @brief Function to free memory of a Round. Makes pointer NULL.
+ *
+ * @param round Round to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int round_deleteRound(struct Round **round);
+
 #endif
 

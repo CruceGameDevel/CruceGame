@@ -18,6 +18,19 @@ struct Round *round_newRound(enum Suit trump)
     return round;
 }
 
+int round_deleteRound(struct Round **round)
+{
+    if (round == NULL)
+        return POINTER_NULL;
+    if (*round == NULL)
+        return ROUND_NULL;
+
+    free(*round);
+    *round = NULL;
+
+    return NO_ERROR;
+}
+
 struct Player *round_getBidWinner(struct Hand *hand)
 {
     if (hand == NULL)

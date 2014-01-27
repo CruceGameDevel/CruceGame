@@ -2,6 +2,8 @@
 #include "errors.h"
 #include <stdlib.h>
 
+#include <stdio.h>
+
 struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
 {
     if (name == NULL)
@@ -72,7 +74,6 @@ int team_removePlayer(struct Team *team, struct Player *player)
         
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) {
-            free(team->players[i]);
             team->players[i] = NULL;
             return NO_ERROR;
         }

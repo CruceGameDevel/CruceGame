@@ -21,7 +21,9 @@ enum ERROR_CODE {
     ROUND_NULL = -11,
     HAND_NULL = -12,
 
-    ILLEGAL_VALUE = -13
+    ILLEGAL_VALUE = -13,
+
+    FULL = -14
 };
 
 #endif

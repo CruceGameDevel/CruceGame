@@ -1,5 +1,6 @@
 #include <deck.h>
 #include <cutter.h>
+#include "../src/constants.h"
 
 static struct Deck deck;
 

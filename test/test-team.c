@@ -100,3 +100,24 @@ void test_team_removePlayer()
     free(team1);
     team1 = NULL;
 }
+
+void test_team_deletePlayer()
+{
+    struct Player *player = team_createPlayer("A", 0, 0);
+
+    cut_assert_equal_int(NO_ERROR, team_deletePlayer(&player));
+    cut_assert_equal_pointer(NULL, player);
+    cut_assert_equal_int(POINTER_NULL, team_deletePlayer(NULL));
+
+}
+
+void test_team_deleteTeam()
+{
+    struct Team *team = team_createTeam("A");
+
+    cut_assert_equal_int(NO_ERROR, team_deleteTeam(&team));
+    cut_assert_equal_pointer(NULL, team);
+    cut_assert_equal_int(POINTER_NULL, team_deleteTeam(NULL));
+
+}
+

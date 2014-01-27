@@ -55,12 +55,11 @@ struct Deck{
 };
 
 /**
- * @brief Function to initialize a Deck.
+ * @brief Function to allocate and initialize a Deck.
  *
- * @param deck The deck to be initialised.
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return Pointer to the new Deck on success, NULL on failure.
  */
-int deck_deckInit(struct Deck *deck);
+struct Deck *deck_newDeck();
 
 /**
  * @brief Shuffle a deck.
@@ -70,6 +69,15 @@ int deck_deckInit(struct Deck *deck);
  * @param deck The deck to be shuffled.
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int deck_deckShuffle(struct Deck* deck);
+int deck_deckShuffle(struct Deck *deck);
+
+/**
+ * @brief Free memory for a Deck. Sets the pointer to NULL.
+ *
+ * @param deck Pointer to the deck to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int deck_deleteDeck(struct Deck **deck);
 
 #endif

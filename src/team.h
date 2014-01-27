@@ -79,4 +79,22 @@ int team_addPlayer(struct Team *team, struct Player *player);
 */
 int team_removePlayer(struct Team *team, struct Player *player);
 
+/**
+ * @brief Function for deleting a Team. Sets pointer to NULL.
+ *
+ * @param team The team to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int team_deleteTeam(struct Team **team);
+
+/**
+ * @brief Function for deleting a Player. Sets pointer to NULL.
+ *
+ * @param player The player to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int team_deletePlayer(struct Player **player);
+
 #endif

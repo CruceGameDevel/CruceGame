@@ -80,3 +80,30 @@ int team_removePlayer(struct Team *team, struct Player *player)
         
     return NOT_FOUND;
 }
+
+int team_deleteTeam(struct Team **team)
+{
+    if (team == NULL)
+        return POINTER_NULL;
+    if (*team == NULL)
+        return TEAM_NULL;
+
+    free(*team);
+    *team = NULL;
+
+    return NO_ERROR;
+}
+
+int team_deletePlayer(struct Player **player)
+{
+    if (player == NULL)
+        return POINTER_NULL;
+    if (*player == NULL)
+        return PLAYER_NULL;
+
+    free(*player);
+    *player = NULL;
+
+    return NO_ERROR;
+}
+

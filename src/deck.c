@@ -73,4 +73,12 @@ int deck_deckShuffle(struct Deck *deck)
     return NO_ERROR;
 }
 
+int deck_deleteDeck(struct Deck **deck)
+{
+    if (*deck == NULL)
+        return POINTER_NULL;
+
+    free(*deck);
+    *deck = NULL;
+}
 

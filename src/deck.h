@@ -69,6 +69,15 @@ struct Deck *deck_newDeck();
  * @param deck The deck to be shuffled.
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int deck_deckShuffle(struct Deck* deck);
+int deck_deckShuffle(struct Deck *deck);
+
+/**
+ * @brief Free memory for a Deck. Sets the pointer to NULL.
+ *
+ * @param deck Pointer to the deck to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int deck_deleteDeck(struct Deck **deck);
 
 #endif

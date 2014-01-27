@@ -22,7 +22,47 @@ struct Team *team_createTeam(char *name)
 
     newTeam->id   = id++;
     newTeam->name = name;
+    newTeam->players[0] = NULL;
+    newTeam->players[1] = NULL;
 
     return newTeam;
 }
 
+int team_addPlayer(struct Team *team, struct Player *player)
+{
+    int i;
+    
+    if (team == NULL) 
+        return -1;
+    if (player == NULL) 
+        return -1;
+        
+    for (i = 0; i < MAX_PLAYERS; i++)
+        if (team->players[i] == player) 
+            return -1;
+    
+    for (i = 0; i<MAX_PLAYERS; i++)
+        if (team->players[i] == NULL) {
+                team->players[i] = player;
+                return 0;
+            }
+    
+    return -1;
+}
+
+int team_removePlayer(struct Team *team, struct Player *player)
+{
+    if (team == NULL)
+        return -1;
+    if (player == NULL)
+        return -1;
+        
+    for (int i = 0; i < MAX_PLAYERS; i++)
+        if (team->players[i] == player) {
+            free(team->players[i]);
+            team->players[i] = NULL;
+            return 0;
+        }
+        
+    return -1;
+}

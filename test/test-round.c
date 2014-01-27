@@ -2,8 +2,6 @@
 #include <cutter.h>
 #include "../src/errors.h"
 
-#include <stdio.h>
-
 static struct Hand *hand;
 static struct Player *players[MAX_GAME_PLAYERS];
 
@@ -66,49 +64,50 @@ void test_round_deleteHand()
 
 void test_round_addPlayer()
 {
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++){
-        fprintf(stderr, "%p\n",players[i]);
-    } 
     cut_assert_equal_int(PLAYER_NULL, round_addPlayer(NULL, hand));
     cut_assert_equal_int(HAND_NULL, round_addPlayer(players[0], NULL));
     cut_assert_not_equal_int(0, round_addPlayer(NULL, NULL));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         cut_assert_equal_int(NO_ERROR, round_addPlayer(players[i], hand));
+        cut_assert_equal_int(DUPLICATE, round_addPlayer(players[i], hand));
 
         int found = 0;
-        for(int j = 0; j < MAX_GAME_PLAYERS; i++)
+        for(int j = 0; j < MAX_GAME_PLAYERS; j++) {
             if (players[i] == hand->players[j])
                 found++;
-        cut_assert_equal_int(found, 0);
+        }
+        cut_assert_equal_int(found, 1);
     }
 
-    cut_assert_equal_int(FULL, round_addPlayer(players[0], hand));
 }
+
 void test_round_placeBid()
 {
     cut_assert_equal_int(PLAYER_NULL, round_placeBid(NULL, 2, hand));
     cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[0], -1, hand));
     cut_assert_not_equal_int(NO_ERROR, round_placeBid(players[0], 2, NULL));
 
- //   cut_assert_equal_int(NO_ERROR, round_addPlayer(players[0], hand));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++){
+        cut_assert_equal_int(NO_ERROR, round_addPlayer(players[i], hand));
     }
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-  //      cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], i, hand));
+        cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], i, hand));
 
-     //   for(int j = 0; j < MAX_GAME_PLAYERS; i++)
-    //        if (players[i] == hand->players[j])
-   //             cut_assert_equal_int(hand->bids[j], i);
+        int found = 0;
+        for(int j = 0; j < MAX_GAME_PLAYERS; j++)
+            if (players[i] == hand->players[j] && hand->bids[j] == i)
+                found++;
+
+        cut_assert_equal_int(found, 1);
     }
-
 }
 
 void test_round_getBidWinner()
 {
-/*    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         cut_assert_equal_int(NO_ERROR, round_addPlayer(players[i], hand));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
@@ -119,7 +118,5 @@ void test_round_getBidWinner()
 
     cut_assert_equal_pointer(players[MAX_GAME_PLAYERS - 1],
                              round_getBidWinner(hand));
-*/
 }
-
 

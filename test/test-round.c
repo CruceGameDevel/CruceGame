@@ -11,23 +11,65 @@ static struct Player *player4;
 
 void cut_setup()
 {
-    hand = malloc(sizeof(struct Hand));
-    hand->players[0] = NULL;
+    hand = round_createHand();
 
-    player1 = malloc(sizeof(struct Player));
-    player2 = malloc(sizeof(struct Player));
-    player3 = malloc(sizeof(struct Player));
-    player4 = malloc(sizeof(struct Player));
+    player1 = team_createPlayer("A", 0, 0);
+    player2 = team_createPlayer("A", 0, 0);
+    player3 = team_createPlayer("A", 0, 0);
+    player4 = team_createPlayer("A", 0, 0);
 }
 
 void cut_teardown()
 {
-    free(hand);
-    free(player1);
-    free(player2);
-    free(player3);
-    free(player4);
+    round_deleteHand(&hand);
+
+    team_deletePlayer(&player1);
+    team_deletePlayer(&player2);
+    team_deletePlayer(&player3);
+    team_deletePlayer(&player4);
 }
+
+void test_round_createRound()
+{
+    struct Round *round = round_createRound(DIAMONDS);
+
+    cut_assert_equal_int(round->trump, DIAMONDS);
+
+    for (int i = 0; i < MAX_HANDS; i++)
+        cut_assert_equal_pointer(round->hands[i], NULL);
+
+    round_deleteRound(&round);
+}
+
+void test_round_createHand()
+{
+    struct Hand *hand = round_createHand();
+
+    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        cut_assert_equal_pointer(hand->cards[i], NULL);
+        cut_assert_equal_pointer(hand->players[i], NULL);
+        cut_assert_equal_int(hand->bids[i], 0);
+    }
+}
+
+void test_round_deleteRound()
+{
+    struct Round *round = round_createRound(DIAMONDS);
+    cut_assert_equal_int(NO_ERROR, round_deleteRound(&round));
+    cut_assert_equal_pointer(round, NULL);
+    cut_assert_equal_int(POINTER_NULL, round_deleteRound(NULL));
+    cut_assert_equal_int(ROUND_NULL, round_deleteRound(&round));
+}
+
+void test_round_deleteHand()
+{
+    struct Hand *hand = round_createHand();
+    cut_assert_equal_int(NO_ERROR, round_deleteHand(&hand));
+    cut_assert_equal_pointer(hand, NULL);
+    cut_assert_equal_int(POINTER_NULL, round_deleteHand(NULL));
+    cut_assert_equal_int(HAND_NULL, round_deleteHand(&hand));
+}
+
 
 void test_round_addPlayer()
 {
@@ -69,7 +111,7 @@ void printBids()
     fprintf(stderr, "%d\n", hand->bids[3]);
 }
 
-void test_placeBid()
+void test_round_placeBid()
 {
     round_addPlayer(player1, hand);
     round_addPlayer(player2, hand);
@@ -93,7 +135,7 @@ void test_placeBid()
     cut_assert_equal_int(hand->bids[3], 4);
 }
 
-void test_getBidWinner()
+void test_round_getBidWinner()
 {
     round_addPlayer(player1, hand);
     round_addPlayer(player2, hand);

@@ -16,6 +16,7 @@ void test_team_createPlayer()
         cut_assert_equal_int(i, player->isHuman);
         cut_assert_equal_int(0, player->score);
         cut_assert_operator_int(-1, <, player->id);
+        team_deletePlayer(&player);
     }
 }
 
@@ -28,6 +29,7 @@ void test_team_createTeam()
         team = team_createTeam("A");
         cut_assert_equal_string("A", team->name);
         cut_assert_operator_int(-1, <, team->id);
+        team_deleteTeam(&team);
     }
 }
 
@@ -52,15 +54,12 @@ void test_team_addPlayer()
     cut_assert_equal_int(TEAM_NULL, team_addPlayer(NULL, player1));
     cut_assert_equal_int(PLAYER_NULL, team_addPlayer(team1, NULL));
     cut_assert_equal_int(TEAM_FULL, team_addPlayer(team1, player1));
-    free(player1);
-    player1 = NULL;
 
-    free(team1);
-    team1 = NULL;
+    team_deletePlayer(&player1);
+    team_deleteTeam(&team1);
 
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        free(testPlayer[i]);
-        testPlayer[i] = NULL;
+        team_deletePlayer(&testPlayer[i]);
     }
 }
 
@@ -93,12 +92,10 @@ void test_team_removePlayer()
     }
 
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        free(testPlayer[i]);
-        testPlayer[i] = NULL;
+        team_deletePlayer(&testPlayer[i]);
     }
 
-    free(team1);
-    team1 = NULL;
+    team_deleteTeam(&team1);
 }
 
 void test_team_deletePlayer()

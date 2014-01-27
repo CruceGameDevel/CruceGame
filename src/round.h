@@ -41,7 +41,7 @@ struct Round{
  * @param hand The Hand where to find the bid winner.
  * @return The bid winner.
  */
-struct Player *getBidWinner(struct Hand *hand);
+struct Player *round_getBidWinner(struct Hand *hand);
 
 /**
  * @brief Function to place bid for a player.
@@ -51,7 +51,7 @@ struct Player *getBidWinner(struct Hand *hand);
  * @param hand The hand where to place the bid.
  * @return 0 on success, non-zero on failure.
  */
-int placeBid(struct Player *player, int bid, struct Hand *hand);
+int round_placeBid(struct Player *player, int bid, struct Hand *hand);
 
 /**
  * @brief Function to add player to a hand.
@@ -60,7 +60,7 @@ int placeBid(struct Player *player, int bid, struct Hand *hand);
  * @param player Player to be added.
  * @return 0 on success, non-zero on failure.
  */
-int addPlayer(struct Player* player, struct Hand *hand);
+int round_addPlayer(struct Player* player, struct Hand *hand);
 
 /**
  * @brief Function to give cards from players.
@@ -70,7 +70,7 @@ int addPlayer(struct Player* player, struct Hand *hand);
  * @param hand Hand in which the card is given.
  * @return 0 on success, non-zero on failure.
  */
-int giveCard(struct Player *player, int cardId, struct Hand *hand);
+int round_giveCard(struct Player *player, int cardId, struct Hand *hand);
  
 /**
  * @brief Function to find the score of the hand (in game points).
@@ -78,7 +78,7 @@ int giveCard(struct Player *player, int cardId, struct Hand *hand);
  * @param hand Hand to compute score.
  * @return score on success, negative on failure.
  */
-int computeScore(struct Hand *hand);
+int round_computeScore(struct Hand *hand);
 
 #endif
 

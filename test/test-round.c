@@ -29,22 +29,22 @@ void cut_teardown()
     free(player4);
 }
 
-void test_addPlayer()
+void test_round_addPlayer()
 {
-    cut_assert_not_equal_int(0, addPlayer(NULL, hand));
-    cut_assert_not_equal_int(0, addPlayer(player1, NULL));
-    cut_assert_not_equal_int(0, addPlayer(NULL, NULL));
+    cut_assert_not_equal_int(0, round_addPlayer(NULL, hand));
+    cut_assert_not_equal_int(0, round_addPlayer(player1, NULL));
+    cut_assert_not_equal_int(0, round_addPlayer(NULL, NULL));
 
-    cut_assert_equal_int(0, addPlayer(player1, hand));
+    cut_assert_equal_int(0, round_addPlayer(player1, hand));
     cut_assert_equal_pointer(hand->players[1], NULL);
 
-    cut_assert_equal_int(0, addPlayer(player2, hand));
+    cut_assert_equal_int(0, round_addPlayer(player2, hand));
     cut_assert_equal_pointer(hand->players[2], NULL);
 
-    cut_assert_equal_int(0, addPlayer(player3, hand));
+    cut_assert_equal_int(0, round_addPlayer(player3, hand));
     cut_assert_equal_pointer(hand->players[3], NULL);
 
-    cut_assert_equal_int(0, addPlayer(player4, hand));
+    cut_assert_equal_int(0, round_addPlayer(player4, hand));
     cut_assert_equal_pointer(hand->players[4], NULL);
 
     cut_assert_equal_pointer(hand->players[0], player1);
@@ -71,43 +71,43 @@ void printBids()
 
 void test_placeBid()
 {
-    addPlayer(player1, hand);
-    addPlayer(player2, hand);
-    addPlayer(player3, hand);
-    addPlayer(player4, hand);
+    round_addPlayer(player1, hand);
+    round_addPlayer(player2, hand);
+    round_addPlayer(player3, hand);
+    round_addPlayer(player4, hand);
 
-    cut_assert_not_equal_int(0, placeBid(NULL, 2, hand));
-    cut_assert_not_equal_int(0, placeBid(player1, -1, hand));
-    cut_assert_not_equal_int(0, placeBid(player1, 2, NULL));
+    cut_assert_not_equal_int(0, round_placeBid(NULL, 2, hand));
+    cut_assert_not_equal_int(0, round_placeBid(player1, -1, hand));
+    cut_assert_not_equal_int(0, round_placeBid(player1, 2, NULL));
 
-    cut_assert_equal_int(0, placeBid(player1, 0, hand));
+    cut_assert_equal_int(0, round_placeBid(player1, 0, hand));
     cut_assert_equal_int(hand->bids[0], 0);
 
-    cut_assert_equal_int(0, placeBid(player2, 2, hand));
+    cut_assert_equal_int(0, round_placeBid(player2, 2, hand));
     cut_assert_equal_int(hand->bids[1], 2);
 
-    cut_assert_equal_int(0, placeBid(player3, 3, hand));
+    cut_assert_equal_int(0, round_placeBid(player3, 3, hand));
     cut_assert_equal_int(hand->bids[2], 3);
 
-    cut_assert_equal_int(0, placeBid(player4, 4, hand));
+    cut_assert_equal_int(0, round_placeBid(player4, 4, hand));
     cut_assert_equal_int(hand->bids[3], 4);
 }
 
 void test_getBidWinner()
 {
-    addPlayer(player1, hand);
-    addPlayer(player2, hand);
-    addPlayer(player3, hand);
-    addPlayer(player4, hand);
+    round_addPlayer(player1, hand);
+    round_addPlayer(player2, hand);
+    round_addPlayer(player3, hand);
+    round_addPlayer(player4, hand);
 
-    placeBid(player1, 0, hand);
-    placeBid(player2, 3, hand);
-    placeBid(player3, 2, hand);
-    placeBid(player4, 4, hand);
+    round_placeBid(player1, 0, hand);
+    round_placeBid(player2, 3, hand);
+    round_placeBid(player3, 2, hand);
+    round_placeBid(player4, 4, hand);
 
-    cut_assert_equal_pointer(NULL, getBidWinner(NULL));
+    cut_assert_equal_pointer(NULL, round_getBidWinner(NULL));
 
-    cut_assert_equal_pointer(player4, getBidWinner(hand));
+    cut_assert_equal_pointer(player4, round_getBidWinner(hand));
 }
 
 

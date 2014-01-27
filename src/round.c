@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct Player *getBidWinner(struct Hand *hand)
+struct Player *round_getBidWinner(struct Hand *hand)
 {
     if (hand == NULL)
         return NULL;
@@ -39,7 +39,7 @@ int findPlayerIndexHand(struct Player *player, struct Hand *hand)
     return i;
 }
 
-int placeBid(struct Player *player, int bid, struct Hand *hand)
+int round_placeBid(struct Player *player, int bid, struct Hand *hand)
 {
     if (player == NULL || hand == NULL)
         return -1;
@@ -56,7 +56,7 @@ int placeBid(struct Player *player, int bid, struct Hand *hand)
     return 0;
 }
 
-int addPlayer(struct Player *player, struct Hand *hand)
+int round_addPlayer(struct Player *player, struct Hand *hand)
 {
     if (player == NULL || hand == NULL)
         return -1;
@@ -75,7 +75,7 @@ int addPlayer(struct Player *player, struct Hand *hand)
     return 0;
 }
 
-int giveCard(struct Player *player, int cardId, struct Hand *hand)
+int round_giveCard(struct Player *player, int cardId, struct Hand *hand)
 {
     if (player == NULL || player->hand[cardId] == NULL || hand == NULL)
         return -1;
@@ -91,7 +91,7 @@ int giveCard(struct Player *player, int cardId, struct Hand *hand)
     return 0;
 }
 
-int computeScore(struct Hand *hand)
+int round_computeScore(struct Hand *hand)
 {
     if (hand == NULL)
         return -1;

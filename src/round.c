@@ -92,7 +92,6 @@ int findPlayerIndexHand(struct Player *player, struct Hand *hand)
 
     int i = 0;
     while (hand->players[i] != player && 
-           hand->players[i] != NULL   &&
            i < MAX_GAME_PLAYERS)
         i++;
 

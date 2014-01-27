@@ -44,7 +44,7 @@ void test_team_addPlayer()
     }
     
     struct Player *player1 = team_createPlayer("A", 1, 1);
-    cut_assert_equal_int(-1, team_addPlayer(NULL, player1);
+    cut_assert_equal_int(-1, team_addPlayer(NULL, player1));
     cut_assert_equal_int(-1, team_addPlayer(team1, NULL));
     cut_assert_equal_int(-1, team_addPlayer(team1, player1));
     free(player1);

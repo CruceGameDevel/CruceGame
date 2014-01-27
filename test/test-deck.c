@@ -18,7 +18,7 @@ void test_deck_deleteDeck()
     cut_assert_equal_pointer(deck, NULL);
 }
 
-void test_deck_test_NewDeck()
+void test_deck_newDeck()
 {
     struct Deck *deck = deck_newDeck();
 
@@ -35,7 +35,7 @@ void test_deck_test_NewDeck()
     deck_deleteDeck(&deck);
 }
 
-void test_deck_test_DeckShuffle()
+void test_deck_deckShuffle()
 {
     struct Deck *deck = deck_newDeck();
     struct Deck *shuffled = malloc(sizeof(struct Deck));
@@ -56,7 +56,7 @@ void test_deck_test_DeckShuffle()
     deck_deleteDeck(&shuffled);
 }
 
-void test_deck_test_extensive_DeckShuffle()
+void test_extensive_deck_deckShuffle()
 {
     for (int i = 0; i < 100; i++) {
         test_deck_test_DeckShuffle();

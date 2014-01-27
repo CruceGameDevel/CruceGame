@@ -85,15 +85,17 @@ struct Player *round_getBidWinner(struct Hand *hand)
  */
 int findPlayerIndexHand(struct Player *player, struct Hand *hand)
 {
-    if (player == NULL || hand == NULL)
-        return -1;
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
 
     int i = 0;
     while (hand->players[i] != player && hand->players[i] != NULL)
         i++;
 
     if (hand->players[i] == NULL)
-        return -1;
+        return PLAYER_NULL;
 
     return i;
 }
@@ -101,28 +103,30 @@ int findPlayerIndexHand(struct Player *player, struct Hand *hand)
 int round_placeBid(struct Player *player, int bid, struct Hand *hand)
 {
     if (player == NULL || hand == NULL)
-        return -1;
+        return PLAYER_NULL;
     if (bid < 0)
-        return -1;
+        return ILLEGAL_VALUE;
 
     int index = findPlayerIndexHand(player, hand);;
 
     if(index < 0)
-        return -1;
+        return NOT_FOUND;
 
     hand->bids[index] = bid;
 
-    return 0;
+    return NO_ERROR;
 }
 
 int round_addPlayer(struct Player *player, struct Hand *hand)
 {
-    if (player == NULL || hand == NULL)
-        return -1;
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
 
     int index = findPlayerIndexHand(player, hand);
     if(index >= 0) //impossible to add same player multimple time
-        return -1;
+        return DUPLICATE;
 
     int i = 0;
     while(hand->players[i] != NULL)
@@ -136,13 +140,17 @@ int round_addPlayer(struct Player *player, struct Hand *hand)
 
 int round_giveCard(struct Player *player, int cardId, struct Hand *hand)
 {
-    if (player == NULL || player->hand[cardId] == NULL || hand == NULL)
-        return -1;
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (player->hand[cardId] == NULL)
+        return CARD_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
 
     int index = findPlayerIndexHand(player, hand);
 
     if(index < 0)
-        return -1;
+        return NOT_FOUND;
 
     hand->cards[index] = player->hand[cardId];
     player->hand[cardId] = NULL;
@@ -153,12 +161,12 @@ int round_giveCard(struct Player *player, int cardId, struct Hand *hand)
 int round_computeScore(struct Hand *hand)
 {
     if (hand == NULL)
-        return -1;
+        return HAND_NULL;
 
     int cardsScore = 0;
     for (int i = 0; hand->players[i] != NULL; i++) {
         if (hand->cards[i] == NULL)
-            return -1;
+            return CARD_NULL;
         cardsScore += hand->cards[i]->value;
     }
 

@@ -6,11 +6,10 @@
 #ifndef ROUND_H
 #define ROUND_H
 
-#define MAX_HANDS 8
-#define MAX_GAME_PLAYERS 4
-
 #include "deck.h"
 #include "team.h"
+#include "constants.h"
+#include "errors.h"
 
 /**
  * @brief Hand structure.

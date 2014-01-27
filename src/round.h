@@ -98,5 +98,12 @@ struct Round *round_newRound(enum Suit trump);
  */
 int round_deleteRound(struct Round **round);
 
+/**
+ * @brief Function to allocate memory for and initialize a Hand.
+ *
+ * @return Pointer to the new Hand on success, NULL otherwise.
+ */
+struct Hand *round_newHand();
+
 #endif
 

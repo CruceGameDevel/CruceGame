@@ -31,6 +31,24 @@ int round_deleteRound(struct Round **round)
     return NO_ERROR;
 }
 
+struct Hand *round_newHand()
+{
+    struct Hand *hand = malloc(sizeof(struct Hand));
+    if (hand == NULL)
+        return NULL;
+
+    for (int i = 0; i < MAX_GAME_PLAYERS + 1; i++) {
+        hand->cards = NULL;
+        hand->players = NULL;
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS + 1; i++) {
+        hand->bids = 0;
+    }
+
+    return hand;
+}
+
 struct Player *round_getBidWinner(struct Hand *hand)
 {
     if (hand == NULL)

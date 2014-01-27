@@ -59,6 +59,7 @@ int team_removePlayer(struct Team *team, struct Player *player)
         
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) {
+            free(team->players[i]);
             team->players[i] = NULL;
             return 0;
         }

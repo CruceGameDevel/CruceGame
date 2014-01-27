@@ -46,18 +46,16 @@ struct Team *team_createTeam(char *name)
 
 int team_addPlayer(struct Team *team, struct Player *player)
 {
-    int i;
-    
     if (team == NULL) 
         return TEAM_NULL;
     if (player == NULL) 
         return PLAYER_NULL;
         
-    for (i = 0; i < MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == player) 
             return DUPLICATE;
     
-    for (i = 0; i<MAX_PLAYERS; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
         if (team->players[i] == NULL) {
                 team->players[i] = player;
                 return NO_ERROR;

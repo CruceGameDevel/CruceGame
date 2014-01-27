@@ -19,8 +19,8 @@
  * The players should be added in the order of the bids.
  */
 struct Hand{
-    struct Card *cards[MAX_GAME_PLAYERS + 1];
-    struct Player *players[MAX_GAME_PLAYERS + 1];
+    struct Card *cards[MAX_GAME_PLAYERS];
+    struct Player *players[MAX_GAME_PLAYERS];
     int bids[MAX_GAME_PLAYERS];
 };
 
@@ -32,7 +32,7 @@ struct Hand{
 struct Round{
     int id;
     enum Suit trump;
-    struct Hand *hands[MAX_HANDS + 1];
+    struct Hand *hands[MAX_HANDS];
 };
 
 /**
@@ -113,6 +113,16 @@ struct Hand *round_createHand();
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int round_deleteHand(struct Hand **hand);
+
+/**
+ * @brief Function to remove a player from a hand.
+ *
+ * @param player The player to be removed.
+ * @param hand The hand where to be removed from.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int round_removePlayer(struct Player *player, struct Hand *hand);
 
 #endif
 

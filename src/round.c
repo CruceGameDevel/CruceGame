@@ -143,6 +143,23 @@ int round_addPlayer(struct Player *player, struct Hand *hand)
     return 0;
 }
 
+int round_removePlayer(struct Player *player, struct Hand *hand)
+{
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int index = findPlayerIndexHand(player, hand);
+
+    if (index < 0)
+        return NOT_FOUND;
+
+    hand->players[index] = NULL;
+
+    return NO_ERROR;
+}
+
 int round_giveCard(struct Player *player, int cardId, struct Hand *hand)
 {
     if (player == NULL)

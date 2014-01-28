@@ -61,6 +61,19 @@ struct Card *deck_createCard(enum Suit suit, int value)
     return card;
 }
 
+int deck_deleteCard(struct Card **card)
+{
+    if (card == NULL)
+        return POINTER_NULL;
+    if (*card == NULL)
+        return CARD_NULL;
+
+    free(*card);
+    *card = NULL;
+
+    return NO_ERROR;
+}
+
 /**
  * @brief Swap 2 Cards
  * 

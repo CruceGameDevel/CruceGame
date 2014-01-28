@@ -35,6 +35,32 @@ struct Deck *deck_createDeck()
     return deck;
 }
 
+struct Card *deck_createCard(enum Suit suit, int value)
+{
+    struct Card *card = malloc(sizeof(struct Card));
+
+    fprintf(stderr, "%d %d\n", suit, value);
+
+    if (card == NULL)
+        return NULL;
+
+    if (suit == SuitEnd)
+        return NULL;
+
+    int count = 0;
+    for (int i = 0; VALUES[i] != -1; i++)
+        if (value == VALUES[i])
+            count++;
+    fprintf(stderr, "%d\n", count);
+    if (count != 1)
+        return NULL;
+
+    card->value = value;
+    card->suit = suit;
+
+    return card;
+}
+
 /**
  * @brief Swap 2 Cards
  * 

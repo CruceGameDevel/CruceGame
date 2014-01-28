@@ -28,6 +28,15 @@ struct Deck{
 };
 
 /**
+ * @brief Function to allocate and initialize a Card.
+ *
+ * @param suit The suit of the new Card.
+ * @param value The value of the new Card.
+ *
+ * @return Pointer to the new card on success, NULL on failure.
+ */
+struct Card *deck_createCard(enum Suit suit, int value);
+
  * @brief Function to allocate and initialize a Deck.
  *
  * @return Pointer to the new Deck on success, NULL on failure.

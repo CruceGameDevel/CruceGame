@@ -12,7 +12,7 @@ struct Round *round_createRound(enum Suit trump)
 
     round->trump = trump;
 
-    for (int i = 0; i < MAX_HANDS + 1; i++)
+    for (int i = 0; i < MAX_HANDS; i++)
         round->hands[i] = NULL;
 
     return round;

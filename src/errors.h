@@ -24,8 +24,6 @@ enum ERROR_CODE {
     ILLEGAL_VALUE = -13,
     
     FULL = -14,
-    
-    INCOMPARABLE = -15
 };
 
 #endif

@@ -28,11 +28,30 @@ struct Deck{
 };
 
 /**
+ * @brief Function to allocate and initialize a Card.
+ *
+ * @param suit The suit of the new Card.
+ * @param value The value of the new Card.
+ *
+ * @return Pointer to the new card on success, NULL on failure.
+ */
+struct Card *deck_createCard(enum Suit suit, int value);
+
+/**
+ * @brief Function to free memory of a Card. Makes pointer NULL.
+ *
+ * @param card Pointer to the pointer to be freed.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int deck_deleteCard(struct Card **card);
+
+/**
  * @brief Function to allocate and initialize a Deck.
  *
  * @return Pointer to the new Deck on success, NULL on failure.
  */
-struct Deck *deck_newDeck();
+struct Deck *deck_createDeck();
 
 /**
  * @brief Shuffle a deck.
@@ -52,5 +71,6 @@ int deck_deckShuffle(struct Deck *deck);
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int deck_deleteDeck(struct Deck **deck);
+
 
 #endif

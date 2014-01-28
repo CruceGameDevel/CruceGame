@@ -16,7 +16,7 @@ const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
  * This function initializes a deck by iterating over all values and suits
  * available. The deck will be always the same.
  */
-struct Deck *deck_newDeck()
+struct Deck *deck_createDeck()
 {
     struct Deck *deck = malloc(sizeof(struct Deck));
     if (deck == NULL)
@@ -33,6 +33,45 @@ struct Deck *deck_newDeck()
     }
 
     return deck;
+}
+
+struct Card *deck_createCard(enum Suit suit, int value)
+{
+    struct Card *card = malloc(sizeof(struct Card));
+
+    fprintf(stderr, "%d %d\n", suit, value);
+
+    if (card == NULL)
+        return NULL;
+
+    if (suit == SuitEnd)
+        return NULL;
+
+    int count = 0;
+    for (int i = 0; VALUES[i] != -1; i++)
+        if (value == VALUES[i])
+            count++;
+    fprintf(stderr, "%d\n", count);
+    if (count != 1)
+        return NULL;
+
+    card->value = value;
+    card->suit = suit;
+
+    return card;
+}
+
+int deck_deleteCard(struct Card **card)
+{
+    if (card == NULL)
+        return POINTER_NULL;
+    if (*card == NULL)
+        return CARD_NULL;
+
+    free(*card);
+    *card = NULL;
+
+    return NO_ERROR;
 }
 
 /**

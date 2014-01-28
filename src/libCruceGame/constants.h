@@ -9,7 +9,7 @@
 /**
  * @brief The maximum number of players in a team.
  */
-#define MAX_PLAYERS 2
+#define MAX_TEAM_PLAYERS 2
 
 /**
  * @brief Deck size

@@ -1,8 +1,33 @@
 #include <deck.h>
+#include <constants.h>
+#include <errors.h>
+
 #include <cutter.h>
 #include <string.h>
-#include "../src/constants.h"
-#include "../src/errors.h"
+
+#include <stdio.h>
+
+void test_deck_createCard()
+{
+    struct Card *card;
+    cut_assert_equal_pointer(NULL, deck_createCard(SuitEnd, VALUES[0]));
+    cut_assert_equal_pointer(NULL, deck_createCard(DIAMONDS, 100));
+    for (int i = 1; i < SuitEnd; i++) {
+        for (int j = 0; VALUES[j] != -1; j++) {
+            card = deck_createCard(i, VALUES[j]);
+            cut_assert_equal_int(card->suit, i);
+            cut_assert_equal_int(card->value, VALUES[j]);
+        }
+    }
+}
+
+void test_deck_deleteCard()
+{
+    struct Card *card = deck_createCard(1, VALUES[0]);
+    cut_assert_equal_int(NO_ERROR, deck_deleteCard(&card));
+    cut_assert_equal_int(CARD_NULL, deck_deleteCard(&card));
+    cut_assert_equal_int(POINTER_NULL, deck_deleteCard(NULL));
+}
 
 int cardsEqual(struct Card a, struct Card b)
 {
@@ -14,15 +39,15 @@ int cardsEqual(struct Card a, struct Card b)
 
 void test_deck_deleteDeck()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
 
     deck_deleteDeck(&deck);
     cut_assert_equal_pointer(deck, NULL);
 }
 
-void test_deck_newDeck()
+void test_deck_createDeck()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
 
     int duplicates = 0;
     for (int i = 0; i < DECK_SIZE; i++) {
@@ -39,7 +64,7 @@ void test_deck_newDeck()
 
 void test_deck_deckShuffle()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
     struct Deck *shuffled = malloc(sizeof(struct Deck));
     memcpy(shuffled, deck, sizeof(struct Deck));
 

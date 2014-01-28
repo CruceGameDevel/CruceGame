@@ -1,6 +1,8 @@
 #include <round.h>
+#include <errors.h>
+#include <constants.h>
+
 #include <cutter.h>
-#include "../src/errors.h"
 
 static struct Hand *hand;
 static struct Player *players[MAX_GAME_PLAYERS];
@@ -118,5 +120,26 @@ void test_round_getBidWinner()
 
     cut_assert_equal_pointer(players[MAX_GAME_PLAYERS - 1],
                              round_getBidWinner(hand));
+}
+
+void test_round_removePlayer()
+{
+    cut_assert_equal_int(PLAYER_NULL, round_removePlayer(NULL, hand));
+    cut_assert_equal_int(HAND_NULL, round_removePlayer(players[0], NULL));
+    cut_assert_not_equal_int(NO_ERROR, round_removePlayer(NULL, NULL));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        cut_assert_equal_int(NO_ERROR, round_addPlayer(players[i], hand));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++){
+        cut_assert_equal_int(NO_ERROR, round_removePlayer(players[i], hand));
+
+        int found = 0;
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++) {
+            if (hand->players[i] == players[i])
+                found++;
+        }
+        cut_assert_equal_int(found, 0);
+    }
 }
 

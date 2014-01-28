@@ -13,14 +13,14 @@ fi
 
 case `uname` in
     CYGWIN*)
-        PATH="$top_dir/src/.libs:$PATH"
+        PATH="$top_dir/src/libCruceGame/.libs:$PATH"
         ;;
     Darwin)
-        DYLD_LIBRARY_PATH="$top_dir/src/.libs:$DYLD_LIBRARY_PATH"
+        DYLD_LIBRARY_PATH="$top_dir/src/libCruceGame/.libs:$DYLD_LIBRARY_PATH"
         export DYLD_LIBRARY_PATH
         ;;
     *BSD)
-        LD_LIBRARY_PATH="$top_dir/src.libs:$LD_LIBRARY_PATH"
+        LD_LIBRARY_PATH="$top_dir/src/libCruceGame/.libs:$LD_LIBRARY_PATH"
         export LD_LIBRARY_PATH
         ;;
     *)

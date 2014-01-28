@@ -20,6 +20,15 @@ void test_deck_createCard()
         }
     }
 }
+
+void test_deck_deleteCard()
+{
+    struct Card *card = deck_createCard(1, VALUES[0]);
+    cut_assert_equal_int(NO_ERROR, deck_deleteCard(&card));
+    cut_assert_equal_int(CARD_NULL, deck_deleteCard(&card));
+    cut_assert_equal_int(POINTER_NULL, deck_deleteCard(NULL));
+}
+
 int cardsEqual(struct Card a, struct Card b)
 {
     if (a.suit == b.suit && a.value == b.value) {

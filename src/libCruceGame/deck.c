@@ -16,7 +16,7 @@ const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
  * This function initializes a deck by iterating over all values and suits
  * available. The deck will be always the same.
  */
-struct Deck *deck_newDeck()
+struct Deck *deck_createDeck()
 {
     struct Deck *deck = malloc(sizeof(struct Deck));
     if (deck == NULL)

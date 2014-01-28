@@ -1,6 +1,8 @@
 LDFLAGS = -no-undefined
 CFLAGS = -std=c99 -Wall
 
-lib_LTLIBRARIES = libcruceGame.la
+lib_LTLIBRARIES = libCruceGame.la
 
-libcruceGame_la_SOURCES = deck.c team.c
+libCruceGame_la_SOURCES = libCruceGame/deck.c \
+			  libCruceGame/team.c \
+			  libCruceGame/round.c

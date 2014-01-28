@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "deck.h"
+#include "errors.h"
+#include "constants.h"
 
 #include <stdio.h>
 
@@ -14,8 +16,12 @@ const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
  * This function initializes a deck by iterating over all values and suits
  * available. The deck will be always the same.
  */
-void deck_deckInit(struct Deck *deck)
+struct Deck *deck_newDeck()
 {
+    struct Deck *deck = malloc(sizeof(struct Deck));
+    if (deck == NULL)
+        return NULL;
+
     struct Card newCard;
     int k = 0;
     for (enum Suit i = 0; i < SuitEnd; i++) {
@@ -25,6 +31,8 @@ void deck_deckInit(struct Deck *deck)
             deck->cards[k++]= newCard;
         }
     }
+
+    return deck;
 }
 
 /**
@@ -49,7 +57,7 @@ void deck_swap(struct Card *a, struct Card *b)
  * The shuffle is performed by random swaps. The number of swaps is also
  * random, but it is at least SWAP_MIN and smaller then SWAP_MAX.
  */
-void deck_deckShuffle(struct Deck *deck)
+int deck_deckShuffle(struct Deck *deck)
 {
     srand(time(NULL));
     int swapInterval = SWAP_MAX - SWAP_MIN;
@@ -62,6 +70,20 @@ void deck_deckShuffle(struct Deck *deck)
             deck_swap(&deck->cards[swapA], &deck->cards[swapB]);
         }
     }
+
+    return NO_ERROR;
 }
 
+int deck_deleteDeck(struct Deck **deck)
+{
+    if(deck == NULL)
+        return POINTER_NULL;
+    if (*deck == NULL)
+        return DECK_NULL;
+
+    free(*deck);
+    *deck = NULL;
+
+    return NO_ERROR;
+}
 

@@ -90,13 +90,17 @@ downloading its source code and compiling it via `Cygwin`.
     
 ####Setup git public key
 
+    mkdir ~/.ssh (if it does not already exist)
     cd ~/.ssh
     ssh-keygen -t rsa -C "your_email@example.com"
+
+Open id_rsa.pub
+
     notepad id_rsa.pub
     
-Copy the content of the file and add it to `SSH Keys` of your github profile.
+Copy the content of the file and add it to [SSH Keys](https://github.com/settings/ssh) of your GitHub profile.
 
-####Create a fork of CruceGame from github
+####Create a fork of CruceGame from GitHub
     
 ####Checkout CruceGame
 

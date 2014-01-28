@@ -32,7 +32,7 @@ struct Deck{
  *
  * @return Pointer to the new Deck on success, NULL on failure.
  */
-struct Deck *deck_newDeck();
+struct Deck *deck_createDeck();
 
 /**
  * @brief Shuffle a deck.

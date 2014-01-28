@@ -109,9 +109,17 @@ int team_deletePlayer(struct Player **player)
 
 int team_computeScore(const struct Team *team)
 {
+    if(team == NULL)
+        return TEAM_NULL;
+
+    if((team->players[0] == NULL) || (team->players[1]) == NULL)
+        return PLAYER_NULL;
+
     int returnScore = 0;
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         returnScore += (team->players[i])->score;
     }
+
     return returnScore;
 }
+

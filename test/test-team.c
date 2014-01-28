@@ -1,7 +1,8 @@
 #include <team.h>
+#include <errors.h>
+#include <constants.h>
+
 #include <cutter.h>
-#include "../src/errors.h"
-#include "../src/constants.h"
 
 static struct Team team;
 

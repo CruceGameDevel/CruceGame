@@ -13,6 +13,8 @@ test/.deps/
 test/.libs/
 src/.deps/
 src/.libs/
+src/libCruceGame/.deps/
+src/libCruceGame/.dirstamp
 src/config.h
 src/stamp-h1
 autom4te.cache/

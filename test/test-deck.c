@@ -1,7 +1,8 @@
 #include <deck.h>
+#include <constants.h>
+
 #include <cutter.h>
 #include <string.h>
-#include "../src/constants.h"
 
 int cardsEqual(struct Card a, struct Card b)
 {

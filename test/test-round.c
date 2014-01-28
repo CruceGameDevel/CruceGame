@@ -1,6 +1,8 @@
 #include <round.h>
+#include <errors.h>
+#include <constants.h>
+
 #include <cutter.h>
-#include "../src/errors.h"
 
 static struct Hand *hand;
 static struct Player *players[MAX_GAME_PLAYERS];

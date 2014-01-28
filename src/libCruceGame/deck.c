@@ -39,8 +39,6 @@ struct Card *deck_createCard(enum Suit suit, int value)
 {
     struct Card *card = malloc(sizeof(struct Card));
 
-    fprintf(stderr, "%d %d\n", suit, value);
-
     if (card == NULL)
         return NULL;
 
@@ -51,7 +49,6 @@ struct Card *deck_createCard(enum Suit suit, int value)
     for (int i = 0; VALUES[i] != -1; i++)
         if (value == VALUES[i])
             count++;
-    fprintf(stderr, "%d\n", count);
     if (count != 1)
         return NULL;
 

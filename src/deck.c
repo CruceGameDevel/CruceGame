@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "deck.h"
 #include "errors.h"
@@ -87,64 +88,54 @@ int deck_deleteDeck(struct Deck **deck)
     return NO_ERROR;
 }
 
-int deck_compareCards(enum Suit firstCard, enum Suit trump,
-                      struct Card *card1, struct Card *card2)
+int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
 {
-    if (card1 == NULL || card2 == NULL)
+    struct Card *card1_copy = malloc(sizeof(struct Card));
+    memcpy(card1_copy, card1, sizeof(struct Card));
+    struct Card *card2_copy = malloc(sizeof(struct Card));
+    memcpy(card2_copy, card2, sizeof(struct Card));
+
+    if (card1_copy == NULL || card2_copy == NULL)
         return CARD_NULL;
-    if (firstCard == SuitEnd ||
-        trump == SuitEnd ||
-        card1->suit == SuitEnd ||
-        card2->suit == SuitEnd)
+    if (trump == SuitEnd ||
+        card1_copy->suit == SuitEnd ||
+        card2_copy->suit == SuitEnd)
         return ILLEGAL_VALUE;
-    if (card1->suit != firstCard &&
-        card1->suit != trump &&
-        card2->suit != firstCard &&
-        card2->suit != trump)
-        return INCOMPARABLE;
 
     int checkValue = 0;
     for(int i = 0; VALUES[i] != -1; i++) {
-        if (card1->value == VALUES[i])
+        if (card1_copy->value == VALUES[i])
             checkValue++;
-        if (card2->value == VALUES[i])
+        if (card2_copy->value == VALUES[i])
             checkValue++;
     }
     if (checkValue != 2) 
         return ILLEGAL_VALUE;
 
-    if (card1->value == 0)
-        card1->value = 9;
-    if (card2->value == 0)
-        card2->value = 9;
+    if (card1_copy->value == 0)
+        card1_copy->value = 9;
+    if (card2_copy->value == 0)
+        card2_copy->value = 9;
 
-    if (card1->suit == card2->suit && card1->value == card2->value)
+    if (card1_copy->suit == card2_copy->suit &&
+        card1_copy->value == card2_copy->value)
         return 0;
-    if (card1->suit == trump && card2->suit != trump)
+    if (card1_copy->suit == trump && card2_copy->suit != trump)
         return 1;
-    if (card2->suit == trump && card1->suit != trump)
+    if (card2_copy->suit == trump && card1_copy->suit != trump)
         return 2;
-    if (card1->suit == firstCard && card2->suit != trump && 
-        card2->suit != firstCard)
+    if (card1_copy->suit != card2_copy->suit)
         return 1;
-    if (card2->suit == firstCard && card1->suit != trump &&
-        card1->suit != firstCard)
-        return 2;
-    if (card1->suit == firstCard && card2->suit == firstCard) {
-        if (card1->value > card2->value)
+    if (card1_copy->suit == card2_copy->suit) {
+        if (card1_copy->value > card2_copy->value)
             return 1;
         else
             return 2;
     }
-    if (card1->suit == trump && card2->suit == trump) {
-        if (card1->value > card2->value)
+    if (card1_copy->suit == trump && card2_copy->suit == trump) {
+        if (card1_copy->value > card2_copy->value)
             return 1;
         else
             return 2;
     }
-
-    if (card1->value == 9)
-        card1->value = 0;
-    if (card2->value == 9)
-        card2->value = 0;
 }

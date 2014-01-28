@@ -139,15 +139,14 @@ void test_team_computeScore()
     }
 
     team_removePlayer(team, player1);
-    team_deletePlayer(&player1);
     cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
     
     team_removePlayer(team, player2);
-    team_deletePlayer(&player2);
     cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
 
+    team_deletePlayer(&player1);
+    team_deletePlayer(&player2);
     team_deleteTeam(&team);
-    cut_assert_equal_int(TEAM_NULL, team_computeScore(team));
     
     cut_assert_equal_int(TEAM_NULL, team_computeScore(NULL));
 }

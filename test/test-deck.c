@@ -39,15 +39,15 @@ int cardsEqual(struct Card a, struct Card b)
 
 void test_deck_deleteDeck()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
 
     deck_deleteDeck(&deck);
     cut_assert_equal_pointer(deck, NULL);
 }
 
-void test_deck_newDeck()
+void test_deck_createDeck()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
 
     int duplicates = 0;
     for (int i = 0; i < DECK_SIZE; i++) {
@@ -64,7 +64,7 @@ void test_deck_newDeck()
 
 void test_deck_deckShuffle()
 {
-    struct Deck *deck = deck_newDeck();
+    struct Deck *deck = deck_createDeck();
     struct Deck *shuffled = malloc(sizeof(struct Deck));
     memcpy(shuffled, deck, sizeof(struct Deck));
 

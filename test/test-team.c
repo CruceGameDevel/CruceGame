@@ -120,3 +120,19 @@ void test_team_deleteTeam()
 
 }
 
+void test_team_computeScore()
+{
+    struct Team *team = team_createTeam("A");
+    struct Player *player1 = team_createPlayer("A", 0, 0);
+    struct Player *player2 = team_createPlayer("B", 0, 0);
+
+    team_addPlayer(team, player1);
+    team_addPlayer(team, player2);
+
+    player1->score = 3;
+    player2->score = 5;
+    
+    cut_assert_equal_int(8, team_computeScore(team));
+
+}
+

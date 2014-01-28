@@ -11,12 +11,5 @@ TESTS = run-test.sh
 noinst_LTLIBRARIES = test_game.la
 LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libcruceGame.la
 
-test_game_la_SOURCES = test-deck.c test-team.c
+test_game_la_SOURCES = test-deck.c test-team.c test-round.c
 
-# For every module you create:
-# - create a file test-MODULE.c, where you will put tests
-# - add test_MODULE.la to noinst_LTLIBRARIES (#10)
-# - add ${top_builddir)/src/../libMODULE.la to LIBS (#11)
-# - add the following line:
-#
-# test_stack_la_SOURCES = test-MODULE.c

@@ -16,7 +16,14 @@ enum ERROR_CODE {
     TEAM_EMPTY = -8,
 
     DUPLICATE = -9,
-    NOT_FOUND = -10
+    NOT_FOUND = -10,
+
+    ROUND_NULL = -11,
+    HAND_NULL = -12,
+
+    ILLEGAL_VALUE = -13,
+
+    FULL = -14
 };
 
 #endif

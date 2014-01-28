@@ -1,9 +1,25 @@
 #include <deck.h>
 #include <constants.h>
+#include <errors.h>
 
 #include <cutter.h>
 #include <string.h>
 
+#include <stdio.h>
+
+void test_deck_createCard()
+{
+    struct Card *card;
+    cut_assert_equal_pointer(NULL, deck_createCard(SuitEnd, VALUES[0]));
+    cut_assert_equal_pointer(NULL, deck_createCard(DIAMONDS, 100));
+    for (int i = 1; i < SuitEnd; i++) {
+        for (int j = 0; VALUES[j] != -1; j++) {
+            card = deck_createCard(i, VALUES[j]);
+            cut_assert_equal_int(card->suit, i);
+            cut_assert_equal_int(card->value, VALUES[j]);
+        }
+    }
+}
 int cardsEqual(struct Card a, struct Card b)
 {
     if (a.suit == b.suit && a.value == b.value) {

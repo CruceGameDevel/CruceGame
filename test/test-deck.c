@@ -92,46 +92,42 @@ void test_extensive_deck_deckShuffle()
 
 void test_deck_compareCards()
 {
-    enum Suit tromf = DIAMONDS;
-    enum Suit suitCard = 1;
-    struct Card *card1 = deck_createCard(suitCard, VALUES[0]);
-    struct Card *card2 = deck_createCard(suitCard, VALUES[0]);
+    struct Card *card1 = deck_createCard(1, VALUES[0]);
+    struct Card *card2 = deck_createCard(1, VALUES[1]);
 
-    cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, NULL, tromf));
-    cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, card2, tromf));
-    cut_assert_equal_int(CARD_NULL, deck_compareCards(card1, NULL, tromf));
+    cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, NULL, 1));
+    cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, card2, 1));
+    cut_assert_equal_int(CARD_NULL, deck_compareCards(card1, NULL, 1));
+
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, 1));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, 1));
+
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, 0));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, 0));
 
     card1->suit = SuitEnd;
     cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card1, card2, tromf));
+                         deck_compareCards(card1, card2, 0));
     cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card2, card1, tromf));
+                         deck_compareCards(card2, card1, 0));
 
     card1->suit = CLUBS;
     card2->value = -1;
     cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card1, card2, tromf));
+                         deck_compareCards(card1, card2, 0));
     cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card2, card1, tromf));
+                         deck_compareCards(card2, card1, 0));
 
-    cut_assert_equal_int(0, deck_compareCards(card1, card1, tromf));
+    card2->value = VALUES[0];
+    cut_assert_equal_int(0, deck_compareCards(card1, card1, 0));
 
-    card2->value = VALUES[1];
     card2->suit = DIAMONDS;
-    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
-    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, 0));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, 0));
 
     card2->suit = SPADES;
-    cut_assert_equal_int(1, deck_compareCards(card1, card2, tromf));
-    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
-
-    card2->suit = CLUBS;
-    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
-    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
-
-    tromf = CLUBS;
-    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
-    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
+    cut_assert_equal_int(1, deck_compareCards(card1, card2, 0));
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, 0));
 
     deck_deleteCard(&card1);
     deck_deleteCard(&card2);

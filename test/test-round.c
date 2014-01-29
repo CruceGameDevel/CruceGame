@@ -1,6 +1,8 @@
 #include <round.h>
 #include <errors.h>
 #include <constants.h>
+#include <team.h>
+#include <deck.h>
 
 #include <cutter.h>
 
@@ -141,5 +143,49 @@ void test_round_removePlayer()
         }
         cut_assert_equal_int(found, 0);
     }
+}
+
+void test_round_handWinner()
+{
+    struct Hand *hand = round_createHand();
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, 0));
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, 4));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, 4));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+
+    struct Player *player[MAX_GAME_PLAYERS];
+    struct Card   *card[MAX_GAME_PLAYERS];
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        player[i] = team_createPlayer("A", i, i);
+        card[i] = deck_createCard(i, VALUES[i]);
+    }
+
+    player[0]->hand[0] = card[0];
+    round_addPlayer(player[0], hand);
+    round_giveCard(player[0], 0, hand);
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+    cut_assert_equal_pointer(hand->cards[0], card[0]);
+
+    for (int i = 1; i < MAX_GAME_PLAYERS; i++) {
+        player[i]->hand[0] = card[i];
+        round_addPlayer(player[i], hand);
+        round_giveCard(player[i], 0, hand);
+        cut_assert_equal_pointer(player[i], round_handWinner(hand, i));
+        if (i < MAX_GAME_PLAYERS - 1)
+            cut_assert_equal_pointer(player[0], round_handWinner(hand, i+1));
+    }
+
+    hand->cards[0] = NULL;
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+    hand->cards[0] = card[1];
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        round_removePlayer(player[i], hand);
+        team_deletePlayer(&player[i]);
+        deck_deleteCard(&card[i]);
+    }
+
+    round_deleteHand(&hand);
 }
 

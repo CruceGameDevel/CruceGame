@@ -92,10 +92,50 @@ void test_extensive_deck_deckShuffle()
 
 void test_deck_compareCards()
 {
-   // struct Card *card1 = malloc(sizeof(struct Card));
-  //  struct Card *card2 = malloc(sizeof(struct Card));
-    enum Suit tromf = 0;
+    struct Card *card1 = malloc(sizeof(struct Card));
+    struct Card *card2 = malloc(sizeof(struct Card));
+    enum Suit tromf = DIAMONDS;
+
     cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, NULL, tromf));
-   // free(card1);
-   // free(card2);
+    cut_assert_equal_int(CARD_NULL, deck_compareCards(NULL, card2, tromf));
+    cut_assert_equal_int(CARD_NULL, deck_compareCards(card1, NULL, tromf));
+    
+    card1->suit = SuitEnd;
+    card2->suit = CLUBS;
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         deck_compareCards(card1, card2, tromf));
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         deck_compareCards(card2, card1, tromf));
+    
+    card1->suit = CLUBS;
+    card1->value = VALUES[0];
+    card2->value = -1;
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         deck_compareCards(card1, card2, tromf));
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         deck_compareCards(card2, card1, tromf));
+
+    cut_assert_equal_int(0, deck_compareCards(card1, card1, tromf));
+
+    card2->value = VALUES[1];
+    card2->suit = DIAMONDS;
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
+
+    card2->suit = SPADES;
+    cut_assert_equal_int(1, deck_compareCards(card1, card2, tromf));
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
+
+    card2->suit = CLUBS;
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
+
+    tromf = CLUBS;
+    cut_assert_equal_int(1, deck_compareCards(card2, card1, tromf));
+    cut_assert_equal_int(2, deck_compareCards(card1, card2, tromf));
+
+    free(card1);
+    card1 = NULL;
+    free(card2);
+    card2 = NULL;
 }

@@ -124,5 +124,15 @@ int round_deleteHand(struct Hand **hand);
  */
 int round_removePlayer(struct Player *player, struct Hand *hand);
 
+/**
+* @brief Function for determining of the hand winner.
+*
+* @param hand Hand it is determined the winner.
+* @param trump Is the trump of round.
+*
+* @return Pointer to the winner player. Otherwise NULL.
+*/
+struct Hand *round_handWinner(struct Hand *hand, enum Suit trump);
+
 #endif
 

@@ -126,13 +126,14 @@ int deck_deleteDeck(struct Deck **deck)
 
 int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
 {
+    if (card1 == NULL || card2 == NULL)
+        return CARD_NULL;
+
     struct Card *card1_copy = malloc(sizeof(struct Card));
     memcpy(card1_copy, card1, sizeof(struct Card));
     struct Card *card2_copy = malloc(sizeof(struct Card));
     memcpy(card2_copy, card2, sizeof(struct Card));
 
-    if (card1_copy == NULL || card2_copy == NULL)
-        return CARD_NULL;
     if (trump == SuitEnd ||
         card1_copy->suit == SuitEnd ||
         card2_copy->suit == SuitEnd)

@@ -87,4 +87,13 @@ int team_deleteTeam(struct Team **team);
  */
 int team_deletePlayer(struct Player **player);
 
+/**
+ * @brief function for calculating the score of a team
+ *
+ * @param team The team to be computed
+ *
+ * @return int value representing the score, other value on failure.
+ */
+int team_computeScore(const struct Team *team);
+
 #endif

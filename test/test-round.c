@@ -153,43 +153,40 @@ void test_round_handWinner()
     cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
     cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
 
-    struct Player *player[MAX_GAME_PLAYERS];
-    struct Card   *card[MAX_GAME_PLAYERS];
+    struct Player *player[4];
+    struct Card *card[4];
 
-    int i = 0;
-    while (i < MAX_GAME_PLAYERS && i != SuitEnd && VALUES[i] != -1) {
-        player[i] = team_createPlayer("A", i, i);
-        card[i] = deck_createCard(i, VALUES[i]);
-        i++;
-    }
-
+    player[0] = team_createPlayer("A", 0, 0);
+    card[0] = deck_createCard(0, VALUES[0]);
     player[0]->hand[0] = card[0];
     round_addPlayer(player[0], hand);
     round_giveCard(player[0], 0, hand);
     cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
 
-    i = 1;
-    while (i < MAX_GAME_PLAYERS && i != SuitEnd && VALUES[i] != -1) {
+    for (int i = 1; i < 4; i++) {
+        player[i] = team_createPlayer("A", i, i);
+        card[i] = deck_createCard(0, VALUES[i]);
         player[i]->hand[0] = card[i];
         round_addPlayer(player[i], hand);
         round_giveCard(player[i], 0, hand);
-        for(int j = 0; j <= i; j++)
-            cut_assert_equal_pointer(player[i-j],round_handWinner(hand, i-j));
-        if (i < MAX_GAME_PLAYERS - 1 && i+1 != SuitEnd && VALUES[i+1] != -1)
-            cut_assert_equal_pointer(player[0], round_handWinner(hand, i+1));
-        i++;
+        cut_assert_equal_pointer(player[i], round_handWinner(hand, 0));
+        cut_assert_equal_pointer(player[i], round_handWinner(hand, 1));
     }
 
-    hand->cards[0] = NULL;
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
-    hand->cards[0] = card[1];
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+    card[0] = deck_createCard(1, VALUES[0]);
+    player[0]->hand[0] = card[0];
+    round_giveCard(player[0], 0, hand);
+    cut_assert_equal_pointer(player[0], round_handWinner(hand, 1));
+    cut_assert_equal_pointer(player[0], round_handWinner(hand, 2));
 
-    while (i < MAX_GAME_PLAYERS && i != SuitEnd && VALUES[i] != -1) {
+    player[1]->hand[0] = card[0];
+    round_giveCard(player[1], 0, hand);
+    cut_assert_equal_pointer(NULL, round_handWinner(hand,1));
+
+    for (int i = 0; i < 4; i++) {
         round_removePlayer(player[i], hand);
-        team_deletePlayer(&player[i]);
         deck_deleteCard(&card[i]);
-        i++;
+        team_deletePlayer(&player[i]);
     }
 
     round_deleteHand(&hand);

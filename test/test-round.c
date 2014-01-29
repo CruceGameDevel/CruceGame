@@ -1,6 +1,8 @@
 #include <round.h>
 #include <errors.h>
 #include <constants.h>
+#include <team.h>
+#include <deck.h>
 
 #include <cutter.h>
 
@@ -141,5 +143,104 @@ void test_round_removePlayer()
         }
         cut_assert_equal_int(found, 0);
     }
+}
+
+/**
+ * The function creates a hand where the players put the cards given as
+ * parameters in order and compares it with the winner id provided.
+ *
+ * cardSuits and cardValue MUST have at least testSize slots and testSize
+ * should be at least 2.
+ */
+void perform_round_handWinner_tests(int *cardSuits, int *cardValues, 
+                                    enum Suit trump, int testSize, int winner)
+{
+    struct Hand *hand = round_createHand();
+    struct Card **cards = malloc(testSize * sizeof(struct Card));
+    struct Player **players = malloc(testSize * sizeof(struct Player));
+
+    for (int i = 0; i < testSize; i++) {
+        cards[i] = deck_createCard(cardSuits[i], cardValues[i]);
+        players[i] = team_createPlayer("name", 0, 0);
+        players[i]->hand[0] = cards[i]; //use specialised function for this
+        round_addPlayer(players[i], hand);
+        round_giveCard(players[i], 0, hand);
+    }
+
+    cut_assert_equal_pointer(players[winner], round_handWinner(hand, trump));
+
+    for (int i = 0; i < testSize; i++) {
+        deck_deleteCard(&cards[i]);
+        team_deletePlayer(&players[i]);
+    }
+
+    round_deleteHand(&hand);
+    free(cards);
+    free(players);
+}
+
+
+void test_round_handWinner()
+{
+    struct Hand *hand = round_createHand();
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, CLUBS));
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, CLUBS));
+    
+    struct Player *player1 = team_createPlayer("A", 0, 0);
+    struct Player *player2 = team_createPlayer("A", 0, 0);
+
+    struct Card *card1 = deck_createCard(CLUBS, VALUES[0]);
+
+    player1->hand[0] = card1;
+
+    round_addPlayer(player1, hand);
+    round_giveCard(player1, 0, hand);
+
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    //only one player
+
+    round_addPlayer(player2, hand);
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    //player without card
+
+    deck_deleteCard(&card1);
+    team_deletePlayer(&player1);
+    team_deletePlayer(&player2);
+    round_deleteHand(&hand);
+
+
+    //REAL-GAME TESTS
+    int cardSuits[MAX_GAME_PLAYERS];
+    int cardValues[MAX_GAME_PLAYERS];
+
+    cardSuits[0] = CLUBS;
+    cardSuits[1] = DIAMONDS;
+    cardSuits[2] = CLUBS;
+    cardSuits[3] = SPADES;
+
+    cardValues[0] = VALUES[0];
+    cardValues[1] = VALUES[1];
+    cardValues[2] = VALUES[2];
+    cardValues[3] = VALUES[3];
+
+    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 2, 1);
+    perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 2, 0);
+    perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 4, 3);
+    perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 2);
+
+    cardSuits[0] = CLUBS;
+    cardSuits[1] = DIAMONDS;
+    cardSuits[2] = CLUBS;
+    cardSuits[3] = DIAMONDS;
+
+    cardValues[0] = VALUES[2];
+    cardValues[1] = VALUES[1];
+    cardValues[2] = VALUES[0];
+    cardValues[3] = VALUES[3];
+
+    perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 0);
+    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 4, 3);
 }
 

@@ -198,3 +198,38 @@ int round_computeScore(struct Hand *hand)
     return gameScore;
 }
 
+struct Hand *round_handWinner(struct Hand *hand, enum Suit trump)
+{
+    if (hand == NULL || trump == SuitEnd)
+        return NULL;
+
+    int playerWinner = -1;
+    int numberPlayers = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if ((hand->players[i] != NULL && hand->cards[i] == NULL) ||
+            (hand->players[i] == NULL && hand->cards[i] != NULL))
+            return NULL;
+        if (hand->players[i] != NULL && hand->cards[i] != NULL) {
+            numberPlayers++;
+            if (playerWinner == -1)
+                playerWinner = i;
+        }
+    }
+    if (playerWinner == -1 || numberPlayers == 1)
+        return NULL;
+
+    int cardWinner;
+    for (int i = playerWinner + 1; i < MAX_GAME_PLAYERS; i++) {
+        if (hand->players[i] != NULL && hand->cards[i] != NULL) {
+            cardWinner = deck_compareCards(hand->cards[playerWinner],
+                                               hand->cards[i], trump);
+            if (cardWinner == 2)
+                playerWinner = i;
+            if (cardWinner == 0)
+                return NULL;
+        }
+    }
+
+    return hand->players[playerWinner];
+}
+

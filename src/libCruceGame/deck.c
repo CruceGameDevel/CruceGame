@@ -144,6 +144,16 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (checkValue != 2)
         return ILLEGAL_VALUE;
 
+    if (card1->suit == card2->suit &&
+        card1->value == card2->value)
+        return 0;
+    if (card1->suit == trump && card2->suit != trump)
+        return 1;
+    if (card2->suit == trump && card1->suit != trump)
+        return 2;
+    if (card1->suit != card2->suit)
+        return 1;
+        
     struct Card *card1_copy = malloc(sizeof(struct Card));
     memcpy(card1_copy, card1, sizeof(struct Card));
     struct Card *card2_copy = malloc(sizeof(struct Card));
@@ -153,28 +163,7 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
         card1_copy->value = 9;
     if (card2_copy->value == 0)
         card2_copy->value = 9;
-
-    if (card1_copy->suit == card2_copy->suit &&
-        card1_copy->value == card2_copy->value) {
-        deck_deleteCard(&card1_copy);
-        deck_deleteCard(&card2_copy);
-        return 0;
-    }
-    if (card1_copy->suit == trump && card2_copy->suit != trump) {
-        deck_deleteCard(&card1_copy);
-        deck_deleteCard(&card2_copy);
-        return 1;
-    }
-    if (card2_copy->suit == trump && card1_copy->suit != trump) {
-        deck_deleteCard(&card1_copy);
-        deck_deleteCard(&card2_copy);
-        return 2;
-    }
-    if (card1_copy->suit != card2_copy->suit) {
-        deck_deleteCard(&card1_copy);
-        deck_deleteCard(&card2_copy);
-        return 1;
-    }
+   
     if (card1_copy->suit == card2_copy->suit) {
         if (card1_copy->value > card2_copy->value) {
             deck_deleteCard(&card1_copy);

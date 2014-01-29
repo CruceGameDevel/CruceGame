@@ -121,12 +121,12 @@ int team_computeScore(const struct Team *team)
             
     }
     if(!bool_atLeastOnePlayerInTeam)
-        return PLAYER_NULL;
+        return TEAM_EMPTY;
 
     int returnScore = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        returnScore += (team->players[i])->score;
-    }
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
+        if(team->players[i] != NULL)
+            returnScore += (team->players[i])->score;
 
     return returnScore;
 }

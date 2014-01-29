@@ -24,7 +24,7 @@ struct Card{
  * Before using a Deck, please use deckInit function to assign the cards.
  */
 struct Deck{
-    struct Card cards[DECK_SIZE];
+    struct Card *cards[DECK_SIZE];
 };
 
 /**

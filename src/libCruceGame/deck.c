@@ -12,29 +12,6 @@
  */
 const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
 
-/**
- * This function initializes a deck by iterating over all values and suits
- * available. The deck will be always the same.
- */
-struct Deck *deck_createDeck()
-{
-    struct Deck *deck = malloc(sizeof(struct Deck));
-    if (deck == NULL)
-        return NULL;
-
-    struct Card newCard;
-    int k = 0;
-    for (enum Suit i = 0; i < SuitEnd; i++) {
-        for (int j = 0; VALUES[j] != -1; j++) {
-            newCard.suit = i;
-            newCard.value = VALUES[j];
-            deck->cards[k++]= newCard;
-        }
-    }
-
-    return deck;
-}
-
 struct Card *deck_createCard(enum Suit suit, int value)
 {
     struct Card *card = malloc(sizeof(struct Card));
@@ -72,6 +49,44 @@ int deck_deleteCard(struct Card **card)
 }
 
 /**
+ * This function initializes a deck by iterating over all values and suits
+ * available. The deck will be always the same.
+ */
+struct Deck *deck_createDeck()
+{
+    struct Deck *deck = malloc(sizeof(struct Deck));
+    if (deck == NULL)
+        return NULL;
+
+    int k = 0;
+    for (enum Suit i = 0; i < SuitEnd; i++) {
+        for (int j = 0; VALUES[j] != -1; j++) {
+            struct Card *card = deck_createCard(i, VALUES[j]);
+            deck->cards[k++] = card;
+        }
+    }
+
+    return deck;
+}
+
+int deck_deleteDeck(struct Deck **deck)
+{
+    if(deck == NULL)
+        return POINTER_NULL;
+    if (*deck == NULL)
+        return DECK_NULL;
+
+    for (int i = 0; i < DECK_SIZE; i++) {
+        free((*deck)->cards[i]);
+    }
+
+    free(*deck);
+    *deck = NULL;
+
+    return NO_ERROR;
+}
+
+/**
  * @brief Swap 2 Cards
  * 
  * Helper for deckShuffle
@@ -80,9 +95,9 @@ int deck_deleteCard(struct Card **card)
  * @param b
  * @return void
  */
-void deck_swap(struct Card *a, struct Card *b)
+void deck_swap(struct Card **a, struct Card **b)
 {
-    struct Card c = *a;
+    struct Card *c = *a;
     *a = *b;
     *b = c;
 }
@@ -103,22 +118,11 @@ int deck_deckShuffle(struct Deck *deck)
         int swapA = rand() % DECK_SIZE;
         int swapB = rand() % DECK_SIZE;
         if (swapA != swapB) {
-            deck_swap(&deck->cards[swapA], &deck->cards[swapB]);
+            struct Card **cardA = &(deck->cards[swapA]);
+            struct Card **cardB = &(deck->cards[swapB]);
+            deck_swap(cardA, cardB);
         }
     }
-
-    return NO_ERROR;
-}
-
-int deck_deleteDeck(struct Deck **deck)
-{
-    if(deck == NULL)
-        return POINTER_NULL;
-    if (*deck == NULL)
-        return DECK_NULL;
-
-    free(*deck);
-    *deck = NULL;
 
     return NO_ERROR;
 }

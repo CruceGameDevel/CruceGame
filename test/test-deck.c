@@ -29,9 +29,9 @@ void test_deck_deleteCard()
     cut_assert_equal_int(POINTER_NULL, deck_deleteCard(NULL));
 }
 
-int cardsEqual(struct Card a, struct Card b)
+int cardsEqual(struct Card *a, struct Card *b)
 {
-    if (a.suit == b.suit && a.value == b.value) {
+    if ((*a).suit == (*b).suit && (*a).value == (*b).value) {
         return 1;
     }
     return 0;
@@ -80,7 +80,6 @@ void test_deck_deckShuffle()
     cut_assert_not_equal_int(differences, 0);
 
     deck_deleteDeck(&deck);
-    deck_deleteDeck(&shuffled);
 }
 
 void test_extensive_deck_deckShuffle()

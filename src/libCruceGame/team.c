@@ -105,3 +105,29 @@ int team_deletePlayer(struct Player **player)
 
     return NO_ERROR;
 }
+
+
+int team_computeScore(const struct Team *team)
+{
+    if(team == NULL)
+        return TEAM_NULL;
+
+    int bool_atLeastOnePlayerInTeam = 0;
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if(team->players[i] != NULL) {
+            bool_atLeastOnePlayerInTeam = 1;
+            break;
+        }
+            
+    }
+    if(!bool_atLeastOnePlayerInTeam)
+        return TEAM_EMPTY;
+
+    int returnScore = 0;
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
+        if(team->players[i] != NULL)
+            returnScore += (team->players[i])->score;
+
+    return returnScore;
+}
+

@@ -129,25 +129,25 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;
 
-    struct Card *card1_copy = malloc(sizeof(struct Card));
-    memcpy(card1_copy, card1, sizeof(struct Card));
-    struct Card *card2_copy = malloc(sizeof(struct Card));
-    memcpy(card2_copy, card2, sizeof(struct Card));
-
     if (trump == SuitEnd ||
-        card1_copy->suit == SuitEnd ||
-        card2_copy->suit == SuitEnd)
+        card1->suit == SuitEnd ||
+        card2->suit == SuitEnd)
         return ILLEGAL_VALUE;
 
     int checkValue = 0;
     for(int i = 0; VALUES[i] != -1; i++) {
-        if (card1_copy->value == VALUES[i])
+        if (card1->value == VALUES[i])
             checkValue++;
-        if (card2_copy->value == VALUES[i])
+        if (card2->value == VALUES[i])
             checkValue++;
     }
-    if (checkValue != 2) 
+    if (checkValue != 2)
         return ILLEGAL_VALUE;
+
+    struct Card *card1_copy = malloc(sizeof(struct Card));
+    memcpy(card1_copy, card1, sizeof(struct Card));
+    struct Card *card2_copy = malloc(sizeof(struct Card));
+    memcpy(card2_copy, card2, sizeof(struct Card));
 
     if (card1_copy->value == 0)
         card1_copy->value = 9;
@@ -155,24 +155,46 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
         card2_copy->value = 9;
 
     if (card1_copy->suit == card2_copy->suit &&
-        card1_copy->value == card2_copy->value)
+        card1_copy->value == card2_copy->value) {
+        deck_deleteCard(&card1_copy);
+        deck_deleteCard(&card2_copy);
         return 0;
-    if (card1_copy->suit == trump && card2_copy->suit != trump)
+    }
+    if (card1_copy->suit == trump && card2_copy->suit != trump) {
+        deck_deleteCard(&card1_copy);
+        deck_deleteCard(&card2_copy);
         return 1;
-    if (card2_copy->suit == trump && card1_copy->suit != trump)
+    }
+    if (card2_copy->suit == trump && card1_copy->suit != trump) {
+        deck_deleteCard(&card1_copy);
+        deck_deleteCard(&card2_copy);
         return 2;
-    if (card1_copy->suit != card2_copy->suit)
+    }
+    if (card1_copy->suit != card2_copy->suit) {
+        deck_deleteCard(&card1_copy);
+        deck_deleteCard(&card2_copy);
         return 1;
+    }
     if (card1_copy->suit == card2_copy->suit) {
-        if (card1_copy->value > card2_copy->value)
+        if (card1_copy->value > card2_copy->value) {
+            deck_deleteCard(&card1_copy);
+            deck_deleteCard(&card2_copy);
             return 1;
-        else
+        } else {
+            deck_deleteCard(&card1_copy);
+            deck_deleteCard(&card2_copy);
             return 2;
+        }
     }
     if (card1_copy->suit == trump && card2_copy->suit == trump) {
-        if (card1_copy->value > card2_copy->value)
+        if (card1_copy->value > card2_copy->value) {
+            deck_deleteCard(&card1_copy);
+            deck_deleteCard(&card2_copy);
             return 1;
-        else
+        } else {
+            deck_deleteCard(&card1_copy);
+            deck_deleteCard(&card2_copy);
             return 2;
+        }
     }
 }

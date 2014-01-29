@@ -82,6 +82,7 @@ int deck_deleteDeck(struct Deck **deck);
 * @return 0 If the cards are equal. 
 *         1 If the first card is winning.
 *         2 If the second card is winning.
+*         Other value on failure.
 */
 int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump);
 

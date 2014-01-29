@@ -72,5 +72,18 @@ int deck_deckShuffle(struct Deck *deck);
  */
 int deck_deleteDeck(struct Deck **deck);
 
+/**
+* @brief Compare two cards.
+*
+* @param card1 Is the first card.
+* @param card2 Is the second card.
+* @param trump Is the trump of the round.
+*
+* @return 0 If the cards are equal. 
+*         1 If the first card is winning.
+*         2 If the second card is winning.
+*         Other value on failure.
+*/
+int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump);
 
 #endif

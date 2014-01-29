@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "deck.h"
 #include "errors.h"
@@ -123,3 +124,41 @@ int deck_deleteDeck(struct Deck **deck)
     return NO_ERROR;
 }
 
+int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
+{
+    if (card1 == NULL || card2 == NULL)
+        return CARD_NULL;
+
+    if (trump == SuitEnd)
+        return ILLEGAL_VALUE;
+
+    if (card1->suit == card2->suit &&
+        card1->value == card2->value)
+        return 0;
+    if (card1->suit == trump && card2->suit != trump)
+        return 1;
+    if (card2->suit == trump && card1->suit != trump)
+        return 2;
+    if (card1->suit != card2->suit)
+        return 1;
+
+    int valueCard1;
+    int valueCard2;
+    if (card1->value == 0)
+        valueCard1 = 9;
+    else
+        valueCard1 = card1->value;
+    if (card2->value == 0)
+        valueCard2 = 9;
+    else
+        valueCard2 = card2->value;
+
+    if (card1->suit == card2->suit) {
+        if (valueCard1 > valueCard2)
+            return 1;
+        else 
+            return 2;
+    }
+
+    return ERROR_COMPARE;
+}

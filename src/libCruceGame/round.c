@@ -219,7 +219,7 @@ struct Hand *round_handWinner(struct Hand *hand, enum Suit trump)
         return NULL;
 
     int cardWinner;
-    for (int i = playerWinner + 1; i < MAX_GAME_PLAYERS; i++)
+    for (int i = playerWinner + 1; i < MAX_GAME_PLAYERS; i++) {
         if (hand->players[i] != NULL && hand->cards[i] != NULL) {
             cardWinner = deck_compareCards(hand->cards[playerWinner],
                                                hand->cards[i], trump);
@@ -228,6 +228,7 @@ struct Hand *round_handWinner(struct Hand *hand, enum Suit trump)
             if (cardWinner == 0)
                 return NULL;
         }
+    }
 
     return hand->players[playerWinner];
 }

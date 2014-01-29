@@ -133,18 +133,18 @@ void test_team_computeScore()
         for(int i = 0; i < 5; i++) {
             int score = 0;
             for(int j = 0; j < k+1; j++) {
-//                team->players[j]->score = i+j;
+                team->players[j]->score = i+j;
                 score += i+j;
             }
- //           cut_assert_equal_int(score, team_computeScore(team));
+     //       cut_assert_equal_int(score, team_computeScore(team));
         }
     }
-
+/*
    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         team_removePlayer(team, players[i]);
         cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
-    }
-/*    
+   }
+   
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
         team_deletePlayer(&players[i]);
     }

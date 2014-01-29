@@ -105,13 +105,10 @@ void test_deck_compareCards()
     cut_assert_equal_int(1, deck_compareCards(card2, card1, 0));
     cut_assert_equal_int(2, deck_compareCards(card1, card2, 0));
 
-    card1->suit = SuitEnd;
+    
     cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card1, card2, 0));
-    cut_assert_equal_int(ILLEGAL_VALUE,
-                         deck_compareCards(card2, card1, 0));
+                         deck_compareCards(card1, card2, 4));
 
-    card1->suit = CLUBS;
     card2->value = -1;
     cut_assert_equal_int(ILLEGAL_VALUE,
                          deck_compareCards(card1, card2, 0));

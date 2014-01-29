@@ -123,29 +123,32 @@ void test_team_deleteTeam()
 void test_team_computeScore()
 {
     struct Team *team = team_createTeam("A");
-    struct Player *player1 = team_createPlayer("A", 0, 0);
-    struct Player *player2 = team_createPlayer("B", 0, 0);
 
-    team_addPlayer(team, player1);
-    team_addPlayer(team, player2);
-
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            player1->score = i;
-            player2->score = j;
-
-            cut_assert_equal_int(i+j, team_computeScore(team));
-        }
+    struct Player *players[MAX_TEAM_PLAYERS];
+    
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        players[i] = team_createPlayer("A", 0, 0);
+        team_addPlayer(team, players[i]);
     }
 
-    team_removePlayer(team, player1);
-    cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
-    
-    team_removePlayer(team, player2);
-    cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
+    for(int i = 0; i < 5; i++) {
+        int score = 0;
+        for(int j = 0; j < MAX_TEAM_PLAYERS; j++) {
+            team->players[j]->score = i+j;
+            score += i+j;
+        }
+        cut_assert_equal_int(score, team_computeScore(team));
+    }
 
-    team_deletePlayer(&player1);
-    team_deletePlayer(&player2);
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        team_removePlayer(team, players[i]);
+        cut_assert_equal_int(PLAYER_NULL, team_computeScore(team));
+    }
+    
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        team_deletePlayer(&players[i]);
+    }
+
     team_deleteTeam(&team);
     
     cut_assert_equal_int(TEAM_NULL, team_computeScore(NULL));

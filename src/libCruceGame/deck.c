@@ -126,9 +126,6 @@ int deck_deleteDeck(struct Deck **deck)
 
 int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
 {
-    int valueCard1;
-    int valueCard2;
-
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;
 
@@ -155,6 +152,8 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (card1->suit != card2->suit)
         return 1;
 
+    int valueCard1;
+    int valueCard2;
     if (card1->value == 0)
         valueCard1 = 9;
     else
@@ -170,4 +169,6 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
         else 
             return 2;
     }
+
+    return ERROR_COMPARE;
 }

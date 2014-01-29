@@ -130,14 +130,12 @@ void test_team_computeScore()
         players[k] = team_createPlayer("A", 0, 0);
         team_addPlayer(team, players[k]);
 
-        for(int i = 0; i < 5; i++) {
-            int score = 0;
-            for(int j = 0; j < k+1; j++) {
-                team->players[j]->score = i+j;
-                score += i+j;
-            }
-            cut_assert_equal_int(score, team_computeScore(team));
+        int score = 0;
+        for(int j = 0; j < k+1; j++) {
+            team->players[j]->score = j;
+            score += j;
         }
+        cut_assert_equal_int(score, team_computeScore(team));
     }
 
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
@@ -146,14 +144,11 @@ void test_team_computeScore()
             score += team->players[j]->score;
         cut_assert_equal_int(score, team_computeScore(team));
         team_removePlayer(team, players[i]);
+        team_deletePlayer(&players[i]);
     }
    
     cut_assert_equal_int(TEAM_EMPTY, team_computeScore(team));
    
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        team_deletePlayer(&players[i]);
-    }
-
     team_deleteTeam(&team);
     
     cut_assert_equal_int(TEAM_NULL, team_computeScore(NULL));

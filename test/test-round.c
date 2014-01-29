@@ -145,50 +145,102 @@ void test_round_removePlayer()
     }
 }
 
-void test_round_handWinner()
+/**
+ * The function creates a hand where the players put the cards given as
+ * parameters in order and compares it with the winner id provided.
+ *
+ * cardSuits and cardValue MUST have at least testSize slots and testSize
+ * should be at least 2.
+ */
+void perform_round_handWinner_tests(int *cardSuits, int *cardValues, 
+                                    enum Suit trump, int testSize, int winner)
 {
     struct Hand *hand = round_createHand();
-    cut_assert_equal_pointer(NULL, round_handWinner(NULL, 0));
-    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd));
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
+    struct Card **cards = malloc(testSize * sizeof(struct Card));
+    struct Player **players = malloc(testSize * sizeof(struct Player));
 
-    struct Player *player[4];
-    struct Card *card[4];
-
-    player[0] = team_createPlayer("A", 0, 0);
-    card[0] = deck_createCard(0, VALUES[0]);
-    player[0]->hand[0] = card[0];
-    round_addPlayer(player[0], hand);
-    round_giveCard(player[0], 0, hand);
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
-
-    for (int i = 1; i < 4; i++) {
-        player[i] = team_createPlayer("A", i, i);
-        card[i] = deck_createCard(0, VALUES[i]);
-        player[i]->hand[0] = card[i];
-        round_addPlayer(player[i], hand);
-        round_giveCard(player[i], 0, hand);
-        cut_assert_equal_pointer(player[i], round_handWinner(hand, 0));
-        cut_assert_equal_pointer(player[i], round_handWinner(hand, 1));
+    for (int i = 0; i < testSize; i++) {
+        cards[i] = deck_createCard(cardSuits[i], cardValues[i]);
+        players[i] = team_createPlayer("name", 0, 0);
+        players[i]->hand[0] = cards[i]; //use specialised function for this
+        round_addPlayer(players[i], hand);
+        round_giveCard(players[i], 0, hand);
     }
 
-    card[0] = deck_createCard(1, VALUES[0]);
-    player[0]->hand[0] = card[0];
-    round_giveCard(player[0], 0, hand);
-    cut_assert_equal_pointer(player[0], round_handWinner(hand, 1));
-    cut_assert_equal_pointer(player[0], round_handWinner(hand, 2));
+    cut_assert_equal_pointer(players[winner], round_handWinner(hand, trump));
 
-    player[1]->hand[0] = card[0];
-    round_giveCard(player[1], 0, hand);
-    cut_assert_equal_pointer(NULL, round_handWinner(hand,1));
-
-    for (int i = 0; i < 4; i++) {
-        round_removePlayer(player[i], hand);
-        deck_deleteCard(&card[i]);
-        team_deletePlayer(&player[i]);
+    for (int i = 0; i < testSize; i++) {
+        deck_deleteCard(&cards[i]);
+        team_deletePlayer(&players[i]);
     }
 
     round_deleteHand(&hand);
+    free(cards);
+    free(players);
+}
+
+
+void test_round_handWinner()
+{
+    struct Hand *hand = round_createHand();
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, CLUBS));
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, CLUBS));
+    
+    struct Player *player1 = team_createPlayer("A", 0, 0);
+    struct Player *player2 = team_createPlayer("A", 0, 0);
+
+    struct Card *card1 = deck_createCard(CLUBS, VALUES[0]);
+
+    player1->hand[0] = card1;
+
+    round_addPlayer(player1, hand);
+    round_giveCard(player1, 0, hand);
+
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    //only one player
+
+    round_addPlayer(player2, hand);
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    //player without card
+
+    deck_deleteCard(&card1);
+    team_deletePlayer(&player1);
+    team_deletePlayer(&player2);
+    round_deleteHand(&hand);
+
+
+    //REAL-GAME TESTS
+    int cardSuits[MAX_GAME_PLAYERS];
+    int cardValues[MAX_GAME_PLAYERS];
+
+    cardSuits[0] = CLUBS;
+    cardSuits[1] = DIAMONDS;
+    cardSuits[2] = CLUBS;
+    cardSuits[3] = SPADES;
+
+    cardValues[0] = VALUES[0];
+    cardValues[1] = VALUES[1];
+    cardValues[2] = VALUES[2];
+    cardValues[3] = VALUES[3];
+
+    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 2, 1);
+    perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 2, 0);
+    perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 4, 3);
+    perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 2);
+
+    cardSuits[0] = CLUBS;
+    cardSuits[1] = DIAMONDS;
+    cardSuits[2] = CLUBS;
+    cardSuits[3] = DIAMONDS;
+
+    cardValues[0] = VALUES[2];
+    cardValues[1] = VALUES[1];
+    cardValues[2] = VALUES[0];
+    cardValues[3] = VALUES[3];
+
+    perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 0);
+    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 4, 3);
 }
 

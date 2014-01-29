@@ -132,16 +132,6 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (trump == SuitEnd)
         return ILLEGAL_VALUE;
 
-    int checkValue = 0;
-    for(int i = 0; VALUES[i] != -1; i++) {
-        if (card1->value == VALUES[i])
-            checkValue++;
-        if (card2->value == VALUES[i])
-            checkValue++;
-    }
-    if (checkValue != 2)
-        return ILLEGAL_VALUE;
-
     if (card1->suit == card2->suit &&
         card1->value == card2->value)
         return 0;

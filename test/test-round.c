@@ -149,8 +149,8 @@ void test_round_handWinner()
 {
     struct Hand *hand = round_createHand();
     cut_assert_equal_pointer(NULL, round_handWinner(NULL, 0));
-    cut_assert_equal_pointer(NULL, round_handWinner(NULL, 4));
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, 4));
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
     cut_assert_equal_pointer(NULL, round_handWinner(hand, 0));
 
     struct Player *player[MAX_GAME_PLAYERS];
@@ -173,7 +173,8 @@ void test_round_handWinner()
         player[i]->hand[0] = card[i];
         round_addPlayer(player[i], hand);
         round_giveCard(player[i], 0, hand);
-        cut_assert_equal_pointer(player[i], round_handWinner(hand, i));
+        for(int j = 0; j <= i; j++)
+            cut_assert_equal_pointer(player[i-j],round_handWinner(hand, i-j));
         if (i < MAX_GAME_PLAYERS - 1 && i+1 != SuitEnd && VALUES[i+1] != -1)
             cut_assert_equal_pointer(player[0], round_handWinner(hand, i+1));
         i++;

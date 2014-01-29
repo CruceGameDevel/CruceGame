@@ -126,6 +126,9 @@ int deck_deleteDeck(struct Deck **deck)
 
 int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
 {
+    int valueCard1;
+    int valueCard2;
+
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;
 
@@ -151,26 +154,20 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
         return 2;
     if (card1->suit != card2->suit)
         return 1;
-        
-    struct Card *card1_copy = malloc(sizeof(struct Card));
-    memcpy(card1_copy, card1, sizeof(struct Card));
-    struct Card *card2_copy = malloc(sizeof(struct Card));
-    memcpy(card2_copy, card2, sizeof(struct Card));
 
-    if (card1_copy->value == 0)
-        card1_copy->value = 9;
-    if (card2_copy->value == 0)
-        card2_copy->value = 9;
-   
-    if (card1_copy->suit == card2_copy->suit) {
-        if (card1_copy->value > card2_copy->value) {
-            deck_deleteCard(&card1_copy);
-            deck_deleteCard(&card2_copy);
+    if (card1->value == 0)
+        valueCard1 = 9;
+    else
+        valueCard1 = card1->value;
+    if (card2->value == 0)
+        valueCard2 = 9;
+    else
+        valueCard2 = card2->value;
+
+    if (card1->suit == card2->suit) {
+        if (valueCard1 > valueCard2)
             return 1;
-        } else {
-            deck_deleteCard(&card1_copy);
-            deck_deleteCard(&card2_copy);
+        else 
             return 2;
-        }
     }
 }

@@ -129,9 +129,7 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;
 
-    if (trump == SuitEnd ||
-        card1->suit == SuitEnd ||
-        card2->suit == SuitEnd)
+    if (trump == SuitEnd)
         return ILLEGAL_VALUE;
 
     int checkValue = 0;
@@ -165,17 +163,6 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
         card2_copy->value = 9;
    
     if (card1_copy->suit == card2_copy->suit) {
-        if (card1_copy->value > card2_copy->value) {
-            deck_deleteCard(&card1_copy);
-            deck_deleteCard(&card2_copy);
-            return 1;
-        } else {
-            deck_deleteCard(&card1_copy);
-            deck_deleteCard(&card2_copy);
-            return 2;
-        }
-    }
-    if (card1_copy->suit == trump && card2_copy->suit == trump) {
         if (card1_copy->value > card2_copy->value) {
             deck_deleteCard(&card1_copy);
             deck_deleteCard(&card2_copy);

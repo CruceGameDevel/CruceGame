@@ -112,16 +112,16 @@ int team_computeScore(const struct Team *team)
     if(team == NULL)
         return TEAM_NULL;
 
-//    int bool_atLeastOnePlayerInTeam = 0;
-//    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-//        if(team->players[i] != NULL) {
-//            bool_atLeastOnePlayerInTeam = 1;
-//            break;
-//        }
+    int bool_atLeastOnePlayerInTeam = 0;
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if(team->players[i] != NULL) {
+            bool_atLeastOnePlayerInTeam = 1;
+            break;
+        }
             
-//    }
-//    if(!bool_atLeastOnePlayerInTeam)
-//        return PLAYER_NULL;
+    }
+    if(!bool_atLeastOnePlayerInTeam)
+        return PLAYER_NULL;
 
     int returnScore = 0;
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {

@@ -22,6 +22,9 @@ struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
     newPlayer->sockfd  = sockfd;
     newPlayer->isHuman = isHuman;
 
+    for (int i = 0; i < MAX_HANDS; i++)
+        newPlayer->hand[i] = NULL;
+
     return newPlayer;
 }
 
@@ -138,15 +141,16 @@ int team_addCard(struct Player *player, struct Card *card)
     if (card == NULL)
         return CARD_NULL;
 
-    for (int i = 0; i < MAX_CARDS; i++)
+    for (int i = 0; i < MAX_HANDS; i++)
         if (player->hand[i] == card)
             return DUPLICATE;        
 
-    for (int i = 0; i < MAX_CARDS; i++)
+    for (int i = 0; i < MAX_HANDS; i++) {
         if (player->hand[i] == NULL) {
             player->hand[i] = card;
             return NO_ERROR;
         }
+    }
 
     return FULL;
 }

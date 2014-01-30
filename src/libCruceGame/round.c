@@ -198,7 +198,7 @@ int round_computeScore(struct Hand *hand)
     return gameScore;
 }
 
-struct Hand *round_handWinner(struct Hand *hand, enum Suit trump)
+struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
 {
     if (hand == NULL || trump == SuitEnd)
         return NULL;

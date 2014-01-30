@@ -132,7 +132,7 @@ int round_removePlayer(struct Player *player, struct Hand *hand);
 *
 * @return Pointer to the winner player. Otherwise NULL.
 */
-struct Hand *round_handWinner(struct Hand *hand, enum Suit trump);
+struct Player *round_handWinner(struct Hand *hand, enum Suit trump);
 
 #endif
 

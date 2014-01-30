@@ -155,3 +155,23 @@ void test_team_computeScore()
 
 }
 
+void test_team_addCard()
+{
+    struct Player *player = team_createPlayer("A", 1, 1);
+    struct Deck *deck = deck_createDeck();
+    
+    for (int i = 0; i < MAX_CARDS; i++) {
+        cut_assert_equal_int(NO_ERROR, team_addCard(player, deck->cards[i]));
+        cut_assert_equal_int(DUPLICATE, team_addCard(player, deck->cards[i]));
+    }
+    
+    cut_assert_equal_int(FULL, team_addCard(player, deck->cards[MAX_CARDS]));
+
+    cut_assert_equal_int(PLAYER_NULL, team_addCard(NULL, NULL));
+    cut_assert_equal_int(PLAYER_NULL, team_addCard(NULL, deck->cards[0]));
+    cut_assert_equal_int(CARD_NULL, team_addCard(player, NULL));
+    
+    deck_deleteDeck(&deck);
+    team_deletePlayer(&player);
+}
+

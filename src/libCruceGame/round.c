@@ -161,7 +161,7 @@ int round_removePlayer(struct Player *player, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_giveCard(struct Player *player, int cardId, struct Hand *hand)
+int round_putCard(struct Player *player, int cardId, struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;

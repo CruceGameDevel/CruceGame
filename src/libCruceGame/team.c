@@ -131,3 +131,23 @@ int team_computeScore(const struct Team *team)
     return returnScore;
 }
 
+int team_addCard(struct Player *player, struct Card *card)
+{
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (card == NULL)
+        return CARD_NULL;
+
+    for (int i = 0; i < MAX_CARDS; i++)
+        if (player->hand[i] == card)
+            return DUPLICATE;        
+
+    for (int i = 0; i < MAX_CARDS; i++)
+        if (player->hand[i] == NULL) {
+            player->hand[i] = card;
+            return NO_ERROR;
+        }
+
+    return FULL;
+}
+

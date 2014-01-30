@@ -70,7 +70,7 @@ int round_addPlayer(struct Player* player, struct Hand *hand);
  * @param hand Hand in which the card is given.
  * @return 0 on success, non-zero on failure.
  */
-int round_giveCard(struct Player *player, int cardId, struct Hand *hand);
+int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  
 /**
  * @brief Function to find the score of the hand (in game points).

@@ -96,4 +96,15 @@ int team_deletePlayer(struct Player **player);
  */
 int team_computeScore(const struct Team *team);
 
+/**
+* @brief Function for adding a card of a player. The function doesn't check
+*        if the card has valid value and valid suit. 
+*
+* @param player The player who receives the card.
+* @param card The card to be received.
+*
+* @return NO_ERROR or 0 on success. Other value on failure.
+*/
+int team_addCard(struct Player *player, struct Card *card);
+
 #endif

@@ -48,9 +48,12 @@ void test_deck_deleteDeck()
 void test_deck_createDeck()
 {
     struct Deck *deck = deck_createDeck();
+    int nulls = 0;
 
     int duplicates = 0;
     for (int i = 0; i < DECK_SIZE; i++) {
+        if (deck->cards[i] == NULL)
+            nulls++;
         for (int j = 0; j < DECK_SIZE; j++) {
             if (i != j) {
                 duplicates += cardsEqual(deck->cards[i], deck->cards[j]);
@@ -58,6 +61,7 @@ void test_deck_createDeck()
         }
     }
     cut_assert_equal_int(duplicates, 0);
+    cut_assert_equal_int(nulls, 0);
 
     deck_deleteDeck(&deck);
 }

@@ -164,7 +164,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
         players[i] = team_createPlayer("name", 0, 0);
         players[i]->hand[0] = cards[i]; //use specialised function for this
         round_addPlayer(players[i], hand);
-        round_giveCard(players[i], 0, hand);
+        round_putCard(players[i], 0, hand);
     }
 
     cut_assert_equal_pointer(players[winner], round_handWinner(hand, trump));
@@ -196,7 +196,7 @@ void test_round_handWinner()
     player1->hand[0] = card1;
 
     round_addPlayer(player1, hand);
-    round_giveCard(player1, 0, hand);
+    round_putCard(player1, 0, hand);
 
     cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
     //only one player

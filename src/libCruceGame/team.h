@@ -101,7 +101,7 @@ int team_computeScore(const struct Team *team);
 *        if the card has valid value and valid suit. 
 *
 * @param player The player who receives the card.
-* @param card The card on that receives the player.
+* @param card The card to be received.
 *
 * @return NO_ERROR or 0 on success. Other value on failure.
 */

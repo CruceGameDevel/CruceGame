@@ -4,8 +4,17 @@
 #include <wchar.h>
 #include <locale.h>
 
+#define MAX_CARDS_PER_LINE 8
+
 int printCard(FILE *f, struct Card *card)
 {
+    static int callCount = 0;
+
+    if (callCount % MAX_CARDS_PER_LINE == 0) {
+       fwprintf(f, L"\n\n\n\n\n\n");
+    }
+    fwprintf(f, L"\x1b[5A");
+    callCount++;
     wchar_t suit;
     switch (card->suit) {
         case DIAMONDS:
@@ -45,8 +54,12 @@ int printCard(FILE *f, struct Card *card)
     }
 
     setlocale(LC_ALL, "");
-    fwprintf(f, L" ___ \n|%c  |\n|%lc  |\n|  %lc|\n|  %c|\n ~~~ ", value, suit, suit, value);
-    fseek(f, 31, SEEK_SET);
+    fwprintf(f, L" ___ \x1b[B\x1b[5D");
+    fwprintf(f, L"|%lc  |\x1b[B\x1b[5D", value);
+    fwprintf(f, L"|%lc  |\x1b[B\x1b[5D", suit);
+    fwprintf(f, L"|  %lc|\x1b[B\x1b[5D", suit);
+    fwprintf(f, L"|  %lc|\x1b[B\x1b[5D", value);
+    fwprintf(f, L" \u203e\u203e\u203e");
 
     return NO_ERROR;
 }

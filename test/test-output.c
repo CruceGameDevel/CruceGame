@@ -3,7 +3,9 @@
 
 void test_printCard()
 {
-    struct Card *card = deck_createCard(CLUBS, VALUES[0]);
+    struct Deck *deck = deck_createDeck();
 
-    printCard(stdout, card);
+    for (int i = 0; i < 24; i++)
+        printCard(stdout, deck->cards[i]);
+        
 }

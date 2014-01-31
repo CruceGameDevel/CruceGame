@@ -227,6 +227,7 @@ void test_round_handWinner()
 
     perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 2, 1);
     perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 2, 0);
+    perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 3, 2);
     perform_round_handWinner_tests(cardSuits, cardValues, SPADES, 4, 3);
     perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 2);
 
@@ -241,6 +242,6 @@ void test_round_handWinner()
     cardValues[3] = VALUES[3];
 
     perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 0);
-    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 4, 3);
+    perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 4, 1);
 }
 

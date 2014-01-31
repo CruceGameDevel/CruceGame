@@ -146,19 +146,8 @@ int deck_compareCards(struct Card *card1, struct Card *card2, enum Suit trump)
     if (card1->suit != card2->suit)
         return 1;
 
-    int valueCard1;
-    int valueCard2;
-    if (card1->value == 0)
-        valueCard1 = 9;
-    else
-        valueCard1 = card1->value;
-    if (card2->value == 0)
-        valueCard2 = 9;
-    else
-        valueCard2 = card2->value;
-
     if (card1->suit == card2->suit) {
-        if (valueCard1 > valueCard2)
+        if (card1->value > card2->value)
             return 1;
         else 
             return 2;

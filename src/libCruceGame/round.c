@@ -225,7 +225,7 @@ struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
                                                hand->cards[i], trump);
             if (cardWinner == 2)
                 playerWinner = i;
-            if (cardWinner == 0)
+            if (cardWinner <= 0)
                 return NULL;
         }
     }

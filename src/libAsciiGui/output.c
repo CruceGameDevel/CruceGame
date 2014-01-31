@@ -1,20 +1,17 @@
+#include <libCruceGame.h>
 #include "output.h"
-#include <errors.h>
 
 #include <wchar.h>
 #include <locale.h>
 
 #define MAX_CARDS_PER_LINE 8
 
-int printCard(FILE *f, struct Card *card)
+int printCard(FILE *f, struct Card *card, int position)
 {
-    static int callCount = 0;
-
-    if (callCount % MAX_CARDS_PER_LINE == 0) {
+    if (position % MAX_CARDS_PER_LINE == 0) {
        fwprintf(f, L"\n\n\n\n\n\n");
     }
     fwprintf(f, L"\x1b[5A");
-    callCount++;
     wchar_t suit;
     switch (card->suit) {
         case DIAMONDS:
@@ -61,5 +58,18 @@ int printCard(FILE *f, struct Card *card)
     fwprintf(f, L"|  %lc|\x1b[B\x1b[5D", value);
     fwprintf(f, L" \u203e\u203e\u203e");
 
+    return NO_ERROR;
+}
+
+int printPlayerCards(struct Player *player)
+{
+    if (player == NULL)
+        return PLAYER_NULL;
+
+    for (int i = 0; i < MAX_CARDS; i++) {
+        if (player->hand[i] != NULL)
+            printCard(stdout, player->hand[i], i);
+
+    }
     return NO_ERROR;
 }

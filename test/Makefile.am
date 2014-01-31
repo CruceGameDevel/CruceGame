@@ -1,5 +1,5 @@
-AM_CPPFLAGS = $(CUTTER_CFLAGS) -I$(top_srcdir)/src/libCruceGame \
-	                       -I$(top_srcdir)/src/libAsciiGui
+AM_CPPFLAGS = $(CUTTER_CFLAGS)  -I$(top_srcdir)/src/libCruceGame \
+				-I$(top_srcdir)/src/libAsciiGui
 
 LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined
 CFLAGS = -std=c99
@@ -9,12 +9,13 @@ echo-cutter:
 
 TESTS = run-test.sh
 
-noinst_LTLIBRARIES = test_game.la test-ascii.la
+noinst_LTLIBRARIES = test_game.la test_asciiGui.la
 LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libCruceGame.la \
-                      ${top_builddir}/src/libAsciiGui.la
+		      ${top_builddir}/src/libAsciiGui.la
+
 
 test_game_la_SOURCES = test-deck.c \
 		       test-team.c \
 		       test-round.c
-test_ascii_la_SOURCES = test-output.c
+test_asciiGui_la_SOURCES = test-output.c
 

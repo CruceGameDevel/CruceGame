@@ -135,17 +135,17 @@ int round_removePlayer(struct Player *player, struct Hand *hand);
 struct Player *round_handWinner(struct Hand *hand, enum Suit trump);
 
 /**
-* @brief The function one card every player.
+* @brief The function distributes one card every player.
 *
-* @param deck The deck of where distributes it the cards.
-* @param hand The players to that to distributes the cards.
+* @param deck The deck from where it distributes.
+* @param hand The players to receive the cards.
 *
 * @return NO_ERROR or 0 on success, other value on failure.
 */
 int round_distributeCard(struct Deck *deck, struct Hand *hand);
 
 /**
-* @brief Function for distribution of the cards the players.
+* @brief Function for distribution the cards the players.
 *
 * @param deck The deck to be distributed.
 * @param hand The round at that to distributes the deck.

@@ -8,6 +8,7 @@ bin_PROGRAMS = cruceGame
 cruceGame_SOURCES = libAsciiGui/main.c
 cruceGame_LDFLAGS = -all-static
 cruceGame_LDADD = libCruceGame.la libAsciiGui.la
+cruceGame_LDFLAGS = -lncurses
 
 
 

@@ -60,7 +60,7 @@ int printCard(FILE *f, struct Card *card, int position)
     move(y+5, x);
     char bottom[] = {0xE2, 0x80, 0xBE, 0x00};
     printw(" %s%s%s ", bottom, bottom, bottom);
-    move(y, x+5);
+    move(y, x + 6);
     refresh();
 
     return NO_ERROR;

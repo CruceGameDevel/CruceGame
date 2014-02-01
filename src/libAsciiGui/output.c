@@ -1,30 +1,26 @@
 #include <libCruceGame.h>
 #include "output.h"
 
-#include <wchar.h>
 #include <locale.h>
+#include <ncurses.h>
 
 #define MAX_CARDS_PER_LINE 8
 
 int printCard(FILE *f, struct Card *card, int position)
 {
-    if (position % MAX_CARDS_PER_LINE == 0) {
-       fwprintf(f, L"\n\n\n\n\n\n");
-    }
-    fwprintf(f, L"\x1b[5A");
-    wchar_t suit;
+    char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
         case DIAMONDS:
-            suit = L'\u2666';
+            suit[2] = 0xA6;
             break;
         case CLUBS:
-            suit = L'\u2663';
+            suit[2] = 0xA3;
             break;
         case HEARTS:
-            suit = L'\u2665';
+            suit[2] = 0xA5;
             break;
         case SPADES:
-            suit = L'\u2660';
+            suit[2] = 0xA0;
             break;
         default:
             return ILLEGAL_VALUE;
@@ -50,13 +46,22 @@ int printCard(FILE *f, struct Card *card, int position)
             return ILLEGAL_VALUE;
     }
 
-    setlocale(LC_ALL, "");
-    fwprintf(f, L" ___ \x1b[B\x1b[5D");
-    fwprintf(f, L"|%lc  |\x1b[B\x1b[5D", value);
-    fwprintf(f, L"|%lc  |\x1b[B\x1b[5D", suit);
-    fwprintf(f, L"|  %lc|\x1b[B\x1b[5D", suit);
-    fwprintf(f, L"|  %lc|\x1b[B\x1b[5D", value);
-    fwprintf(f, L" \u203e\u203e\u203e");
+    int x, y;
+    getyx(stdscr, y, x);
+    printw(" ___ ");
+    move(y+1, x);
+    printw("|%c  |", value);
+    move(y+2, x);
+    printw("|%s  |", suit);
+    move(y+3, x);
+    printw("|  %s|", suit);
+    move(y+4, x);
+    printw("|  %c|", value);
+    move(y+5, x);
+    char bottom[] = {0xE2, 0x80, 0xBE, 0x00};
+    printw(" %s%s%s ", bottom, bottom, bottom);
+    move(y, x+5);
+    refresh();
 
     return NO_ERROR;
 }

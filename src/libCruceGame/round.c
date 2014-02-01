@@ -241,25 +241,31 @@ int round_distributeCard(struct Deck *deck, struct Hand *hand)
         return HAND_NULL;
 
     int checkPlayers = 0;
-    int checkDeck    = 0;
-    for (int i = 0, int j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE; j++)
-        if (hand->players[i] != NULL) {
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->players[i] != NULL)
             checkPlayers++;
-            if (deck->cards[j] != NULL) {
-                checkDeck++;
-                if (team_addCard(hand->players[i], deck->cards[j]) == FULL)
-                    return FULL;
-                deck->cards[j] = NULL;
-                i++;
-            }
-        }
 
-    if (checkDeck == 0)
-        return DECK_EMPTY;
+    int checkDeck = 0;
+    for (int i = 0, j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE; j++) {
+        if (hand->players[i] != NULL && deck->cards[j] != NULL) {
+            checkDeck++;
+            if (team_addCard(hand->players[i], deck->cards[j]) == FULL)
+                return FULL;
+            deck->cards[j] = NULL;
+            i++;
+        }
+        if (hand->players[i] == NULL)
+            i++;
+    }
+
     if (checkPlayers == 0)
         return HAND_EMPTY;
     if (checkPlayers == 1)
         return LESS_PLAYERS;
+    if (checkDeck == 0)
+        return DECK_EMPTY;
+    if (checkPlayers != checkDeck)
+        return LESS_CARDS;
 
     return NO_ERROR;
 }
@@ -271,7 +277,15 @@ int round_distributeDeck(struct Deck *deck, struct Hand *hand)
     if (hand == NULL)
         return HAND_NULL;
 
-    for (int i = 0; i < MAX_HANDS; i++) {
+    int numberPlayers = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->players[i] != NULL)
+            numberPlayers++;
+
+    if (numberPlayers == 0)
+        return HAND_EMPTY;
+
+    for (int i = 0; i < MAX_HANDS && i < DECK_SIZE / numberPlayers; i++) {
         int distributeCard = round_distributeCard(deck, hand);
         if (distributeCard != NO_ERROR)
             return distributeCard;

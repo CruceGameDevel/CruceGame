@@ -271,13 +271,10 @@ int round_distributeDeck(struct Deck *deck, struct Hand *hand)
     if (hand == NULL)
         return HAND_NULL;
 
-    int distributeCard;
     for (int i = 0; i < MAX_HANDS; i++) {
-        distributeCard = round_distributeCard(deck, hand);
-        if (distributeCard == HAND_EMPTY)
-            return HAND_EMPTY;
-        if (distributeCard == LESS_PLAYERS);
-            return LESS_PLAYERS;
+        int distributeCard = round_distributeCard(deck, hand);
+        if (distributeCard != NO_ERROR)
+            return distributeCard;
     }
 
     return NO_ERROR;

@@ -2,7 +2,7 @@
 #include "output.h"
 
 #include <locale.h>
-#include <ncurses.h>
+#include <curses.h>
 
 #define MAX_CARDS_PER_LINE 8
 

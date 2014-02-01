@@ -1,5 +1,5 @@
 #include "output.h"
-#include <ncurses.h>
+#include <curses.h>
 #include <locale.h>
 #include <libCruceGame.h>
 

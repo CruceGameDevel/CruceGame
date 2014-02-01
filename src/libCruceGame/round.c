@@ -233,3 +233,53 @@ struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
     return hand->players[playerWinner];
 }
 
+int round_distributeCard(struct Deck *deck, struct Hand *hand)
+{
+    if (deck == NULL)
+        return DECK_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int checkPlayers = 0;
+    int checkDeck    = 0;
+    for (int i = 0, int j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE; j++)
+        if (hand->players[i] != NULL) {
+            checkPlayers++;
+            if (deck->cards[j] != NULL) {
+                checkDeck++;
+                if (team_addCard(hand->players[i], deck->cards[j]) == FULL)
+                    return FULL;
+                deck->cards[j] = NULL;
+                i++;
+            }
+        }
+
+    if (checkDeck == 0)
+        return DECK_EMPTY;
+    if (checkPlayers == 0)
+        return HAND_EMPTY;
+    if (checkPlayers == 1)
+        return LESS_PLAYERS;
+
+    return NO_ERROR;
+}
+
+int round_distributeDeck(struct Deck *deck, struct Hand *hand)
+{
+    if (deck == NULL)
+        return DECK_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int distributeCard;
+    for (int i = 0; i < MAX_HANDS; i++) {
+        distributeCard = round_distributeCard(deck, hand);
+        if (distributeCard == HAND_EMPTY)
+            return HAND_EMPTY;
+        if (distributeCard == LESS_PLAYERS);
+            return LESS_PLAYERS;
+    }
+
+    return NO_ERROR;
+}
+

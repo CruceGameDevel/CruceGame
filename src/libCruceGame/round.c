@@ -233,3 +233,65 @@ struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
     return hand->players[playerWinner];
 }
 
+int round_distributeCard(struct Deck *deck, struct Hand *hand)
+{
+    if (deck == NULL)
+        return DECK_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int i, j;
+    int distributedCards = 0;
+    for (i = 0, j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE; i++, j++) {
+        //do not change while's order
+        while (deck->cards[j] == NULL && j < DECK_SIZE)
+            j++;
+        while (hand->players[i] == NULL && i < MAX_GAME_PLAYERS)
+            i++;
+        if (i < MAX_GAME_PLAYERS && j < DECK_SIZE) {
+            int checkError = team_addCard(hand->players[i], deck->cards[j]);
+            if (checkError != NO_ERROR)
+                return checkError;
+            deck->cards[j] = NULL;
+            distributedCards++;
+        }
+    }
+
+    if (distributedCards == 0 && j == DECK_SIZE + 1)
+        return DECK_EMPTY;
+    if (distributedCards == 0 && i == MAX_GAME_PLAYERS + 1)
+        return HAND_EMPTY;
+    if (distributedCards == 1 && i == MAX_GAME_PLAYERS + 1)
+        return LESS_PLAYERS;
+    if (distributedCards == 1 && j == DECK_SIZE + 1)
+        return LESS_CARDS;
+
+    return NO_ERROR;
+}
+
+int round_distributeDeck(struct Deck *deck, struct Hand *hand)
+{
+    if (deck == NULL)
+        return DECK_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int numberPlayers = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->players[i] != NULL)
+            numberPlayers++;
+
+    if (numberPlayers == 1)
+        return LESS_PLAYERS;
+    if (numberPlayers == 0)
+        return HAND_EMPTY;
+
+    for (int i = 0; i < MAX_HANDS && i < DECK_SIZE / numberPlayers; i++) {
+        int distributeCard = round_distributeCard(deck, hand);
+        if (distributeCard != NO_ERROR)
+            return distributeCard;
+    }
+
+    return NO_ERROR;
+}
+

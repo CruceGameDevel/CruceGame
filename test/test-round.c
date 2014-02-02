@@ -270,12 +270,13 @@ int nullCardCount(struct Deck *deck)
     return number;
 }
 
-int distributeCard_testReset (struct Player *player[], struct Hand *hand)
+int distributeCard_testReset (struct Player *player[], int lenght,
+                              struct Hand *hand)
 {
     if (hand == NULL)
         return HAND_NULL;
 
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+    for (int i = 0; i < lenght; i++)
         if (player[i] != NULL) {
             round_removePlayer(player[i], hand);
             team_deletePlayer(&player[i]);
@@ -302,7 +303,7 @@ void test_round_distributeCard()
     cut_assert_equal_int(LESS_PLAYERS, round_distributeDeck(deck, hand));
 
     for (int i = 1; i < MAX_GAME_PLAYERS; i++) {
-        distributeCard_testReset(player, hand);
+        distributeCard_testReset(player, i, hand);
         deck = deck_createDeck();
         deck_deckShuffle(deck);
         player[i] = team_createPlayer("A", i, i);
@@ -327,7 +328,7 @@ void test_round_distributeCard()
                 }
             }
         }
-        cut_assert_not_equal_int(0, duplicate);
+        cut_assert_equal_int(0, duplicate);
 
         deck_deleteDeck(&deck);
     }
@@ -357,7 +358,7 @@ void test_round_distributeDeck()
     deck_deleteDeck(&deck);
 
     for (int i = 1; i < MAX_GAME_PLAYERS; i++) {
-        distributeCard_testReset(player, hand);
+        distributeCard_testReset(player, i, hand);
         deck = deck_createDeck();
         deck_deckShuffle(deck);
         player[i] = team_createPlayer("A", i, i);

@@ -1,12 +1,16 @@
 #include <libCruceGame.h>
 #include "output.h"
 
-#include <locale.h>
 #include <curses.h>
 
 #define MAX_CARDS_PER_LINE 8
 
-int printCard(FILE *f, struct Card *card, int position)
+void welcomeMessage()
+{
+    printw("Welcome to a new game of Cruce\n\n");
+}
+
+int printCard(struct Card *card, int position)
 {
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
@@ -73,7 +77,7 @@ int printPlayerCards(struct Player *player)
 
     for (int i = 0; i < MAX_CARDS; i++) {
         if (player->hand[i] != NULL)
-            printCard(stdout, player->hand[i], i);
+            printCard(player->hand[i], i);
 
     }
     return NO_ERROR;

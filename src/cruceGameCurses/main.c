@@ -1,13 +1,14 @@
 #include "output.h"
 #include <curses.h>
 #include <locale.h>
-#include <libCruceGame.h>
 
 int main()
 {
     setlocale(LC_ALL, "");
     initscr();
     raw();
+
+    welcomeMessage();
 
     struct Deck *deck = deck_createDeck();
     deck_deckShuffle(deck);

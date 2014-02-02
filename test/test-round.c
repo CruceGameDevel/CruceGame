@@ -293,14 +293,14 @@ void test_round_distributeCard()
     struct Deck *deck = deck_createDeck();
     struct Player *player[MAX_GAME_PLAYERS];
 
-    cut_assert_equal_int(DECK_NULL, round_distributeDeck(NULL, hand));
-    cut_assert_equal_int(HAND_NULL, round_distributeDeck(deck, NULL));
-    cut_assert_operator_int(0, >, round_distributeDeck(NULL, NULL));
-    cut_assert_equal_int(HAND_EMPTY, round_distributeDeck(deck, hand));
+    cut_assert_equal_int(DECK_NULL, round_distributeCard(NULL, hand));
+    cut_assert_equal_int(HAND_NULL, round_distributeCard(deck, NULL));
+    cut_assert_operator_int(0, >, round_distributeCard(NULL, NULL));
+    cut_assert_equal_int(HAND_EMPTY, round_distributeCard(deck, hand));
 
     player[0] = team_createPlayer("A", 0, 0);
     round_addPlayer(player[0], hand);
-    cut_assert_equal_int(LESS_PLAYERS, round_distributeDeck(deck, hand));
+    cut_assert_equal_int(LESS_PLAYERS, round_distributeCard(deck, hand));
 
     for (int i = 1; i < MAX_GAME_PLAYERS; i++) {
         distributeCard_testReset(player, i, hand);

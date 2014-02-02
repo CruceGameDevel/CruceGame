@@ -242,20 +242,19 @@ int round_distributeCard(struct Deck *deck, struct Hand *hand)
 
     int i, j;
     int distributedCards = 0;
-    for (i = 0, j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE;) {
+    for (i = 0, j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE; i++, j++) {
         //do not change while's order
         while (deck->cards[j] == NULL && j < DECK_SIZE)
             j++;
         while (hand->players[i] == NULL && i < MAX_GAME_PLAYERS)
             i++;
         if (i < MAX_GAME_PLAYERS && j < DECK_SIZE) {
-            if (team_addCard(hand->players[i], deck->cards[j]) == FULL)
-                return FULL;
+            int checkError = team_addCard(hand->players[i], deck->cards[j]);
+            if (checkError != NO_ERROR)
+                return checkError;
             deck->cards[j] = NULL;
             distributedCards++;
         }
-        i++;
-        j++;
     }
 
     if (distributedCards == 0 && j == DECK_SIZE + 1)

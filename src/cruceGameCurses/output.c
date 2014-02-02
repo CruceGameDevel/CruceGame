@@ -82,3 +82,17 @@ int printPlayerCards(struct Player *player)
     }
     return NO_ERROR;
 }
+
+int getNoOfPlayers()
+{
+    printw("Insert the number of players (2-4) ");
+    char ch = getch();
+    while (ch < '2' || ch > '4') {
+        printw("\nPlease insert a number between 2 and 4. ");
+        ch = getch();
+    }
+    printw("\n");
+
+    return ch - '0';
+}
+

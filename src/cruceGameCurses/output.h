@@ -26,3 +26,11 @@ int printCard(struct Card *card, int position);
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int printPlayerCards(struct Player *player);
+
+/**
+ * @brief Function to get the number of players from user.
+ *
+ * @return The number of players.
+ */
+int getNoOfPlayers();
+

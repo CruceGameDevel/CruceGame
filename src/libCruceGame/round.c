@@ -244,7 +244,7 @@ int round_distributeCard(struct Deck *deck, struct Hand *hand)
     int distributedCards = 0;
     for (i = 0, j = 0; i < MAX_GAME_PLAYERS && j < DECK_SIZE;) {
         //do not change while's order
-        while (card[j] == NULL && j < DECK_SIZE)
+        while (deck->cards[j] == NULL && j < DECK_SIZE)
             j++;
         while (hand->players[i] != NULL && i < MAX_GAME_PLAYERS)
             i++;

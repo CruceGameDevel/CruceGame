@@ -2,6 +2,14 @@
 #include <libCruceGame.h>
 
 /**
+ * @brief Function to display a greeting message at the beginning of a new
+ *        game.
+ * 
+ * @return void.
+ */
+void welcomeMessage();
+
+/**
  * @brief Function to print a Card.
  *
  * @param card Pointer to the card to be printed.

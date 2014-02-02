@@ -1,10 +1,14 @@
 #include <libCruceGame.h>
 #include "output.h"
 
-#include <locale.h>
 #include <curses.h>
 
 #define MAX_CARDS_PER_LINE 8
+
+void welcomeMessage()
+{
+    printw("Welcome to a new game of Cruce\n\n");
+}
 
 int printCard(struct Card *card, int position)
 {

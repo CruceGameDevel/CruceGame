@@ -9,6 +9,7 @@ int main()
     raw();
 
     welcomeMessage();
+    int noOfPlayers = getNoOfPlayers();
 
     struct Deck *deck = deck_createDeck();
     deck_deckShuffle(deck);

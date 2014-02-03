@@ -25,14 +25,14 @@ struct Game {
 /**
  * @brief Function to allocate memory for and initialize a Game.
  *
- * @return Pointer to the new Game on success, other value on failure.
+ * @return Pointer to the new Game on success, NULL on failure.
  */
 struct Game *game_createGame();
 
 /**
  * @brief Function to free memory of a Game. Makes pointer NULL.
  *
- * @param game Game to be freed.
+ * @param game Pointer to the game to be freed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */

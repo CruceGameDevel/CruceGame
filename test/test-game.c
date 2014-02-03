@@ -91,3 +91,31 @@ void test_game_removePlayer()
     game_deleteGame(&game);
 }
 
+void test_addTeam()
+{
+    struct Game *game = game_createGame();
+    struct Team *team[MAX_GAME_TEAMS];
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        team[i] = team_createTeam("A");
+        cut_assert_equal_int(NO_ERROR, game_addTeam(team[i], game));
+        cut_assert_equal_int(DUPLICATE, game_addTeam(team[i], game));
+        int teamAdded = -1;
+        for (int j = 0; j < MAX_GAME_TEAMS; j++)
+            if (game->teams[j] == team[i])
+                teamAdded = 0;
+        cut_assert_equal_int(0, teamAdded);
+    }
+
+    struct Team *team1 = team_createTeam("A");
+    cut_assert_equal_int(GAME_NULL, game_addTeam(team1, NULL));
+    cut_assert_equal_int(TEAM_NULL, game_addTeam(NULL, game));
+    cut_assert_operator_int(0, >, game_addTeam(NULL, NULL));
+    cut_assert_equal_int(FULL, game_addTeam(team1, game));
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++)
+        team_deleteTeam(&team[i]);
+
+    team_deleteTeam(&team1);
+    game_deleteGame(&game);
+}

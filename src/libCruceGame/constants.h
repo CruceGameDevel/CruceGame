@@ -36,6 +36,11 @@
  */
 #define MAX_GAME_PLAYERS 4
 
+/** 
+* @brief MAximum number of teams in a game
+*/
+#define MAX_GAME_TEAMS 2
+
 /**
  * @brief Constants for suit.
  *

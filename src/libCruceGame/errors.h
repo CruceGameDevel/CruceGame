@@ -24,7 +24,6 @@ enum ERROR_CODE {
     ILLEGAL_VALUE = -13,
 
     FULL = -14,
-
     ERROR_COMPARE = -15,
 
     HAND_EMPTY = -16,
@@ -32,6 +31,9 @@ enum ERROR_CODE {
 
     LESS_PLAYERS = -18,
     LESS_CARDS = -19
+    LESS_CARDS = -19,
+
+    GAME_NULL = -20
 };
 
 #endif

@@ -25,7 +25,15 @@ enum ERROR_CODE {
     
     FULL = -14,
     
-    ERROR_COMPARE = -15
+    ERROR_COMPARE = -15,
+
+    HAND_EMPTY = -16,
+    DECK_EMPTY = -17,
+
+    LESS_PLAYERS = -18,
+    LESS_CARDS = -19,
+
+    GAME_NULL = -20
 };
 
 #endif

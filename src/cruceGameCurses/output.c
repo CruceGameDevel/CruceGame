@@ -1,4 +1,3 @@
-#include <libCruceGame.h>
 #include "output.h"
 
 #include <curses.h>

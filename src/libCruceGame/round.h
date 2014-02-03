@@ -41,7 +41,7 @@ struct Round{
  * @param hand The Hand where to find the bid winner.
  * @return The bid winner.
  */
-struct Player *round_getBidWinner(struct Hand *hand);
+struct Player *round_getBidWinner(const struct Hand *hand);
 
 /**
  * @brief Function to place bid for a player.
@@ -51,7 +51,7 @@ struct Player *round_getBidWinner(struct Hand *hand);
  * @param hand The hand where to place the bid.
  * @return 0 on success, non-zero on failure.
  */
-int round_placeBid(struct Player *player, int bid, struct Hand *hand);
+int round_placeBid(const struct Player *player, int bid,struct Hand *hand);
 
 /**
  * @brief Function to add player to a hand.
@@ -60,7 +60,7 @@ int round_placeBid(struct Player *player, int bid, struct Hand *hand);
  * @param player Player to be added.
  * @return 0 on success, non-zero on failure.
  */
-int round_addPlayer(struct Player* player, struct Hand *hand);
+int round_addPlayer(struct Player* player,struct Hand *hand);
 
 /**
  * @brief Function to give cards from players.
@@ -78,7 +78,7 @@ int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  * @param hand Hand to compute score.
  * @return score on success, negative on failure.
  */
-int round_computeScore(struct Hand *hand);
+int round_computeScore(const struct Hand *hand);
 
 /**
  * @brief Function to allocate memory for and initialize a Round.
@@ -132,7 +132,7 @@ int round_removePlayer(struct Player *player, struct Hand *hand);
 *
 * @return Pointer to the winner player. Otherwise NULL.
 */
-struct Player *round_handWinner(struct Hand *hand, enum Suit trump);
+struct Player *round_handWinner(const struct Hand *hand, enum Suit trump);
 
 /**
 * @brief The function distributes one card every player.
@@ -142,7 +142,7 @@ struct Player *round_handWinner(struct Hand *hand, enum Suit trump);
 *
 * @return NO_ERROR or 0 on success, other value on failure.
 */
-int round_distributeCard(struct Deck *deck, struct Hand *hand);
+int round_distributeCard(struct Deck *deck,const struct Hand *hand);
 
 /**
 * @brief Function for distribution the cards the players.
@@ -152,7 +152,7 @@ int round_distributeCard(struct Deck *deck, struct Hand *hand);
 *
 * @return NO_ERROR or 0 on success, other value on failure.
 */
-int round_distributeDeck(struct Deck *deck, struct Hand *hand);
+int round_distributeDeck(struct Deck *deck,const struct Hand *hand);
 
 #endif
 

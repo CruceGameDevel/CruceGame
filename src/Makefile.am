@@ -11,5 +11,5 @@ cruceGame_LDFLAGS = -lcurses
 
 libCruceGame_la_SOURCES = libCruceGame/deck.c \
 			  libCruceGame/team.c \
-			  libCruceGame/round.c
-
+			  libCruceGame/round.c \
+                          libCruceGame/game.c

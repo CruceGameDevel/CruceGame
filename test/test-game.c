@@ -41,6 +41,7 @@ void test_game_addPlayer()
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         player[i] = team_createPlayer("A", i, i);
         cut_assert_equal_int(NO_ERROR, game_addPlayer(player[i], game));
+        cut_assert_equal_int(i+1, game->numberPlayers);
         cut_assert_equal_int(DUPLICATE, game_addPlayer(player[i], game));
         int playerAdded = -1;
         for (int j = 0; j < MAX_GAME_PLAYERS; j++)
@@ -55,12 +56,9 @@ void test_game_addPlayer()
     cut_assert_operator_int(0, >, game_addPlayer(NULL, NULL));
     cut_assert_equal_int(FULL, game_addPlayer(player1, game));
 
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        game_removePlayer(player[i], game);
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         team_deletePlayer(&player[i]);
-    }
 
-    game_removePlayer(player1, game);
     team_deletePlayer(&player1);
     game_deleteGame(&game);
 }

@@ -79,6 +79,28 @@ int game_removePlayer(struct Player *player, struct Game *game)
     return NO_ERROR;
 }
 
+int game_addTeam(struct Team *team, struct Game *game)
+{
+    if (team == NULL)
+        return TEAM_NULL;
+    if (game == NULL)
+        return GAME_NULL;
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] == team)
+            return DUPLICATE;
+    }
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] == NULL) {
+            game->teams[i] = team;
+            return NO_ERROR;
+        }
+    }
+
+    return FULL;
+}
+
 int game_removeTeam(struct Team *team, struct Game *game)
 {
     if (team == NULL)

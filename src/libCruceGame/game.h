@@ -59,6 +59,17 @@ int game_addPlayer(struct Player *player, struct Game *game);
 int game_removePlayer(struct Player *player, struct Game *game);
 
 /**
+ * @brief Function to add a team to a Game.
+ *
+ * @param team The team to be added.
+ * @param game The game where to be added to.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int game_addTeam(struct Team *team, struct Game *game);
+
+ 
+/**
  * @brief Function to remove team of a Game.
  *
  * @param team The team to be removed.

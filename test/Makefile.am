@@ -1,4 +1,5 @@
-AM_CPPFLAGS = $(CUTTER_CFLAGS) -I$(top_srcdir)/src
+AM_CPPFLAGS = $(CUTTER_CFLAGS)  -I$(top_srcdir)/src/libCruceGame \
+				-I$(top_srcdir)/src/libAsciiGui
 
 LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined
 CFLAGS = -std=c99
@@ -8,17 +9,11 @@ echo-cutter:
 
 TESTS = run-test.sh
 
-noinst_LTLIBRARIES = test_deck.la test_team.la
-LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libdeck.la \
-                      ${top_builddir}/src/libteam.la
+noinst_LTLIBRARIES = test_game.la
+LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libCruceGame.la
 
-test_deck_la_SOURCES = test-deck.c
-test_team_la_SOURCES = test-team.c
 
-# For every module you create:
-# - create a file test-MODULE.c, where you will put tests
-# - add test_MODULE.la to noinst_LTLIBRARIES (#10)
-# - add ${top_builddir)/src/../libMODULE.la to LIBS (#11)
-# - add the following line:
-#
-# test_stack_la_SOURCES = test-MODULE.c
+test_game_la_SOURCES = test-deck.c \
+		       test-team.c \
+		       test-round.c
+

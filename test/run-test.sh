@@ -11,4 +11,21 @@ if test -z "$CUTTER"; then
     CUTTER="`make -s -C $BASE_DIR echo-cutter`"
 fi
 
+case `uname` in
+    CYGWIN*)
+        PATH="$top_dir/src/libCruceGame/.libs:$PATH"
+        ;;
+    Darwin)
+        DYLD_LIBRARY_PATH="$top_dir/src/libCruceGame/.libs:$DYLD_LIBRARY_PATH"
+        export DYLD_LIBRARY_PATH
+        ;;
+    *BSD)
+        LD_LIBRARY_PATH="$top_dir/src/libCruceGame/.libs:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH
+        ;;
+    *)
+        :
+        ;;
+esac
+
 $CUTTER -s $BASE_DIR "$@" $BASE_DIR

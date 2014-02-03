@@ -141,10 +141,9 @@ created). Please include after the default name 'Fix #xx', without quotes.
 For example: Fix #58. Add this on a separate line. Make sure you specified
 all fixed issues. For example:
 
-```Merge branch 'doc-issues' into develop  
-Fix #30  
-Fix #48
-```
+```Merge branch 'doc-issues' into develop```
+```Fix #30```
+```Fix #48```
 
 Do not use any other ways to close an issue that require code. Do not comment
 things like "I have fixed the issue". If you use the commit names as I
@@ -231,6 +230,18 @@ docs/requirements.md and all features described in docs/features.md.
 For testing, use tools described in docs/features.md. Do not release versions
 with known bugs or with undocumented parts.
 
+Having an overview
+=======
+As you are a beginner, it may be pretty hard for you to keep in mind the big
+picture of the project. So, we made a diagram of the entire project. It's pdf
+version is docs/CruceGame_architecture.pdf. There is also a freemind version,
+CruceGame_architecture.mm that you can modify to be up to date.
+
+This diagrams respect the following legend:
+- functions are colored in dark blue  
+- constants are colored in sky blue  
+- file names and module names are colored in black  
+- ! icon marks an item that has not been implemented yet  
 
 
 Authors
@@ -252,6 +263,7 @@ Please document your names and your e-mail addresses.
 
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
+* Alin Enachescu (<alinenachescu033@gmail.com>)
 
 Contributors
 =======

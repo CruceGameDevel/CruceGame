@@ -1,0 +1,232 @@
+<map version="1.0.1">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node BACKGROUND_COLOR="#999999" CREATED="1390139919953" ID="ID_1237397614" MODIFIED="1390922706600" STYLE="fork" TEXT="CruceGame">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node BACKGROUND_COLOR="#999999" CREATED="1390139919953" ID="ID_1739959709" MODIFIED="1390922706601" POSITION="left" STYLE="bubble" TEXT="CruceGame library">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1390140834575" ID="ID_1661278079" MODIFIED="1390923011643" STYLE="fork" TEXT="deck">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1390140262058" ID="ID_51984821" MODIFIED="1390923071764" STYLE="fork" TEXT="deck.c">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#3333ff" CREATED="1390140358000" ID="ID_1868423956" MODIFIED="1390922411620" STYLE="fork" TEXT="deck_deckInit()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140390576" ID="ID_706130794" MODIFIED="1390922411620" STYLE="fork">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      deck_deckShuffle()
+    </p>
+  </body>
+</html></richcontent>
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159145483" ID="ID_1594748640" MODIFIED="1390922411620" STYLE="fork" TEXT="deck_createDeck()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159157742" ID="ID_1246203828" MODIFIED="1390922411620" STYLE="fork" TEXT="deck_deleteDeck()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node CREATED="1390140749020" ID="ID_913091802" MODIFIED="1390923072537" STYLE="fork" TEXT="deck.h">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#339900" CREATED="1390140758456" ID="ID_158761614" MODIFIED="1390922411620" STYLE="fork" TEXT="struct Card">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#339900" CREATED="1390140765400" ID="ID_1696301596" MODIFIED="1390922411620" STYLE="fork" TEXT="struct Deck">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+</node>
+<node CREATED="1390140920505" ID="ID_689123775" MODIFIED="1390922890405" STYLE="fork" TEXT="team">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1390140269174" ID="ID_553747004" MODIFIED="1390923010602" STYLE="fork" TEXT="team.h">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#339900" CREATED="1390140451053" ID="ID_62045296" MODIFIED="1390921941573" STYLE="fork" TEXT="struct Team">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#339900" CREATED="1390140466300" ID="ID_1743027443" MODIFIED="1390921941573" STYLE="fork" TEXT="struct Player">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node CREATED="1390140820412" ID="ID_99304334" MODIFIED="1390922891845" STYLE="fork" TEXT="team.c">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#3333ff" CREATED="1390140468743" ID="ID_1938303679" MODIFIED="1390921941573" STYLE="fork" TEXT="team_createPlayer()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159213604" ID="ID_1208777635" MODIFIED="1390921941573" STYLE="fork" TEXT="team_deletePlayer()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159764394" ID="ID_858180365" MODIFIED="1390921941573" STYLE="fork" TEXT="team_computeScore()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140475913" ID="ID_1358344735" MODIFIED="1390921941573" STYLE="fork" TEXT="team_createTeam()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159220913" ID="ID_1418458678" MODIFIED="1390921941573" STYLE="fork" TEXT="team_deleteTeam()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+</node>
+<node CREATED="1390140990154" ID="ID_141469480" MODIFIED="1390923012979" STYLE="fork" TEXT="round">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1390140270786" ID="ID_1991713634" MODIFIED="1390923015519" STYLE="fork" TEXT="round.c">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#3333ff" CREATED="1390140283399" ID="ID_909287493" MODIFIED="1390921941573" STYLE="fork" TEXT="getBidWinner()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140637319" ID="ID_1526016820" MODIFIED="1390921941573" STYLE="fork" TEXT="findPlayerIndexHand()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140647016" ID="ID_628194113" MODIFIED="1390921941573" STYLE="fork" TEXT="placeBid()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140691247" ID="ID_1491794774" MODIFIED="1390921941573" STYLE="fork" TEXT="addPlayer()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140694848" ID="ID_1549772420" MODIFIED="1390921941573" STYLE="fork" TEXT="giveCard()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390140709536" ID="ID_1503177673" MODIFIED="1390921941573" STYLE="fork" TEXT="computeScore()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159268016" ID="ID_415454341" MODIFIED="1390921941573" STYLE="fork" TEXT="round_createHand()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159282719" ID="ID_1523022954" MODIFIED="1390921941573" STYLE="fork" TEXT="round_deleteHand()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159293080" ID="ID_1933429998" MODIFIED="1390921941573" STYLE="fork" TEXT="round_createRound()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390159299951" ID="ID_1315158363" MODIFIED="1390921941573" STYLE="fork" TEXT="round_deleteRound()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node CREATED="1390140973156" ID="ID_956283395" MODIFIED="1390923014930" STYLE="fork" TEXT="round.h">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#339900" CREATED="1390140978960" ID="ID_224682522" MODIFIED="1390921941574" STYLE="fork" TEXT="struct Hand">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#339900" CREATED="1390140982240" ID="ID_514077139" MODIFIED="1390921941574" STYLE="fork" TEXT="struct Round">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+</node>
+<node CREATED="1390921338439" ID="ID_1237525836" MODIFIED="1390923013748" STYLE="fork" TEXT="errors.h">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#009999" CREATED="1390921417837" ID="ID_203940378" MODIFIED="1390921941574" STYLE="fork" TEXT="NO_ERROR">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921427676" ID="ID_453073294" MODIFIED="1390921941574" STYLE="fork" TEXT="POINTER_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921435708" ID="ID_1802765090" MODIFIED="1390921941574" STYLE="fork" TEXT="MALLOC_ERROR">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921449052" ID="ID_663347468" MODIFIED="1390921941574" STYLE="fork" TEXT="CARD_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921452308" ID="ID_909779799" MODIFIED="1390921941574" STYLE="fork" TEXT="TEAM_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921455588" ID="ID_1338052539" MODIFIED="1390921941574" STYLE="fork" TEXT="ROUND_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921527715" ID="ID_955563068" MODIFIED="1390921941574" STYLE="fork" TEXT="HAND_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921461220" ID="ID_198682129" MODIFIED="1390921941574" STYLE="fork" TEXT="DECK_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921470252" ID="ID_690569247" MODIFIED="1390921941574" STYLE="fork" TEXT="PLYAER_NULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921482371" ID="ID_353682071" MODIFIED="1390921941574" STYLE="fork" TEXT="TEAM_FULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921489603" ID="ID_307311717" MODIFIED="1390921941574" STYLE="fork" TEXT="TEAM_EMPTY">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921496939" ID="ID_625690058" MODIFIED="1390921941574" STYLE="fork" TEXT="DUPLICATE">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921500811" ID="ID_1269154761" MODIFIED="1390921941574" STYLE="fork" TEXT="NOT_FOUND">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921506435" ID="ID_1295326066" MODIFIED="1390921941574" STYLE="fork" TEXT="ILLEGAL_VALUE">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921510835" ID="ID_1890317133" MODIFIED="1390921941574" STYLE="fork" TEXT="FULL">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node CREATED="1390921350782" ID="ID_1850414108" MODIFIED="1390923017236" STYLE="fork" TEXT="constants.h">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node COLOR="#009999" CREATED="1390921388149" ID="ID_904191675" MODIFIED="1390921941574" STYLE="fork" TEXT="MAX_HANDS">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390921845956" ID="ID_489728146" MODIFIED="1390921941574" STYLE="fork" TEXT="MAX_GAME_PLAYERS">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390158586283" ID="ID_1257836651" MODIFIED="1390921941574" STYLE="fork" TEXT="DECK_SIZE">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390158592405" ID="ID_970300899" MODIFIED="1390921941574" STYLE="fork" TEXT="SWAP_MIN">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390158604322" ID="ID_1802268932" MODIFIED="1390921941574" STYLE="fork" TEXT="SWAP_MAX">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390159377143" ID="ID_627141697" MODIFIED="1390921941574" STYLE="fork" TEXT="MAX_CARDS">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390159380038" ID="ID_1435821577" MODIFIED="1390921941574" STYLE="fork" TEXT="MAX_TEAM_PLAYERS">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390158676125" ID="ID_140286914" MODIFIED="1390921941574" STYLE="fork" TEXT="enum Suit">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#009999" CREATED="1390158694326" ID="ID_53889324" MODIFIED="1390921941574" STYLE="fork" TEXT="const int VALUES[]">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+</node>
+<node BACKGROUND_COLOR="#999999" CREATED="1390922615405" ID="ID_673085316" MODIFIED="1390923003402" POSITION="right" STYLE="bubble" TEXT="ASCII GUI">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+<node CREATED="1390922745810" ID="ID_778466380" MODIFIED="1390922998770" STYLE="fork" TEXT="output.c">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+<node COLOR="#3333ff" CREATED="1390922785161" ID="ID_594170820" MODIFIED="1390922998771" TEXT="printCards()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390922850272" ID="ID_1021221537" MODIFIED="1390922998771" TEXT="printPlayers()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+</node>
+<node CREATED="1390922800369" ID="ID_1191946474" MODIFIED="1390922998770" STYLE="fork" TEXT="input.c">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+<node COLOR="#3333ff" CREATED="1390922804225" ID="ID_1565311687" MODIFIED="1390922998772" STYLE="fork" TEXT="getBid()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390922813840" ID="ID_217854798" MODIFIED="1390922998772" STYLE="fork" TEXT="getTrump()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+<node COLOR="#3333ff" CREATED="1390922817832" ID="ID_1855825958" MODIFIED="1390922998771" STYLE="fork" TEXT="getCard()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
+</node>
+</node>
+</node>
+</map>

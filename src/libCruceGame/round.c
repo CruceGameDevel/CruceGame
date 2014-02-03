@@ -63,7 +63,7 @@ int round_deleteHand(struct Hand **hand)
     return NO_ERROR;
 }
 
-struct Player *round_getBidWinner(struct Hand *hand)
+struct Player *round_getBidWinner(const struct Hand *hand)
 {
     if (hand == NULL)
         return NULL;
@@ -84,7 +84,7 @@ struct Player *round_getBidWinner(struct Hand *hand)
  * @param hand Hand to search for player.
  * @return 0 on success, non-zero on failure.
  */
-int findPlayerIndexHand(struct Player *player, struct Hand *hand)
+int findPlayerIndexHand(const struct Player *player,const struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -102,7 +102,7 @@ int findPlayerIndexHand(struct Player *player, struct Hand *hand)
     return i;
 }
 
-int round_placeBid(struct Player *player, int bid, struct Hand *hand)
+int round_placeBid(const struct Player *player, int bid, struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -121,7 +121,7 @@ int round_placeBid(struct Player *player, int bid, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_addPlayer(struct Player *player, struct Hand *hand)
+int round_addPlayer(struct Player *player,struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -144,7 +144,7 @@ int round_addPlayer(struct Player *player, struct Hand *hand)
     return 0;
 }
 
-int round_removePlayer(struct Player *player, struct Hand *hand)
+int round_removePlayer(struct Player *player,struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -161,7 +161,7 @@ int round_removePlayer(struct Player *player, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_putCard(struct Player *player, int cardId, struct Hand *hand)
+int round_putCard(struct Player *player, int cardId,struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -181,7 +181,7 @@ int round_putCard(struct Player *player, int cardId, struct Hand *hand)
     return 0;
 }
 
-int round_computeScore(struct Hand *hand)
+int round_computeScore(const struct Hand *hand)
 {
     if (hand == NULL)
         return HAND_NULL;
@@ -198,7 +198,7 @@ int round_computeScore(struct Hand *hand)
     return gameScore;
 }
 
-struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
+struct Player *round_handWinner(const struct Hand *hand, enum Suit trump)
 {
     if (hand == NULL || trump == SuitEnd)
         return NULL;
@@ -233,7 +233,7 @@ struct Player *round_handWinner(struct Hand *hand, enum Suit trump)
     return hand->players[playerWinner];
 }
 
-int round_distributeCard(struct Deck *deck, struct Hand *hand)
+int round_distributeCard(struct Deck *deck,const struct Hand *hand)
 {
     if (deck == NULL)
         return DECK_NULL;
@@ -269,7 +269,7 @@ int round_distributeCard(struct Deck *deck, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_distributeDeck(struct Deck *deck, struct Hand *hand)
+int round_distributeDeck(struct Deck *deck, const struct Hand *hand)
 {
     if (deck == NULL)
         return DECK_NULL;
@@ -294,4 +294,3 @@ int round_distributeDeck(struct Deck *deck, struct Hand *hand)
 
     return NO_ERROR;
 }
-

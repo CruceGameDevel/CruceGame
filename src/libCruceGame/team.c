@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
+struct Player *team_createPlayer(const char *name, int sockfd, int isHuman)
 {
     if (name == NULL)
         return NULL;
@@ -28,7 +28,7 @@ struct Player *team_createPlayer(char *name, int sockfd, int isHuman)
     return newPlayer;
 }
 
-struct Team *team_createTeam(char *name)
+struct Team *team_createTeam(const char *name)
 {
     if (name == NULL)
         return NULL;
@@ -67,7 +67,7 @@ int team_addPlayer(struct Team *team, struct Player *player)
     return TEAM_FULL;
 }
 
-int team_removePlayer(struct Team *team, struct Player *player)
+int team_removePlayer(struct Team *team,const struct Player *player)
 {
     if (team == NULL)
         return TEAM_NULL;
@@ -134,7 +134,7 @@ int team_computeScore(const struct Team *team)
     return returnScore;
 }
 
-int team_addCard(struct Player *player, struct Card *card)
+int team_addCard(struct Player *player,struct Card *card)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -154,4 +154,3 @@ int team_addCard(struct Player *player, struct Card *card)
 
     return FULL;
 }
-

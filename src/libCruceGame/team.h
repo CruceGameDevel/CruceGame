@@ -13,7 +13,7 @@
  */
 struct Player{
     int id;
-    char *name;
+    const char *name;
     struct Card *hand[MAX_CARDS];
     int score;
     int sockfd;
@@ -25,7 +25,7 @@ struct Player{
  */
 struct Team{
     int id;
-    char *name;
+    const char *name;
     struct Player *players[MAX_TEAM_PLAYERS];
 };
 
@@ -38,7 +38,7 @@ struct Team{
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-struct Player *team_createPlayer(char *name, int sockfd, int isHuman);
+struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
 
 /**
  * @brief Function for basic team creation.
@@ -47,7 +47,7 @@ struct Player *team_createPlayer(char *name, int sockfd, int isHuman);
  *
  * @return Pointer to the created team. Needs to be freed.
  */
-struct Team *team_createTeam(char *name);
+struct Team *team_createTeam(const char *name);
 
 /**
 * @brief Function for adding a player in a team.
@@ -67,7 +67,7 @@ int team_addPlayer(struct Team *team, struct Player *player);
 *
 * @return 0 If the player was removed from a team. Otherwise -1.
 */
-int team_removePlayer(struct Team *team, struct Player *player);
+int team_removePlayer(struct Team *team,const struct Player *player);
 
 /**
  * @brief Function for deleting a Team. Sets pointer to NULL.
@@ -105,6 +105,6 @@ int team_computeScore(const struct Team *team);
 *
 * @return NO_ERROR or 0 on success. Other value on failure.
 */
-int team_addCard(struct Player *player, struct Card *card);
+int team_addCard(struct Player *player,struct Card *card);
 
 #endif

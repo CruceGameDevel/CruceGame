@@ -1,4 +1,4 @@
-#include <libCruceGame.h>
+#include <cruceGame.h>
 
 /**
  * @brief Function to display a greeting message at the beginning of a new

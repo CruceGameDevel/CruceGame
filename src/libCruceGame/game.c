@@ -45,13 +45,16 @@ int game_addPlayer(struct Player *player, struct Game *game)
         return GAME_NULL;
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if (game->players[i] == player)
+            return DUPLICATE;
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] == NULL) {
             game->players[i] = player;
             game->numberPlayers++;
             return NO_ERROR;
         }
-        if (game->players[i] == player)
-            return DUPLICATE;
     }
 
     return FULL;

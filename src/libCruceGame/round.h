@@ -21,7 +21,6 @@
 struct Hand{
     struct Card *cards[MAX_GAME_PLAYERS];
     struct Player *players[MAX_GAME_PLAYERS];
-    int bids[MAX_GAME_PLAYERS];
 };
 
 /**
@@ -33,6 +32,8 @@ struct Round{
     int id;
     enum Suit trump;
     struct Hand *hands[MAX_HANDS];
+    int bids[MAX_GAME_PLAYERS];
+    struct Player *players[MAX_GAME_PLAYERS];
 };
 
 /**
@@ -41,7 +42,7 @@ struct Round{
  * @param hand The Hand where to find the bid winner.
  * @return The bid winner.
  */
-struct Player *round_getBidWinner(struct Hand *hand);
+struct Player *round_getBidWinner(const struct Round *round);
 
 /**
  * @brief Function to place bid for a player.
@@ -51,7 +52,7 @@ struct Player *round_getBidWinner(struct Hand *hand);
  * @param hand The hand where to place the bid.
  * @return 0 on success, non-zero on failure.
  */
-int round_placeBid(struct Player *player, int bid, struct Hand *hand);
+int round_placeBid(const struct Player *player, int bid, struct Round *round);
 
 /**
  * @brief Function to add player to a hand.
@@ -60,7 +61,9 @@ int round_placeBid(struct Player *player, int bid, struct Hand *hand);
  * @param player Player to be added.
  * @return 0 on success, non-zero on failure.
  */
-int round_addPlayer(struct Player* player, struct Hand *hand);
+int round_addPlayer(struct Player* player, struct Round *round);
+
+int round_addPlayerHand(struct Player *player, struct Hand *hand);
 
 /**
  * @brief Function to give cards from players.
@@ -78,16 +81,16 @@ int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  * @param hand Hand to compute score.
  * @return score on success, negative on failure.
  */
-int round_computeScore(struct Hand *hand);
+int round_computeScore(const struct Hand *hand);
 
 /**
  * @brief Function to allocate memory for and initialize a Round.
  *
- * @param trump Trump used in this round.
+ * @param trump id of this round.
  *
  * @return Pointer to the new Round on success, NULL otherwise.
  */
-struct Round *round_createRound(enum Suit trump);
+struct Round *round_createRound();
 
 /**
  * @brief Function to free memory of a Round. Makes pointer NULL.
@@ -122,7 +125,8 @@ int round_deleteHand(struct Hand **hand);
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int round_removePlayer(struct Player *player, struct Hand *hand);
+int round_removePlayer(struct Player *player, struct Round *round);
+int round_removePlayerHand(struct Player *player, struct Hand *hand);
 
 /**
 * @brief Function for determining of the hand winner.
@@ -132,7 +136,27 @@ int round_removePlayer(struct Player *player, struct Hand *hand);
 *
 * @return Pointer to the winner player. Otherwise NULL.
 */
-struct Player *round_handWinner(struct Hand *hand, enum Suit trump);
+struct Player *round_handWinner(const struct Hand *hand, enum Suit trump);
+
+/**
+* @brief The function distributes one card every player.
+*
+* @param deck The deck from where it distributes.
+* @param hand The players to receive the cards.
+*
+* @return NO_ERROR or 0 on success, other value on failure.
+*/
+int round_distributeCard(struct Deck *deck,const struct Round *round);
+
+/**
+* @brief Function for distribution the cards the players.
+*
+* @param deck The deck to be distributed.
+* @param hand The round at that to distributes the deck.
+*
+* @return NO_ERROR or 0 on success, other value on failure.
+*/
+int round_distributeDeck(struct Deck *deck,const struct Round *round);
 
 #endif
 

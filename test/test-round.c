@@ -147,7 +147,7 @@ void test_round_removePlayer()
 
 /**
  * The function creates a hand where the players put the cards given as
- * parameters in order and compares it with the winner id provided.
+ * parameters in order and compares it with the winner it provided.
  *
  * cardSuits and cardValue MUST have at least testSize slots and testSize
  * should be at least 2.

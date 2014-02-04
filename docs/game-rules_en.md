@@ -24,7 +24,7 @@ the players form one member teams) while in the last case, it will be played in
 A game consists of more __rounds__ and it ends when one of the teams reaches a
 certain score. The score's value is fixed at the start of the game, being
 usually 11, 15 or 21. To end a game, it is necessary that there must be a gap of
-2 game points among the player who crossed the point limit and opponent.
+2 game points between the player who crossed the point limit and opponent.
 Otherwise, the game will continue until this constraint is fulfilled.
 
 # The round
@@ -79,11 +79,11 @@ decreases. Also, here is only one bet for every round. It is possible not to bid
 * IX, 0 card points
 * X, 10 card points
 * ACE, 11 card points
-* Bid points - Choose by player at the start of every round
+* Bid points - Chosen by player at the start of every round
 * Score points - Tells the current score point of player, (Game Points - Score
   Points) tells how much more Score points
-  required to win the game.
-* Game points - Choose by player to win the game
+  are required to win the game.
+* Game points - Chosen by player to win the game
 
 
 There are also some card combinations that may bring bonus points. If a player
@@ -116,7 +116,7 @@ card that will win the round, if possible.
 
 If the trump was not played, the round is won by the player who put the card
 with the highest value and the suit of the first card.
-If the trump was players, the round is won by the player who put the trump with
+If the trump was played, the round is won by the player who put the trump with
 the higest value.
 The player who wins the round will start the next one.
 
@@ -134,13 +134,13 @@ This are the basics of a game of "cruce". Here are some keywords:
 * Score
 * Round
 * Bid
-* Tromp
+* Trump
 
 Now, it is time for a resume:
 In a game of "cross" will be played as many rounds as necessary for a team to
 win. In every round, each player gets a number of cards, depending on the number
 of players. After all players saw their cards, a bidding takes place, which is
-won by the player who bids the most. The winner chooses the tromp and starts the
+won by the player who bids the most. The winner chooses the trump and starts the
 first round. There will be a fixed number of hands, equal with the number of
 cards each player gets. At the end of all hands, the points are counted and the
 score is updated.

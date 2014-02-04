@@ -67,7 +67,7 @@ Functions
 -----
 
 Functions should be as modular as possible. Every function should do one thing,
-and do it good. Please document your functions and test them before making a
+and do it well. Please document your functions and test them before making a
 pull request. Keep your functions as short and simple as possible.
 
 Commenting

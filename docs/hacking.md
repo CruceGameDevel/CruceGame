@@ -100,7 +100,7 @@ branch and groups together all commits that together added the feature.
 ###Release branches
 
 Release branches support preparation for a new production release. Their purpose
-is to allow small changes (correcting typos small bug fixes), while develop
+is to allow small changes (correcting typos, small bug fixes) while develop
 branch remins open for new patches. All features tagged for the current version
 must be integrated into develop by this time. Patches added to develop branch
 after this one was created will be added to the next release. Release branches
@@ -129,7 +129,7 @@ Issues
 -----
 
 When working on an issue, you will make another branch. Please name it
-accordingly (*-bugfix for issues maked as bugs, no special name for features
+accordingly (*-bugfix for issues marked as bugs, no special name for features
 and so on). It is not necessary to make one branch for each issue (some may
 require more branches, or more related issues may be fixed in the same branch).
 The commit names in that branch will contain in their message #xx, where xx is
@@ -147,7 +147,7 @@ all fixed issues. For example:
 
 Do not use any other ways to close an issue that require code. Do not comment
 things like "I have fixed the issue". If you use the commit names as I
-described above, they will be automatically liked to the issue and we will see
+described above, they will be automatically linked to the issue and we will see
 them.
 
 
@@ -205,7 +205,7 @@ Testing
 For testing we use the cutter framework. It is recommended you read and
 follow their tutorial: http://cutter.sourceforge.net/reference/tutorial.html,
 as it covers both the use of cutter framework and build tools. Our build
-scrips are very similar to those.
+scripts are very similar to those.
 In cutter's reference: http://cutter.sourceforge.net/reference/ you will find
 all the informations you need about installing and using the framework.
 All functions MUST be tested. There should be tests for non-valid parameters
@@ -218,7 +218,7 @@ Versioning
 For versioning we use semantic versioning: http://www.semver.org. The most
 important things you need to know and modifications to that reference are:
 
-1. Once a version has been released, its contents must not modified.
+1. Once a version has been released, its contents must not be modified.
 2. Version 0.x.y is for initial development.
 3. The patch version must be reset to 0 when a new minor version is released.
 Simillar, the minor and patch versions should be reset to 0 when a major version
@@ -264,6 +264,8 @@ Please document your names and your e-mail addresses.
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
 * Alin Enachescu (<alinenachescu033@gmail.com>)
+
+* Mihai Ciupina (mihai.ciupina@gmail.com)
 
 Contributors
 =======

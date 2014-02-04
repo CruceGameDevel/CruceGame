@@ -52,7 +52,7 @@ struct Team *team_createTeam(char *name);
 /**
 * @brief Function for adding a player in a team.
 *
-* @param team The team in that is added the player.
+* @param team The team in where is added the player.
 * @param player The player to be added in the team.
 *
 * @return 0 If the player was added in team. Otherwise -1.
@@ -62,7 +62,7 @@ int team_addPlayer(struct Team *team, struct Player *player);
 /**
 * @brief Function for removing a player from a team.
 *
-* @param team The team from that is remove the player.
+* @param team The team from where is remove the player.
 * @param player The player that will be removed.
 *
 * @return 0 If the player was removed from a team. Otherwise -1.

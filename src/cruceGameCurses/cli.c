@@ -1,8 +1,10 @@
 #include "cli.h"
 
 #include <curses.h>
+#include <stdlib.h>
 
 #define MAX_CARDS_PER_LINE 8
+#define MAX_NAME_SIZE 50
 
 void welcomeMessage()
 {
@@ -95,3 +97,12 @@ int getNoOfPlayers()
     return ch - '0';
 }
 
+struct Player *newPlayer(int i)
+{
+    char *name = malloc(MAX_NAME_SIZE*sizeof(char));
+    printw("Insert player %d name: ", i);
+    scanw("%s", name);
+
+    struct Player *player = team_createPlayer(name, 0, 1);
+    return player;
+}

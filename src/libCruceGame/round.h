@@ -15,7 +15,6 @@
  * @brief Hand structure.
  *
  * In a hand, player[i] gives cards[i] and bids bid[i].
- * The players array should use NULL as terminator.
  * The players should be added in the order of the bids.
  */
 struct Hand{
@@ -25,8 +24,6 @@ struct Hand{
 
 /**
  * @brief Round structure.
- * 
- * hands uses NULL as terminator.
  */
 struct Round{
     int id;
@@ -39,72 +36,75 @@ struct Round{
 /**
  * @brief Function to find the bid winner in a round.
  *
- * @param round The round where to find the bid winner.
- * @return The bid winner.
+ * @param round Pointer to the round where to find the bid winner.
+ *
+ * @return Pointer to the bid winner player. Otherwise NULL.
  */
 struct Player *round_getBidWinner(const struct Round *round);
 
 /**
  * @brief Function to place bid for a player.
  *
- * @param player The player who places the bid.
+ * @param player Pointer to the player who places the bid.
  * @param bid The value of the bid.
- * @param round The round where to place the bid.
- * @return 0 on success, non-zero on failure.
+ * @param round Pointer to the round where to place the bid.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
 int round_placeBid(const struct Player *player, int bid, struct Round *round);
 
 /**
  * @brief Function to add player to a round.
  *
- * @param player Player to be added.
- * @param round The round where to add player.
+ * @param player Pointer to the Player to be added.
+ * @param round Pointer to the round where to add player.
  * 
- * @return 0 on success, non-zero on failure.
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
 int round_addPlayer(struct Player* player, struct Round *round);
 
 /**
  * @brief Function to add player to a hand.
  *
- * @param player Player to be added.
- * @param hand The hand where to add player.
+ * @param player Pointer to the player to be added.
+ * @param hand Pointer to the hand where to add player.
  *
- * @return 0 on success, non-zero on failure.
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
 int round_addPlayerHand(struct Player *player, struct Hand *hand);
 
 /**
  * @brief Function to give cards from players.
  *
- * @param player Player who gives the card.
+ * @param player Pointer to the player who gives the card.
  * @param cardId Card id given by player (id from Player.cards).
- * @param hand Hand in which the card is given.
- * @return 0 on success, non-zero on failure.
+ * @param hand Pointer to the hand in which the card is given.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
 int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  
 /**
  * @brief Function to find the score of the hand (in game points).
  *
- * @param hand Hand to compute score.
- * @return score on success, negative on failure.
+ * @param hand Pointer to the hand to compute score.
+ *
+ * @return positive or zero on success, negative on failure.
+ *
  */
 int round_computeScore(const struct Hand *hand);
 
 /**
  * @brief Function to allocate memory for and initialize a Round.
  *
- * @param void
- *
- * @return Pointer to the new Round on success, NULL otherwise.
+ * @return Pointer to the new round on success, NULL otherwise.
  */
 struct Round *round_createRound();
 
 /**
  * @brief Function to free memory of a Round. Makes pointer NULL.
  *
- * @param round Round to be freed.
+ * @param round Pointer to the round to be freed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
@@ -118,9 +118,9 @@ int round_deleteRound(struct Round **round);
 struct Hand *round_createHand();
 
 /**
- * @brief Function to free memory of a Hand. Makes pointer NULL.
+ * @brief Function to free memory of a hand. Makes pointer NULL.
  *
- * @param hand Hand to be freed.
+ * @param hand Pointer to the hand to be freed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
@@ -129,8 +129,8 @@ int round_deleteHand(struct Hand **hand);
 /**
  * @brief Function to remove a player from a round.
  *
- * @param player The player to be removed.
- * @param round The round from where to be removed.
+ * @param player Pointer to the player to be removed.
+ * @param round Pointer to the round from where to be removed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
@@ -139,8 +139,8 @@ int round_removePlayer(struct Player *player, struct Round *round);
 /**
  * @brief Function to remove a player from a hand.
  * 
- * @param player The player to be removed.
- * @param hand The hand from where to be removed.
+ * @param player Pointer to the player to be removed.
+ * @param hand Pointer to the hand from where to be removed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  *
@@ -150,7 +150,7 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand);
 /**
 * @brief Function for determining of the hand winner.
 *
-* @param hand Hand it is determined the winner.
+* @param hand Pointer to the hand that determines the winner.
 * @param trump Is the trump of round.
 *
 * @return Pointer to the winner player. Otherwise NULL.
@@ -160,8 +160,8 @@ struct Player *round_handWinner(const struct Hand *hand, enum Suit trump);
 /**
 * @brief The function distributes one card to every player.
 *
-* @param deck The deck from where it distributes.
-* @param round The players to receive the cards.
+* @param deck Pointer to the deck from where it distributes.
+* @param round Pointer to the round containing the  players to receive the cards.
 *
 * @return NO_ERROR or 0 on success, other value on failure.
 */
@@ -170,8 +170,8 @@ int round_distributeCard(struct Deck *deck,const struct Round *round);
 /**
 * @brief Function for distributing the cards to the players.
 *
-* @param deck The deck to be distributed.
-* @param hand The round at that to distributes the deck.
+* @param deck Pointer to the deck to be distributed.
+* @param hand Pointer to the round that deck is distributed to.
 *
 * @return NO_ERROR or 0 on success, other value on failure.
 */

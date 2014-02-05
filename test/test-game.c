@@ -8,7 +8,7 @@
 
 void test_game_createGame()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         cut_assert_equal_pointer(NULL, game->players[i]);
@@ -16,16 +16,18 @@ void test_game_createGame()
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         cut_assert_equal_pointer(NULL, game->teams[i]);
 
+    cut_assert_equal_pointer(NULL, game_createGame(0));
     cut_assert_equal_pointer(NULL, game->deck);
     cut_assert_equal_pointer(NULL, game->round);
     cut_assert_equal_int(0, game->numberPlayers);
+    cut_assert_equal_int(11, game->numberPoints);
 
     game_deleteGame(&game);
 }
 
 void test_game_deleteGame()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
 
     cut_assert_equal_int(NO_ERROR, game_deleteGame(&game));
     cut_assert_equal_pointer(NULL, game);
@@ -35,7 +37,7 @@ void test_game_deleteGame()
 
 void test_game_addPlayer()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
     struct Player *player[MAX_GAME_PLAYERS];
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
@@ -65,7 +67,7 @@ void test_game_addPlayer()
 
 void test_game_removePlayer()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
     struct Player *player[MAX_GAME_PLAYERS];
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
@@ -93,7 +95,7 @@ void test_game_removePlayer()
 
 void test_addTeam()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
     struct Team *team[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
@@ -122,7 +124,7 @@ void test_addTeam()
 
 void test_game_removeTeam()
 {
-    struct Game *game = game_createGame();
+    struct Game *game = game_createGame(11);
     struct Team *team[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
@@ -147,3 +149,34 @@ void test_game_removeTeam()
 
     game_deleteGame(&game);
 }
+
+void test_game_winningTeam()
+{
+    cut_assert_equal_pointer(NULL, game_winningTeam(NULL));
+
+    struct Game *game = game_createGame(11);
+    struct Player *players[MAX_GAME_PLAYERS];
+    struct Team *teams[MAX_GAME_TEAMS];
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        teams[i] = team_createTeam("A");
+        players[i] = team_createPlayer("A", i, i);
+        game_addPlayer(players[i], game);
+        team_addPlayer(teams[i / 2], players[i]);
+    }
+
+    game_addTeam(teams[0], game);
+    game_addTeam(teams[1], game);
+
+    cut_assert_equal_pointer(NULL, game_winningTeam(game));
+
+    players[4]->score = 100;
+    cut_assert_equal_pointer(teams[1], game_winningTeam(game));
+
+    players[0]->score = 11;
+    cut_assert_equal_pointer(NULL, game_winningTeam(game));
+    cut_assert_equal_int(21, game->numberPoints);
+
+}
+
+

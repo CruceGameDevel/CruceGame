@@ -34,3 +34,12 @@ int printPlayerCards(struct Player *player);
  */
 int getNoOfPlayers();
 
+/**
+ * @brief Function to get user data and create a new Player.
+ *
+ * @param i The player number.
+ *
+ * @return Pointer to the new Player.
+ */
+struct Player *newPlayer(int i);
+

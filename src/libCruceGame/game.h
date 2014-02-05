@@ -16,7 +16,7 @@
  */
 struct Game {
     int numberPlayers;
-    int numberPoints;
+    int pointsNumber;
     struct Round *round;
     struct Player *players[MAX_GAME_PLAYERS];
     struct Team *teams[MAX_GAME_TEAMS];

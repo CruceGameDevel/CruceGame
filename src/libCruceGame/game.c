@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Game *game_createGame(int numberPoints)
+struct Game *game_createGame(int pointsNumber)
 {
     struct Game *newGame = malloc(sizeof(struct Game));
     if (newGame == NULL)
@@ -17,8 +17,8 @@ struct Game *game_createGame(int numberPoints)
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         newGame->teams[i] = NULL;
 
-    if (numberPoints > 0)
-        newGame->numberPoints = numberPoints;
+    if (pointsNumber > 0)
+        newGame->pointsNumber = pointsNumber;
     else
         return NULL;
 
@@ -133,27 +133,20 @@ struct Team *game_winningTeam(struct Game *game)
     int score[MAX_GAME_TEAMS];
     int checkTeams = 0;
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
-        score[i] = 0;
-        if (game->teams[i] != NULL) {
-            for (int j = 0; j < MAX_TEAM_PLAYERS; j++) {
-                if (game->teams[i]->players[j] != NULL) {
-                    score[i] += game->teams[i]->players[j]->score;
-                }
-            }
-            if (score[i] >= game->numberPoints)
-                checkTeams++;
+        score[i] = team_computeScore(game->teams[i]);
+         if (score[i] >= game->pointsNumber)
+             checkTeams++;
         }
-    }
 
     if (checkTeams == 0)
         return NULL;
     if (checkTeams == 1) {
         for (int i = 0; i < MAX_GAME_TEAMS; i++)
-            if (score[i] >= game->numberPoints)
+            if (score[i] >= game->pointsNumber)
                 return game->teams[i];
     }
     if (checkTeams > 1) {
-        game->numberPoints += 10;
+        game->pointsNumber += 10;
         return NULL;
     }
 

@@ -20,7 +20,7 @@ void test_game_createGame()
     cut_assert_equal_pointer(NULL, game->deck);
     cut_assert_equal_pointer(NULL, game->round);
     cut_assert_equal_int(0, game->numberPlayers);
-    cut_assert_equal_int(11, game->numberPoints);
+    cut_assert_equal_int(11, game->pointsNumber);
 
     game_deleteGame(&game);
 }
@@ -175,7 +175,7 @@ void test_game_winningTeam()
 
     players[0]->score = 11;
     cut_assert_equal_pointer(NULL, game_winningTeam(game));
-    cut_assert_equal_int(21, game->numberPoints);
+    cut_assert_equal_int(21, game->pointsNumber);
 
 }
 

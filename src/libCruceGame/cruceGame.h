@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "team.h"
 #include "round.h"
+#include "game.h"
 #include "errors.h"
 #include "constants.h"

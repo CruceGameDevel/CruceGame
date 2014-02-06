@@ -39,7 +39,7 @@
 /** 
 * @brief MAximum number of teams in a game
 */
-#define MAX_GAME_TEAMS 2
+#define MAX_GAME_TEAMS 4
 
 /**
  * @brief Constants for suit.

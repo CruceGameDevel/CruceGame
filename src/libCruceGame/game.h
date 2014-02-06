@@ -16,6 +16,7 @@
  */
 struct Game {
     int numberPlayers;
+    int pointsNumber;
     struct Round *round;
     struct Player *players[MAX_GAME_PLAYERS];
     struct Team *teams[MAX_GAME_TEAMS];
@@ -25,9 +26,11 @@ struct Game {
 /**
  * @brief Function to allocate memory for and initialize a Game.
  *
+ * @param numberPoints The points number at that finish it the game.
+ *
  * @return Pointer to the new Game on success, NULL on failure.
  */
-struct Game *game_createGame();
+struct Game *game_createGame(int numberPoints);
 
 /**
  * @brief Function to free memory of a Game. Makes pointer NULL.
@@ -78,6 +81,15 @@ int game_addTeam(struct Team *team, struct Game *game);
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int game_removeTeam(struct Team *team, struct Game *game);
+
+/**
+ * @brief Function to search the winning team of a game.
+ *
+ * @param game The game in which search it the winning team.
+ *
+ * @return Pointer to the winner team on success, NULL on failure.
+ */
+struct Team *game_winningTeam(struct Game *game);
 
 #endif
 

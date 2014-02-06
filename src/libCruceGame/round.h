@@ -104,7 +104,7 @@ struct Round *round_createRound();
 /**
  * @brief Function to free memory of a Round. Makes pointer NULL.
  *
- * @param round Pointer to the round to be freed.
+ * @param round Pointer to pointer to the round to be freed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
@@ -120,7 +120,7 @@ struct Hand *round_createHand();
 /**
  * @brief Function to free memory of a hand. Makes pointer NULL.
  *
- * @param hand Pointer to the hand to be freed.
+ * @param hand Pointer to pointer to the hand to be freed.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */

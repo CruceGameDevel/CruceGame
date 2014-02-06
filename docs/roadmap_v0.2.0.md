@@ -4,7 +4,7 @@ Roadmap for v0.2.0
 Game functionality. Required: C
 ------
 
-* Add basic data structures (others may be needed):
+* Add basic data structures (others might be needed):
 * * Player
 * * Team
 * * Game

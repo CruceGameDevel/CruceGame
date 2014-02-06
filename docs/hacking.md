@@ -150,7 +150,7 @@ all fixed issues. For example:
 
 Do not use any other ways to close an issue that require code. Do not comment
 things like "I have fixed the issue". If you use the commit names as I
-described above, they will be automatically liked to the issue and we will see
+described above, they will be automatically linked to the issue and we will see
 them.
 
 
@@ -221,7 +221,7 @@ Versioning
 For versioning we use semantic versioning: http://www.semver.org. The most
 important things you need to know and modifications to that reference are:
 
-1. Once a version has been released, its contents must not modified.
+1. Once a version has been released, its contents must not be modified.
 2. Version 0.x.y is for initial development.
 3. The patch version must be reset to 0 when a new minor version is released.
 Similarly, the minor and patch versions should be reset to 0 when a major version
@@ -267,6 +267,8 @@ Please document your names and your e-mail addresses.
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
 * Alin Enachescu (<alinenachescu033@gmail.com>)
+
+* Mihai Ciupina (mihai.ciupina@gmail.com)
 
 Contributors
 =======

@@ -12,7 +12,7 @@ The values for color and value should be constants.
 * name
 * score
 * cards (in his hand at the moment)
-* socketfd (socket file descriptor used for communication with him)
+* socketfd (file descriptor of the socket used to communicate with player)
 * type (human or AI)
 
 ### Team
@@ -22,7 +22,7 @@ The values for color and value should be constants.
 ### Round
 * id
 * trump
-* hands (array of Hand)
+* hands (array of Hand data structures)
 * bids (association between players and their bids)
 
 ### Hand

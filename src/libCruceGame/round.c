@@ -129,7 +129,7 @@ int round_addPlayer(struct Player *player, struct Round *round)
         return ROUND_NULL;
 
     int index = findPlayerIndexRound(player, round);
-    if(index >= 0) //impossible to add same player multimple time
+    if(index >= 0) //impossible to add same player multiple time
         return DUPLICATE;
 
     int i = 0;

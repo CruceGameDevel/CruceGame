@@ -44,14 +44,14 @@
 /**
  * @brief Constants for suit.
  *
- * end is a flag used when iterating
+ * SuitEnd is a flag used when iterating
  */
 enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
 
 /**
  * @brief Game values for cards
  *
- * -1 is a flag used whe iterating
+ * -1 is a flag used when iterating
  */
 extern const int VALUES[7];
 

@@ -34,6 +34,7 @@ struct Round{
     struct Hand *hands[MAX_HANDS];
     int bids[MAX_GAME_PLAYERS];
     struct Player *players[MAX_GAME_PLAYERS];
+    int pointsNumber[MAX_GAME_PLAYERS];
 };
 
 /**
@@ -136,7 +137,8 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand);
 *
 * @return Pointer to the winner player. Otherwise NULL.
 */
-struct Player *round_handWinner(const struct Hand *hand, enum Suit trump);
+struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
+                                struct Round *round);
 
 /**
 * @brief The function distributes one card every player.

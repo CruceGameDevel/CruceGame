@@ -2,6 +2,7 @@
 
 #include <curses.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 50
@@ -106,3 +107,76 @@ struct Player *newPlayer(int i)
     struct Player *player = team_createPlayer(name, 0, 1);
     return player;
 }
+
+int printScore(struct Game *game, struct Round *round)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (round == NULL)
+        return ROUND_NULL;
+
+    char verticalBoxDouble[] = {0xe2, 0x95, 0x91, 0x00};
+    char horizontalBoxDouble[] = {0xe2, 0x95, 0x90, 0x00};
+    char downRightBoxDouble[] = {0xe2, 0x95, 0x94, 0x00};
+    char downLeftBoxDouble[] = {0xe2, 0x95, 0x97, 0x00};
+    char upRightBoxDouble[] = {0xe2, 0x95, 0x9a, 0x00};
+    char upLeftBoxDouble[] = {0xe2, 0x95, 0x9d, 0x00};
+
+    int maxLength = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (game->players[i] != NULL) {
+            int length = strlen(game->players[i]->name);
+            if (length > maxLength)
+                maxLength = length;
+        }   
+
+    int x, y;
+    int line = 0;
+    getyx(stdscr, y, x);
+
+    int i;
+    printw("%s",downRightBoxDouble);
+    for (i = 1; i <= maxLength + 13; i++) {
+        move(y, x + i);
+        printw("%s", horizontalBoxDouble);
+    }
+    move(y, x + i + 1);
+    printw("%s", downLeftBoxDouble);
+    line++;
+
+    move(y + 1, x);
+    printw("%sNume", verticalBoxDouble);
+    move(y + 1, x + maxLength + 1);
+    printw("%sPuncte", verticalBoxDouble);
+    move(y + 1, x + maxLength + 8);
+    printw("%sScor%s", verticalBoxDouble, verticalBoxDouble);
+
+    for (i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if (game->players[i] != NULL) {
+            move(y + line, x);
+            printw("%s", verticalBoxDouble);
+            for (int j = 1; j <= maxLength + 13; j++)
+                printw("%s", horizontalBoxDouble);
+            printw("%s", verticalBoxDouble);
+            line++;
+            move(y + line, x);
+            printw("%s%s", verticalBoxDouble, game->players[i]->name);
+            move(y + line, x + maxLength + 1);
+            printw("%s%d", verticalBoxDouble, game->players[i]->score);
+            move(y + line, x + maxLength + 8);
+            printw("%s%d%s", verticalBoxDouble, 
+                   round->pointsNumber[i], verticalBoxDouble);
+            line++;
+        }            
+    }
+
+    move(y + line, x);
+    printw("%s", upRightBoxDouble); 
+    for (i = 0; i <= maxLength + 13; i++)
+        printw("%s", horizontalBoxDouble);
+    printw("%s", upLeftBoxDouble);
+
+    return NO_ERROR;
+}
+
+

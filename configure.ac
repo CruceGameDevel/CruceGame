@@ -11,6 +11,7 @@ AM_INIT_AUTOMAKE([subdir-objects])
 AC_PROG_LIBTOOL
 
 AC_CHECK_CUTTER
+AC_CHECK_HEADERS([curses.h])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile

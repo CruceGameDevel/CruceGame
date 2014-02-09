@@ -28,61 +28,60 @@ struct Deck{
 };
 
 /**
- * @brief Function to allocate and initialize a Card.
+ * @brief Allocates and initializes a card.
  *
- * @param suit The suit of the new Card.
- * @param value The value of the new Card.
+ * @param suit The suit of the new card.
+ * @param value The value of the new card.
  *
- * @return Pointer to the new card on success, NULL on failure.
+ * @return Pointer to the new card on success or NULL on failure.
  */
 struct Card *deck_createCard(enum Suit suit, int value);
 
 /**
- * @brief Function to free memory of a Card. Makes pointer NULL.
+ * @brief Frees the memory of a card and makes the pointer NULL.
  *
  * @param card Pointer to the pointer to be freed.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int deck_deleteCard(struct Card **card);
 
 /**
- * @brief Function to allocate and initialize a Deck.
+ * @brief Allocates and initializes a deck.
  *
- * @return Pointer to the new Deck on success, NULL on failure.
+ * @return Pointer to the new deck on success or NULL on failure.
  */
 struct Deck *deck_createDeck();
 
 /**
- * @brief Shuffle a deck.
- *
- * Randomly shuffles a deck.
+ * @brief Shuffles a deck.
  *
  * @param deck The deck to be shuffled.
- * @return NO_ERROR or 0 on success, other value on failure.
+ *
+ * @return NO_ERROR on success, error code otherwise.
  */
 int deck_deckShuffle(struct Deck *deck);
 
 /**
- * @brief Free memory for a Deck. Sets the pointer to NULL.
+ * @brief Frees the memory of a deck and sets the pointer to NULL.
  *
- * @param deck Pointer to the deck to be freed.
+ * @param deck Pointer to the pointer to be freed.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int deck_deleteDeck(struct Deck **deck);
 
 /**
 * @brief Compare two cards.
 *
-* @param card1 Is the first card.
-* @param card2 Is the second card.
-* @param trump Is the trump of the round.
+* @param card1 The first card.
+* @param card2 The second card.
+* @param trump The trump of the round.
 *
 * @return 0 If the cards are equal. 
 *         1 If the first card is winning.
 *         2 If the second card is winning.
-*         Other value on failure.
+*         Error code otherwise.
 */
 int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
 

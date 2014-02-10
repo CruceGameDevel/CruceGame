@@ -16,6 +16,7 @@
  */
 struct Game {
     int numberPlayers;
+    int pointsNumber;
     struct Round *round;
     struct Player *players[MAX_GAME_PLAYERS];
     struct Team *teams[MAX_GAME_TEAMS];
@@ -23,61 +24,72 @@ struct Game {
 };
 
 /**
- * @brief Function to allocate memory for and initialize a Game.
+ * @brief Allocates memory for and initializes a game.
  *
- * @return Pointer to the new Game on success, NULL on failure.
+ * @param numberPoints The number of points required for winning the game.
+ *
+ * @return Pointer to the new game on success or NULL on failure.
  */
-struct Game *game_createGame();
+struct Game *game_createGame(int numberPoints);
 
 /**
- * @brief Function to free memory of a Game. Makes pointer NULL.
+ * @brief Frees the memory of a game and makes the pointer NULL.
  *
- * @param game Pointer to the game to be freed.
+ * @param game Pointer to the game to be deleted.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int game_deleteGame(struct Game **game);
 
 /**
- * @brief Function to add player of a Game.
+ * @brief Adds a player to a game.
  *
  * @param player The player to be added.
- * @param game The game where to be added.
+ * @param game The game where the player is to be added.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int game_addPlayer(struct Player *player, struct Game *game);
 
 /**
- * @brief Function to remove player of a Game.
+ * @brief Removes a player from a game.
  *
  * @param player The player to be removed.
- * @param game The game where to be removed from.
+ * @param game The game from where the player is to be removed.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int game_removePlayer(struct Player *player, struct Game *game);
 
 /**
- * @brief Function to add a team to a Game.
+ * @brief Adds a team to a game.
  *
  * @param team The team to be added.
- * @param game The game where to be added to.
+ * @param game The game where the team is to be added to.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int game_addTeam(struct Team *team, struct Game *game);
 
  
 /**
- * @brief Function to remove team of a Game.
+ * @brief Removes a team from a game.
  *
  * @param team The team to be removed.
- * @param game The game where to be removed from.
+ * @param game The game from where the team is to be removed.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int game_removeTeam(struct Team *team, struct Game *game);
+
+/**
+ * @brief Searches the winning team of a game.
+ *
+ * @param game The game in which the winning team is to be search.
+ *
+ * @return Pointer to the winner team on success or NULL on failure.
+ */
+struct Team *game_winningTeam(struct Game *game);
 
 #endif
 

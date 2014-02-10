@@ -30,7 +30,7 @@ struct Team{
 };
 
 /**
- * @brief Function for basic player creation.
+ * @brief Creates a player.
  *
  * @param name The name of the new player.
  * @param sockfd Socket file descriptor for connection.
@@ -41,7 +41,7 @@ struct Team{
 struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
 
 /**
- * @brief Function for basic team creation.
+ * @brief Creates a team.
  *
  * @param name The name of the new team.
  *
@@ -50,60 +50,60 @@ struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
 struct Team *team_createTeam(const char *name);
 
 /**
-* @brief Function for adding a player in a team.
+* @brief Adds a player to a team.
 *
-* @param team The team in that is added the player.
-* @param player The player to be added in the team.
+* @param team The team to which the player is added.
+* @param player The player to be added to the team.
 *
-* @return 0 If the player was added in team. Otherwise -1.
+* @return NO_ERROR on success, error code otherwise.
 */
 int team_addPlayer(struct Team *team, struct Player *player);
 
 /**
-* @brief Function for removing a player from a team.
+* @brief Removes a player from a team.
 *
-* @param team The team from that is remove the player.
+* @param team The team from where the player is removed.
 * @param player The player that will be removed.
 *
-* @return 0 If the player was removed from a team. Otherwise -1.
+* @return NO_ERROR on success, error code otherwise.
 */
 int team_removePlayer(struct Team *team,const struct Player *player);
 
 /**
- * @brief Function for deleting a Team. Sets pointer to NULL.
+ * @brief Deletes a team and sets the pointer to NULL.
  *
- * @param team The team to be freed.
+ * @param team The team to be deleted.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int team_deleteTeam(struct Team **team);
 
 /**
- * @brief Function for deleting a Player. Sets pointer to NULL.
+ * @brief Deletes a player and sets the pointer to NULL.
  *
- * @param player The player to be freed.
+ * @param player The player to be deleted.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return NO_ERROR on success, error code otherwise.
  */
 int team_deletePlayer(struct Player **player);
 
 /**
- * @brief function for calculating the score of a team
+ * @brief Calculates the score of a team
  *
- * @param team The team to be computed
+ * @param team The team for which the score is to be be calculated
  *
- * @return int value representing the score, other value on failure.
+ * @return Integer representing the score or negative error code on failure.
  */
 int team_computeScore(const struct Team *team);
 
 /**
-* @brief Function for adding a card of a player. The function doesn't check
+* @brief Passes a card to a player. The function doesn't check
 *        if the card has valid value and valid suit. 
 *
 * @param player The player who receives the card.
 * @param card The card to be received.
 *
-* @return NO_ERROR or 0 on success. Other value on failure.
+* @return NO_ERROR on success, error code otherwise.
 */
 int team_addCard(struct Player *player,struct Card *card);
 

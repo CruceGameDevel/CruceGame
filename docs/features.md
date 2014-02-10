@@ -7,7 +7,7 @@ planned UIs, etc)
 - The game will be multiplayer, networked and it will allow the players to form
   teams, as described in docs/game-rules_en.md.
 - The game will have an AI module that may replace as many players as needed.
-  For a game to be possible, a least one human is needed.
+  For a game to be possible, at least one human is needed.
 - The game will be multithreaded.
 - The primary OS is linux. Use as many cross-platform features as possible.
 - The code should respect C99 standard and be at least POSIX compliant, if not

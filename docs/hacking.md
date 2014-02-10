@@ -54,7 +54,7 @@ Note that this is using https. You may use ssh as well.
 Use ```git remote -v``` to view your remotes.
 
 Use ```git fetch --all``` often to find out what other members of the team
-have done in the meanwile.
+have done in the meanwhile.
 
 Branching model
 ------
@@ -83,14 +83,17 @@ When starting work on a new feature, branch out of from develop branch:
 
 To integrate a feature branch into develop:
 
-```$ git checkout develop
-Switched to branch 'develop'
-$ git merge --no-ff myfeature
-Updating ea1b82a..05e9557
-(Summary of changes)
-$ git branch -d myfeature
-Deleted branch myfeature (was 05e9557).
-$ git push origin develop```
+```
+$ git checkout develop  
+Switched to branch 'develop'  
+$ git merge --no-ff myfeature 
+Updating ea1b82a..05e9557  
+(Summary of changes)  
+$ git branch -d myfeature  
+Deleted branch myfeature (was 05e9557).  
+$ git push origin develop  
+```
+    
 
 The --no-ff flag causes the merge to always create a new commit object, even if
 the merge could be performed with a fast-forward.
@@ -101,7 +104,7 @@ branch and groups together all commits that together added the feature.
 
 Release branches support preparation for a new production release. Their purpose
 is to allow small changes (correcting typos small bug fixes), while develop
-branch remins open for new patches. All features tagged for the current version
+branch remains open for new patches. All features tagged for the current version
 must be integrated into develop by this time. Patches added to develop branch
 after this one was created will be added to the next release. Release branches
 should be merged with master and develop.
@@ -119,23 +122,23 @@ instead of develop.
 Their name should be hotfix-\* and should indicate the version number.
 
 
-The creation and merge of release and hotfix branches is simillar to those from
+The creation and merge of release and hotfix branches is similar to those from
 feature branches.
 
-For more details about a simillar branching model, read the following resource:
+For more details about a similar branching model, read the following resource:
 http://nvie.com/posts/a-successful-git-branching-model/.
 
 Issues
 -----
 
 When working on an issue, you will make another branch. Please name it
-accordingly (*-bugfix for issues maked as bugs, no special name for features
+accordingly (*-bugfix for issues marked as bugs, no special name for features
 and so on). It is not necessary to make one branch for each issue (some may
 require more branches, or more related issues may be fixed in the same branch).
 The commit names in that branch will contain in their message #xx, where xx is
 the issue number (for example, #58), so git will automatically link the commit
 to the issue. After your work has been reviewed, you will have to merge your
-branch to the develop branch. When mergeing with no fast forward (as described
+branch to the develop branch. When merging with no fast forward (as described
 above), you will be asked for a commit message (as a merge commit will be
 created). Please include after the default name 'Fix #xx', without quotes.
 For example: Fix #58. Add this on a separate line. Make sure you specified
@@ -147,7 +150,7 @@ all fixed issues. For example:
 
 Do not use any other ways to close an issue that require code. Do not comment
 things like "I have fixed the issue". If you use the commit names as I
-described above, they will be automatically liked to the issue and we will see
+described above, they will be automatically linked to the issue and we will see
 them.
 
 
@@ -189,7 +192,7 @@ mistakes (for example, a post in another language than English).
    Freenode network.
    Its primary purpose is instant communication between developers. Note that
    discussions on this channel are not official.
-   The decisions made on this channel *MUST* be consemnated on the mailing list.
+   The decisions made on this channel *MUST* be mentioned on the mailing list.
    This channel is open.
 
  * There is also this group on Google+ available at the following URL:
@@ -205,7 +208,7 @@ Testing
 For testing we use the cutter framework. It is recommended you read and
 follow their tutorial: http://cutter.sourceforge.net/reference/tutorial.html,
 as it covers both the use of cutter framework and build tools. Our build
-scrips are very similar to those.
+scripts are very similar to those.
 In cutter's reference: http://cutter.sourceforge.net/reference/ you will find
 all the informations you need about installing and using the framework.
 All functions MUST be tested. There should be tests for non-valid parameters
@@ -218,10 +221,10 @@ Versioning
 For versioning we use semantic versioning: http://www.semver.org. The most
 important things you need to know and modifications to that reference are:
 
-1. Once a version has been released, its contents must not modified.
+1. Once a version has been released, its contents must not be modified.
 2. Version 0.x.y is for initial development.
 3. The patch version must be reset to 0 when a new minor version is released.
-Simillar, the minor and patch versions should be reset to 0 when a major version
+Similarly, the minor and patch versions should be reset to 0 when a major version
 is released.
 4. This project will have 5 milestones: 0.2.0, 0.4.0, 0.6.0, 0.8.0 and 1.0.0.
 The version 1.0.0 should respect all requirements described in
@@ -234,8 +237,8 @@ Having an overview
 =======
 As you are a beginner, it may be pretty hard for you to keep in mind the big
 picture of the project. So, we made a diagram of the entire project. It's pdf
-version is docs/CruceGame_architecture.pdf. There is also a freemind version,
-CruceGame_architecture.mm that you can modify to be up to date.
+version can be found in docs/CruceGame_architecture.pdf. There is also a freemind 
+version, CruceGame_architecture.mm that you can modify to be up to date.
 
 This diagrams respect the following legend:
 - functions are colored in dark blue  
@@ -264,6 +267,8 @@ Please document your names and your e-mail addresses.
 * Vladu Emilian Sorin (<vladuemilian@gmail.com>)
 
 * Alin Enachescu (<alinenachescu033@gmail.com>)
+
+* Mihai Ciupina (mihai.ciupina@gmail.com)
 
 Contributors
 =======

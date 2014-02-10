@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Game *game_createGame()
+struct Game *game_createGame(int pointsNumber)
 {
     struct Game *newGame = malloc(sizeof(struct Game));
     if (newGame == NULL)
@@ -16,6 +16,11 @@ struct Game *game_createGame()
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         newGame->teams[i] = NULL;
+
+    if (pointsNumber > 0)
+        newGame->pointsNumber = pointsNumber;
+    else
+        return NULL;
 
     newGame->numberPlayers = 0;
     newGame->round = NULL;
@@ -119,4 +124,37 @@ int game_removeTeam(struct Team *team, struct Game *game)
 
     return NO_ERROR;
 }
+
+struct Team *game_winningTeam(struct Game *game)
+{
+    if (game == NULL)
+        return NULL;
+
+    int score[MAX_GAME_TEAMS];
+    int checkTeams = 0;
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            score[i] = team_computeScore(game->teams[i]);
+            if (score[i] >= game->pointsNumber)
+                checkTeams++;
+        } else {
+            score[i] = 0;
+        }
+    }
+
+    if (checkTeams == 0)
+        return NULL;
+    if (checkTeams == 1) {
+        for (int i = 0; i < MAX_GAME_TEAMS; i++)
+            if (score[i] >= game->pointsNumber)
+                return game->teams[i];
+    }
+    if (checkTeams > 1) {
+        game->pointsNumber += 10;
+        return NULL;
+    }
+
+    return NULL;
+}
+
 

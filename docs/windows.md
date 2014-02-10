@@ -16,7 +16,7 @@ is ok even if you are runnig 64-bit Windows.
 ##Step 2 - Start the Installation
 
 Start the setup, and select `Install from Internet`, select the installation 
-folder and the a mirror near you.
+folder and a mirror near you.
 
 ##Step 3 - Select the Required Packages
 

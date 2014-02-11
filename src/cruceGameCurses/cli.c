@@ -54,16 +54,18 @@ int printCard(struct Card *card, int position)
 
     int x, y;
     getyx(stdscr, y, x);
+    printw("  %d  ", position + 1);
+    move(y + 1, x);
     printw(" ___ ");
-    move(y+1, x);
+    move(y + 2, x);
     printw("|%c  |", value);
-    move(y+2, x);
+    move(y + 3, x);
     printw("|%s  |", suit);
-    move(y+3, x);
+    move(y + 4, x);
     printw("|  %s|", suit);
-    move(y+4, x);
+    move(y + 5, x);
     printw("|  %c|", value);
-    move(y+5, x);
+    move(y + 6, x);
     char bottom[] = {0xE2, 0x80, 0xBE, 0x00};
     printw(" %s%s%s ", bottom, bottom, bottom);
     move(y, x + 6);

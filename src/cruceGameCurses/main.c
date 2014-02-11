@@ -20,7 +20,10 @@ int main()
         if (err != 0)
             printw("ERROR: game_addPlayer() %d\n", err);
     }
+    printCard(deck->cards[0], 1);
 
+    struct Round *round = round_createRound();
+    printScore(game, round);
 
     getch();
     endwin();

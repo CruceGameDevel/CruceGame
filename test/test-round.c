@@ -154,6 +154,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
                                     enum Suit trump, int testSize, int winner)
 {
     struct Hand *hand = round_createHand();
+    struct Round *round = round_createRound();
     struct Card **cards = malloc(testSize * sizeof(struct Card));
     struct Player **players = malloc(testSize * sizeof(struct Player));
 
@@ -165,7 +166,10 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
         round_putCard(players[i], 0, hand);
     }
 
-    cut_assert_equal_pointer(players[winner], round_handWinner(hand, trump));
+    cut_assert_equal_pointer(players[winner],
+                             round_handWinner(hand, trump, round));
+    cut_assert_equal_int(round->pointsNumber[winner], 9);
+    round->pointsNumber[winner] = 0;
 
     for (int i = 0; i < testSize; i++) {
         deck_deleteCard(&cards[i]);
@@ -173,6 +177,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
     }
 
     round_deleteHand(&hand);
+    round_deleteRound(&round);
     free(cards);
     free(players);
 }
@@ -181,10 +186,11 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
 void test_round_handWinner()
 {
     struct Hand *hand = round_createHand();
-    cut_assert_equal_pointer(NULL, round_handWinner(NULL, CLUBS));
-    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd));
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd));
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, CLUBS));
+    struct Round *round = round_createRound();
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, CLUBS, round));
+    cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd, NULL));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd, round));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, CLUBS, round));
     
     struct Player *player1 = team_createPlayer("A", 0, 0);
     struct Player *player2 = team_createPlayer("A", 0, 0);
@@ -196,11 +202,11 @@ void test_round_handWinner()
     round_addPlayerHand(player1, hand);
     round_putCard(player1, 0, hand);
 
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS, round));
     //only one player
 
     round_addPlayerHand(player2, hand);
-    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS));
+    cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS, round));
     //player without card
 
     deck_deleteCard(&card1);
@@ -241,6 +247,8 @@ void test_round_handWinner()
 
     perform_round_handWinner_tests(cardSuits, cardValues, CLUBS, 4, 0);
     perform_round_handWinner_tests(cardSuits, cardValues, DIAMONDS, 4, 1);
+
+    round_deleteRound(&round);
 }
 
 int getNumberCards(struct Player *player)

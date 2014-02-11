@@ -43,3 +43,11 @@ int getNoOfPlayers();
  */
 struct Player *newPlayer(int i);
 
+/**
+ * @brief Function to print the score table.
+ *
+ * @param game Pointer to the game of where to be printed the score.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int printScore(struct Game *game, struct Round *round);

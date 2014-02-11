@@ -19,6 +19,9 @@ struct Round *round_createRound()
         round->players[i] = 0;
     }
 
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        round->pointsNumber[i] = 0;
+
     return round;
 }
 
@@ -237,9 +240,23 @@ int round_computeScore(const struct Hand *hand)
     return gameScore;
 }
 
-struct Player *round_handWinner(const struct Hand *hand, enum Suit trump)
+int totalPointsNumber(const struct Hand *hand)
 {
-    if (hand == NULL || trump == SuitEnd)
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int points = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->players[i] != NULL && hand->cards[i] != NULL)
+            points += hand->cards[i]->value;
+
+    return points;
+}
+
+struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
+                                struct Round *round)
+{
+    if (hand == NULL || trump == SuitEnd || round == NULL)
         return NULL;
 
     int playerWinner = -1;
@@ -269,6 +286,7 @@ struct Player *round_handWinner(const struct Hand *hand, enum Suit trump)
         }
     }
 
+    round->pointsNumber[playerWinner] += totalPointsNumber(hand);
     return hand->players[playerWinner];
 }
 

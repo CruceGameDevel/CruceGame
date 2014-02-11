@@ -242,6 +242,9 @@ int round_computeScore(const struct Hand *hand)
 
 int totalPointsNumber(const struct Hand *hand)
 {
+    if (hand == NULL)
+        return HAND_NULL;
+
     int points = 0;
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->players[i] != NULL && hand->cards[i] != NULL)

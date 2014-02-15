@@ -156,125 +156,6 @@ struct Team *game_winningTeam(struct Game *game)
 
     return NULL;
 }
-/*
-int game_checkCard(struct Player *player, struct Game *game,
-                   struct Hand *hand, int idCard)
-{
-    if (player == NULL)
-        return PLAYER_NULL;
-    if (game == NULL)
-        return GAME_NULL;
-    if (hand == NULL)
-        return HAND_NULL;
-    if (game->numberPlayers == 0)
-        return GAME_EMPTY;
-    if (game->numberPlayers == 1)
-        return LESS_PLAYERS;
-    if (game->numberPlayers * MAX_CARDS > DECK_SIZE &&
-       (idCard < 0 || idCard > DECK_SIZE / game->numberPlayers - 1))
-        return ILLEGAL_VALUE;
-    if (idCard < 0 || idCard > MAX_CARDS - 1)
-        return ILLEGAL_VALUE;
-    if (player->hand[idCard] == NULL)
-        return CARD_NULL;
-    if (hand->cards[0] == NULL)
-        return 1; 
-
-    int maxFirstCardValuePlayer = -1;
-    int maxTrumpValuePlayer = -1;
-    for (int i = 0; i < MAX_CARDS; i++) {
-        if (player->hand[i] != NULL) {
-            if (player->hand[i]->suit == hand->cards[0]->suit &&
-                player->hand[i]->value > maxFirstCardValuePlayer)
-                    maxFirstCardValuePlayer = player->hand[i]->value;
-            if (player->hand[i]->suit == game->round->trump &&
-                player->hand[i]->value > maxTrumpValuePlayer)
-                    maxTrumpValuePlayer = player->hand[i]->value;    
-        }
-    }
-
-    if (maxFirstCardValuePlayer == -1 && maxTrumpValuePlayer == -1)
-        return 1;
-
-    if ((maxFirstCardValuePlayer > -1 || maxTrumpValuePlayer > -1) &&
-        player->hand[idCard]->suit != game->round->trump &&
-        player->hand[idCard]->suit != hand->cards[0]->suit)
-        return 0;
-
-    int maxTrumpValue = -1;
-    int maxFirstCardValue = -1;
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if (hand->cards[i] != NULL) {
-            if (hand->cards[0]->suit == hand->cards[i]->suit &&
-                hand->cards[i]->value > maxFirstCardValue)
-                maxFirstCardValue = hand->cards[i]->value;
-            if (hand->cards[i]->suit == game->round->trump &&
-                hand->cards[i]->value > maxTrumpValue)
-                maxTrumpValue = hand->cards[i]->value;
-        }
-    }
-
-    if (hand->cards[0]->suit == game->round->trump) {
-        if (maxTrumpValuePlayer > -1) {
-            if (maxTrumpValuePlayer > maxTrumpValue) {
-                if (player->hand[idCard]->suit == hand->cards[0]->suit &&
-                    player->hand[idCard]->value > hand->cards[0]->value)
-                    return 1;
-                else
-                    return 0;
-            } else {
-                if (player->hand[idCard]->suit == hand->cards[0]->suit)
-                    return 1;
-                else 
-                    return 0;
-            }
-        }
-        else
-            return 1;
-    }
-
-    if (maxFirstCardValuePlayer > -1) {
-        if (maxTrumpValue > -1) {
-            if (player->hand[idCard]->suit == hand->cards[0]->suit)
-                return 1;
-            else
-                return 0;
-        } else {
-            if (player->hand[idCard]->suit == hand->cards[0]->suit) {
-                if (maxFirstCardValuePlayer > maxFirstCardValue) {
-                    if (player->hand[idCard]->value > maxFirstCardValue)
-                        return 1;
-                    else
-                        return 0;
-                } else 
-                    return 1;
-            } else 
-                return 0; 
-        }
-    }
-
-    if (maxTrumpValuePlayer > -1) {
-        if (maxTrumpValue > -1) {
-            if (player->hand[idCard]->suit == game->round->trump) {
-                if (maxTrumpValuePlayer > maxTrumpValue) {
-                    if (player->hand[idCard]->value > maxTrumpValue)
-                        return 1;
-                    else 
-                        return 0;
-                } else
-                    return 1;
-            } else 
-                return 0;
-        } else {
-            if (player->hand[idCard]->suit == game->round->trump)
-                return 1;
-            else
-                return 0;
-        }
-    }
-
-    return 0;
-}*/
 
 int game_maximumValue(struct Card *cards[], int length, enum Suit suit)
 {
@@ -325,7 +206,7 @@ int game_checkCard(struct Player *player, struct Game *game,
         return 1;
 
     if (player->hand[idCard]->value > maxFirstCardValue &&
-        player->hand[idCard]->suit = hand->cards[0])
+        player->hand[idCard]->suit == hand->cards[0]->suit)
         return 1;
     else {
         if (player->hand[idCard]->suit == hand->cards[0]->suit &&

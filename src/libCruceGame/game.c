@@ -202,28 +202,18 @@ int game_checkCard(struct Player *player, struct Game *game,
                                                     MAX_GAME_PLAYERS,
                                                     game->round->trump);
 
-    if (maxFirstCardValuePlayer == -1 && maxTrumpValuePlayer == -1)
-        return 1;
+    struct Card *chosenCard = player->hand[idCard];
+    struct Card *firstCard  = hand->cards[0];
+    enum Suit trump         = game->round->trump;
 
-    if (player->hand[idCard]->value > maxFirstCardValue &&
-        player->hand[idCard]->suit == hand->cards[0]->suit)
-        return 1;
-    else {
-        if (player->hand[idCard]->suit == hand->cards[0]->suit &&
-            maxTrumpValue > -1)
-            return 1;
-        if (player->hand[idCard]->suit == hand->cards[0]->suit &&
-            maxFirstCardValuePlayer < maxFirstCardValue)
-            return 1;
-        if (maxFirstCardValuePlayer == -1 && 
-            player->hand[idCard]->value > maxTrumpValue &&
-            player->hand[idCard]->suit == game->round->trump)
-            return 1;
-        if (maxFirstCardValuePlayer == -1 &&
-            maxTrumpValue > maxTrumpValuePlayer &&
-            player->hand[idCard]->suit == game->round->trump)
-            return 1;
-    }
+    if ((maxFirstCardValuePlayer == -1 && maxTrumpValuePlayer == -1) ||
+        (chosenCard->suit == firstCard->suit && 
+        (chosenCard->value > maxFirstCardValue || maxTrumpValue > -1 ||
+        maxFirstCardValuePlayer < maxFirstCardValue)) ||
+        (maxFirstCardValue == -1 && chosenCard->suit == trump &&
+        (chosenCard->value > maxTrumpValue ||
+        maxTrumpValue > maxTrumpValuePlayer)))
+        return 1;    
 
     return 0;
 }

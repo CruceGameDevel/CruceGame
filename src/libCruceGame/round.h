@@ -35,6 +35,10 @@ struct Round{
     int pointsNumber[MAX_GAME_PLAYERS];
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Finds the winner of a bid in a round.
  *
@@ -179,6 +183,10 @@ EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 * @return NO_ERROR on success, error code otherwise.
 */
 EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

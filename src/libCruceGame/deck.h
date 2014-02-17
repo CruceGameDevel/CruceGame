@@ -28,6 +28,10 @@ struct Deck{
     struct Card *cards[DECK_SIZE];
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Allocates and initializes a card.
  *
@@ -85,5 +89,9 @@ EXPORT int deck_deleteDeck(struct Deck **deck);
 *         Error code otherwise.
 */
 EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

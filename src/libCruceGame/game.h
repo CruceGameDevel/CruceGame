@@ -24,6 +24,10 @@ struct Game {
     struct Deck *deck;
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Allocates memory for and initializes a game.
  *
@@ -91,6 +95,10 @@ EXPORT int game_removeTeam(struct Team *team, struct Game *game);
  * @return Pointer to the winner team on success or NULL on failure.
  */
 EXPORT struct Team *game_winningTeam(struct Game *game);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

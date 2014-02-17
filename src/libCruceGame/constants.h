@@ -48,11 +48,19 @@
  */
 enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Game values for cards
  *
  * -1 is a flag used when iterating
  */
 extern EXPORT const int VALUES[7];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

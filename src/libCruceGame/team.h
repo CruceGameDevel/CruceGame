@@ -29,6 +29,10 @@ struct Team{
     struct Player *players[MAX_TEAM_PLAYERS];
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Creates a player.
  *
@@ -106,5 +110,9 @@ EXPORT int team_computeScore(const struct Team *team);
 * @return NO_ERROR on success, error code otherwise.
 */
 EXPORT int team_addCard(struct Player *player, struct Card *card);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -19,3 +19,8 @@ src/config.h
 src/stamp-h1
 autom4te.cache/
 test/run-test.sh.trs
+ipch/
+*.suo
+*.sdf
+*.opensdf
+Debug/

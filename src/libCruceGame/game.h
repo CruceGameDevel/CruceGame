@@ -6,6 +6,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "platform.h"
 #include "constants.h"
 #include "team.h"
 #include "deck.h"
@@ -30,7 +31,7 @@ struct Game {
  *
  * @return Pointer to the new game on success or NULL on failure.
  */
-struct Game *game_createGame(int numberPoints);
+EXPORT struct Game *game_createGame(int numberPoints);
 
 /**
  * @brief Frees the memory of a game and makes the pointer NULL.
@@ -39,7 +40,7 @@ struct Game *game_createGame(int numberPoints);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int game_deleteGame(struct Game **game);
+EXPORT int game_deleteGame(struct Game **game);
 
 /**
  * @brief Adds a player to a game.
@@ -49,7 +50,7 @@ int game_deleteGame(struct Game **game);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int game_addPlayer(struct Player *player, struct Game *game);
+EXPORT int game_addPlayer(struct Player *player, struct Game *game);
 
 /**
  * @brief Removes a player from a game.
@@ -59,7 +60,7 @@ int game_addPlayer(struct Player *player, struct Game *game);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int game_removePlayer(struct Player *player, struct Game *game);
+EXPORT int game_removePlayer(struct Player *player, struct Game *game);
 
 /**
  * @brief Adds a team to a game.
@@ -69,7 +70,7 @@ int game_removePlayer(struct Player *player, struct Game *game);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int game_addTeam(struct Team *team, struct Game *game);
+EXPORT int game_addTeam(struct Team *team, struct Game *game);
 
  
 /**
@@ -80,7 +81,7 @@ int game_addTeam(struct Team *team, struct Game *game);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int game_removeTeam(struct Team *team, struct Game *game);
+EXPORT int game_removeTeam(struct Team *team, struct Game *game);
 
 /**
  * @brief Searches the winning team of a game.
@@ -89,7 +90,7 @@ int game_removeTeam(struct Team *team, struct Game *game);
  *
  * @return Pointer to the winner team on success or NULL on failure.
  */
-struct Team *game_winningTeam(struct Game *game);
+EXPORT struct Team *game_winningTeam(struct Game *game);
 
 #endif
 

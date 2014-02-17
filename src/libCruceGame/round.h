@@ -6,6 +6,7 @@
 #ifndef ROUND_H
 #define ROUND_H
 
+#include "platform.h"
 #include "deck.h"
 #include "team.h"
 #include "constants.h"
@@ -41,7 +42,7 @@ struct Round{
  *
  * @return Pointer to the bid winner player on success or NULL on failure.
  */
-struct Player *round_getBidWinner(const struct Round *round);
+EXPORT struct Player *round_getBidWinner(const struct Round *round);
 
 /**
  * @brief Places the bid of a player.
@@ -52,7 +53,7 @@ struct Player *round_getBidWinner(const struct Round *round);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_placeBid(const struct Player *player, int bid, struct Round *round);
+EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *round);
 
 /**
  * @brief Add a player to a round.
@@ -62,7 +63,7 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round);
  * 
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_addPlayer(struct Player* player, struct Round *round);
+EXPORT int round_addPlayer(struct Player* player, struct Round *round);
 
 /**
  * @brief Adds a player to a hand.
@@ -72,7 +73,7 @@ int round_addPlayer(struct Player* player, struct Round *round);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_addPlayerHand(struct Player *player, struct Hand *hand);
+EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
 
 /**
  * @brief Places a card from a player to a hand.
@@ -83,7 +84,7 @@ int round_addPlayerHand(struct Player *player, struct Hand *hand);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_putCard(struct Player *player, int cardId, struct Hand *hand);
+EXPORT int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  
 /**
  * @brief Computes the score of a hand (in game points).
@@ -93,14 +94,14 @@ int round_putCard(struct Player *player, int cardId, struct Hand *hand);
  * @return Integer representing the score or negative error code on failure.
  *
  */
-int round_computeScore(const struct Hand *hand);
+EXPORT int round_computeScore(const struct Hand *hand);
 
 /**
  * @brief Allocates memory for and initializes a round.
  *
  * @return Pointer to the new round on success or NULL on failure.
  */
-struct Round *round_createRound();
+EXPORT struct Round *round_createRound();
 
 /**
  * @brief Frees the memory of a round. Makes pointer NULL.
@@ -109,14 +110,14 @@ struct Round *round_createRound();
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_deleteRound(struct Round **round);
+EXPORT int round_deleteRound(struct Round **round);
 
 /**
  * @brief Allocates memory for and initializes a hand.
  *
  * @return Pointer to the new hand on success or NULL on failure.
  */
-struct Hand *round_createHand();
+EXPORT struct Hand *round_createHand();
 
 /**
  * @brief Frees the memory of a hand. Makes pointer NULL.
@@ -125,7 +126,7 @@ struct Hand *round_createHand();
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_deleteHand(struct Hand **hand);
+EXPORT int round_deleteHand(struct Hand **hand);
 
 /**
  * @brief Removes a player from a round.
@@ -135,7 +136,7 @@ int round_deleteHand(struct Hand **hand);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int round_removePlayer(struct Player *player, struct Round *round);
+EXPORT int round_removePlayer(struct Player *player, struct Round *round);
 
 /**
  * @brief Removes a player from a hand.
@@ -146,7 +147,7 @@ int round_removePlayer(struct Player *player, struct Round *round);
  * @return NO_ERROR on success, error code otherwise.
  *
  */
-int round_removePlayerHand(struct Player *player, struct Hand *hand);
+EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
 
 /**
 * @brief Determines the winner of a hand.
@@ -156,8 +157,8 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand);
 *
 * @return Pointer to the winning player or NULL on failure.
 */
-struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
-                                struct Round *round);
+EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
+                                       struct Round *round);
 
 /**
 * @brief Distributes one card to every player.
@@ -167,7 +168,7 @@ struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
 *
 * @return NO_ERROR on success, error code otherwise.
 */
-int round_distributeCard(struct Deck *deck, const struct Round *round);
+EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 
 /**
 * @brief Distributes cards to players.
@@ -177,7 +178,7 @@ int round_distributeCard(struct Deck *deck, const struct Round *round);
 *
 * @return NO_ERROR on success, error code otherwise.
 */
-int round_distributeDeck(struct Deck *deck, const struct Round *round);
+EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
 
 #endif
 

@@ -38,7 +38,7 @@ struct Team{
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
+EXPORT struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
 
 /**
  * @brief Creates a team.
@@ -47,7 +47,7 @@ struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
  *
  * @return Pointer to the created team. Needs to be freed.
  */
-struct Team *team_createTeam(const char *name);
+EXPORT struct Team *team_createTeam(const char *name);
 
 /**
 * @brief Adds a player to a team.
@@ -57,7 +57,7 @@ struct Team *team_createTeam(const char *name);
 *
 * @return NO_ERROR on success, error code otherwise.
 */
-int team_addPlayer(struct Team *team, struct Player *player);
+EXPORT int team_addPlayer(struct Team *team, struct Player *player);
 
 /**
 * @brief Removes a player from a team.
@@ -67,7 +67,7 @@ int team_addPlayer(struct Team *team, struct Player *player);
 *
 * @return NO_ERROR on success, error code otherwise.
 */
-int team_removePlayer(struct Team *team,const struct Player *player);
+EXPORT int team_removePlayer(struct Team *team, const struct Player *player);
 
 /**
  * @brief Deletes a team and sets the pointer to NULL.
@@ -76,7 +76,7 @@ int team_removePlayer(struct Team *team,const struct Player *player);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int team_deleteTeam(struct Team **team);
+EXPORT int team_deleteTeam(struct Team **team);
 
 /**
  * @brief Deletes a player and sets the pointer to NULL.
@@ -85,7 +85,7 @@ int team_deleteTeam(struct Team **team);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int team_deletePlayer(struct Player **player);
+EXPORT int team_deletePlayer(struct Player **player);
 
 /**
  * @brief Calculates the score of a team
@@ -94,7 +94,7 @@ int team_deletePlayer(struct Player **player);
  *
  * @return Integer representing the score or negative error code on failure.
  */
-int team_computeScore(const struct Team *team);
+EXPORT int team_computeScore(const struct Team *team);
 
 /**
 * @brief Passes a card to a player. The function doesn't check
@@ -105,6 +105,6 @@ int team_computeScore(const struct Team *team);
 *
 * @return NO_ERROR on success, error code otherwise.
 */
-int team_addCard(struct Player *player,struct Card *card);
+EXPORT int team_addCard(struct Player *player, struct Card *card);
 
 #endif

@@ -6,6 +6,7 @@
 #ifndef DECK_H
 #define DECK_H
 
+#include "platform.h"
 #include "constants.h"
 
 /**
@@ -35,7 +36,7 @@ struct Deck{
  *
  * @return Pointer to the new card on success or NULL on failure.
  */
-struct Card *deck_createCard(enum Suit suit, int value);
+EXPORT struct Card *deck_createCard(enum Suit suit, int value);
 
 /**
  * @brief Frees the memory of a card and makes the pointer NULL.
@@ -44,14 +45,14 @@ struct Card *deck_createCard(enum Suit suit, int value);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int deck_deleteCard(struct Card **card);
+EXPORT int deck_deleteCard(struct Card **card);
 
 /**
  * @brief Allocates and initializes a deck.
  *
  * @return Pointer to the new deck on success or NULL on failure.
  */
-struct Deck *deck_createDeck();
+EXPORT struct Deck *deck_createDeck();
 
 /**
  * @brief Shuffles a deck.
@@ -60,7 +61,7 @@ struct Deck *deck_createDeck();
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int deck_deckShuffle(struct Deck *deck);
+EXPORT int deck_deckShuffle(struct Deck *deck);
 
 /**
  * @brief Frees the memory of a deck and sets the pointer to NULL.
@@ -69,7 +70,7 @@ int deck_deckShuffle(struct Deck *deck);
  *
  * @return NO_ERROR on success, error code otherwise.
  */
-int deck_deleteDeck(struct Deck **deck);
+EXPORT int deck_deleteDeck(struct Deck **deck);
 
 /**
 * @brief Compare two cards.
@@ -83,6 +84,6 @@ int deck_deleteDeck(struct Deck **deck);
 *         2 If the second card is winning.
 *         Error code otherwise.
 */
-int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
+EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
 
 #endif

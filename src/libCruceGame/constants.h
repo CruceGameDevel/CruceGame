@@ -53,6 +53,6 @@ enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
  *
  * -1 is a flag used when iterating
  */
-extern const int VALUES[7];
+extern EXPORT const int VALUES[7];
 
 #endif

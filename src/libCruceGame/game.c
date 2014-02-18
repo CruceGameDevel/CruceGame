@@ -206,21 +206,6 @@ int game_checkCard(struct Player *player, struct Game *game,
     struct Card *firstCard  = hand->cards[0];
     enum Suit trump         = game->round->trump;
 
-//    if (maxFirstCardValuePlayer > -1 && maxTrumpValuePlayer > -1 &&
-//        chosenCard->suit != firstCard->suit && chosenCard->suit != trump)
-  //      return 0;
-
- /*   if ((maxFirstCardValuePlayer == -1 && maxTrumpValuePlayer == -1) ||
-        (firstCard->suit == trump && (chosenCard->value > maxTrumpValue ||
-        maxTrumpValuePlayer < maxTrumpValue)) ||
-        (chosenCard->suit == firstCard->suit && firstCard->suit != trump && 
-        (chosenCard->value > maxFirstCardValue || 
-        maxFirstCardValuePlayer < maxFirstCardValue || maxTrumpValue > -1)) ||
-        (maxFirstCardValuePlayer == -1 && chosenCard->suit == trump &&
-        (chosenCard->value > maxTrumpValue ||
-        maxTrumpValue > maxTrumpValuePlayer)))
-        return 1;    
-*/
     if ((maxFirstCardValuePlayer == -1 && maxTrumpValuePlayer == -1) ||
         (chosenCard->suit == firstCard->suit &&
         (chosenCard->value > maxFirstCardValue ||

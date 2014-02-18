@@ -91,5 +91,20 @@ int game_removeTeam(struct Team *team, struct Game *game);
  */
 struct Team *game_winningTeam(struct Game *game);
 
+/**
+ * @brief Function checks if the player can put a card down.
+ *
+ * @param player The player who wants to put the card down.
+ * @param game The game where the player is located.
+ * @param hand The hand in which should put the card.
+ * @param idCard The id of the card.
+ *
+ * @return 1 if the player may to put the card down 
+ *         0 if the player can't to put the card down
+ *         other value on failure.
+ */
+int game_checkCard(struct Player *player, struct Game *game,
+                   struct Hand *hand, int idCard);
+
 #endif
 

@@ -199,4 +199,114 @@ void test_game_winningTeam()
     game_deleteGame(&game);
 }
 
+void test_game_checkCard()
+{
+    struct Player *player [3];
+    struct Game *game = game_createGame(11);
+    struct Hand *hand = round_createHand();
+    struct Round *round = round_createRound();
+    struct Card *card[10];
+    game->round = round;
+
+    for (int i = 0; i < 3; i++)
+        player[i] = team_createPlayer("A", i, i);
+
+    cut_assert_equal_int(PLAYER_NULL, game_checkCard(NULL, game, hand, 0));
+    cut_assert_equal_int(GAME_NULL, game_checkCard(player[2], NULL, hand, 0));
+    cut_assert_equal_int(HAND_NULL, game_checkCard(player[2], game, NULL, 0));
+    cut_assert_equal_int(GAME_EMPTY, game_checkCard(player[2], game, hand, 0));
+    game_addPlayer(player[0], game);
+    cut_assert_equal_int(LESS_PLAYERS,
+                         game_checkCard(player[2], game, hand, 0));
+    game_addPlayer(player[1], game); 
+    game_addPlayer(player[2], game); 
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         game_checkCard(player[2], game, hand, -1));
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         game_checkCard(player[2], game, hand, 10));
+    cut_assert_equal_int(CARD_NULL, game_checkCard(player[2], game, hand, 0));
+
+    card[0] = deck_createCard(DIAMONDS, VALUES[1]);
+    card[1] = deck_createCard(DIAMONDS, VALUES[5]);
+    card[2] = deck_createCard(CLUBS, VALUES[2]);
+    card[3] = deck_createCard(CLUBS, VALUES[3]);
+    card[4] = deck_createCard(SPADES, VALUES[0]);
+    card[5] = deck_createCard(SPADES, VALUES[1]);
+    card[6] = deck_createCard(HEARTS, VALUES[2]);
+    card[7] = deck_createCard(HEARTS, VALUES[4]);
+    card[8] = deck_createCard(DIAMONDS, VALUES[0]);
+    card[9] = deck_createCard(DIAMONDS, VALUES[3]);
+
+    for (int i = 0; i < 8; i++) {
+        team_addCard(player[0], card[i]);
+        cut_assert_equal_int(1, game_checkCard(player[0], game, hand, i));
+    }
+
+    team_addCard(player[1], card[8]);
+    team_addCard(player[2], card[9]);
+    round_addPlayerHand(player[1], hand);
+    round_addPlayerHand(player[2], hand);
+    round_putCard(player[1], 0, hand);
+    round_putCard(player[2], 0, hand);
+
+    //the first card is trump
+    game->round->trump = DIAMONDS;
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 0));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 3));
+
+    card[9]->value = VALUES[4];
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 0));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 5));
+    
+    card[9]->value = VALUES[3];
+    //the first card not is trump
+    game->round->trump = CLUBS;
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 0)); 
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 2));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 4));
+
+    card[9]->value = VALUES[4];
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 0));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1)); 
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 2));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 4));
+
+    //the first card is trump and the player doesn't has trump
+    deck_deleteCard(&player[0]->hand[2]);
+    deck_deleteCard(&player[0]->hand[3]);
+    card[8]->suit = CLUBS;
+    card[9]->suit = CLUBS;
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 0));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 4));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 6));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 7));
+
+    //the first card not is trump and the player doesn't has same suit as
+    //first card, but he has trump
+    game->round->trump = DIAMONDS; 
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 0));
+    cut_assert_equal_int(1, game_checkCard(player[0], game, hand, 1));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 4));
+    cut_assert_equal_int(0, game_checkCard(player[0], game, hand, 7));
+
+    //the player doesn't has same suit as first card and no trump
+    deck_deleteCard(&player[0]->hand[0]);
+    deck_deleteCard(&player[0]->hand[1]);
+    for (int i = 4; i < 8; i++) {
+        cut_assert_equal_int(1, game_checkCard(player[0], game, hand, i));
+        deck_deleteCard(&player[0]->hand[i]);
+    }
+
+    team_deletePlayer(&player[0]);
+    team_deletePlayer(&player[1]);
+    team_deletePlayer(&player[2]);
+    round_deleteRound(&round);
+    round_deleteHand(&hand);
+    game_deleteGame(&game);
+}   
+
 

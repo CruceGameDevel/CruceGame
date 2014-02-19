@@ -33,7 +33,8 @@ enum ERROR_CODE {
     LESS_CARDS    = -19,
 
     GAME_NULL     = -20,
-    ROUND_EMPTY   = -21
+    ROUND_EMPTY   = -21,
+    GAME_EMPTY    = -22
 };
 
 #endif

@@ -158,17 +158,19 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
     struct Card **cards = malloc(testSize * sizeof(struct Card));
     struct Player **players = malloc(testSize * sizeof(struct Player));
 
+    int points = 0;
     for (int i = 0; i < testSize; i++) {
         cards[i] = deck_createCard(cardSuits[i], cardValues[i]);
         players[i] = team_createPlayer("name", 0, 0);
         players[i]->hand[0] = cards[i]; //use specialised function for this
         round_addPlayerHand(players[i], hand);
         round_putCard(players[i], 0, hand);
+        points += cardValues[i];
     }
 
     cut_assert_equal_pointer(players[winner],
                              round_handWinner(hand, trump, round));
-    cut_assert_equal_int(round->pointsNumber[winner], 9);
+    cut_assert_equal_int(round->pointsNumber[winner], points);
     round->pointsNumber[winner] = 0;
 
     for (int i = 0; i < testSize; i++) {

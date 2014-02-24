@@ -209,15 +209,14 @@ int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
     if (hand == NULL)
         return HAND_NULL;
 
-    int cardNumber;
     printw("\nInsert a card number: ");
-    scanw("%d", &cardNumber);
-    while(game_checkCard(player, game, hand, cardNumber - 1) != 1) {
-        printw("Insert a correct card number: ");
-        scanw("%d", &cardNumber);
+    char ch = getch();
+    while(game_checkCard(player, game, hand, ch - '1') != 1) {
+        printw("\nInsert a correct card number: ");
+        ch = getch();
     }
 
-    return cardNumber - 1;
+    return ch - '1';
 }
 
 

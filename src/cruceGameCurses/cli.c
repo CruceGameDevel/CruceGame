@@ -211,7 +211,7 @@ int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
 
     printw("\nInsert a card number: ");
     char ch = getch();
-    while ((ch < '1' || ch > '8') &&
+    while ((ch < '1' || ch > '8') && player->hand[ch - '0'] != NULL &&
            game_checkCard(player, game, hand, ch - '1') != 1) {
         printw("\nInsert a correct card number: ");
         ch = getch();

@@ -200,4 +200,24 @@ int printScore(struct Game *game, struct Round *round)
     return NO_ERROR;
 }
 
+int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
+{
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (game == NULL)
+        return GAME_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+
+    int cardNumber;
+    printw("\nInsert a card number: ");
+    scanw("%d", &cardNumber);
+    while(game_checkCard(player, game, hand, cardNumber - 1) != 1) {
+        printw("Insert a correct card number: ");
+        scanw("%d", &cardNumber);
+    }
+
+    return cardNumber - 1;
+}
+
 

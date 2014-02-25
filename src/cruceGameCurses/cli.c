@@ -220,4 +220,85 @@ int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
     return ch - '1';
 }
 
+int formTeams (struct Game *game)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (game->numberPlayers == 0)
+        return GAME_EMPTY;
+    if (game->numberPlayers == 1)
+        return LESS_PLAYERS;
+
+    struct Team *team;
+    if (game->numberPlayers < MAX_GAME_PLAYERS) {
+        for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+            if (game->players[i] != NULL) {
+                team = team_createTeam("A");
+                team_addPlayer(team, game->players[i]);
+                game_addTeam(team, game);
+            }
+        team_deleteTeam(&team);
+        return NO_ERROR;
+    }
+
+    printw("\nDo you want to play on teams? (y/n) ");
+    char ch = getch();
+    while (ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N') {
+        printw("\nDo you want to play on teams? (y/n) ");
+        ch = getch();
+    }
+
+    if (ch == 'n' || ch == 'N') {
+        for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+            team = team_createTeam("A");
+            team_addPlayer(team, game->players[i]);
+            game_addTeam(team, game);
+        }
+        team_deleteTeam(&team);
+        return NO_ERROR;
+    }
+    
+    printw("\nInsert number of the first player from first team: ");
+    char p1 = getch();
+    while (p1 < '1' || p1 > '4') {
+        printw("\nInsert number of the first player from first team: ");
+        p1 = getch();
+    }
+
+    printw("\nInsert number of the second player from first team: ");
+    char p2 = getch();
+    while ((p2 < '1' || p2 > '4') && p2 == p1) {
+        printw("\nInsert number of the second player from first team: ");
+        p2 = getch();
+    }
+
+    printw("\nInsert number of the first player from second team: ");
+    char p3 = getch();
+    while ((p3 < '1' || p3 > '4') && p2 == p3 && p1 == p3) {
+        printw("\nInsert number of the first player from second team: ");
+        p3 = getch();
+    }
+
+    printw("\nInsert number of the second player from second team: ");
+    char p4 = getch();
+    while ((p4 < '1' || p4 > '4') && p3 == p4 && p2 == p4 && p1 == p4) {
+        printw("\nInsert number of the second player from second team: ");
+        p4 = getch();
+    }
+
+    team = team_createTeam("A");
+    team_addPlayer(team, game->players[p1 - '1']);
+    team_addPlayer(team, game->players[p2 - '1']);
+    game_addTeam(team, game);
+
+    team = team_createTeam("A");
+    team_addPlayer(team, game->players[p3 - '1']);
+    team_addPlayer(team, game->players[p4 - '1']);
+    game_addTeam(team, game);
+
+    team_deleteTeam(&team);
+
+    return NO_ERROR;
+}
+
 

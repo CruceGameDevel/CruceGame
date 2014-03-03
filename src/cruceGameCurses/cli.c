@@ -258,42 +258,36 @@ int formTeams (struct Game *game)
         return NO_ERROR;
     }
     
-    printw("\nInsert number of the first player from first team: ");
-    char p1 = getch();
-    while (p1 < '1' || p1 > '4') {
-        printw("\nInsert number of the first player from first team: ");
-        p1 = getch();
-    }
-
-    printw("\nInsert number of the second player from first team: ");
-    char p2 = getch();
-    while ((p2 < '1' || p2 > '4') && p2 == p1) {
-        printw("\nInsert number of the second player from first team: ");
-        p2 = getch();
-    }
-
-    printw("\nInsert number of the first player from second team: ");
-    char p3 = getch();
-    while ((p3 < '1' || p3 > '4') && p2 == p3 && p1 == p3) {
-        printw("\nInsert number of the first player from second team: ");
-        p3 = getch();
-    }
-
-    printw("\nInsert number of the second player from second team: ");
-    char p4 = getch();
-    while ((p4 < '1' || p4 > '4') && p3 == p4 && p2 == p4 && p1 == p4) {
-        printw("\nInsert number of the second player from second team: ");
-        p4 = getch();
+    printw("\nInsert the player number with that you want to play in team: ");
+    ch = getch();
+    while (ch < '2' || ch > '4') {
+        printw("\nInsert the player number with that you want to play in 
+               team: ");
+        ch = getch();
     }
 
     team = team_createTeam("A");
-    team_addPlayer(team, game->players[p1 - '1']);
-    team_addPlayer(team, game->players[p2 - '1']);
+    team_addPlayer(team, game->players[0]);
+    team_addPlayer(team, game->players[ch - '1']);
     game_addTeam(team, game);
 
+    int p1, p2;
+    if (ch - '1' == 1) {
+        p1 = 2;
+        p2 = 3;
+    }
+    if (ch - '1' == 2) {
+        p1 = 1;
+        p2 = 3;
+    }
+    if (ch - '1' == 3) {
+        p1 = 1;
+        p2 = 2;
+    }
+
     team = team_createTeam("A");
-    team_addPlayer(team, game->players[p3 - '1']);
-    team_addPlayer(team, game->players[p4 - '1']);
+    team_addPlayer(team, game->players[p1]);
+    team_addPlayer(team, game->players[p2]);
     game_addTeam(team, game);
 
     team_deleteTeam(&team);

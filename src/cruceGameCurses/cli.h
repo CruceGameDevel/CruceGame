@@ -53,3 +53,4 @@ struct Player *newPlayer(int i);
 int printScore(struct Game *game, struct Round *round);
 
 int pickCard(struct Player *player, struct Game *game, struct Hand *hand);
+int formTeams(struct Game* game);

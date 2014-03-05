@@ -220,6 +220,18 @@ int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
     return ch - '1';
 }
 
+void createEmptyTeams(struct Game *game)
+{
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if (game->players[i] != NULL) {
+            struct Team *team = team_createTeam("NONE");
+            team_addPlayer(team, game->players[i]);
+            game_addTeam(team, game);
+        }
+    }
+}
+
+
 int formTeams (struct Game *game)
 {
     if (game == NULL)
@@ -229,68 +241,44 @@ int formTeams (struct Game *game)
     if (game->numberPlayers == 1)
         return LESS_PLAYERS;
 
-    struct Team *team;
-    if (game->numberPlayers < MAX_GAME_PLAYERS) {
-        for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-            if (game->players[i] != NULL) {
-                team = team_createTeam("A");
-                team_addPlayer(team, game->players[i]);
-                game_addTeam(team, game);
-            }
-        team_deleteTeam(&team);
+    if (game->numberPlayers < 4) {
+        createEmptyTeams(game);
         return NO_ERROR;
     }
 
-    printw("\nDo you want to play on teams? (y/n) ");
+    printw("Do you want to play on teams? (Y/n) ");
     char ch = getch();
-    while (ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N') {
-        printw("\nDo you want to play on teams? (y/n) ");
-        ch = getch();
-    }
+    printw("\n");
 
     if (ch == 'n' || ch == 'N') {
-        for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-            team = team_createTeam("A");
-            team_addPlayer(team, game->players[i]);
-            game_addTeam(team, game);
-        }
-        team_deleteTeam(&team);
+        createEmptyTeams(game);
         return NO_ERROR;
     }
-    
-    printw("\nInsert the player number with that you want to play in team: ");
+
+    printw("Player 1 (%s): Please insert your teammate's id: ",
+            game->players[0]->name);
     ch = getch();
     while (ch < '2' || ch > '4') {
-        printw("\nInsert the player number with that you want to play in 
-               team: ");
+        printw("\nPlease insert a correct player id. ");
         ch = getch();
     }
+    printw("\n");
+    ch--;
 
-    team = team_createTeam("A");
-    team_addPlayer(team, game->players[0]);
-    team_addPlayer(team, game->players[ch - '1']);
-    game_addTeam(team, game);
+    struct Player* backup = game->players[2];
+    game->players[2]      = game->players[ch-'0'];
+    game->players[ch-'0'] = backup;
 
-    int p1, p2;
-    if (ch - '1' == 1) {
-        p1 = 2;
-        p2 = 3;
+    char **numerals = {"first", "second"};
+    for (int i = 0; i < 2; i++) {
+        char *teamName = malloc(100); //WARNING: MAGIC CONSTANT
+        printw("Insert %s team's name: ", numerals[i]);
+        scanw("%s", teamName);
+        struct Team *team = team_createTeam(teamName);
+        team_addPlayer(team, game->players[i]);
+        team_addPlayer(team, game->players[i + 1]);
+        game_addTeam(team, game);
     }
-    if (ch - '1' == 2) {
-        p1 = 1;
-        p2 = 3;
-    }
-    if (ch - '1' == 3) {
-        p1 = 1;
-        p2 = 2;
-    }
-
-    team = team_createTeam("A");
-    team_addPlayer(team, game->players[p1]);
-    team_addPlayer(team, game->players[p2]);
-    game_addTeam(team, game);
-
-    team_deleteTeam(&team);
 
     return NO_ERROR;
 }

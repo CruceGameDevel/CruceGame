@@ -269,7 +269,7 @@ int formTeams (struct Game *game)
     game->players[2]      = game->players[ch-'0'];
     game->players[ch-'0'] = backup;
 
-    char **numerals = {"first", "second"};
+    char *numerals[] = {"first", "second"};
     for (int i = 0; i < 2; i++) {
         char *teamName = malloc(100); //WARNING: MAGIC CONSTANT
         printw("Insert %s team's name: ", numerals[i]);

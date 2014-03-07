@@ -51,3 +51,6 @@ struct Player *newPlayer(int i);
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int printScore(struct Game *game, struct Round *round);
+
+int pickCard(struct Player *player, struct Game *game, struct Hand *hand);
+int formTeams(struct Game* game);

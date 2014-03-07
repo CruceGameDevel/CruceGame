@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include "platform.h"
+
 /**
  * @brief The maximum number of cards in a player's hand.
  */

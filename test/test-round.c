@@ -424,6 +424,13 @@ void test_round_arrangePlayersHand()
                                      round->players[(i + j) % 
                                                     MAX_GAME_PLAYERS]);
     } 
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&round->players[i]);
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        round_deleteHand(&round->hands[i]);
+    round_deleteRound(&round);
 }
+
 
 

@@ -10,7 +10,7 @@ const char *error(int error_code)
         case POINTER_NULL:
             return "The pointer you passed points to NULL";
         case MALLOC_ERROR:
-            return "malloc failed to allocate the requested block of memory";
+            return "Malloc failed to allocate the requested block of memory";
 
         case CARD_NULL:
             return "The pointers to the card you are trying to access is NULL";

@@ -19,6 +19,8 @@ struct Round *round_createRound()
         round->players[i] = 0;
     }
 
+    round->trump = SuitEnd;
+
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         round->pointsNumber[i] = 0;
 
@@ -351,3 +353,30 @@ int round_distributeDeck(struct Deck *deck, const struct Round *round)
 
     return NO_ERROR;
 }
+
+int round_arrangePlayersHand(struct Round *round, int i)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+    if (i < 0 || i > MAX_GAME_PLAYERS)
+        return ILLEGAL_VALUE;
+
+    int handId = -1;
+    for (int j = 0; j < MAX_HANDS; j++)
+        if (round->hands[j] == NULL)
+            handId = i;
+
+    if (handId == -1)
+        return FULL;
+
+    struct Hand *hand = round_createHand();
+    for (int j = i; j < i + MAX_GAME_PLAYERS; j++)
+        if (round->players[j % MAX_GAME_PLAYERS] != NULL)
+            round_addPlayerHand(round->players[j % MAX_GAME_PLAYERS], hand);
+
+    round->hands[handId] = hand;
+
+    return NO_ERROR;
+}
+
+

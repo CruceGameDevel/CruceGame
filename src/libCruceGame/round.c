@@ -368,12 +368,9 @@ int round_arrangePlayersHand(struct Round *round, int i)
         return FULL;
 
     struct Hand *hand = round_createHand();
-    for (int j = i; j < MAX_GAME_PLAYERS; j++)
-        if (round->players[j] != NULL)
-            round_addPlayerHand(round->players[j], hand);
-    for (int j = 0; j < i; j++)
-        if (round->players[j] != NULL)
-            round_addPlayerHand(round->players[j], hand);
+    for (int j = i; j < i + MAX_GAME_PLAYERS; j++)
+        if (round->players[j % MAX_GAME_PLAYERS] != NULL)
+            round_addPlayerHand(round->players[j % MAX_GAME_PLAYERS], hand);
 
     round->hand[handId] = hand;
 

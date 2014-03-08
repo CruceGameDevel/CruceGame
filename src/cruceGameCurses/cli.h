@@ -52,5 +52,22 @@ struct Player *newPlayer(int i);
  */
 int printScore(struct Game *game, struct Round *round);
 
-int pickCard(struct Player *player, struct Game *game, struct Hand *hand);
+/**
+ * @brief Function to form the teams.
+ *
+ * @param game Pointer to the game where form it the teams.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
 int formTeams(struct Game* game);
+
+/**
+ * @brief Function displays the trump, the cards on table, the player's cards
+ *        and puts the player to pick a card.
+ *
+ * @param game Pointer to the game where to be the player and the table.
+ * @param playerId The player's id to whom displays the cards.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int displayCardsAndPickCard(struct Game *game, int playerId);

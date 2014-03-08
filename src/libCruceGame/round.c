@@ -361,12 +361,11 @@ int round_arrangePlayersHand(struct Round *round, int i)
     if (i < 0 || i > MAX_GAME_PLAYERS)
         return ILLEGAL_VALUE;
 
-    int handId = -1;
-    for (int j = 0; j < MAX_HANDS; j++)
-        if (round->hands[j] == NULL)
-            handId = i;
+    int handId = 0;
+    while (round->hands[handId] != NULL)
+        handId++;
 
-    if (handId == -1)
+    if (handId >= MAX_HANDS)
         return FULL;
 
     struct Hand *hand = round_createHand();

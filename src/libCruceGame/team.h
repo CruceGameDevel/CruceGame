@@ -111,6 +111,15 @@ EXPORT int team_computeScore(const struct Team *team);
 */
 EXPORT int team_addCard(struct Player *player, struct Card *card);
 
+/**
+* @brief Checks if a player has any card
+* 
+* @param player Pointer to the player that is ckecked
+*
+* @return 1 in case of succes, 0 otherwise
+*/
+EXPORT int team_hasCards(struct Player *player);
+
 #ifdef __cplusplus
 }
 #endif

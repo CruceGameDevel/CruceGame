@@ -71,3 +71,13 @@ int formTeams(struct Game* game);
  * @return NO_ERROR or 0 on success, other value on failure.
  */
 int displayCardsAndPickCard(struct Game *game, int playerId);
+
+/*
+ * @brief Function to display player's cards and ask for a bid.
+ *
+ * @param game Pointer to the Game.
+ * @param playerId Id of the bidding player.
+ *
+ * @return NO_ERROR or 0 un success, other value on failure.
+ */
+int getBid(struct Game* game, int playerId);

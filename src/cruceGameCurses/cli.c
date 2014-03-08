@@ -285,15 +285,6 @@ int formTeams (struct Game *game)
 
 int displayCardsAndPickCard(struct Game *game, int playerId)
 {
-    if (game == NULL)
-        return GAME_NULL;
-    if (playerId < 0 || playerId >= MAX_GAME_PLAYERS)
-        return ILLEGAL_VALUE;
-    if (game->round == NULL)
-        return ROUND_NULL;
-    if (game->round->players[playerId] == NULL)
-        return PLAYER_NULL;
-
     int handId;
     for (int i = 0; i < MAX_HANDS; i++)
         if (game->round->hands[i] != NULL)
@@ -332,9 +323,6 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
         if (game->round->hands[handId]->players[i] != NULL)
             printCard(game->round->hands[handId]->cards[i], i);
 
-    int y, x;
-    getyx(stdscr, y, x);
-    move(y + 7, 0);
     printw("Your cards: ");
     printPlayerCards(game->round->players[playerId]);
 
@@ -347,4 +335,37 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     return NO_ERROR;
 }
 
+int getBid(struct Game *game, int playerId)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (playerId < 0 || playerId >= MAX_GAME_PLAYERS)
+        return ILLEGAL_VALUE;
+    if (game->round == NULL)
+        return ROUND_NULL;
+    if (game->round->players[playerId] == NULL)
+        return PLAYER_NULL;
 
+    printw("Player %d %s\n", playerId + 1,
+                             game->round->players[playerId]->name);
+
+    printw("Your cards are:\n");
+
+    printPlayerCards(game->round->players[playerId]);
+
+    int y, x;
+    getyx(stdscr, y, x);
+    move(y + 7, 0);
+
+    printw("Insert a bid please: ");
+    char ch = getch();
+    while (round_placeBid(game->round->players[playerId], ch - '0', 
+                          game->round)) { 
+        printw("\nInsert a valid bid: ");
+        ch = getch();
+    }
+
+    printw("\n");
+
+    return NO_ERROR;
+}

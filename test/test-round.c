@@ -403,3 +403,34 @@ void test_round_distributeDeck()
     round_deleteHand(&hand);
 }
 
+void test_round_arrangePlayersHand()
+{
+    struct Round *round = round_createRound();
+    cut_assert_equal_int(ROUND_NULL, round_arrangePlayersHand(NULL, 0));
+    cut_assert_equal_int(ILLEGAL_VALUE, round_arrangePlayersHand(round, -1));
+    cut_assert_equal_int(ILLEGAL_VALUE, 
+                         round_arrangePlayersHand(round, MAX_GAME_PLAYERS));
+    
+    struct Player *player;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        player = team_createPlayer("A", i, i);
+        round_addPlayer(player, round);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        cut_assert_equal_int(NO_ERROR, round_arrangePlayersHand(round, i));
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+            cut_assert_equal_pointer(round->hands[i]->players[j],
+                                     round->players[(i + j) % 
+                                                    MAX_GAME_PLAYERS]);
+    } 
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&round->players[i]);
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        round_deleteHand(&round->hands[i]);
+    round_deleteRound(&round);
+}
+
+
+

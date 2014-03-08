@@ -358,7 +358,7 @@ int round_arrangePlayersHand(struct Round *round, int i)
 {
     if (round == NULL)
         return ROUND_NULL;
-    if (i < 0 || i > MAX_GAME_PLAYERS)
+    if (i < 0 || i >= MAX_GAME_PLAYERS)
         return ILLEGAL_VALUE;
 
     int handId = 0;

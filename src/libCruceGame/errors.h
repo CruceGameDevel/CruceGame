@@ -37,4 +37,13 @@ enum ERROR_CODE {
     GAME_EMPTY    = -22
 };
 
+/**
+* @brief Returns the error code text of the error code given.
+*
+* @param error_code The error code value as integer type.
+*
+* @return Pointer to a const char representing the text of the error code.
+*/
+const char *error(int error_code);
+
 #endif

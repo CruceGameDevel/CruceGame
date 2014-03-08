@@ -1,6 +1,8 @@
 #ifndef ERRORS_H
 #define ERRORS_H
 
+#include "platform.h"
+
 enum ERROR_CODE {
     NO_ERROR      = 0,
 
@@ -37,6 +39,10 @@ enum ERROR_CODE {
     GAME_EMPTY    = -22
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
 * @brief Returns the error code text of the error code given.
 *
@@ -44,6 +50,10 @@ enum ERROR_CODE {
 *
 * @return Pointer to a const char representing the text of the error code.
 */
-const char *error(int error_code);
+EXPORT const char *error(int error_code);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

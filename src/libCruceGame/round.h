@@ -184,6 +184,16 @@ EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 */
 EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
 
+/**
+ * @brief The function arranges the players in a hand.
+ *
+ * @param round Pointer to the round from which arranges it the players.
+ * @param i The position from where begin arranging.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+EXPORT int round_arrangePlayersHand(struct Round *round, int i);
+
 #ifdef __cplusplus
 }
 #endif

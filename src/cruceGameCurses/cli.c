@@ -211,7 +211,7 @@ int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
 
     printw("\nInsert a card number: ");
     char ch = getch();
-    while ((ch < '1' || ch > '8') && player->hand[ch - '1'] != NULL &&
+    while (ch < '1' || ch > '8' || player->hand[ch - '1'] == NULL ||
            game_checkCard(player, game, hand, ch - '1') != 1) {
         printw("\nInsert a correct card number: ");
         ch = getch();
@@ -279,6 +279,70 @@ int formTeams (struct Game *game)
         team_addPlayer(team, game->players[i + 1]);
         game_addTeam(team, game);
     }
+
+    return NO_ERROR;
+}
+
+int displayCardsAndPickCard(struct Game *game, int playerId)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (playerId < 0 || playerId >= MAX_GAME_PLAYERS)
+        return ILLEGAL_VALUE;
+    if (game->round == NULL)
+        return ROUND_NULL;
+    if (game->round->players[playerId] == NULL)
+        return PLAYER_NULL;
+
+    int handId;
+    for (int i = 0; i < MAX_HANDS; i++)
+        if (game->round->hands[i] != NULL)
+            handId = i;
+    if (game->round->hands[handId] == NULL)
+        return HAND_NULL;
+
+    char suit[] = {0xE2, 0x99, 0x00, 0x00};
+    switch (game->round->trump) {
+        case DIAMONDS:
+            suit[2] = 0xA6;
+            break;
+        case CLUBS:
+            suit[2] = 0xA3;
+            break;
+        case HEARTS:
+            suit[2] = 0xA5;
+            break;
+        case SPADES:
+            suit[2] = 0xA0;
+            break;
+        default:
+            break;
+    }
+
+    printw("Player %d %s\n", playerId + 1, 
+                             game->round->players[playerId]->name);    
+
+    if (game->round->trump != SuitEnd)
+        printw("The trump is: %s\n", suit);
+    else
+        printw("The trump was not set.\n");
+
+    printw("The cards on table: ");
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (game->round->hands[handId]->players[i] != NULL)
+            printCard(game->round->hands[handId]->cards[i], i);
+
+    int y, x;
+    getyx(stdscr, y, x);
+    move(y + 7, 0);
+    printw("Your cards: ");
+    printPlayerCards(game->round->players[playerId]);
+
+    move(y + 14, 0);
+    int idCard = pickCard(game->round->players[playerId],
+                          game, game->round->hands[handId]);
+    round_putCard(game->round->players[playerId], idCard,
+                  game->round->hands[handId]);
 
     return NO_ERROR;
 }

@@ -315,6 +315,8 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
+    printw("Player %d %s\n", playerId + 1, player->name);
+
     if (game->round->trump != SuitEnd)
         printw("The trump is: %s\n", suit);
     else

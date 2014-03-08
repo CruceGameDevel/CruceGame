@@ -292,6 +292,9 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     if (game->round->hands[handId] == NULL)
         return HAND_NULL;
 
+    struct Hand *hand = game->round->hands[handId];
+    struct Player *player = hand->players[playerId];
+
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (game->round->trump) {
         case DIAMONDS:
@@ -310,8 +313,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    printw("Player %d %s\n", playerId + 1, 
-                             game->round->players[playerId]->name);    
+    printw("Player %d %s\n", playerId + 1, player->name);
 
     if (game->round->trump != SuitEnd)
         printw("The trump is: %s\n", suit);
@@ -320,17 +322,17 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     printw("The cards on table: ");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        if (game->round->hands[handId]->players[i] != NULL)
-            printCard(game->round->hands[handId]->cards[i], i);
+        if (hand->players[i] != NULL)
+            printCard(hand->cards[i], i);
 
     printw("Your cards: ");
-    printPlayerCards(game->round->players[playerId]);
+    printPlayerCards(player);
 
+    int y, x;
+    getyx(stdscr, y, x);
     move(y + 14, 0);
-    int idCard = pickCard(game->round->players[playerId],
-                          game, game->round->hands[handId]);
-    round_putCard(game->round->players[playerId], idCard,
-                  game->round->hands[handId]);
+    int cardId = pickCard(player, game, hand);
+    round_putCard(player, cardId, hand);
 
     return NO_ERROR;
 }

@@ -19,6 +19,8 @@ struct Round *round_createRound()
         round->players[i] = 0;
     }
 
+    round->trump = SuitEnd;
+
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         round->pointsNumber[i] = 0;
 

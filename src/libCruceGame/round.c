@@ -374,7 +374,7 @@ int round_arrangePlayersHand(struct Round *round, int i)
         if (round->players[j % MAX_GAME_PLAYERS] != NULL)
             round_addPlayerHand(round->players[j % MAX_GAME_PLAYERS], hand);
 
-    round->hand[handId] = hand;
+    round->hands[handId] = hand;
 
     return NO_ERROR;
 }

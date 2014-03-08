@@ -285,12 +285,17 @@ int formTeams (struct Game *game)
 
 int displayCardsAndPickCard(struct Game *game, int playerId)
 {
-    int handId;
-    for (int i = 0; i < MAX_HANDS; i++)
-        if (game->round->hands[i] != NULL)
-            handId = i;
+    if (game == NULL)
+        return GAME_NULL;
+    int handId=0;
+    while(game->round->hands[handId] != NULL)
+            handId++;
+    handId--;
     if (game->round->hands[handId] == NULL)
         return HAND_NULL;
+
+    struct Hand *hand = game->round->hands[handId];
+    struct Player *player = hand->players[playerId];
 
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (game->round->trump) {
@@ -310,8 +315,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    printw("Player %d %s\n", playerId + 1, 
-                             game->round->players[playerId]->name);    
+    printw("Player %d %s\n", playerId + 1, player->name);
 
     if (game->round->trump != SuitEnd)
         printw("The trump is: %s\n", suit);
@@ -320,17 +324,23 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     printw("The cards on table: ");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        if (game->round->hands[handId]->players[i] != NULL)
-            printCard(game->round->hands[handId]->cards[i], i);
+        if (hand->cards[i] != NULL)
+            printCard(hand->cards[i], i);
+
+    int y, x;
+    getyx(stdscr, y, x);
+    move(y + 7, 0);
 
     printw("Your cards: ");
-    printPlayerCards(game->round->players[playerId]);
+    printPlayerCards(player);
 
     move(y + 14, 0);
-    int idCard = pickCard(game->round->players[playerId],
-                          game, game->round->hands[handId]);
-    round_putCard(game->round->players[playerId], idCard,
-                  game->round->hands[handId]);
+    int cardId = pickCard(player, game, hand);
+
+    if (handId == 0 && playerId == 0)
+        game->round->trump=player->hand[cardId]->suit;
+
+    round_putCard(player, cardId, hand);
 
     return NO_ERROR;
 }

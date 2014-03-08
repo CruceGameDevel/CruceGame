@@ -113,10 +113,15 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round)
         return PLAYER_NULL;
     if (round == NULL)
         return ROUND_NULL;
-    if (bid < 0)
+    if (bid < 0 && bid > 6)
         return ILLEGAL_VALUE;
 
-    int index = findPlayerIndexRound(player, round);;
+    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if(round->bids[i] > bid)
+            return ILLEGAL_VALUE;
+    }
+
+    int index = findPlayerIndexRound(player, round);
 
     if(index < 0)
         return NOT_FOUND;
@@ -358,15 +363,14 @@ int round_arrangePlayersHand(struct Round *round, int i)
 {
     if (round == NULL)
         return ROUND_NULL;
-    if (i < 0 || i > MAX_GAME_PLAYERS)
+    if (i < 0 || i >= MAX_GAME_PLAYERS)
         return ILLEGAL_VALUE;
 
-    int handId = -1;
-    for (int j = 0; j < MAX_HANDS; j++)
-        if (round->hands[j] == NULL)
-            handId = i;
+    int handId = 0;
+    while (round->hands[handId] != NULL)
+        handId++;
 
-    if (handId == -1)
+    if (handId >= MAX_HANDS)
         return FULL;
 
     struct Hand *hand = round_createHand();

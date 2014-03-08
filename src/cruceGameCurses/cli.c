@@ -283,4 +283,37 @@ int formTeams (struct Game *game)
     return NO_ERROR;
 }
 
+int getBid(struct Game *game, int playerId)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (playerId < 0 || playerId >= MAX_GAME_PLAYERS)
+        return ILLEGAL_VALUE;
+    if (game->round == NULL)
+        return ROUND_NULL;
+    if (game->round->players[playerId] == NULL)
+        return PLAYER_NULL;
 
+    printw("Player %d %s\n", playerId + 1,
+                             game->round->players[playerId]->name);
+
+    printw("Your cards are:\n");
+
+    printPlayerCards(game->round->players[playerId]);
+
+    int y, x;
+    getyx(stdscr, y, x);
+    move(y + 7, 0);
+
+    printw("Insert a bid please: ");
+    char ch = getch();
+    while (round_placeBid(game->round->players[playerId], ch - '0', 
+                          game->round)) { 
+        printw("\nInsert a valid bid: ");
+        ch = getch();
+    }
+
+    printw("\n");
+
+    return NO_ERROR;
+}

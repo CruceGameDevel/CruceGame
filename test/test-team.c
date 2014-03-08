@@ -176,3 +176,18 @@ void test_team_addCard()
     team_deletePlayer(&player);
 }
 
+void test_team_hasCards()
+{
+    struct Player *player = team_createPlayer("A", 1, 1);
+    struct Deck *deck = deck_createDeck();
+
+    cut_assert_equal_int(PLAYER_NULL, team_hasCards(NULL));
+
+    cut_assert_equal_int(0, team_hasCards(player));
+
+    team_addCard(player, deck->cards[0]);
+    cut_assert_equal_int(1, team_hasCards(player));
+
+    deck_deleteDeck(&deck);
+    team_deletePlayer(&player);
+}

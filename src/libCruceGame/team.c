@@ -154,3 +154,15 @@ int team_addCard(struct Player *player,struct Card *card)
 
     return FULL;
 }
+
+int team_hasCards(struct Player *player)
+{
+    if(player == NULL)
+        return PLAYER_NULL;
+    
+    for(int i = 0; i < MAX_HANDS; i++)
+        if(player->hand[i] != NULL)
+            return 1;
+    
+    return 0;
+}

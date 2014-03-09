@@ -90,6 +90,15 @@ EXPORT int deck_deleteDeck(struct Deck **deck);
 */
 EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
 
+/**
+ * @brief The function counts the cards from deck.
+ *
+ * @param deck Pointer to the deck from which it counts.
+ *
+ * @return The cards number from deck.
+ */
+int deck_cardsNumber(struct Deck *deck);
+
 #ifdef __cplusplus
 }
 #endif

@@ -28,4 +28,4 @@ case `uname` in
         ;;
 esac
 
-$CUTTER -s $BASE_DIR "$@" $BASE_DIR
+$CUTTER -v v -s $BASE_DIR "$@" $BASE_DIR

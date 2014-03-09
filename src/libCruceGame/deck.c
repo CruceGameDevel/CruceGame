@@ -155,3 +155,18 @@ int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Su
 
     return ERROR_COMPARE;
 }
+
+int deck_cardsNumber(struct Deck *deck)
+{
+    if (deck == NULL)
+        return DECK_NULL;
+
+    int cardsNumber = 0;
+    for (int i = 0; i < DECK_SIZE; i++)
+        if (deck->cards[i] != NULL)
+            cardsNumber++;
+
+    return cardsNumber;
+}
+
+

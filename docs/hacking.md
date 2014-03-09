@@ -270,6 +270,8 @@ Please document your names and your e-mail addresses.
 
 * Mihai Ciupina (mihai.ciupina@gmail.com)
 
+* Balescu Ovidiu (balescuovidiu@gmail.com)
+
 Contributors
 =======
 

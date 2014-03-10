@@ -1,8 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include "platform.h"
-
 /**
  * @brief The maximum number of cards in a player's hand.
  */
@@ -59,7 +57,7 @@ extern "C" {
  *
  * -1 is a flag used when iterating
  */
-extern EXPORT const int VALUES[7];
+extern const int VALUES[7];
 
 #ifdef __cplusplus
 }

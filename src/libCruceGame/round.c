@@ -82,14 +82,7 @@ struct Player *round_getBidWinner(const struct Round *round)
     return round->players[maxBidIndex];
 }
 
-/**
- * @brief Helper to find player in a round.
- *
- * @param player Player to find.
- * @param round Round to search for player.
- * @return 0 on success, non-zero on failure.
- */
-int findPlayerIndexRound(const struct Player *player, const struct Round *round)
+int round_findPlayerIndexRound(const struct Player *player, const struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -121,7 +114,7 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round)
             return ILLEGAL_VALUE;
     }
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
 
     if(index < 0)
         return NOT_FOUND;
@@ -138,7 +131,7 @@ int round_addPlayer(struct Player *player, struct Round *round)
     if (round == NULL)
         return ROUND_NULL;
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
     if(index >= 0) //impossible to add same player multiple time
         return DUPLICATE;
 
@@ -184,7 +177,7 @@ int round_removePlayer(struct Player *player, struct Round *round)
     if (round == NULL)
         return ROUND_NULL;
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
 
     if (index < 0)
         return NOT_FOUND;

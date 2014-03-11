@@ -176,11 +176,11 @@ int printScore(struct Game *game, struct Round *round)
             printw("%s", verticalLeftBoxDouble);
             line++;
             move(y + line, x);
-            printw("%s%s ", verticalBoxDouble, game->players[i]->name);
+            printw("%s%s ", verticalBoxDouble, round->players[i]->name);
             move(y + line, x + maxLength + 1);
             printw("%s %*d", verticalBoxDouble, 5, round->pointsNumber[i]);
             move(y + line, x + maxLength + 8);
-            printw("%s %*d", verticalBoxDouble, 3, game->players[i]->score);
+            printw("%s %*d", verticalBoxDouble, 3, round->players[i]->score);
             move(y + line, x + maxLength + 13);
             printw("%s", verticalBoxDouble);
             line++;

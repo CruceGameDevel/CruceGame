@@ -286,7 +286,9 @@ struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
         }
     }
 
-    round->pointsNumber[playerWinner] += totalPointsNumber(hand);
+    int playerWinner_inRound = 
+        round_findPlayerIndexRound(hand->players[playerWinner], round);
+    round->pointsNumber[playerWinner_inRound] += totalPointsNumber(hand);
     return hand->players[playerWinner];
 }
 

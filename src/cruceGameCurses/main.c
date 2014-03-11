@@ -39,18 +39,20 @@ int main()
         }
 
         struct Player *bidWinner = round_getBidWinner(game->round);
-        int bidWinnerId = 0;
-        while (game->round->players[bidWinnerId] != bidWinner)
-            bidWinnerId++;
-
-        for (int i = 0; i < 8; i++) {
-            round_arrangePlayersHand(game->round, 
-                                     (bidWinnerId + i) % game->numberPlayers);
+        int first = round_findPlayerIndexRound(bidWinner, game->round);
+        for (int i = 0; team_hasCards(game->players[0]); i++) {
+            round_arrangePlayersHand(game->round, first);
 
             for (int j = 0; j < game->numberPlayers; j++) {
+                printScore(game, game->round);
                 displayCardsAndPickCard(game, j);
                 clear();
             }
+
+            struct Player *handWinner = round_handWinner(game->round->hands[i],
+                                                         game->round->trump, 
+                                                         game->round);
+            first = round_findPlayerIndexRound(handWinner, game->round);
         }
    }
 

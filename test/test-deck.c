@@ -126,3 +126,17 @@ void test_deck_compareCards()
     deck_deleteCard(&card1);
     deck_deleteCard(&card2);
 }
+
+void test_deck_cardsNumber()
+{
+    struct Deck *deck = deck_createDeck();
+
+    for (int i = 0; i < DECK_SIZE; i++) {
+        cut_assert_equal_int(DECK_SIZE - i, deck_cardsNumber(deck));
+        deck_deleteCard(&deck->cards[i]);
+    }
+
+    deck_deleteDeck(&deck);
+}
+
+

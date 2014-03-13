@@ -106,7 +106,7 @@ struct Player *newPlayer(int i)
     printw("Insert player %d name: ", i);
     scanw("%s", name);
 
-    struct Player *player = team_createPlayer(name, 0, 1);
+    struct Player *player = team_createPlayer(name, 1);
     return player;
 }
 

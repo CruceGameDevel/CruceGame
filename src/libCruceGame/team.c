@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-struct Player *team_createPlayer(const char *name, int sockfd, int isHuman)
+struct Player *team_createPlayer(const char *name, int isHuman)
 {
     if (name == NULL)
         return NULL;
@@ -19,7 +19,6 @@ struct Player *team_createPlayer(const char *name, int sockfd, int isHuman)
     newPlayer->name    = name;
     newPlayer->id      = id++;
     newPlayer->score   = 0;
-    newPlayer->sockfd  = sockfd;
     newPlayer->isHuman = isHuman;
 
     for (int i = 0; i < MAX_HANDS; i++)

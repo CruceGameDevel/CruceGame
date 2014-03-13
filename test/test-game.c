@@ -41,7 +41,7 @@ void test_game_addPlayer()
     struct Player *player[MAX_GAME_PLAYERS];
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        player[i] = team_createPlayer("A", i, i);
+        player[i] = team_createPlayer("A", i);
         cut_assert_equal_int(NO_ERROR, game_addPlayer(player[i], game));
         cut_assert_equal_int(i+1, game->numberPlayers);
         cut_assert_equal_int(DUPLICATE, game_addPlayer(player[i], game));
@@ -52,7 +52,7 @@ void test_game_addPlayer()
         cut_assert_equal_int(0, playerAdded);
     }
 
-    struct Player *player1 = team_createPlayer("A", 0, 0);
+    struct Player *player1 = team_createPlayer("A", 0);
     cut_assert_equal_int(GAME_NULL, game_addPlayer(player1, NULL));
     cut_assert_equal_int(PLAYER_NULL, game_addPlayer(NULL, game));
     cut_assert_operator_int(0, >, game_addPlayer(NULL, NULL));
@@ -71,7 +71,7 @@ void test_game_removePlayer()
     struct Player *player[MAX_GAME_PLAYERS];
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        player[i] = team_createPlayer("A", i, i);
+        player[i] = team_createPlayer("A", i);
         game_addPlayer(player[i], game);
     }
 
@@ -161,7 +161,7 @@ void test_game_winningTeam()
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
         teams[i] = team_createTeam("A");
         game_addTeam(teams[i], game);
-        players[i] = team_createPlayer("A", i, i);
+        players[i] = team_createPlayer("A", i);
         team_addPlayer(teams[i / 2], players[i]);
     }    
 
@@ -209,7 +209,7 @@ void test_game_checkCard()
     game->round = round;
 
     for (int i = 0; i < 3; i++)
-        player[i] = team_createPlayer("A", i, i);
+        player[i] = team_createPlayer("A", i);
 
     cut_assert_equal_int(PLAYER_NULL, game_checkCard(NULL, game, hand, 0));
     cut_assert_equal_int(GAME_NULL, game_checkCard(player[2], NULL, hand, 0));

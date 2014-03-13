@@ -80,7 +80,8 @@ int game_removePlayer(struct Player *player, struct Game *game)
         return NOT_FOUND;
 
     game->players[i] = NULL;
-
+    game->numberPlayers--;
+    
     return NO_ERROR;
 }
 

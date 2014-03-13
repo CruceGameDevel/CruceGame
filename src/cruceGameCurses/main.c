@@ -8,7 +8,7 @@ int main()
 {
     setlocale(LC_ALL, "");
     initscr();
-    raw();
+    cbreak();
 
     welcomeMessage();
     int noOfPlayers = getNoOfPlayers();

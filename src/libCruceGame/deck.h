@@ -13,6 +13,9 @@
  * @brief Card structure, to keep suit and value.
  *
  * Note that value is the game value (i.e. the points), not the face value.
+ *
+ * @var suit The suit of the card.
+ * @var value The value of the card.
  */
 struct Card{
     enum Suit suit;
@@ -23,6 +26,8 @@ struct Card{
  * @brief A 28 card deck used in this game.
  *
  * Before using a Deck, please use deckInit function to assign the cards.
+ *
+ * @var cards Pointer to the cards of the deck.
  */
 struct Deck{
     struct Card *cards[DECK_SIZE];

@@ -31,7 +31,7 @@ enum ERROR_CODE {
     HAND_EMPTY    = -16,
     DECK_EMPTY    = -17,
 
-    LESS_PLAYERS  = -18,
+    INSUFFICIENT_PLAYERS  = -18,
     LESS_CARDS    = -19,
 
     GAME_NULL     = -20,

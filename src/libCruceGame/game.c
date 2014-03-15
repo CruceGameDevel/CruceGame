@@ -181,7 +181,7 @@ int game_checkCard(struct Player *player, struct Game *game,
     if (game->numberPlayers == 0)
         return GAME_EMPTY;
     if (game->numberPlayers == 1)
-        return LESS_PLAYERS;
+        return INSUFFICIENT_PLAYERS;
     if (game->numberPlayers * MAX_CARDS > DECK_SIZE &&
        (idCard < 0 || idCard > DECK_SIZE / game->numberPlayers - 1))
         return ILLEGAL_VALUE;

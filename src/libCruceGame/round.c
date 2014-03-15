@@ -113,7 +113,7 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round)
         return PLAYER_NULL;
     if (round == NULL)
         return ROUND_NULL;
-    if (bid < 0 && bid > 6)
+    if (bid < 0 || bid > 6)
         return ILLEGAL_VALUE;
 
     for(int i = 0; i < MAX_GAME_PLAYERS; i++) {

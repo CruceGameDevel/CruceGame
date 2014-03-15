@@ -328,7 +328,7 @@ int round_distributeCard(struct Deck *deck, const struct Round *round)
     if (distributedCards == 0 && i == MAX_GAME_PLAYERS + 1)
         return ROUND_EMPTY;
     if (distributedCards == 1 && i == MAX_GAME_PLAYERS + 1)
-        return LESS_PLAYERS;
+        return INSUFFICIENT_PLAYERS;
     if (distributedCards == 1 && j == DECK_SIZE + 1)
         return LESS_CARDS;
 
@@ -348,7 +348,7 @@ int round_distributeDeck(struct Deck *deck, const struct Round *round)
             numberPlayers++;
 
     if (numberPlayers == 1)
-        return LESS_PLAYERS;
+        return INSUFFICIENT_PLAYERS;
     if (numberPlayers == 0)
         return ROUND_EMPTY;
 

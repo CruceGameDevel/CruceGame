@@ -216,7 +216,7 @@ void test_game_checkCard()
     cut_assert_equal_int(HAND_NULL, game_checkCard(player[2], game, NULL, 0));
     cut_assert_equal_int(GAME_EMPTY, game_checkCard(player[2], game, hand, 0));
     game_addPlayer(player[0], game);
-    cut_assert_equal_int(LESS_PLAYERS,
+    cut_assert_equal_int(INSUFFICIENT_PLAYERS,
                          game_checkCard(player[2], game, hand, 0));
     game_addPlayer(player[1], game); 
     game_addPlayer(player[2], game); 

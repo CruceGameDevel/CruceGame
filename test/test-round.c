@@ -321,7 +321,7 @@ void test_round_distributeCard()
 
     player[0] = team_createPlayer("A", 0);
     round_addPlayer(player[0], round);
-    cut_assert_equal_int(LESS_PLAYERS, round_distributeCard(deck, round));
+    cut_assert_equal_int(INSUFFICIENT_PLAYERS, round_distributeCard(deck, round));
 
     for (int i = 1; i < MAX_GAME_PLAYERS; i++) {
         distributeCard_testReset(player, i, round);
@@ -374,7 +374,7 @@ void test_round_distributeDeck()
 
     player[0] = team_createPlayer("A", 0);
     round_addPlayer(player[0], round);
-    cut_assert_equal_int(LESS_PLAYERS, round_distributeDeck(deck, round));
+    cut_assert_equal_int(INSUFFICIENT_PLAYERS, round_distributeDeck(deck, round));
     deck_deleteDeck(&deck);
 
     for (int i = 1; i < MAX_GAME_PLAYERS; i++) {

@@ -49,7 +49,7 @@ const char *error(int error_code)
         case DECK_EMPTY:
             return "Trying to distribute cards from a deck not large enough";
 
-        case LESS_PLAYERS:
+        case INSUFFICIENT_PLAYERS:
             return "The number of players needed is not big enough in the context given";
         case LESS_CARDS:
             return "There are not enough cards to complete the operation in the context given";

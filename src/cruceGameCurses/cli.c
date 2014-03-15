@@ -240,7 +240,7 @@ int formTeams (struct Game *game)
     if (game->numberPlayers == 0)
         return GAME_EMPTY;
     if (game->numberPlayers == 1)
-        return LESS_PLAYERS;
+        return INSUFFICIENT_PLAYERS;
 
     if (game->numberPlayers < 4) {
         createEmptyTeams(game);

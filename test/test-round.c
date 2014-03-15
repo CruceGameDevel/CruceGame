@@ -99,21 +99,22 @@ void test_round_placeBid()
     cut_assert_equal_int(ROUND_NULL, round_placeBid(players[0], 3, NULL));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], i, rnd));
+        cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], i + 1, rnd));
 
         int found = 0;
         for(int j = 0; j < MAX_GAME_PLAYERS; j++)
-            if (players[i] == rnd->players[j] && rnd->bids[j] == i)
+            if (players[i] == rnd->players[j] && rnd->bids[j] == i + 1)
                 found++;
 
         cut_assert_equal_int(found, 1);
     }
 
     for (int i = 0; i < MAX_GAME_PLAYERS - 1; i++)
-        rnd->bids[i] = 0;
+        cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], 0, rnd));
 
     for (int i = 0; i < MAX_GAME_PLAYERS - 1; i++)
-        cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[i], i, rnd));
+        cut_assert_equal_int(ILLEGAL_VALUE,
+                             round_placeBid(players[i], i + 1, rnd));
 
 }
 

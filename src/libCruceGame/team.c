@@ -103,6 +103,7 @@ int team_deletePlayer(struct Player **player)
     if (*player == NULL)
         return PLAYER_NULL;
 
+    free(*player->name);
     free(*player);
     *player = NULL;
 

@@ -14,11 +14,11 @@
  *
  * Structure to keep relevant informations about the players.
  *
- * @var id Identifier of the player.
- * @var name Pointer to the name of the player.
- * @var hand Pointer to the cards of the player.
- * @var score The amount of points earned in a hand.
- * @var isHuman Flag used to indicate if the player is human or robot.
+ * @var Player:id Identifier of the player.
+ * @var Player:name Pointer to the name of the player.
+ * @var Player:hand Pointer to the cards of the player.
+ * @var Player:score The amount of points earned in a hand.
+ * @var Player:isHuman Flag used to indicate if the player is human or robot.
  */
 struct Player{
     int id;
@@ -35,9 +35,9 @@ struct Player{
  * Players are grouped in teams. One team for 2-3 players,
  * and two teams for 4 players.
  *
- * @var id The identifier of the team.
- * @var name Pointer to the name of the team.
- * @var players Pointer to the players of the team.
+ * @var Team:id The identifier of the team.
+ * @var Team:name Pointer to the name of the team.
+ * @var Team:players Pointer to the players of the team.
  */
 struct Team{
     int id;

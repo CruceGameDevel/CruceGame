@@ -15,8 +15,8 @@
  *
  * Note that value is the game value (i.e. the points), not the face value.
  *
- * @var suit The suit of the card.
- * @var value The value of the card.
+ * @var Card:suit The suit of the card.
+ * @var Card:value The value of the card.
  */
 struct Card{
     enum Suit suit;
@@ -29,7 +29,7 @@ struct Card{
  *
  * Before using a Deck, please use deckInit function to assign the cards.
  *
- * @var cards Pointer to the cards of the deck.
+ * @var Deck:cards Pointer to the cards of the deck.
  */
 struct Deck{
     struct Card *cards[DECK_SIZE];

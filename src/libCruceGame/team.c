@@ -46,7 +46,12 @@ struct Team *team_createTeam(const char *name)
         return NULL;
 
     newTeam->id   = id++;
-    newTeam->name = name;
+    newTeam->name = malloc(strlen(name) * sizeof(char));
+    
+    if(newTeam->name == NULL)
+        return NULL;
+    strcpy(newTeam->name, name);
+
     newTeam->players[0] = NULL;
     newTeam->players[1] = NULL;
 
@@ -96,6 +101,7 @@ int team_deleteTeam(struct Team **team)
     if (*team == NULL)
         return TEAM_NULL;
 
+    free((*team)->name);
     free(*team);
     *team = NULL;
 

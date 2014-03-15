@@ -275,7 +275,10 @@ int formTeams (struct Game *game)
         char *teamName = malloc(100); //WARNING: MAGIC CONSTANT
         printw("Insert %s team's name: ", numerals[i]);
         scanw("%s", teamName);
+
         struct Team *team = team_createTeam(teamName);
+        free(teamName);    
+
         team_addPlayer(team, game->players[i]);
         team_addPlayer(team, game->players[i + 1]);
         game_addTeam(team, game);

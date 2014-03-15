@@ -176,6 +176,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
         players[i] = team_createPlayer("name", 0);
         players[i]->hand[0] = cards[i]; //use specialised function for this
         round_addPlayerHand(players[i], hand);
+        round_addPlayer(players[i], round);
         round_putCard(players[i], 0, hand);
         points += cardValues[i];
     }

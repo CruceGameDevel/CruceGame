@@ -225,7 +225,7 @@ void createEmptyTeams(struct Game *game)
 {
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] != NULL) {
-            struct Team *team = team_createTeam("NONE");
+            struct Team *team = team_createTeam(game->players[i]->name);
             team_addPlayer(team, game->players[i]);
             game_addTeam(team, game);
         }

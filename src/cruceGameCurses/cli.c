@@ -107,6 +107,7 @@ struct Player *newPlayer(int i)
     scanw("%s", name);
 
     struct Player *player = team_createPlayer(name, 1);
+    free(name);
     return player;
 }
 

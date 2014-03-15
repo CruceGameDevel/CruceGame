@@ -3,6 +3,7 @@
 #include "errors.h"
 #include <stdlib.h>
 
+#include <string.h>
 #include <stdio.h>
 
 struct Player *team_createPlayer(const char *name, int isHuman)
@@ -16,7 +17,8 @@ struct Player *team_createPlayer(const char *name, int isHuman)
     if (newPlayer == NULL)
         return NULL;
 
-    newPlayer->name    = name;
+    newPlayer->name    = malloc(strlen(name) * sizeof(char));
+    strcpy(newPlayer->name, name);
     newPlayer->id      = id++;
     newPlayer->score   = 0;
     newPlayer->isHuman = isHuman;
@@ -102,6 +104,7 @@ int team_deletePlayer(struct Player **player)
     if (*player == NULL)
         return PLAYER_NULL;
 
+    free((*player)->name);
     free(*player);
     *player = NULL;
 

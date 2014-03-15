@@ -160,7 +160,7 @@ void test_team_addCard()
     struct Player *player = team_createPlayer("A", 1);
     struct Deck *deck = deck_createDeck();
 
-    for (int i = 0; i < MAX_HANDS; i++) {
+    for (int i = 0; i < MAX_CARDS; i++) {
         cut_assert_equal_int(NO_ERROR, team_addCard(player, deck->cards[i]));
         cut_assert_equal_int(DUPLICATE, team_addCard(player, deck->cards[i]));
     }

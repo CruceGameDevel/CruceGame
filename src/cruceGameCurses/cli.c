@@ -177,7 +177,7 @@ int printScore(struct Game *game, struct Round *round)
             printw("%s", verticalLeftBoxDouble);
             line++;
             move(y + line, x);
-            printw("%s%s ", verticalBoxDouble, game->players[i]->name);
+            printw("%s%s ", verticalBoxDouble, round->players[i]->name);
             move(y + line, x + maxLength + 1);
             printw("%s %*d", verticalBoxDouble, 5, round->pointsNumber[i]);
             move(y + line, x + maxLength + 8);
@@ -292,7 +292,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     if (game == NULL)
         return GAME_NULL;
     int handId=0;
-    while(game->round->hands[handId] != NULL)
+    while(handId < MAX_HANDS && game->round->hands[handId] != NULL)
             handId++;
     handId--;
     if (game->round->hands[handId] == NULL)

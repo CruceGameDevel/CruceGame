@@ -8,7 +8,7 @@ int main()
 {
     setlocale(LC_ALL, "");
     initscr();
-    raw();
+    cbreak();
 
     welcomeMessage();
     int noOfPlayers = getNoOfPlayers();
@@ -38,20 +38,49 @@ int main()
         }
 
         struct Player *bidWinner = round_getBidWinner(game->round);
-        int bidWinnerId = 0;
-        while (game->round->players[bidWinnerId] != bidWinner)
-            bidWinnerId++;
-
-        for (int i = 0; i < 8; i++) {
-            round_arrangePlayersHand(game->round, 
-                                     (bidWinnerId + i) % game->numberPlayers);
+        int first = round_findPlayerIndexRound(bidWinner, game->round);
+        for (int i = 0; team_hasCards(game->players[0]); i++) {
+            round_arrangePlayersHand(game->round, first);
 
             for (int j = 0; j < game->numberPlayers; j++) {
+                printScore(game, game->round);
                 displayCardsAndPickCard(game, j);
                 clear();
             }
+
+            struct Player *handWinner = round_handWinner(game->round->hands[i],
+                                                         game->round->trump, 
+                                                         game->round);
+            first = round_findPlayerIndexRound(handWinner, game->round);
+
+            if (deck_cardsNumber(deck) > 0)
+                round_distributeCard(deck, game->round);
+
         }
-   }
+        for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+            if (game->round->players[i] != NULL && 
+                game->round->players[i] != bidWinner) {
+                game->round->players[i]->score += 
+                    game->round->pointsNumber[i] / 33;
+            } else if (game->round->players[i] == bidWinner) {
+                if (game->round->bids[i] <= game->round->pointsNumber[i] / 33)
+                    bidWinner->score += game->round->pointsNumber[i] / 33;
+                else
+                    bidWinner->score -= game->round->bids[i];
+            }
+        }
+
+        deck_deleteDeck(&deck);
+        round_deleteRound(&game->round);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (game->players[i])
+            team_deletePlayer(&game->players[i]);
+    for (int i = 0; i < MAX_GAME_TEAMS; i++)
+        if (game->teams[i])
+            team_deleteTeam(&game->teams[i]);
+    game_deleteGame(&game);
 
     getch();
     endwin();

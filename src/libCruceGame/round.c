@@ -82,14 +82,7 @@ struct Player *round_getBidWinner(const struct Round *round)
     return round->players[maxBidIndex];
 }
 
-/**
- * @brief Helper to find player in a round.
- *
- * @param player Player to find.
- * @param round Round to search for player.
- * @return 0 on success, non-zero on failure.
- */
-int findPlayerIndexRound(const struct Player *player, const struct Round *round)
+int round_findPlayerIndexRound(const struct Player *player, const struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -123,7 +116,7 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round)
         }
     }
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
 
     if(index < 0)
         return NOT_FOUND;
@@ -140,7 +133,7 @@ int round_addPlayer(struct Player *player, struct Round *round)
     if (round == NULL)
         return ROUND_NULL;
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
     if(index >= 0) //impossible to add same player multiple time
         return DUPLICATE;
 
@@ -186,7 +179,7 @@ int round_removePlayer(struct Player *player, struct Round *round)
     if (round == NULL)
         return ROUND_NULL;
 
-    int index = findPlayerIndexRound(player, round);
+    int index = round_findPlayerIndexRound(player, round);
 
     if (index < 0)
         return NOT_FOUND;
@@ -295,7 +288,9 @@ struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
         }
     }
 
-    round->pointsNumber[playerWinner] += totalPointsNumber(hand);
+    int playerWinner_inRound = 
+        round_findPlayerIndexRound(hand->players[playerWinner], round);
+    round->pointsNumber[playerWinner_inRound] += totalPointsNumber(hand);
     return hand->players[playerWinner];
 }
 
@@ -352,7 +347,7 @@ int round_distributeDeck(struct Deck *deck, const struct Round *round)
     if (numberPlayers == 0)
         return ROUND_EMPTY;
 
-    for (int i = 0; i < MAX_HANDS && i < DECK_SIZE / numberPlayers; i++) {
+    for (int i = 0; i < MAX_CARDS && i < DECK_SIZE / numberPlayers; i++) {
         int distributeCard = round_distributeCard(deck, round);
         if (distributeCard != NO_ERROR)
             return distributeCard;

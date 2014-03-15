@@ -29,7 +29,7 @@
 /**
  * @brief Maximum number of hands in a round.
  */
-#define MAX_HANDS 8
+#define MAX_HANDS 12
 
 /**
  * @brief Maximum number of players in a game

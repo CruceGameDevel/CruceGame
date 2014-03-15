@@ -70,6 +70,17 @@ EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *ro
 EXPORT int round_addPlayer(struct Player* player, struct Round *round);
 
 /**
+ * @brief Helper to find player in a round.
+ *
+ * @param player Player to find.
+ * @param round Round to search for player.
+ *
+ * @return Id of the player if found, negative value otherwise.
+ */
+EXPORT int round_findPlayerIndexRound(const struct Player *player, 
+                                      const struct Round *round);
+
+/**
  * @brief Adds a player to a hand.
  *
  * @param player Pointer to the player to be added.

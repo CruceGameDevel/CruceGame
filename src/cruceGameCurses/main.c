@@ -70,7 +70,18 @@ int main()
                     bidWinner->score -= game->round->bids[i];
             }
         }
-   }
+
+        deck_deleteDeck(&deck);
+        round_deleteRound(&game->round);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (game->players[i])
+            team_deletePlayer(&game->players[i]);
+    for (int i = 0; i < MAX_GAME_TEAMS; i++)
+        if (game->teams[i])
+            team_deleteTeam(&game->teams[i]);
+    game_deleteGame(&game);
 
     getch();
     endwin();

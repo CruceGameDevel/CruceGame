@@ -213,7 +213,7 @@ EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 * @brief Distributes cards to players.
 *
 * @param deck Pointer to the deck from where cards are distributed.
-* @param hand Pointer to the round that deck is distributed to.
+* @param round Pointer to the round that deck is distributed to.
 *
 * @return NO_ERROR on success, error code otherwise.
 */

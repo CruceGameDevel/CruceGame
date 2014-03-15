@@ -19,8 +19,10 @@
  * In a hand, player[i] gives cards[i] and bids bid[i].
  * The players should be added in the order of the bids.
  *
- * @var Hand:Card Pointer to the cards of the hand.
- * @var Hand:Player Pointer to the players of the hand.
+ * @var Hand::cards
+ *     Pointer to the cards of the hand.
+ * @var Hand::players
+ *     Pointer to the players of the hand.
  */
 struct Hand{
     struct Card *cards[MAX_GAME_PLAYERS];
@@ -35,12 +37,18 @@ struct Hand{
  * hands and computes the score until the winner of the
  * round is found.
  *
- * @var Round:id Identifier of the round.
- * @var Round:trump The trump of the round.
- * @var Round:hands Pointer to the hands of the round.
- * @var Round:bids The bids of the players.
- * @var Round:players Pointer to the players of the round.
- * @var Round:pointsNumber The total amount of points of the round.
+ * @var Round::id
+ *     Identifier of the round.
+ * @var Round::trump
+ *     The trump of the round.
+ * @var Round::hands
+ *     Pointer to the hands of the round.
+ * @var Round::bids
+ *     The bids of the players.
+ * @var Round::players
+ *     Pointer to the players of the round.
+ * @var Round::pointsNumber
+ *     The total amount of points of the round.
  */
 struct Round{
     int id;

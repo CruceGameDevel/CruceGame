@@ -18,12 +18,18 @@
  * 
  * Structure used to keep information about the game data.
  * 
- * @var Game:numberPlayers The number of the players that joined the game.
- * @var Game:pointsNumber The total amount of the points of the game.
- * @var Game:round Pointer to the current round of the game.
- * @var Game:players Pointer to the players of the game.
- * @var Game:teams Pointer to the teams of the game.
- * @var Game:deck Pointer to the deck of the game.
+ * @var Game::numberPlayers
+ *     The number of the players that joined the game.
+ * @var Game::pointsNumber
+ *     The total amount of the points of the game.
+ * @var Game::round
+ *     Pointer to the current round of the game.
+ * @var Game::players
+ *     Pointer to the players of the game.
+ * @var Game::teams
+ *     Pointer to the teams of the game.
+ * @var Game::deck
+ *     Pointer to the deck of the game.
  */
 struct Game {
     int numberPlayers;

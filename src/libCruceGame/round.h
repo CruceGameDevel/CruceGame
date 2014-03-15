@@ -184,39 +184,39 @@ EXPORT int round_removePlayer(struct Player *player, struct Round *round);
  * @param hand Pointer to the hand from where the player is removed.
  *
  * @return NO_ERROR on success, error code otherwise.
- *
  */
 EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
 
 /**
-* @brief Determines the winner of a hand.
-*
-* @param hand Pointer to the hand.
-* @param trump The trump of round.
-*
-* @return Pointer to the winning player or NULL on failure.
-*/
+ * @brief Determines the winner of a hand.
+ *
+ * @param hand Pointer to the hand.
+ * @param trump The trump of round.
+ * @param round Pointer to the round containing the hand that the player won.
+ *
+ * @return Pointer to the winning player or NULL on failure.
+ */
 EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
                                        struct Round *round);
 
 /**
-* @brief Distributes one card to every player.
-*
-* @param deck Pointer to the deck from where cards are distributed.
-* @param round Pointer to the round containing the players that receive the cards.
-*
-* @return NO_ERROR on success, error code otherwise.
-*/
+ * @brief Distributes one card to every player.
+ *
+ * @param deck Pointer to the deck from where cards are distributed.
+ * @param round Pointer to the round containing the players that receive the cards.
+ *
+ * @return NO_ERROR on success, error code otherwise.
+ */
 EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 
 /**
-* @brief Distributes cards to players.
-*
-* @param deck Pointer to the deck from where cards are distributed.
-* @param round Pointer to the round that deck is distributed to.
-*
-* @return NO_ERROR on success, error code otherwise.
-*/
+ * @brief Distributes cards to players.
+ *
+ * @param deck Pointer to the deck from where cards are distributed.
+ * @param round Pointer to the round that deck is distributed to.
+ *
+ * @return NO_ERROR on success, error code otherwise.
+ */
 EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
 
 /**

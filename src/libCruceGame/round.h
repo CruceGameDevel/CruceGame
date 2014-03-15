@@ -13,6 +13,7 @@
 #include "errors.h"
 
 /**
+ * @struct Hand
  * @brief Hand structure.
  *
  * In a hand, player[i] gives cards[i] and bids bid[i].
@@ -27,6 +28,7 @@ struct Hand{
 };
 
 /**
+ * @struct Round
  * @brief Round structure.
  *
  * Round is a division of the game, it keeps the winning 

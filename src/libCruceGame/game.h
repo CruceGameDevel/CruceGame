@@ -13,6 +13,7 @@
 #include "round.h"
 
 /**
+ * @struct Game
  * @brief Game structure.
  * 
  * Structure used to keep information about the game data.

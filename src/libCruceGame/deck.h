@@ -10,6 +10,7 @@
 #include "constants.h"
 
 /**
+ * @struct Card
  * @brief Card structure, to keep suit and value.
  *
  * Note that value is the game value (i.e. the points), not the face value.
@@ -23,6 +24,7 @@ struct Card{
 };
 
 /**
+ * @struct Deck
  * @brief A 28 card deck used in this game.
  *
  * Before using a Deck, please use deckInit function to assign the cards.

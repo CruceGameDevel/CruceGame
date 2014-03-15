@@ -9,6 +9,7 @@
 #include "deck.h"
 
 /**
+ * @struct Player
  * @brief Player structure.
  *
  * Structure to keep relevant informations about the players.
@@ -28,6 +29,7 @@ struct Player{
 };
 
 /**
+ * @struct Team
  * @brief Team structure.
  *
  * Players are grouped in teams. One team for 2-3 players,

@@ -83,9 +83,9 @@ int displayCardsAndPickCard(struct Game *game, int playerId);
 int getBid(struct Game* game, int playerId);
 
 /**
- * @brief Function to display the player who wins
+ * @brief Function to display the team who wins
  *
- * @param winner The player who wins
+ * @param winner The team who wins
  *
  * @return NO_ERROR on success, otherwise POINTER_NULL on failure
  */

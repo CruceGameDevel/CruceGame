@@ -16,7 +16,7 @@ void cut_setup()
     hand  = round_createHand();
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        players[i] = team_createPlayer("A", 0, 0);
+        players[i] = team_createPlayer("A", 0);
 }
 
 void cut_teardown()
@@ -161,7 +161,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
     int points = 0;
     for (int i = 0; i < testSize; i++) {
         cards[i] = deck_createCard(cardSuits[i], cardValues[i]);
-        players[i] = team_createPlayer("name", 0, 0);
+        players[i] = team_createPlayer("name", 0);
         players[i]->hand[0] = cards[i]; //use specialised function for this
         round_addPlayerHand(players[i], hand);
         round_putCard(players[i], 0, hand);
@@ -194,8 +194,8 @@ void test_round_handWinner()
     cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd, round));
     cut_assert_equal_pointer(NULL, round_handWinner(hand, CLUBS, round));
     
-    struct Player *player1 = team_createPlayer("A", 0, 0);
-    struct Player *player2 = team_createPlayer("A", 0, 0);
+    struct Player *player1 = team_createPlayer("A", 0);
+    struct Player *player2 = team_createPlayer("A", 0);
 
     struct Card *card1 = deck_createCard(CLUBS, VALUES[0]);
 
@@ -289,7 +289,7 @@ int distributeCard_testReset (struct Player *player[], int lenght,
         if (player[i] != NULL) {
             round_removePlayer(player[i], round);
             team_deletePlayer(&player[i]);
-            player[i] = team_createPlayer("A", i, i);
+            player[i] = team_createPlayer("A", i);
             round_addPlayer(player[i], round);
         }
 
@@ -307,7 +307,7 @@ void test_round_distributeCard()
     cut_assert_operator_int(0, >, round_distributeCard(NULL, NULL));
     cut_assert_equal_int(ROUND_EMPTY, round_distributeCard(deck, round));
 
-    player[0] = team_createPlayer("A", 0, 0);
+    player[0] = team_createPlayer("A", 0);
     round_addPlayer(player[0], round);
     cut_assert_equal_int(LESS_PLAYERS, round_distributeCard(deck, round));
 
@@ -315,7 +315,7 @@ void test_round_distributeCard()
         distributeCard_testReset(player, i, round);
         deck = deck_createDeck();
         deck_deckShuffle(deck);
-        player[i] = team_createPlayer("A", i, i);
+        player[i] = team_createPlayer("A", i);
         round_addPlayer(player[i], round);
 
         for (int j = 0; j < MAX_HANDS && j < DECK_SIZE / (i + 1); j++) {
@@ -360,7 +360,7 @@ void test_round_distributeDeck()
     cut_assert_operator_int(0, >, round_distributeDeck(NULL, NULL));
     cut_assert_equal_int(ROUND_EMPTY, round_distributeDeck(deck, round));
 
-    player[0] = team_createPlayer("A", 0, 0);
+    player[0] = team_createPlayer("A", 0);
     round_addPlayer(player[0], round);
     cut_assert_equal_int(LESS_PLAYERS, round_distributeDeck(deck, round));
     deck_deleteDeck(&deck);
@@ -369,7 +369,7 @@ void test_round_distributeDeck()
         distributeCard_testReset(player, i, round);
         deck = deck_createDeck();
         deck_deckShuffle(deck);
-        player[i] = team_createPlayer("A", i, i);
+        player[i] = team_createPlayer("A", i);
         round_addPlayer(player[i], round);
         cut_assert_equal_int(NO_ERROR, round_distributeDeck(deck, round));
 
@@ -413,7 +413,7 @@ void test_round_arrangePlayersHand()
     
     struct Player *player;
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        player = team_createPlayer("A", i, i);
+        player = team_createPlayer("A", i);
         round_addPlayer(player, round);
     }
 

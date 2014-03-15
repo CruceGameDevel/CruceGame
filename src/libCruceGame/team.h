@@ -13,10 +13,9 @@
  */
 struct Player{
     int id;
-    const char *name;
+    char *name;
     struct Card *hand[MAX_CARDS];
     int score;
-    int sockfd;
     int isHuman; //0 for AI, non-zero for human.
 };
 
@@ -37,12 +36,11 @@ extern "C" {
  * @brief Creates a player.
  *
  * @param name The name of the new player.
- * @param sockfd Socket file descriptor for connection.
  * @param isHuman Player type.
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-EXPORT struct Player *team_createPlayer(const char *name, int sockfd, int isHuman);
+EXPORT struct Player *team_createPlayer(const char *name, int isHuman);
 
 /**
  * @brief Creates a team.

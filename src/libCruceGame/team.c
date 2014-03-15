@@ -3,9 +3,10 @@
 #include "errors.h"
 #include <stdlib.h>
 
+#include <string.h>
 #include <stdio.h>
 
-struct Player *team_createPlayer(const char *name, int sockfd, int isHuman)
+struct Player *team_createPlayer(const char *name, int isHuman)
 {
     if (name == NULL)
         return NULL;
@@ -16,10 +17,15 @@ struct Player *team_createPlayer(const char *name, int sockfd, int isHuman)
     if (newPlayer == NULL)
         return NULL;
 
-    newPlayer->name    = name;
+    newPlayer->name    = malloc(strlen(name) * sizeof(char));
+
+    if(newPlayer->name != NULL) 
+        strcpy(newPlayer->name, name);
+    else 
+        return NULL;
+
     newPlayer->id      = id++;
     newPlayer->score   = 0;
-    newPlayer->sockfd  = sockfd;
     newPlayer->isHuman = isHuman;
 
     for (int i = 0; i < MAX_HANDS; i++)
@@ -103,6 +109,7 @@ int team_deletePlayer(struct Player **player)
     if (*player == NULL)
         return PLAYER_NULL;
 
+    free((*player)->name);
     free(*player);
     *player = NULL;
 

@@ -9,13 +9,12 @@ static struct Team team;
 
 void test_team_createPlayer()
 {
-    cut_assert_equal_pointer(NULL, team_createPlayer(NULL, 0, 0));
+    cut_assert_equal_pointer(NULL, team_createPlayer(NULL, 0));
 
     struct Player *player;
     for (int i = 0; i < 100; i++) {
-        player = team_createPlayer("A", i, i);
+        player = team_createPlayer("A", i);
         cut_assert_equal_string("A", player->name);
-        cut_assert_equal_int(i, player->sockfd);
         cut_assert_equal_int(i, player->isHuman);
         cut_assert_equal_int(0, player->score);
         cut_assert_operator_int(-1, <, player->id);
@@ -43,7 +42,7 @@ void test_team_addPlayer()
     struct Team *team1 = team_createTeam("E");
     struct Player *testPlayer[MAX_TEAM_PLAYERS];
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        testPlayer[i] = team_createPlayer("A", i, i);
+        testPlayer[i] = team_createPlayer("A", i);
         cut_assert_equal_int(NO_ERROR, team_addPlayer(team1, testPlayer[i]));
         cut_assert_equal_int(DUPLICATE, team_addPlayer(team1, testPlayer[i]));
         int playerAdded = -1; //0 the player was added. Otherwise -1.
@@ -53,7 +52,7 @@ void test_team_addPlayer()
         cut_assert_equal_int(0, playerAdded);
     }
 
-    struct Player *player1 = team_createPlayer("A", 1, 1);
+    struct Player *player1 = team_createPlayer("A", 1);
     cut_assert_equal_int(TEAM_NULL, team_addPlayer(NULL, player1));
     cut_assert_equal_int(PLAYER_NULL, team_addPlayer(team1, NULL));
     cut_assert_equal_int(TEAM_FULL, team_addPlayer(team1, player1));
@@ -73,7 +72,7 @@ void test_team_removePlayer()
     struct Team *team1 = team_createTeam("A"); 
     struct Player *testPlayer[MAX_TEAM_PLAYERS];
     for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        testPlayer[i] = team_createPlayer("A", i, i);
+        testPlayer[i] = team_createPlayer("A", i);
         team_addPlayer(team1, testPlayer[i]);
     }
 
@@ -103,7 +102,7 @@ void test_team_removePlayer()
 
 void test_team_deletePlayer()
 {
-    struct Player *player = team_createPlayer("A", 0, 0);
+    struct Player *player = team_createPlayer("A", 0);
 
     cut_assert_equal_int(NO_ERROR, team_deletePlayer(&player));
     cut_assert_equal_pointer(NULL, player);
@@ -128,7 +127,7 @@ void test_team_computeScore()
     struct Player *players[MAX_TEAM_PLAYERS];
     
     for (int k = 0; k < MAX_TEAM_PLAYERS; k++) {
-        players[k] = team_createPlayer("A", 0, 0);
+        players[k] = team_createPlayer("A", 0);
         team_addPlayer(team, players[k]);
 
         int score = 0;
@@ -158,7 +157,7 @@ void test_team_computeScore()
 
 void test_team_addCard()
 {
-    struct Player *player = team_createPlayer("A", 1, 1);
+    struct Player *player = team_createPlayer("A", 1);
     struct Deck *deck = deck_createDeck();
 
     for (int i = 0; i < MAX_HANDS; i++) {
@@ -178,7 +177,7 @@ void test_team_addCard()
 
 void test_team_hasCards()
 {
-    struct Player *player = team_createPlayer("A", 1, 1);
+    struct Player *player = team_createPlayer("A", 1);
     struct Deck *deck = deck_createDeck();
 
     cut_assert_equal_int(PLAYER_NULL, team_hasCards(NULL));

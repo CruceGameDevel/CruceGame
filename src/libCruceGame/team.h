@@ -1,10 +1,10 @@
 /**
- * @file player.h
- * @brief Player structure, with helper functions.
+ * @file team.h
+ * @brief Player and Team structures, with helper functions.
  */
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef TEAM_H
+#define TEAM_H
 
 #include "deck.h"
 

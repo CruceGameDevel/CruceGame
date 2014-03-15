@@ -151,7 +151,7 @@ void test_round_removePlayer()
  * cardSuits and cardValue MUST have at least testSize slots and testSize
  * should be at least 2.
  */
-/*
+
 void perform_round_handWinner_tests(int *cardSuits, int *cardValues, 
                                     enum Suit trump, int testSize, int winner)
 {
@@ -254,7 +254,7 @@ void test_round_handWinner()
 
     round_deleteRound(&round);
 }
-*/
+
 int getNumberCards(struct Player *player)
 {
     if (player == NULL)

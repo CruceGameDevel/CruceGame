@@ -146,7 +146,7 @@ int printScore(struct Game *game, struct Round *round)
     getyx(stdscr, y, x);
 
     printw("%s",downRightBoxDouble);
-    for (int i = 1; i <= maxLength + 12; i++){
+    for (int i = 1; i <= maxLength + 13; i++){
         if (i == maxLength + 1 || i == maxLength + 8)
             printw("%s", downHorizontalBoxDouble);
         else
@@ -156,18 +156,18 @@ int printScore(struct Game *game, struct Round *round)
     line++;
 
     move(y + 1, x);
-    printw("%sNume", verticalBoxDouble);
+    printw("%sName", verticalBoxDouble);
     move(y + 1, x + maxLength + 1);
-    printw("%sPuncte", verticalBoxDouble);
+    printw("%sPoints", verticalBoxDouble);
     move(y + 1, x + maxLength + 8);
-    printw("%sScor%s", verticalBoxDouble, verticalBoxDouble);
+    printw("%sScore%s", verticalBoxDouble, verticalBoxDouble);
     line++;
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] != NULL) {
             move(y + line, x);
             printw("%s", verticalRightBoxDouble);
-            for (int j = 1; j <= maxLength + 12; j++) {
+            for (int j = 1; j <= maxLength + 13; j++) {
                 if (j == maxLength + 1 || j == maxLength + 8)
                     printw("%s", verticalHorizontalBoxDouble);
                 else
@@ -180,8 +180,8 @@ int printScore(struct Game *game, struct Round *round)
             move(y + line, x + maxLength + 1);
             printw("%s %*d", verticalBoxDouble, 5, round->pointsNumber[i]);
             move(y + line, x + maxLength + 8);
-            printw("%s %*d", verticalBoxDouble, 3, game->players[i]->score);
-            move(y + line, x + maxLength + 13);
+            printw("%s %*d", verticalBoxDouble, 4, game->players[i]->score);
+            move(y + line, x + maxLength + 14);
             printw("%s", verticalBoxDouble);
             line++;
         }            
@@ -189,13 +189,13 @@ int printScore(struct Game *game, struct Round *round)
 
     move(y + line, x);
     printw("%s", upRightBoxDouble); 
-    for (int i = 1; i <= maxLength + 12; i++) {
+    for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
             printw("%s", upHorizontalBoxDouble);
         else
             printw("%s", horizontalBoxDouble);
     }
-    printw("%s", upLeftBoxDouble);
+    printw("%s\n", upLeftBoxDouble);
 
     return NO_ERROR;
 }

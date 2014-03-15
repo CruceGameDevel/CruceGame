@@ -6,6 +6,8 @@
 
 #include <cutter.h>
 
+#include <stdio.h>
+
 struct Round *rnd;
 struct Hand *hand;
 struct Player *players[MAX_GAME_PLAYERS];
@@ -149,7 +151,7 @@ void test_round_removePlayer()
  * cardSuits and cardValue MUST have at least testSize slots and testSize
  * should be at least 2.
  */
-
+/*
 void perform_round_handWinner_tests(int *cardSuits, int *cardValues, 
                                     enum Suit trump, int testSize, int winner)
 {
@@ -252,14 +254,14 @@ void test_round_handWinner()
 
     round_deleteRound(&round);
 }
-
+*/
 int getNumberCards(struct Player *player)
 {
     if (player == NULL)
         return PLAYER_NULL;
 
     int number = 0;
-    for (int i = 0; i < MAX_HANDS; i++)
+    for (int i = 0; i < MAX_CARDS; i++)
         if (player->hand[i] != NULL)
             number++;
 
@@ -318,7 +320,7 @@ void test_round_distributeCard()
         player[i] = team_createPlayer("A", i);
         round_addPlayer(player[i], round);
 
-        for (int j = 0; j < MAX_HANDS && j < DECK_SIZE / (i + 1); j++) {
+        for (int j = 0; j < MAX_CARDS && j < DECK_SIZE / (i + 1); j++) {
             cut_assert_equal_int(NO_ERROR, round_distributeCard(deck, round));
             for (int k = 0; k <= i; k++)
                 cut_assert_equal_int(j+1, getNumberCards(player[k]));
@@ -328,8 +330,8 @@ void test_round_distributeCard()
 
         int duplicate = 0;
         for (int j = 0; j <= i; j++) {
-            for (int k = 0; k < MAX_HANDS - 1; k++) {
-                for (int n = 0; n < MAX_HANDS; n++) {
+            for (int k = 0; k < MAX_CARDS - 1; k++) {
+                for (int n = 0; n < MAX_CARDS; n++) {
                     if (0 == deck_compareCards(players[j]->hand[k],
                                                players[j]->hand[n],
                                                CLUBS))
@@ -374,8 +376,8 @@ void test_round_distributeDeck()
         cut_assert_equal_int(NO_ERROR, round_distributeDeck(deck, round));
 
         for (int j = 0; j <= i; j++) {
-            if (MAX_HANDS * (i + 1) < DECK_SIZE) {
-                cut_assert_equal_int(MAX_HANDS, getNumberCards(player[j]));
+            if (MAX_CARDS * (i + 1) < DECK_SIZE) {
+                cut_assert_equal_int(MAX_CARDS, getNumberCards(player[j]));
             } else {
                 cut_assert_equal_int(DECK_SIZE / (i + 1),
                                      getNumberCards(player[j]));
@@ -387,20 +389,22 @@ void test_round_distributeDeck()
             if (deck->cards[j] != NULL)
                 remainingCards++;
 
-        if(MAX_HANDS * i < DECK_SIZE) {
+        if(MAX_CARDS * i < DECK_SIZE) {
             cut_assert_equal_int(remainingCards,
-                                 DECK_SIZE - MAX_HANDS * (i + 1));
+                                 DECK_SIZE - MAX_CARDS * (i + 1));
         } else {
             cut_assert_equal_int(remainingCards, 0);
         }
 
         deck_deleteDeck(&deck);
+
     }
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         team_deletePlayer(&player[i]);
     }
     round_deleteHand(&hand);
+
 }
 
 void test_round_arrangePlayersHand()

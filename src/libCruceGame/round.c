@@ -345,7 +345,7 @@ int round_distributeDeck(struct Deck *deck, const struct Round *round)
     if (numberPlayers == 0)
         return ROUND_EMPTY;
 
-    for (int i = 0; i < MAX_HANDS && i < DECK_SIZE / numberPlayers; i++) {
+    for (int i = 0; i < MAX_CARDS && i < DECK_SIZE / numberPlayers; i++) {
         int distributeCard = round_distributeCard(deck, round);
         if (distributeCard != NO_ERROR)
             return distributeCard;

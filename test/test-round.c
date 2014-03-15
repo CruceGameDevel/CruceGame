@@ -87,12 +87,16 @@ void test_round_addPlayer()
 void test_round_placeBid()
 {
     cut_assert_equal_int(PLAYER_NULL, round_placeBid(NULL, 2, rnd));
-    cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[0], -1, rnd));
     cut_assert_not_equal_int(NO_ERROR, round_placeBid(players[0], 2, NULL));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++){
+        cut_assert_equal_int(NOT_FOUND, round_placeBid(players[i], i, rnd));
         cut_assert_equal_int(NO_ERROR, round_addPlayer(players[i], rnd));
     }
+
+    cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[0], -1, rnd));
+    cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[0], 7, rnd));
+    cut_assert_equal_int(ROUND_NULL, round_placeBid(players[0], 3, NULL));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         cut_assert_equal_int(NO_ERROR, round_placeBid(players[i], i, rnd));
@@ -104,6 +108,13 @@ void test_round_placeBid()
 
         cut_assert_equal_int(found, 1);
     }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS - 1; i++)
+        rnd->bids[i] = 0;
+
+    for (int i = 0; i < MAX_GAME_PLAYERS - 1; i++)
+        cut_assert_equal_int(ILLEGAL_VALUE, round_placeBid(players[i], i, rnd));
+
 }
 
 void test_round_getBidWinner()

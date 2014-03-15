@@ -13,7 +13,7 @@
  */
 struct Player{
     int id;
-    const char *name;
+    char *name;
     struct Card *hand[MAX_CARDS];
     int score;
     int isHuman; //0 for AI, non-zero for human.

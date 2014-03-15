@@ -16,7 +16,8 @@ struct Player *team_createPlayer(const char *name, int isHuman)
     if (newPlayer == NULL)
         return NULL;
 
-    newPlayer->name    = name;
+    newPlayer->name    = malloc(strlen(name) * sizeof(char));
+    strcpy(newPlayer->name, name);
     newPlayer->id      = id++;
     newPlayer->score   = 0;
     newPlayer->isHuman = isHuman;

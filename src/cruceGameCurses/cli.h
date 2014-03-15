@@ -81,3 +81,12 @@ int displayCardsAndPickCard(struct Game *game, int playerId);
  * @return NO_ERROR or 0 un success, other value on failure.
  */
 int getBid(struct Game* game, int playerId);
+
+/**
+ * @brief Function to display the player who wins
+ *
+ * @param winner The player who wins
+ *
+ * @return NO_ERROR on success, otherwise POINTER_NULL on failure
+ */
+int displayWinner(struct Player *winner);

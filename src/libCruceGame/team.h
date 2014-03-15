@@ -1,15 +1,29 @@
 /**
- * @file player.h
- * @brief Player structure, with helper functions.
+ * @file team.h
+ * @brief Player and Team structures, with helper functions.
  */
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef TEAM_H
+#define TEAM_H
 
 #include "deck.h"
 
 /**
+ * @struct Player
  * @brief Player structure.
+ *
+ * Structure to keep relevant informations about the players.
+ *
+ * @var Player::id
+ *     Identifier of the player.
+ * @var Player::name
+ *     Pointer to the name of the player.
+ * @var Player::hand
+ *     Pointer to the cards of the player.
+ * @var Player::score
+ *     The amount of points earned in a hand.
+ * @var Player::isHuman
+ *     Flag used to indicate if the player is human or robot.
  */
 struct Player{
     int id;
@@ -20,7 +34,18 @@ struct Player{
 };
 
 /**
+ * @struct Team
  * @brief Team structure.
+ *
+ * Players are grouped in teams. One team for 2-3 players,
+ * and two teams for 4 players.
+ *
+ * @var Team::id
+ *     The identifier of the team.
+ * @var Team::name
+ *     Pointer to the name of the team.
+ * @var Team::players
+ *     Pointer to the players of the team.
  */
 struct Team{
     int id;

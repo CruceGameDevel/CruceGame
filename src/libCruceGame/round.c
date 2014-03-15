@@ -116,9 +116,11 @@ int round_placeBid(const struct Player *player, int bid, struct Round *round)
     if (bid < 0 || bid > 6)
         return ILLEGAL_VALUE;
 
-    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if(round->bids[i] > bid)
-            return ILLEGAL_VALUE;
+    if (bid > 0) {
+        for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+            if(round->bids[i] > bid)
+                return ILLEGAL_VALUE;
+        }
     }
 
     int index = findPlayerIndexRound(player, round);

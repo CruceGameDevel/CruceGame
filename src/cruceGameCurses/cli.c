@@ -384,7 +384,7 @@ int getBid(struct Game *game, int playerId)
     return NO_ERROR;
 }
 
-int displayWinner(struct Player *winner) {
+int displayWinner(struct Team *winner) {
     if(winner->name != NULL) { 
         printw("The winner of the game is %s\n", winner->name);
         return NO_ERROR; 

@@ -89,5 +89,5 @@ int getBid(struct Game* game, int playerId);
  *
  * @return NO_ERROR on success, otherwise POINTER_NULL on failure
  */
-int displayWinner(struct Player *winner);
+int displayWinner(struct Team *winner);
 

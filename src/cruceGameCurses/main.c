@@ -54,6 +54,9 @@ int main()
                                                          game->round);
             first = round_findPlayerIndexRound(handWinner, game->round);
 
+            if (deck_cardsNumber(deck) > 0)
+                round_distributeCard(deck, game->round);
+
         }
         for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
             if (game->round->players[i] != NULL && 

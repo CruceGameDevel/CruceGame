@@ -19,7 +19,6 @@ int main()
         if (err != 0)
             printw("ERROR: game_addPlayer() %d\n", err);
     }
-
     formTeams(game);
 
     while (!game_winningTeam(game)) {

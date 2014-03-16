@@ -46,7 +46,7 @@ struct Team *team_createTeam(const char *name)
         return NULL;
 
     newTeam->id   = id++;
-    newTeam->name = malloc(strlen(name) * sizeof(char));
+    newTeam->name = malloc((strlen(name) + 1) * sizeof(char));
     
     if(newTeam->name == NULL)
         return NULL;

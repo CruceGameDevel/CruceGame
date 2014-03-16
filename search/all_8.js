@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['round',['Round',['../structRound.html',1,'Round'],['../structGame.html#aeab5e8d5301e69bf4d04f4d3343444de',1,'Game::round()']]],
+  ['round_2eh',['round.h',['../round_8h.html',1,'']]],
+  ['round_5faddplayer',['round_addPlayer',['../round_8h.html#a2f420674c84b2571b37bc71da6fc80aa',1,'round.c']]],
+  ['round_5faddplayerhand',['round_addPlayerHand',['../round_8h.html#ad0834aefc764e4dff4480bc39f7320f5',1,'round.c']]],
+  ['round_5farrangeplayershand',['round_arrangePlayersHand',['../round_8h.html#a3807f0e47f64f301a1d0a07f42e23aea',1,'round.c']]],
+  ['round_5fcomputescore',['round_computeScore',['../round_8h.html#aeb475fc5e32c77f874f688ebddad715c',1,'round.c']]],
+  ['round_5fcreatehand',['round_createHand',['../round_8h.html#aabdadce8085adbc3d5541800e3b0f7cd',1,'round.c']]],
+  ['round_5fcreateround',['round_createRound',['../round_8h.html#ad9ca7ad9a0ad902cc61814fc2b79e36c',1,'round.c']]],
+  ['round_5fdeletehand',['round_deleteHand',['../round_8h.html#aafdce88b3f0e6f8373eface3c5e25043',1,'round.c']]],
+  ['round_5fdeleteround',['round_deleteRound',['../round_8h.html#a5133b4293efd4aad0d7b2d8a9f1e28a4',1,'round.c']]],
+  ['round_5fdistributecard',['round_distributeCard',['../round_8h.html#ae8e21bd1a28226b767ae951ce9071638',1,'round.c']]],
+  ['round_5fdistributedeck',['round_distributeDeck',['../round_8h.html#acf2ee8e219c448e00f3498255d47bd83',1,'round.c']]],
+  ['round_5ffindplayerindexround',['round_findPlayerIndexRound',['../round_8h.html#a40645a114e41ecc95ccfa24f7c2c1b52',1,'round.c']]],
+  ['round_5fgetbidwinner',['round_getBidWinner',['../round_8h.html#a4aadeaac7c84c6ae97b3293a96ba7506',1,'round.c']]],
+  ['round_5fhandwinner',['round_handWinner',['../round_8h.html#a880e5233eded27332f26e0a826c3bac6',1,'round.c']]],
+  ['round_5fplacebid',['round_placeBid',['../round_8h.html#a79ec0c861b5364dd014d89f5648356e2',1,'round.c']]],
+  ['round_5fputcard',['round_putCard',['../round_8h.html#a4b1e21affbd7ccff92b61448be2d2cda',1,'round.c']]],
+  ['round_5fremoveplayer',['round_removePlayer',['../round_8h.html#a31eb753fac800e5874adf850100529ec',1,'round.c']]],
+  ['round_5fremoveplayerhand',['round_removePlayerHand',['../round_8h.html#a4a597b2f735996a5d71cf5e611161567',1,'round.c']]]
+];

@@ -1,5 +1,13 @@
 #!/bin/sh
 
+mkdir m4
+if [ ! -d "m4" ]; then
+  echo "Unable to create m4 directory";
+  echo "exiting the program";
+  echo "create m4 directory manually here in current path";
+  exit;
+fi
+
 run()
 {
     $@

@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCruceGame", "libCruceGame\libCruceGame.vcxproj", "{50934296-9867-42D2-8555-4CB9BFB179C7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cruceGameCurses", "cruceGameCurses\cruceGameCurses.vcxproj", "{F79A344B-B448-484B-B387-34454F1EB2A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release-Static|Any CPU = Release-Static|Any CPU
+		Release-Static|Mixed Platforms = Release-Static|Mixed Platforms
+		Release-Static|Win32 = Release-Static|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Debug|Win32.Build.0 = Debug|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release|Any CPU.ActiveCfg = Release|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release|Win32.ActiveCfg = Release|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release|Win32.Build.0 = Release|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Any CPU.ActiveCfg = Release-Static|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Mixed Platforms.ActiveCfg = Release-Static|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Mixed Platforms.Build.0 = Release-Static|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Win32.ActiveCfg = Release-Static|Win32
+		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Win32.Build.0 = Release-Static|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Win32.Build.0 = Debug|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release|Win32.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release|Win32.Build.0 = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release-Static|Any CPU.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release-Static|Mixed Platforms.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release-Static|Mixed Platforms.Build.0 = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release-Static|Win32.ActiveCfg = Release|Win32
+		{F79A344B-B448-484B-B387-34454F1EB2A3}.Release-Static|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -4,7 +4,13 @@
 #include <string.h>
 #include <stddef.h>
 
+#if defined(WIN32) && defined(NDEBUG)
+#include <Windows.h>
+
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#else
 int main()
+#endif
 {
     setlocale(LC_ALL, "");
     initscr();

@@ -107,7 +107,7 @@ EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, 
  *
  * @return The cards number from deck.
  */
-int deck_cardsNumber(struct Deck *deck);
+EXPORT int deck_cardsNumber(struct Deck *deck);
 
 #ifdef __cplusplus
 }

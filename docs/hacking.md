@@ -254,26 +254,20 @@ Please document your names and your e-mail addresses.
 
 * Gafton Paul (<paul.gafton@gmail.com>)
 
-* Radu Szasz (<radu.szasz@gmail.com>)
-
-* MarianG (<gherca.marian@gmail.com>)
-
-* Sarvsav Sharma (<sarvsav@gmail.com>)
-
-* Ionut Grt. (<ionut.grt@gmail.com>)
-
-* Marius Leustean	(<marius.leus@gmail.com>)
-
-* Vladu Emilian Sorin (<vladuemilian@gmail.com>)
-
 * Alin Enachescu (<alinenachescu033@gmail.com>)
-
-* Mihai Ciupina (mihai.ciupina@gmail.com)
-
-* Balescu Ovidiu (balescuovidiu@gmail.com)
 
 Contributors
 =======
+
+* Mihai Ciupina (mihai.ciupina@gmail.com)
+
+* Ionut Grt. (<ionut.grt@gmail.com>)
+
+* Sarvsav Sharma (<sarvsav@gmail.com>)
+
+* Radu Szasz (<radu.szasz@gmail.com>)
+
+* MarianG (<gherca.marian@gmail.com>)
 
 Here be committers who haven't contributed considerably.
 

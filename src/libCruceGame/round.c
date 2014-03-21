@@ -220,16 +220,16 @@ int round_putCard(struct Player *player, int cardId,
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (round->hands[handId]->players[i] == player){
             round->hands[handId]->cards[i] = player->hand[cardId];
+            enum Suit suit = player->hand[cardId]->suit;
+            int value = player->hand[cardId]->value;
             player->hand[cardId] = NULL;
-            if (i == 0 && (player->hand[cardId]->value == 3 ||
-                player->hand[cardId]->value == 4)) {
+            if (i == 0 && (value == 3 || value == 4)) {
                 int check = 0;
                 for (int j = 0; j < MAX_CARDS; j++) {
                     if (player->hand[j] != NULL &&
                        (player->hand[j]->value == 3 ||
                         player->hand[j]->value == 4) &&
-                        player->hand[cardId]->suit ==
-                        player->hand[j]->suit) {
+                        suit == player->hand[j]->suit) {
                         check = 1;
                     }
                 }

@@ -206,6 +206,7 @@ void test_game_checkCard()
     struct Hand *hand = round_createHand();
     struct Round *round = round_createRound();
     struct Card *card[10];
+    round->hands[0] = hand;
     game->round = round;
 
     for (int i = 0; i < 3; i++)
@@ -246,8 +247,8 @@ void test_game_checkCard()
     team_addCard(player[2], card[9]);
     round_addPlayerHand(player[1], hand);
     round_addPlayerHand(player[2], hand);
-    round_putCard(player[1], 0, hand);
-    round_putCard(player[2], 0, hand);
+    round_putCard(player[1], 0, 0, round);
+    round_putCard(player[2], 0, 0, round);
 
     //the first card is trump
     game->round->trump = DIAMONDS;

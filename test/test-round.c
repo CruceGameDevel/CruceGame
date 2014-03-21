@@ -171,6 +171,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
     struct Round *round = round_createRound();
     struct Card **cards = malloc(testSize * sizeof(struct Card));
     struct Player **players = malloc(testSize * sizeof(struct Player));
+    round->hands[0] = hand;
 
     int points = 0;
     for (int i = 0; i < testSize; i++) {
@@ -179,7 +180,7 @@ void perform_round_handWinner_tests(int *cardSuits, int *cardValues,
         players[i]->hand[0] = cards[i]; //use specialised function for this
         round_addPlayerHand(players[i], hand);
         round_addPlayer(players[i], round);
-        round_putCard(players[i], 0, hand);
+        round_putCard(players[i], 0, 0, round);
         points += cardValues[i];
     }
 
@@ -204,6 +205,7 @@ void test_round_handWinner()
 {
     struct Hand *hand = round_createHand();
     struct Round *round = round_createRound();
+    round->hands[0] = hand;
     cut_assert_equal_pointer(NULL, round_handWinner(NULL, CLUBS, round));
     cut_assert_equal_pointer(NULL, round_handWinner(NULL, SuitEnd, NULL));
     cut_assert_equal_pointer(NULL, round_handWinner(hand, SuitEnd, round));
@@ -217,7 +219,7 @@ void test_round_handWinner()
     player1->hand[0] = card1;
 
     round_addPlayerHand(player1, hand);
-    round_putCard(player1, 0, hand);
+    round_putCard(player1, 0, 0, round);
 
     cut_assert_equal_pointer(NULL, round_handWinner(hand, DIAMONDS, round));
     //only one player
@@ -449,5 +451,25 @@ void test_round_arrangePlayersHand()
     round_deleteRound(&round);
 }
 
+void test_round_putCard()
+{
+    struct Player *player [MAX_GAME_PLAYERS];
+    struct Round *round = round_createRound();
+    struct Deck *deck = deck_createDeck();
+    round->hands[0] = round_createHand();
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        player[i] = team_createPlayer("A", 0);
+        round_addPlayer(player[i], round);
+    }
+
+    round_distributeDeck(deck, round);
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        cut_assert_equal_int(NOT_FOUND, round_putCard(player[i], 0, 0, round));
+        round_addPlayerHand(player[i], round->hands[0]);
+    }
+
+}
 
 

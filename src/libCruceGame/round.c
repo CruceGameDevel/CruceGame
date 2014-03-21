@@ -205,19 +205,40 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand)
     return NOT_FOUND;
 }
 
-int round_putCard(struct Player *player, int cardId,struct Hand *hand)
+int round_putCard(struct Player *player, int cardId,
+                  int handId, struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
     if (player->hand[cardId] == NULL)
         return CARD_NULL;
-    if (hand == NULL)
+    if (round == NULL)
+        return ROUND_NULL;
+    if (round->hands[handId] == NULL)
         return HAND_NULL;
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if (hand->players[i] == player){
-            hand->cards[i] = player->hand[cardId];
+        if (round->hands[handId]->players[i] == player){
+            round->hands[handId]->cards[i] = player->hand[cardId];
             player->hand[cardId] = NULL;
+            if (i == 0 && (player->hand[cardId]->value == 3 ||
+                player->hand[cardId]->value == 4)) {
+                int check = 0;
+                for (int j = 0; j < MAX_CARDS; j++) {
+                    if (player->hand[j] != NULL &&
+                       (player->hand[j]->value == 3 ||
+                        player->hand[j]->value == 4) &&
+                        player->hand[cardId]->suit ==
+                        player->hand[j]->suit) {
+                        check = 1;
+                    }
+                }
+                if (check == 1 && player->hand[cardId]->suit == round->trump)
+                    round->pointsNumber[i] += 40;
+                else
+                    if (check == 1)
+                        round->pointsNumber[i] += 20;
+            }
             return NO_ERROR;
         }
     }

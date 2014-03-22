@@ -234,10 +234,7 @@ int round_putCard(struct Player *player, int cardId,
                     }
                 }
                 if (check == 1) {
-                    int position;
-                    for (int j = 0; j < MAX_GAME_PLAYERS; j++)
-                        if (round->players[j] == player)
-                            position = j;
+                    int position = round_findPlayerIndexRound(player, round);
                     if (suit == round->trump)
                         round->pointsNumber[position] += 40;
                     else

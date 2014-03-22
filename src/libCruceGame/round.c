@@ -233,7 +233,7 @@ int round_putCard(struct Player *player, int cardId,
                         check = 1;
                     }
                 }
-                if (check == 1 && player->hand[cardId]->suit == round->trump)
+                if (check == 1 && suit == round->trump)
                     round->pointsNumber[i] += 40;
                 else
                     if (check == 1)

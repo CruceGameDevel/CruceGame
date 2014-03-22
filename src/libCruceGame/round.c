@@ -233,11 +233,16 @@ int round_putCard(struct Player *player, int cardId,
                         check = 1;
                     }
                 }
-                if (check == 1 && suit == round->trump)
-                    round->pointsNumber[i] += 40;
-                else
-                    if (check == 1)
-                        round->pointsNumber[i] += 20;
+                if (check == 1) {
+                    int position;
+                    for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+                        if (round->players[j] == player)
+                            position = j;
+                    if (suit == round->trump)
+                        round->pointsNumber[position] += 40;
+                    else
+                        round->pointsNumber[position] += 20;
+                }
             }
             return NO_ERROR;
         }

@@ -344,7 +344,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[cardId]->suit;
 
-    round_putCard(player, cardId, hand);
+    round_putCard(player, cardId, handId, game->round);
 
     return NO_ERROR;
 }

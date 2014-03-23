@@ -395,7 +395,7 @@ int displayWinner(struct Team *winner) {
 
 int processingScore(char *score)
 {
-    #if DEBUG
+    #ifdef DEBUG
         return atoi(score);
     #else
         if (strcmp(score, "11") == 0)

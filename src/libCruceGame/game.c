@@ -7,8 +7,10 @@
 
 struct Game *game_createGame(int pointsNumber)
 {
+#ifndef DEBUG
     if (pointsNumber != 11 && pointsNumber != 15 && pointsNumber != 21)
         return NULL;
+#endif
 
     struct Game *newGame = malloc(sizeof(struct Game));
     if (newGame == NULL)

@@ -393,3 +393,42 @@ int displayWinner(struct Team *winner) {
     }
 }
 
+int processingScore(char *score)
+{
+    if (strlen(score) != 2)
+        return -1;
+    
+    if (strcmp(score, "11") == 0)
+        return 11;
+    else
+        if (strcmp(score, "15") == 0)
+            return 15;
+        else
+            if (strcmp(score, "21") == 0)
+                return 21;
+            else 
+                return -1;
+
+    return -1;
+}
+
+int getLimitScore()
+{
+    char *score = malloc(3 * sizeof(char));
+
+    printw("Insert the limit score (11-15-21): ");
+    scanw("%s", score);
+
+    while (processingScore(score) == -1) {
+        printw("Insert the correct limit score (11-15-21): ");
+        scanw("%s", score);
+    }
+    printw("\n");
+
+    int limitScore = processingScore(score);
+    free(score);
+
+    return limitScore;
+}
+
+

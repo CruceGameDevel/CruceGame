@@ -128,16 +128,6 @@ EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
  */
 EXPORT int round_putCard(struct Player *player, int cardId,
                          int handId, struct Round *round);
- 
-/**
- * @brief Computes the score of a hand (in game points).
- *
- * @param hand Pointer to the hand for which the score is computed.
- *
- * @return Integer representing the score or negative error code on failure.
- *
- */
-EXPORT int round_computeScore(const struct Hand *hand);
 
 /**
  * @brief Allocates memory for and initializes a round.

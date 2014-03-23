@@ -248,23 +248,6 @@ int round_putCard(struct Player *player, int cardId,
     return NOT_FOUND;
 }
 
-int round_computeScore(const struct Hand *hand)
-{
-    if (hand == NULL)
-        return HAND_NULL;
-
-    int cardsScore = 0;
-    for (int i = 0; hand->players[i] != NULL; i++) {
-        if (hand->cards[i] == NULL)
-            return CARD_NULL;
-        cardsScore += hand->cards[i]->value;
-    }
-
-    int gameScore = cardsScore / 33;
-
-    return gameScore;
-}
-
 int totalPointsNumber(const struct Hand *hand)
 {
     if (hand == NULL)

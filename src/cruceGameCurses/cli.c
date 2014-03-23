@@ -52,22 +52,34 @@ int printCard(struct Card *card, int position)
             return ILLEGAL_VALUE;
     }
 
+    char upLeftCorner[]        = {0xE2, 0x95, 0xAD, 0x00};
+    char upRightCorner[]       = {0xE2, 0x95, 0xAE, 0x00};
+    char downLeftCorner[]      = {0xE2, 0x95, 0xB0, 0x00};
+    char downRightCorner[]     = {0xE2, 0x95, 0xAF, 0x00};
+    char horizontalLine[]      = {0xE2, 0x94, 0x80, 0x00};
+    char verticalLine[]        = {0xE2, 0x94, 0x82, 0x00};
+    
     int x, y;
     getyx(stdscr, y, x);
     printw("  %d  ", position + 1);
     move(y + 1, x);
-    printw(" ___ ");
+    
+    printw("%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
+             horizontalLine, horizontalLine, upRightCorner);
     move(y + 2, x);
-    printw("|%c  |", value);
+    printw("%s%c   %s", verticalLine, value, verticalLine);
     move(y + 3, x);
-    printw("|%s  |", suit);
+    printw("%s%s   %s", verticalLine, suit, verticalLine);
     move(y + 4, x);
-    printw("|  %s|", suit);
+    printw("%s    %s", verticalLine, verticalLine);
     move(y + 5, x);
-    printw("|  %c|", value);
+    printw("%s  %s %s", verticalLine, suit, verticalLine);
     move(y + 6, x);
-    char bottom[] = {0xE2, 0x80, 0xBE, 0x00};
-    printw(" %s%s%s ", bottom, bottom, bottom);
+    printw("%s   %c%s", verticalLine, value, verticalLine);
+    move(y + 7, x);
+    printw("%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
+            horizontalLine, horizontalLine, downRightCorner);
+    move(y + 9, x);
     move(y, x + 6);
     refresh();
 
@@ -333,12 +345,12 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     int y, x;
     getyx(stdscr, y, x);
-    move(y + 7, 0);
+    move(y + 8, 0);
 
     printw("Your cards: ");
     printPlayerCards(player);
 
-    move(y + 14, 0);
+    move(y + 16, 0);
     int cardId = pickCard(player, game, hand);
 
     if (handId == 0 && playerId == 0)
@@ -369,7 +381,7 @@ int getBid(struct Game *game, int playerId)
 
     int y, x;
     getyx(stdscr, y, x);
-    move(y + 7, 0);
+    move(y + 8, 0);
 
     printw("Insert a bid please: ");
     char ch = getch();
@@ -379,7 +391,7 @@ int getBid(struct Game *game, int playerId)
         ch = getch();
     }
 
-    printw("\n");
+    printw("\n\n");
 
     return NO_ERROR;
 }

@@ -416,11 +416,11 @@ int getScoreLimit()
 {
     char *score = malloc(3 * sizeof(char));
 
-    printw("Insert the limit score (11-15-21): ");
+    printw("Insert the score limit (11-15-21): ");
     scanw("%s", score);
 
     while (processingScore(score) == -1) {
-        printw("Insert the correct limit score (11-15-21): ");
+        printw("Insert the correct score limit (11-15-21): ");
         scanw("%s", score);
     }
     printw("\n");

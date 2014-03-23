@@ -86,16 +86,29 @@ int printCard(struct Card *card, int position)
     return NO_ERROR;
 }
 
-int printPlayerCards(struct Player *player)
+int printPlayerCards(struct Game *game, struct Player *player)
 {
     if (player == NULL)
         return PLAYER_NULL;
 
-    for (int i = 0; i < MAX_CARDS; i++) {
-        if (player->hand[i] != NULL)
-            printCard(player->hand[i], i);
+    int handId = 0;
+    while(game->round->hands[handId])
+        handId++;
+    if (handId > 0)
+        handId--;
 
+    for (int i = 0; i < MAX_CARDS; i++) {
+        if (player->hand[i] != NULL) {
+            if (!game_checkCard(player, game, game->round->hands[handId], i)) {
+                attron(COLOR_PAIR(1));
+                printCard(player->hand[i], i);
+                attroff(COLOR_PAIR(1));
+            } else {
+                printCard(player->hand[i], i);
+            }
+        }
     }
+
     return NO_ERROR;
 }
 
@@ -348,7 +361,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     move(y + 8, 0);
 
     printw("Your cards: ");
-    printPlayerCards(player);
+    printPlayerCards(game, player);
 
     move(y + 16, 0);
     int cardId = pickCard(player, game, hand);
@@ -377,7 +390,7 @@ int getBid(struct Game *game, int playerId)
 
     printw("Your cards are:\n");
 
-    printPlayerCards(game->round->players[playerId]);
+    printPlayerCards(game, game->round->players[playerId]);
 
     int y, x;
     getyx(stdscr, y, x);

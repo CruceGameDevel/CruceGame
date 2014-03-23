@@ -22,10 +22,11 @@ int printCard(struct Card *card, int position);
  * @brief Function to print all cards in a player's hand.
  *
  * @param player The player whose cards to be printed.
+ * @param game The game which contains the player.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(struct Player *player);
+int printPlayerCards(struct Game *game, struct Player *player);
 
 /**
  * @brief Function to get the number of players from user.

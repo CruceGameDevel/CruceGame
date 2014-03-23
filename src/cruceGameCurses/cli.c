@@ -395,16 +395,16 @@ int displayWinner(struct Team *winner) {
 
 int processingScore(char *score)
 {
-    #ifdef DEBUG
-        return atoi(score);
-    #else
-        if (strcmp(score, "11") == 0)
-            return 11;
-        if (strcmp(score, "15") == 0)
-            return 15;
-        if (strcmp(score, "21") == 0)
-            return 21;
-    #endif
+#ifdef DEBUG
+    return atoi(score);
+#else
+    if (strcmp(score, "11") == 0)
+        return 11;
+    if (strcmp(score, "15") == 0)
+        return 15;
+    if (strcmp(score, "21") == 0)
+        return 21;
+#endif
 
     return -1;
 }

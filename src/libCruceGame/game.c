@@ -7,6 +7,9 @@
 
 struct Game *game_createGame(int pointsNumber)
 {
+    if (pointsNumber != 11 && pointsNumber != 15 && pointsNumber != 21)
+        return NULL;
+
     struct Game *newGame = malloc(sizeof(struct Game));
     if (newGame == NULL)
         return NULL;
@@ -17,11 +20,7 @@ struct Game *game_createGame(int pointsNumber)
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         newGame->teams[i] = NULL;
 
-    if (pointsNumber > 0)
-        newGame->pointsNumber = pointsNumber;
-    else
-        return NULL;
-
+    newGame->pointsNumber = pointsNumber;
     newGame->numberPlayers = 0;
     newGame->round = NULL;
     newGame->deck = NULL;

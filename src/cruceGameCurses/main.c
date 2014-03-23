@@ -17,9 +17,10 @@ int main()
     cbreak();
 
     welcomeMessage();
+    int limitScore  = getLimitScore();
     int noOfPlayers = getNoOfPlayers();
 
-    struct Game *game = game_createGame(11);
+    struct Game *game = game_createGame(limitScore);
     for (int i = 0; i < noOfPlayers; i++) {
         int err = game_addPlayer(newPlayer(i + 1), game);
         if (err != 0)

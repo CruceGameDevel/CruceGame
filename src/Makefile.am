@@ -1,6 +1,6 @@
 AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame
 LDFLAGS = -no-undefined
-CFLAGS = -std=c99 -Wall
+CFLAGS = -std=c99 -Wall -DDEBUG
 
 lib_LTLIBRARIES = libCruceGame.la
 bin_PROGRAMS = cruceGame

@@ -91,3 +91,10 @@ int getBid(struct Game* game, int playerId);
  */
 int displayWinner(struct Team *winner);
 
+/**
+ * @brief Function to get the limit score.
+ *
+ * @return The limit score (11-15-21).
+ */
+int getLimitScore();
+

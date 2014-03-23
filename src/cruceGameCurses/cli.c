@@ -398,8 +398,6 @@ int processingScore(char *score)
     #if DEBUG
         return atoi(score);
     #else
-        if (strlen(score) != 2)
-            return -1;
         if (strcmp(score, "11") == 0)
             return 11;
         if (strcmp(score, "15") == 0)

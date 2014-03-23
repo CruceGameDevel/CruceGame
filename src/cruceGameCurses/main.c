@@ -17,7 +17,7 @@ int main()
     cbreak();
 
     welcomeMessage();
-    int limitScore  = getLimitScore();
+    int limitScore  = getScoreLimit();
     int noOfPlayers = getNoOfPlayers();
 
     struct Game *game = game_createGame(limitScore);

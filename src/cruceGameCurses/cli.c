@@ -412,7 +412,7 @@ int processingScore(char *score)
     return -1;
 }
 
-int getLimitScore()
+int getScoreLimit()
 {
     char *score = malloc(3 * sizeof(char));
 

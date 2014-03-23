@@ -96,5 +96,5 @@ int displayWinner(struct Team *winner);
  *
  * @return The limit score (11-15-21).
  */
-int getLimitScore();
+int getScoreLimit();
 

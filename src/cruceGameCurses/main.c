@@ -16,6 +16,15 @@ int main()
     initscr();
     cbreak();
 
+    if (has_colors() == FALSE) {
+        endwin();
+        printf("Your terminal does not support colors!");
+        return 0;
+    }
+
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+
     welcomeMessage();
     int limitScore  = getScoreLimit();
     int noOfPlayers = getNoOfPlayers();

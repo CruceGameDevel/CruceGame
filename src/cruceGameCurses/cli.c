@@ -404,9 +404,9 @@ int processingScore(char *score)
         return 15;
     if (strcmp(score, "21") == 0)
         return 21;
-#endif
 
     return -1;
+#endif
 }
 
 int getScoreLimit()

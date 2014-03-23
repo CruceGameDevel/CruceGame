@@ -400,21 +400,17 @@ int processingScore(char *score)
     
     if (strcmp(score, "11") == 0)
         return 11;
-    else
-        if (strcmp(score, "15") == 0)
-            return 15;
-        else
-            if (strcmp(score, "21") == 0)
-                return 21;
-            else 
-                return -1;
+    if (strcmp(score, "15") == 0)
+        return 15;
+    if (strcmp(score, "21") == 0)
+        return 21;
 
     return -1;
 }
 
 int getScoreLimit()
 {
-    char *score = malloc(3 * sizeof(char));
+    char score[3];
 
     printw("Insert the score limit (11-15-21): ");
     scanw("%s", score);
@@ -425,10 +421,7 @@ int getScoreLimit()
     }
     printw("\n");
 
-    int limitScore = processingScore(score);
-    free(score);
-
-    return limitScore;
+    return processingScore(score);
 }
 
 

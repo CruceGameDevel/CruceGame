@@ -190,3 +190,4 @@ void test_team_hasCards()
     deck_deleteDeck(&deck);
     team_deletePlayer(&player);
 }
+

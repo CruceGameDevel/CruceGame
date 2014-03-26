@@ -36,7 +36,9 @@ enum ERROR_CODE {
 
     GAME_NULL     = -20,
     ROUND_EMPTY   = -21,
-    GAME_EMPTY    = -22
+    GAME_EMPTY    = -22,
+
+    DUPLICATE_NAME = -23
 };
 
 #ifdef __cplusplus

@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Game *game_createGame(int pointsNumber)
 {
@@ -53,6 +54,9 @@ int game_addPlayer(struct Player *player, struct Game *game)
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] == player)
             return DUPLICATE;
+        if (game->players[i] != NULL &&
+            !strcmp(game->players[i]->name, player->name))
+            return DUPLICATE_NAME;
     }
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {

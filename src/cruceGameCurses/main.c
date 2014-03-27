@@ -32,6 +32,10 @@ int main()
     struct Game *game = game_createGame(limitScore);
     for (int i = 0; i < noOfPlayers; i++) {
         int err = game_addPlayer(newPlayer(i + 1), game);
+        while (err == DUPLICATE_NAME) {
+            printw("The player's name have to be unique\n");
+            err = game_addPlayer(newPlayer(i + 1), game);
+        }
         if (err != 0)
             printw("ERROR: game_addPlayer() %d\n", err);
     }

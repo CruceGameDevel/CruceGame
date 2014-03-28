@@ -1,4 +1,5 @@
 #include <cruceGame.h>
+#include <ncurses.h>
 
 /**
  * @brief Function to display a greeting message at the beginning of a new
@@ -16,7 +17,7 @@ void welcomeMessage();
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int position);
+int printCard(struct Card *card, int position, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.
@@ -26,7 +27,7 @@ int printCard(struct Card *card, int position);
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(struct Game *game, struct Player *player);
+int printPlayerCards(struct Game *game, struct Player *player, WINDOW *win);
 
 /**
  * @brief Function to get the number of players from user.

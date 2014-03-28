@@ -405,7 +405,7 @@ int getBid(struct Game *game, int playerId)
 
     printw("Your cards are:\n");
 
-    printPlayerCards(game, game->round->players[playerId]);
+    printPlayerCards(game, game->round->players[playerId], stdscr);
 
     int y, x;
     getyx(stdscr, y, x);

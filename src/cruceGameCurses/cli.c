@@ -352,19 +352,33 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     else
         printw("The trump was not set.\n");
 
-    printw("The cards on table: ");
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], i);
-
     int y, x;
     getyx(stdscr, y, x);
-    move(y + 8, 0);
 
-    printw("Your cards: ");
-    printPlayerCards(game, player);
+    WINDOW *cardsOnTableWindow = newwin(10, 79, y, 0);
+#ifdef BORDERS
+    box(cardsOnTableWindow, 0, 0);
+#endif
+    wprintw(cardsOnTableWindow, "The cards on table: \n");
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->cards[i] != NULL)
+            printCard(hand->cards[i], i, cardsOnTableWindow);
+    wrefresh(cardsOnTableWindow);
+    delwin(cardsOnTableWindow);
 
-    move(y + 16, 0);
+
+    WINDOW *cardsInHandWindow = newwin(10, 79, y + 10, 0); //MAGIC NUMBERS
+    wprintw(cardsInHandWindow, "Your cards:\n");
+#ifdef BORDERS
+    box(cardsInHandWindow, 0, 0);
+#endif
+    keypad(cardsInHandWindow, TRUE);
+    int selected = 0;
+    printPlayerCards(game, player, cardsInHandWindow);
+    wrefresh(cardsInHandWindow);
+    delwin(cardsInHandWindow);
+
+    move(y + 20, 0);
     int cardId = pickCard(player, game, hand);
 
     if (handId == 0 && playerId == 0)

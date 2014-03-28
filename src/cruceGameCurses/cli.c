@@ -86,10 +86,12 @@ int printCard(struct Card *card, int position, WINDOW *win)
     return NO_ERROR;
 }
 
-int printPlayerCards(struct Game *game, struct Player *player)
+int printPlayerCards(struct Game *game, struct Player *player, WINDOW *win)
 {
     if (player == NULL)
         return PLAYER_NULL;
+    if (win == NULL)
+        return POINTER_NULL;
 
     int handId = 0;
     while(game->round->hands[handId])
@@ -101,10 +103,10 @@ int printPlayerCards(struct Game *game, struct Player *player)
         if (player->hand[i] != NULL) {
             if (!game_checkCard(player, game, game->round->hands[handId], i)) {
                 attron(COLOR_PAIR(1));
-                printCard(player->hand[i], i);
+                printCard(player->hand[i], i, win);
                 attroff(COLOR_PAIR(1));
             } else {
-                printCard(player->hand[i], i);
+                printCard(player->hand[i], i, win);
             }
         }
     }
@@ -256,7 +258,6 @@ void createEmptyTeams(struct Game *game)
         }
     }
 }
-
 
 int formTeams (struct Game *game)
 {

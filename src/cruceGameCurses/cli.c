@@ -12,7 +12,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int position)
+int printCard(struct Card *card, int position, WINDOW *win)
 {
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
@@ -60,28 +60,28 @@ int printCard(struct Card *card, int position)
     char verticalLine[]        = {0xE2, 0x94, 0x82, 0x00};
     
     int x, y;
-    getyx(stdscr, y, x);
-    printw("  %d  ", position + 1);
-    move(y + 1, x);
+    getyx(win, y, x);
+    wprintw(win, "  %d  ", position + 1);
+    wmove(win, y + 1, x);
     
-    printw("%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
+    wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
-    move(y + 2, x);
-    printw("%s%c   %s", verticalLine, value, verticalLine);
-    move(y + 3, x);
-    printw("%s%s   %s", verticalLine, suit, verticalLine);
-    move(y + 4, x);
-    printw("%s    %s", verticalLine, verticalLine);
-    move(y + 5, x);
-    printw("%s  %s %s", verticalLine, suit, verticalLine);
-    move(y + 6, x);
-    printw("%s   %c%s", verticalLine, value, verticalLine);
-    move(y + 7, x);
-    printw("%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
+    wmove(win, y + 2, x);
+    wprintw(win, "%s%c   %s", verticalLine, value, verticalLine);
+    wmove(win, y + 3, x);
+    wprintw(win, "%s%s   %s", verticalLine, suit, verticalLine);
+    wmove(win, y + 4, x);
+    wprintw(win, "%s    %s", verticalLine, verticalLine);
+    wmove(win, y + 5, x);
+    wprintw(win, "%s  %s %s", verticalLine, suit, verticalLine);
+    wmove(win, y + 6, x);
+    wprintw(win, "%s   %c%s", verticalLine, value, verticalLine);
+    wmove(win, y + 7, x);
+    wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
-    move(y + 9, x);
-    move(y, x + 6);
-    refresh();
+    wmove(win, y + 9, x);
+    wmove(win, y, x + 6);
+    wrefresh(win);
 
     return NO_ERROR;
 }

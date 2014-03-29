@@ -40,8 +40,9 @@ void test_game_addPlayer()
     struct Game *game = game_createGame(11);
     struct Player *player[MAX_GAME_PLAYERS];
 
+    char *names[] = {"A", "B", "C", "D"};
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        player[i] = team_createPlayer("A", i);
+        player[i] = team_createPlayer(names[i], i);
         cut_assert_equal_int(NO_ERROR, game_addPlayer(player[i], game));
         cut_assert_equal_int(i+1, game->numberPlayers);
         cut_assert_equal_int(DUPLICATE, game_addPlayer(player[i], game));
@@ -52,11 +53,15 @@ void test_game_addPlayer()
         cut_assert_equal_int(0, playerAdded);
     }
 
-    struct Player *player1 = team_createPlayer("A", 0);
+    struct Player *player1 = team_createPlayer("E", 0);
     cut_assert_equal_int(GAME_NULL, game_addPlayer(player1, NULL));
     cut_assert_equal_int(PLAYER_NULL, game_addPlayer(NULL, game));
     cut_assert_operator_int(0, >, game_addPlayer(NULL, NULL));
     cut_assert_equal_int(FULL, game_addPlayer(player1, game));
+    game_removePlayer(player[0], game);
+    team_deletePlayer(&player1);
+    player1 = team_createPlayer("C", 0);
+    cut_assert_equal_int(DUPLICATE_NAME, game_addPlayer(player1, game));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         team_deletePlayer(&player[i]);
@@ -70,8 +75,9 @@ void test_game_removePlayer()
     struct Game *game = game_createGame(11);
     struct Player *player[MAX_GAME_PLAYERS];
 
+    char *names[] = {"A", "B", "C", "D"};
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        player[i] = team_createPlayer("A", i);
+        player[i] = team_createPlayer(names[i], i);
         game_addPlayer(player[i], game);
     }
 
@@ -209,8 +215,9 @@ void test_game_checkCard()
     round->hands[0] = hand;
     game->round = round;
 
+    char *names[] = {"A", "B", "C"};
     for (int i = 0; i < 3; i++)
-        player[i] = team_createPlayer("A", i);
+        player[i] = team_createPlayer(names[i], i);
 
     cut_assert_equal_int(PLAYER_NULL, game_checkCard(NULL, game, hand, 0));
     cut_assert_equal_int(GAME_NULL, game_checkCard(player[2], NULL, hand, 0));

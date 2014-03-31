@@ -27,10 +27,15 @@ int printCard(struct Card *card, int position, int selected, WINDOW *win);
  *
  * @param player The player whose cards to be printed.
  * @param game The game which contains the player.
+ * @param selected The position of the selected card. If there is no card at
+ *                 that position (there is a NULL card or it is out of range) 
+ *                 no card will be selected.
+ * @param win The window in which to display the cards.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(struct Game *game, struct Player *player, WINDOW *win);
+int printPlayerCards(struct Game *game, struct Player *player, int selecte,
+                     WINDOW *win);
 
 /**
  * @brief Function to get the number of players from user.

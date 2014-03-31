@@ -1,3 +1,5 @@
+TO DO LIST for v0.4.0
+
 1. Curses windows
 
 The use of windows is a must for any user interface. As our interface gets
@@ -13,4 +15,9 @@ The windows are to be redrawn at every function call.
 T2. Color suits
 
 Color suits differently for better readability.
+
+T3. Add tests for newly created functions.
+
+T3.1 Add tests for game_findNextAllowedCard()
+T3.2 Add tests for game_findPreviousAllowedCard()
 

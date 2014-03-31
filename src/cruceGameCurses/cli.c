@@ -372,29 +372,49 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     wprintw(cardsOnTableWindow, "The cards on table: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], i, cardsOnTableWindow);
+            printCard(hand->cards[i], i, 0, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
     delwin(cardsOnTableWindow);
 
+    refresh();
 
     WINDOW *cardsInHandWindow = newwin(10, 79, y + 10, 0); //MAGIC NUMBERS
-    wprintw(cardsInHandWindow, "Your cards:\n");
 #ifdef BORDERS
     box(cardsInHandWindow, 0, 0);
 #endif
     keypad(cardsInHandWindow, TRUE);
-    int selected = 0;
-    printPlayerCards(game, player, cardsInHandWindow);
-    wrefresh(cardsInHandWindow);
+    int ch, selected;
+    if (game_checkCard(player, game, hand, 0) == 1)
+        selected = 0;
+    else
+        selected = game_findNextAllowedCard(player, game, hand, 0);
+    printPlayerCards(game, player, selected, cardsInHandWindow);
+    while (( ch = wgetch(cardsInHandWindow)) != '\n') {
+        wprintw(cardsInHandWindow, "%d", ch);
+        switch (ch) {
+            case KEY_LEFT:
+                selected = game_findPreviousAllowedCard(player, game, hand,
+                                                        selected);
+                break;
+            case KEY_RIGHT:
+                selected = game_findNextAllowedCard(player, game, hand,
+                                                    selected);
+                break;
+            case 'q':
+                exit(0);
+        }
+        wclear(cardsInHandWindow);
+        printPlayerCards(game, player, selected, cardsInHandWindow);
+        wrefresh(cardsInHandWindow);
+    }
+
     delwin(cardsInHandWindow);
 
     move(y + 20, 0);
-    int cardId = pickCard(player, game, hand);
-
     if (handId == 0 && playerId == 0)
-        game->round->trump=player->hand[cardId]->suit;
+        game->round->trump=player->hand[selected]->suit;
 
-    round_putCard(player, cardId, handId, game->round);
+    round_putCard(player, selected, handId, game->round);
 
     return NO_ERROR;
 }

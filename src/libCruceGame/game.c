@@ -243,3 +243,28 @@ int game_findNextAllowedCard(struct Player *player, struct Game *game,
     return currentCard;
 }
 
+int game_findPreviousAllowedCard(struct Player *player, struct Game *game,
+                                 struct Hand *hand, int currentCard)
+{
+    if (player == NULL)
+        return PLAYER_NULL;
+    if (game == NULL)
+        return GAME_NULL;
+    if (hand == NULL)
+        return HAND_NULL;
+    if (game->numberPlayers * MAX_CARDS > DECK_SIZE &&
+       (currentCard < 0 || currentCard > DECK_SIZE / game->numberPlayers - 1))
+        return ILLEGAL_VALUE;
+
+    currentCard--;
+    while (player->hand[currentCard] == NULL ||
+        game_checkCard(player, game, hand, currentCard % MAX_CARDS) != 1) {
+            currentCard--;
+        if (currentCard < 0)
+            currentCard = MAX_CARDS - 1;
+    }
+    currentCard = currentCard % MAX_CARDS;
+
+    return currentCard;
+}
+

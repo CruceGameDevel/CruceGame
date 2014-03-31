@@ -127,6 +127,22 @@ EXPORT struct Team *game_winningTeam(struct Game *game);
 EXPORT int game_checkCard(struct Player *player, struct Game *game,
                           struct Hand *hand, int idCard);
 
+/**
+ * @brief Function to find the next allowed card after currentCard.
+ *        Uses game_checkCard to check if a card is allowed.
+ *
+ * @param player The player who has the cards.
+ * @param game The game where the player is located.
+ * @param hand The hand in which should put the card.
+ * @param currentCard Function finds the first allowed card after currentCard.
+ *
+ * @return The next allowed card's id on success (value between 0 and
+ *                                                MAX_CARDS -1).
+ *          Negative value on failure.
+ */
+EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
+                                    struct Hand *hand, int currentCard);
+
 
 #ifdef __cplusplus
 }

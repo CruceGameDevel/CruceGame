@@ -7,6 +7,8 @@
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 50
 
+#define HIGHLIGHT_ATTRIBUTE A_BLINK
+
 void welcomeMessage()
 {
     printw("Welcome to a new game of Cruce\n\n");

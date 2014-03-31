@@ -24,6 +24,7 @@ int main()
 
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
+    refresh();
 
     welcomeMessage();
     int limitScore  = getScoreLimit();
@@ -49,10 +50,12 @@ int main()
                sizeof(struct Player*) * game->numberPlayers);
         round_distributeDeck(deck, game->round);
         clear();
+        refresh();
 
         for (int i = 0; i < game->numberPlayers; i++) {
             getBid(game, i);
             clear();
+            refresh();
         }
 
         struct Player *bidWinner = round_getBidWinner(game->round);
@@ -64,6 +67,7 @@ int main()
                 printScore(game, game->round);
                 displayCardsAndPickCard(game, j);
                 clear();
+                refresh();
             }
 
             struct Player *handWinner = round_handWinner(game->round->hands[i],

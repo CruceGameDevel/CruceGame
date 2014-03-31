@@ -7,12 +7,14 @@
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 50
 
+#define HIGHLIGHT_ATTRIBUTE A_BLINK
+
 void welcomeMessage()
 {
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int position)
+int printCard(struct Card *card, int position, int selected, WINDOW *win)
 {
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
@@ -60,51 +62,61 @@ int printCard(struct Card *card, int position)
     char verticalLine[]        = {0xE2, 0x94, 0x82, 0x00};
     
     int x, y;
-    getyx(stdscr, y, x);
-    printw("  %d  ", position + 1);
-    move(y + 1, x);
-    
-    printw("%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
+    getyx(win, y, x);
+    wprintw(win, "  %d  ", position + 1);
+    wmove(win, y + 1, x);
+
+    if (selected)
+        wattron(win, HIGHLIGHT_ATTRIBUTE);
+    wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
-    move(y + 2, x);
-    printw("%s%c   %s", verticalLine, value, verticalLine);
-    move(y + 3, x);
-    printw("%s%s   %s", verticalLine, suit, verticalLine);
-    move(y + 4, x);
-    printw("%s    %s", verticalLine, verticalLine);
-    move(y + 5, x);
-    printw("%s  %s %s", verticalLine, suit, verticalLine);
-    move(y + 6, x);
-    printw("%s   %c%s", verticalLine, value, verticalLine);
-    move(y + 7, x);
-    printw("%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
+    wmove(win, y + 2, x);
+    wprintw(win, "%s%c   %s", verticalLine, value, verticalLine);
+    wmove(win, y + 3, x);
+    wprintw(win, "%s%s   %s", verticalLine, suit, verticalLine);
+    wmove(win, y + 4, x);
+    wprintw(win, "%s    %s", verticalLine, verticalLine);
+    wmove(win, y + 5, x);
+    wprintw(win, "%s  %s %s", verticalLine, suit, verticalLine);
+    wmove(win, y + 6, x);
+    wprintw(win, "%s   %c%s", verticalLine, value, verticalLine);
+    wmove(win, y + 7, x);
+    wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
-    move(y + 9, x);
-    move(y, x + 6);
-    refresh();
+    if (selected)
+        wattroff(win, HIGHLIGHT_ATTRIBUTE);
+    wmove(win, y + 9, x);
+    wmove(win, y, x + 6);
+    wrefresh(win);
 
     return NO_ERROR;
 }
 
-int printPlayerCards(struct Game *game, struct Player *player)
+int printPlayerCards(struct Game *game, struct Player *player, int selected,
+                     WINDOW *win)
 {
     if (player == NULL)
         return PLAYER_NULL;
+    if (win == NULL)
+        return POINTER_NULL;
+
+    wprintw(win, "Your cards are:\n");
 
     int handId = 0;
-    while(game->round->hands[handId])
+    while(game->round->hands[handId]){
         handId++;
+    }
     if (handId > 0)
         handId--;
 
     for (int i = 0; i < MAX_CARDS; i++) {
         if (player->hand[i] != NULL) {
             if (!game_checkCard(player, game, game->round->hands[handId], i)) {
-                attron(COLOR_PAIR(1));
-                printCard(player->hand[i], i);
-                attroff(COLOR_PAIR(1));
+                wattron(win, COLOR_PAIR(1));
+                printCard(player->hand[i], i, i==selected, win);
+                wattroff(win, COLOR_PAIR(1));
             } else {
-                printCard(player->hand[i], i);
+                printCard(player->hand[i], i, i==selected, win);
             }
         }
     }
@@ -257,7 +269,6 @@ void createEmptyTeams(struct Game *game)
     }
 }
 
-
 int formTeams (struct Game *game)
 {
     if (game == NULL)
@@ -351,25 +362,59 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     else
         printw("The trump was not set.\n");
 
-    printw("The cards on table: ");
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], i);
-
     int y, x;
     getyx(stdscr, y, x);
-    move(y + 8, 0);
 
-    printw("Your cards: ");
-    printPlayerCards(game, player);
+    WINDOW *cardsOnTableWindow = newwin(10, 79, y, 0);
+#ifdef BORDERS
+    box(cardsOnTableWindow, 0, 0);
+#endif
+    wprintw(cardsOnTableWindow, "The cards on table: \n");
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (hand->cards[i] != NULL)
+            printCard(hand->cards[i], i, 0, cardsOnTableWindow);
+    wrefresh(cardsOnTableWindow);
+    delwin(cardsOnTableWindow);
 
-    move(y + 16, 0);
-    int cardId = pickCard(player, game, hand);
+    refresh();
 
+    WINDOW *cardsInHandWindow = newwin(10, 79, y + 10, 0); //MAGIC NUMBERS
+#ifdef BORDERS
+    box(cardsInHandWindow, 0, 0);
+#endif
+    keypad(cardsInHandWindow, TRUE);
+    int ch, selected;
+    if (game_checkCard(player, game, hand, 0) == 1)
+        selected = 0;
+    else
+        selected = game_findNextAllowedCard(player, game, hand, 0);
+    printPlayerCards(game, player, selected, cardsInHandWindow);
+    while (( ch = wgetch(cardsInHandWindow)) != '\n') {
+        wprintw(cardsInHandWindow, "%d", ch);
+        switch (ch) {
+            case KEY_LEFT:
+                selected = game_findPreviousAllowedCard(player, game, hand,
+                                                        selected);
+                break;
+            case KEY_RIGHT:
+                selected = game_findNextAllowedCard(player, game, hand,
+                                                    selected);
+                break;
+            case 'q':
+                exit(0);
+        }
+        wclear(cardsInHandWindow);
+        printPlayerCards(game, player, selected, cardsInHandWindow);
+        wrefresh(cardsInHandWindow);
+    }
+
+    delwin(cardsInHandWindow);
+
+    move(y + 20, 0);
     if (handId == 0 && playerId == 0)
-        game->round->trump=player->hand[cardId]->suit;
+        game->round->trump=player->hand[selected]->suit;
 
-    round_putCard(player, cardId, handId, game->round);
+    round_putCard(player, selected, handId, game->round);
 
     return NO_ERROR;
 }
@@ -388,9 +433,7 @@ int getBid(struct Game *game, int playerId)
     printw("Player %d %s\n", playerId + 1,
                              game->round->players[playerId]->name);
 
-    printw("Your cards are:\n");
-
-    printPlayerCards(game, game->round->players[playerId]);
+    printPlayerCards(game, game->round->players[playerId], -1, stdscr);
 
     int y, x;
     getyx(stdscr, y, x);

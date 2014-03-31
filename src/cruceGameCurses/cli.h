@@ -1,4 +1,5 @@
 #include <cruceGame.h>
+#include <ncurses.h>
 
 /**
  * @brief Function to display a greeting message at the beginning of a new
@@ -13,20 +14,28 @@ void welcomeMessage();
  *
  * @param card Pointer to the card to be printed.
  * @param position Position of the card on screen (in cards).
+ * @param selected Highlights the card with HIGHLIGHT_ATTRIBUTE if this is
+ *                 non-zero, otherwise just displays the card.
+ * @param win The window in which to display the card.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int position);
+int printCard(struct Card *card, int position, int selected, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.
  *
  * @param player The player whose cards to be printed.
  * @param game The game which contains the player.
+ * @param selected The position of the selected card. If there is no card at
+ *                 that position (there is a NULL card or it is out of range) 
+ *                 no card will be selected.
+ * @param win The window in which to display the cards.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(struct Game *game, struct Player *player);
+int printPlayerCards(struct Game *game, struct Player *player, int selecte,
+                     WINDOW *win);
 
 /**
  * @brief Function to get the number of players from user.

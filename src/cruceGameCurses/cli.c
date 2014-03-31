@@ -450,4 +450,3 @@ int getScoreLimit()
     return processingScore(score);
 }
 
-

@@ -31,9 +31,7 @@ int main()
 
     struct Game *game = game_createGame(limitScore);
     for (int i = 0; i < noOfPlayers; i++) {
-        int err;
-        while ((err = game_addPlayer(newPlayer(i + 1), game)) == DUPLICATE_NAME)
-            printw("The player's name have to be unique\n");
+        int err = game_addPlayer(newPlayer(i + 1), game);
         if (err != 0)
             printw("ERROR: game_addPlayer() %d\n", err);
     }
@@ -75,6 +73,7 @@ int main()
                 round_distributeCard(deck, game->round);
 
         }
+        
         for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
             if (game->round->players[i] != NULL && 
                 game->round->players[i] != bidWinner) {
@@ -87,7 +86,7 @@ int main()
                     bidWinner->score -= game->round->bids[i];
             }
         }
-
+       
         deck_deleteDeck(&deck);
         round_deleteRound(&game->round);
     }
@@ -104,4 +103,3 @@ int main()
     endwin();
     return 0;
 }
-

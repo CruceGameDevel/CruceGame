@@ -21,3 +21,6 @@ T3. Add tests for newly created functions.
 T3.1 Add tests for game_findNextAllowedCard()
 T3.2 Add tests for game_findPreviousAllowedCard()
 
+T4. Tests for game_createGame() are failing, probably because of the new
+    restrictions for its argument in debug mode.
+

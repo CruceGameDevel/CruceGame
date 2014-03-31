@@ -14,7 +14,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int position, WINDOW *win)
+int printCard(struct Card *card, int position, int selected, WINDOW *win)
 {
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
@@ -65,7 +65,9 @@ int printCard(struct Card *card, int position, WINDOW *win)
     getyx(win, y, x);
     wprintw(win, "  %d  ", position + 1);
     wmove(win, y + 1, x);
-    
+
+    if (selected)
+        wattron(win, HIGHLIGHT_ATTRIBUTE);
     wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
     wmove(win, y + 2, x);
@@ -81,6 +83,8 @@ int printCard(struct Card *card, int position, WINDOW *win)
     wmove(win, y + 7, x);
     wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
+    if (selected)
+        wattroff(win, HIGHLIGHT_ATTRIBUTE);
     wmove(win, y + 9, x);
     wmove(win, y, x + 6);
     wrefresh(win);
@@ -88,27 +92,31 @@ int printCard(struct Card *card, int position, WINDOW *win)
     return NO_ERROR;
 }
 
-int printPlayerCards(struct Game *game, struct Player *player, WINDOW *win)
+int printPlayerCards(struct Game *game, struct Player *player, int selected,
+                     WINDOW *win)
 {
     if (player == NULL)
         return PLAYER_NULL;
     if (win == NULL)
         return POINTER_NULL;
 
+    wprintw(win, "Your cards are:\n");
+
     int handId = 0;
-    while(game->round->hands[handId])
+    while(game->round->hands[handId]){
         handId++;
+    }
     if (handId > 0)
         handId--;
 
     for (int i = 0; i < MAX_CARDS; i++) {
         if (player->hand[i] != NULL) {
             if (!game_checkCard(player, game, game->round->hands[handId], i)) {
-                attron(COLOR_PAIR(1));
-                printCard(player->hand[i], i, win);
-                attroff(COLOR_PAIR(1));
+                wattron(win, COLOR_PAIR(1));
+                printCard(player->hand[i], i, i==selected, win);
+                wattroff(win, COLOR_PAIR(1));
             } else {
-                printCard(player->hand[i], i, win);
+                printCard(player->hand[i], i, i==selected, win);
             }
         }
     }

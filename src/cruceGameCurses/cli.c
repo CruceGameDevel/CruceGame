@@ -6,7 +6,7 @@
 
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 50
-#define SCORE_SIZE 5
+#define ROUND_DIALOG_SCORE_SIZE 5
 
 void welcomeMessage()
 {
@@ -484,7 +484,7 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
     int colorPair;
     int score;
     int playersNameWidth;  // used for alignmet
-    int scoreLineSize = getBiggestNameSize(terminatedRound) + SCORE_SIZE;
+    int scoreLineSize = getBiggestNameSize(terminatedRound) + ROUND_DIALOG_SCORE_SIZE;
 
     printw("  _____                       _        _     _ \n"     
              " / ____|                     | |      | |   | |     \n"

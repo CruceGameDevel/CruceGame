@@ -99,3 +99,13 @@ int displayWinner(struct Team *winner);
  */
 int getScoreLimit();
 
+/**
+ * @brief Prints the score differences between rounds
+ *
+ * @param terminatedRound The round that just has finished
+ * @param oldScore Oldscore for every player befor thhe terminated round 
+ *
+ * @return void
+ */
+int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore);
+

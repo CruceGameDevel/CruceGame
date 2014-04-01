@@ -478,6 +478,9 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
     if(terminatedRound == NULL || terminatedRound->players == NULL)
         return ROUND_NULL;
 
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+
     int colorPair;
     int score;
     int playersNameWidth;  // used for alignmet
@@ -497,7 +500,6 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
 
             score = terminatedRound->players[i]->score - oldScore[i];         
             colorPair = (score > 0) ? 2 : 1;
-            init_pair(colorPair, COLOR_GREEN, COLOR_BLACK);
 
             attron(COLOR_PAIR(colorPair));
             printw("%*d \n", scoreLineSize - playersNameWidth, score);

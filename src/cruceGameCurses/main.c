@@ -74,6 +74,13 @@ int main()
 
         }
         
+        int oldScore[MAX_GAME_PLAYERS];
+        for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+            if(game->round->players[i] != NULL) {
+                oldScore[i] = game->round->players[i]->score;
+            }
+        }
+     
         for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
             if (game->round->players[i] != NULL && 
                 game->round->players[i] != bidWinner) {
@@ -86,7 +93,10 @@ int main()
                     bidWinner->score -= game->round->bids[i];
             }
         }
-       
+
+        printRoundTerminationMessage(game->round, oldScore);
+        getch();
+
         deck_deleteDeck(&deck);
         round_deleteRound(&game->round);
     }

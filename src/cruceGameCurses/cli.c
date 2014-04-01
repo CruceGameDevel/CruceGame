@@ -502,7 +502,7 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
             colorPair = (score > 0) ? 2 : 1;
 
             attron(COLOR_PAIR(colorPair));
-            printw("%*d \n", scoreLineSize - playersNameWidth, score);
+            printw("%+*d \n", scoreLineSize - playersNameWidth, score);
             attroff(COLOR_PAIR(colorPair));
          
         }

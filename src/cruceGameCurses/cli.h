@@ -100,7 +100,7 @@ int displayWinner(struct Team *winner);
 int getScoreLimit();
 
 /**
- * @brief Prints the score differences between rounds
+ * @brief Prints the score differences between rounds.
  *
  * @param terminatedRound The round that just has finished.
  * @param oldScore Old score for every player before the terminated round. 

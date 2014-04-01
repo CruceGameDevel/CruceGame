@@ -450,3 +450,60 @@ int getScoreLimit()
     return processingScore(score);
 }
 
+/**
+ * @brief Returns the length of the biggest name of a player in a round,
+ *      helper for printRoundTerminationMessage
+ *
+ * @param terminatedRound The round that has just finished 
+ *
+ * @return The length of the biggest name of a player
+ */
+int getBiggestNameSize(struct Round *terminatedRound)
+{
+    int maxNameSize = strlen(terminatedRound->players[0]->name);
+    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if(terminatedRound->players[i] != NULL) {
+            if(strlen(terminatedRound->players[i]->name) > maxNameSize) {
+                maxNameSize = strlen(terminatedRound->players[i]->name);
+            }
+        }
+    }
+
+    return maxNameSize;
+}
+
+int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
+{
+    if(terminatedRound == NULL || terminatedRound->players == NULL)
+        return ROUND_NULL;
+
+    int colorPair;
+    int score;
+    int playersNameWidth;  // used for alignmet
+    int scoreLineSize = getBiggestNameSize(terminatedRound) + SCORE_SIZE;
+
+    printw("  _____                       _        _     _ \n"     
+             " / ____|                     | |      | |   | |     \n"
+            " | (___   ___ ___  _ __ ___  | |_ __ _| |__ | | ___ \n"
+             "  \\___ \\ / __/ _ \\| '__/ _ \\ | __/ _` | '_ \\| |/ _ \\\n"
+             "  ____) | (_| (_) | | |  __/ | || (_| | |_) | |  __/\n"
+            " |_____/ \\___\\___/|_|  \\___|  \\__\\__,_|_.__/|_|\\___|\n\n\n");
+
+    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if(terminatedRound->players[i] != NULL) {
+            printw("%s", terminatedRound->players[i]->name); 
+            playersNameWidth = strlen(terminatedRound->players[i]->name);
+
+            score = terminatedRound->players[i]->score - oldScore[i];         
+            colorPair = (score > 0) ? 2 : 1;
+            init_pair(colorPair, COLOR_GREEN, COLOR_BLACK);
+
+            attron(COLOR_PAIR(colorPair));
+            printw("%*d \n", scoreLineSize - playersNameWidth, score);
+            attroff(COLOR_PAIR(colorPair));
+         
+        }
+    }
+    return NO_ERROR;
+}
+

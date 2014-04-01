@@ -453,11 +453,11 @@ int getScoreLimit()
 
 /**
  * @brief Returns the length of the biggest name of a player in a round,
- *      helper for printRoundTerminationMessage
+ *      helper for printRoundTerminationMessage.
  *
- * @param terminatedRound The round that has just finished 
+ * @param terminatedRound The round that has just finished. 
  *
- * @return The length of the biggest name of a player
+ * @return The length of the biggest name of a player.
  */
 int getBiggestNameSize(struct Round *terminatedRound)
 {

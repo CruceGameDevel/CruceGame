@@ -1,6 +1,7 @@
 #include "team.h"
 #include "constants.h"
 #include "errors.h"
+#include "round.h"
 #include <stdlib.h>
 
 #include <string.h>

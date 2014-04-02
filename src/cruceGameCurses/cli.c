@@ -302,8 +302,8 @@ int formTeams (struct Game *game)
     printw("\n");
     ch--;
 
-    struct Player* backup = game->players[2];
-    game->players[2]      = game->players[ch-'0'];
+    struct Player* backup = game->players[1];
+    game->players[1]      = game->players[ch-'0'];
     game->players[ch-'0'] = backup;
 
     char *numerals[] = {"first", "second"};
@@ -315,8 +315,8 @@ int formTeams (struct Game *game)
         struct Team *team = team_createTeam(teamName);
         free(teamName);    
 
-        team_addPlayer(team, game->players[i]);
-        team_addPlayer(team, game->players[i + 1]);
+        team_addPlayer(team, game->players[2 * i]);
+        team_addPlayer(team, game->players[2 * i + 1]);
         game_addTeam(team, game);
     }
 

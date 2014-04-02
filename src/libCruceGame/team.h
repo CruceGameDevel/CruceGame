@@ -143,6 +143,16 @@ EXPORT int team_addCard(struct Player *player, struct Card *card);
 */
 EXPORT int team_hasCards(struct Player *player);
 
+/**
+ * @brief The function calculates the points of a team.
+ *
+ * @param team The team for which do calculate the points.
+ * @param round The round in which are the players of team.
+ *
+ * @return The points of team on success, a negative value on failure.
+ */
+EXPORT int team_computePoints(struct Team *team, struct Round *round);
+
 #ifdef __cplusplus
 }
 #endif

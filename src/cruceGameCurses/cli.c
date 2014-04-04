@@ -239,26 +239,6 @@ int printScore(struct Game *game, struct Round *round)
     return NO_ERROR;
 }
 
-int pickCard (struct Player *player, struct Game *game, struct Hand *hand)
-{
-    if (player == NULL)
-        return PLAYER_NULL;
-    if (game == NULL)
-        return GAME_NULL;
-    if (hand == NULL)
-        return HAND_NULL;
-
-    printw("\nInsert a card number: ");
-    char ch = getch();
-    while (ch < '1' || ch > '8' || player->hand[ch - '1'] == NULL ||
-           game_checkCard(player, game, hand, ch - '1') != 1) {
-        printw("\nInsert a correct card number: ");
-        ch = getch();
-    }
-
-    return ch - '1';
-}
-
 void createEmptyTeams(struct Game *game)
 {
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {

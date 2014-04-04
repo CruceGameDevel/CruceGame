@@ -373,10 +373,12 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     while (( ch = wgetch(cardsInHandWindow)) != '\n') {
         wprintw(cardsInHandWindow, "%d", ch);
         switch (ch) {
+            case 'a':
             case KEY_LEFT:
                 selected = game_findPreviousAllowedCard(player, game, hand,
                                                         selected);
                 break;
+            case 'd':
             case KEY_RIGHT:
                 selected = game_findNextAllowedCard(player, game, hand,
                                                     selected);

@@ -86,19 +86,8 @@ int main()
                 oldScore[i] = game->round->players[i]->score;
             }
         }
-     
-        for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-            if (game->round->players[i] != NULL && 
-                game->round->players[i] != bidWinner) {
-                game->round->players[i]->score += 
-                    game->round->pointsNumber[i] / 33;
-            } else if (game->round->players[i] == bidWinner) {
-                if (game->round->bids[i] <= game->round->pointsNumber[i] / 33)
-                    bidWinner->score += game->round->pointsNumber[i] / 33;
-                else
-                    bidWinner->score -= game->round->bids[i];
-            }
-        }
+
+        game_updateScore(game, bidWinner);
 
         printRoundTerminationMessage(game->round, oldScore);
         getch();

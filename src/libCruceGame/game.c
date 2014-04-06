@@ -136,26 +136,22 @@ struct Team *game_winningTeam(struct Game *game)
     if (game == NULL)
         return NULL;
 
-    int score[MAX_GAME_TEAMS];
     int checkTeams = 0;
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
         if (game->teams[i] != NULL) {
-            score[i] = team_computeScore(game->teams[i]);
-            if (score[i] >= game->pointsNumber)
+            if (game->teams[i]->score >= game->pointsNumber)
                 checkTeams++;
-        } else {
-            score[i] = 0;
         }
     }
 
     if (checkTeams == 0)
         return NULL;
-    if (checkTeams == 1) {
+    else if (checkTeams == 1) {
         for (int i = 0; i < MAX_GAME_TEAMS; i++)
-            if (score[i] >= game->pointsNumber)
+            if (game->teams[i] != NULL && 
+                game->teams[i]->score >= game->pointsNumber)
                 return game->teams[i];
-    }
-    if (checkTeams > 1) {
+    } else {
         game->pointsNumber += 10;
         return NULL;
     }

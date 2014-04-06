@@ -163,47 +163,27 @@ void test_game_winningTeam()
     cut_assert_equal_pointer(NULL, game_winningTeam(NULL));
 
     struct Game *game = game_createGame(11);
-    struct Player *players[MAX_GAME_PLAYERS];
     struct Team *teams[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
         teams[i] = team_createTeam("A");
         game_addTeam(teams[i], game);
-        players[i] = team_createPlayer("A", i);
-        team_addPlayer(teams[i / 2], players[i]);
-    }    
-
-    cut_assert_equal_pointer(NULL, game_winningTeam(game));
-
-    players[3]->score = 11; 
-    cut_assert_equal_pointer(teams[1], game_winningTeam(game));
-
-    players[0]->score = 11;
-    cut_assert_equal_pointer(NULL, game_winningTeam(game));
-    cut_assert_equal_int(21, game->pointsNumber);
-
-    players[3]->score = 0;
-    players[0]->score = 0;
-    game->pointsNumber = 11;
-    team_removePlayer(teams[0], players[1]);
-    team_removePlayer(teams[1], players[3]);
-    team_addPlayer(teams[2], players[1]);
-    team_addPlayer(teams[3], players[3]);
-
-    cut_assert_equal_pointer(NULL, game_winningTeam(game));
-
-    players[0]->score = 11;
-    cut_assert_equal_pointer(teams[0], game_winningTeam(game));
-
-    players[1]->score = 11;
-    cut_assert_equal_pointer(NULL, game_winningTeam(game));
-    cut_assert_equal_int(21, game->pointsNumber);
-
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        team_deleteTeam(&teams[i]);
-        team_deletePlayer(&players[i]);
     }
 
+    cut_assert_equal_pointer(NULL, game_winningTeam(game));
+
+    teams[0]->score = 11;
+    cut_assert_equal_pointer(teams[0], game_winningTeam(game));
+
+    teams[1]->score = 11;
+    cut_assert_equal_pointer(NULL, game_winningTeam(game));
+    cut_assert_equal_int(21, game->pointsNumber);
+
+    game->pointsNumber = 11;
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        team_deleteTeam(&teams[i]);
+    }
     game_deleteGame(&game);
 }
 

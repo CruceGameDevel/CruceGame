@@ -138,6 +138,15 @@ EXPORT int team_addCard(struct Player *player, struct Card *card);
 */
 EXPORT int team_hasCards(struct Player *player);
 
+/**
+ * @brief Updates all players scores, assigning team score to them.
+ *
+ * @param team The team where to update the score.
+ *
+ * @return NO_ERROR or 0 on success, negative value otherwise.
+ */
+EXPORT int team_updatePlayersScore(struct Team *team);
+
 #ifdef __cplusplus
 }
 #endif

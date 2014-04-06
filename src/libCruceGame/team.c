@@ -156,3 +156,16 @@ int team_hasCards(struct Player *player)
     return 0;
 }
 
+int team_updatePlayersScore(struct Team *team)
+{
+    if (team == NULL)
+        return POINTER_NULL;
+
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if (team->players[i] != NULL)
+            team->players[i]->score = team->score;
+    }
+
+    return NO_ERROR;
+}
+

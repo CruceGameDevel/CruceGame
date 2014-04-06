@@ -268,3 +268,21 @@ int game_findPreviousAllowedCard(struct Player *player, struct Game *game,
     return currentCard;
 }
 
+struct Team *game_findTeam(struct Game *game, struct Player *player)
+{
+    if (player == NULL)
+        return NULL;
+    if (game == NULL)
+        return NULL;
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
+                if (game->teams[i]->players[j] == player)
+                    return game->teams[i];
+        }
+    }
+
+    return NULL;
+}
+

@@ -161,6 +161,16 @@ EXPORT int game_findPreviousAllowedCard(struct Player *player,
                                         struct Hand *hand,
                                         int currentCard);
 
+/**
+ * @brief Function to find the team in which a player belongs.
+ *
+ * @param game The game where to search.
+ * @param player The player to find.
+ *
+ * @return Pointer to the required team on success, NULL on failure.
+ */
+EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
+
 #ifdef __cplusplus
 }
 #endif

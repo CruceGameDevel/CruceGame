@@ -16,7 +16,9 @@ void test_game_createGame()
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         cut_assert_equal_pointer(NULL, game->teams[i]);
 
+#ifndef DEBUG
     cut_assert_equal_pointer(NULL, game_createGame(0));
+#endif
     cut_assert_equal_pointer(NULL, game->deck);
     cut_assert_equal_pointer(NULL, game->round);
     cut_assert_equal_int(0, game->numberPlayers);

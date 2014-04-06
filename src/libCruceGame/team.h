@@ -119,15 +119,6 @@ EXPORT int team_deleteTeam(struct Team **team);
 EXPORT int team_deletePlayer(struct Player **player);
 
 /**
- * @brief Calculates the score of a team
- *
- * @param team The team for which the score is to be be calculated
- *
- * @return Integer representing the score or negative error code on failure.
- */
-EXPORT int team_computeScore(const struct Team *team);
-
-/**
 * @brief Passes a card to a player. The function doesn't check
 *        if the card has valid value and valid suit. 
 *

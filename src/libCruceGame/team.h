@@ -21,7 +21,8 @@
  * @var Player::hand
  *     Pointer to the cards of the player.
  * @var Player::score
- *     The amount of points earned in a hand.
+ *     The points achieved by the player in this game. It is equal with
+ *     team points, if the game is played in teams.
  * @var Player::isHuman
  *     Flag used to indicate if the player is human or robot.
  */

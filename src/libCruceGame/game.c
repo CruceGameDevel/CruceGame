@@ -286,3 +286,51 @@ struct Team *game_findTeam(struct Game *game, struct Player *player)
     return NULL;
 }
 
+int game_updateScore(struct Game *game, struct Player *bidWinner)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (bidWinner == NULL)
+        return PLAYER_NULL;
+
+    struct Team *bidWinnerTeam = game_findTeam(game, bidWinner);
+    int bidWinnerTeamId = -1;
+    int teamScores[MAX_GAME_TEAMS];
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        teamScores[i] = 0;
+        if (game->teams[i] == bidWinnerTeam)
+            bidWinnerTeamId = i;
+    }
+
+    if (bidWinnerTeamId == -1 || bidWinnerTeam == NULL)
+        return NOT_FOUND;
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if (game->round->players[i] != NULL) {
+            struct Team *team = game_findTeam(game, game->round->players[i]);
+            if (team == NULL)
+                return NOT_FOUND;
+            for (int j = 0; j < MAX_GAME_TEAMS; j++)
+                if (game->teams[j] == team)
+                    teamScores[j] += game->round->pointsNumber[i];
+        }
+    }
+
+    int bidWinnerId = round_findPlayerIndexRound(bidWinner, game->round);
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            if (game->teams[i] != bidWinnerTeam)
+                game->teams[i]->score += teamScores[i] / 33;
+            else if (game->round->bids[bidWinnerId] <=
+                     teamScores[bidWinnerTeamId] / 33)
+                bidWinnerTeam->score += teamScores[bidWinnerTeamId] / 33;
+            else
+                bidWinnerTeam->score -= teamScores[bidWinnerTeamId] / 33;
+        }
+        team_updatePlayersScore(game->teams[i]);
+    }
+
+    return NO_ERROR;
+}
+

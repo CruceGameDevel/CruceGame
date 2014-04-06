@@ -42,6 +42,8 @@ struct Player{
  *
  * @var Team::id
  *     The identifier of the team.
+ * @var Team::score
+ *     The score achieved by the team in this game.
  * @var Team::name
  *     Pointer to the name of the team.
  * @var Team::players
@@ -49,6 +51,7 @@ struct Player{
  */
 struct Team{
     int id;
+    int score;
     char *name;
     struct Player *players[MAX_TEAM_PLAYERS];
 };

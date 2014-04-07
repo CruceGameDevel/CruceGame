@@ -315,4 +315,41 @@ void test_game_checkCard()
     game_deleteGame(&game);
 }   
 
+void test_game_findNextAllowedCard()
+{
+    struct Game *game = game_createGame(11);
+    struct Hand *hand = round_createHand();
+    struct Player *player = team_createPlayer("A", 0);
+    struct Round *round = round_createRound();
+
+    round->hands[0] = hand;
+    game->round = round;
+    game_addPlayer(player, game);
+    round_addPlayerHand(player, hand);
+    round_addPlayer(player, round);
+
+    player->hand[0] = deck_createCard(DIAMONDS, VALUES[1]);
+    player->hand[1] = deck_createCard(HEARTS, VALUES[2]);
+    player->hand[2] = deck_createCard(CLUBS, VALUES[2]);
+    player->hand[3] = deck_createCard(SPADES, VALUES[0]);
+    player->hand[4] = deck_createCard(DIAMONDS, VALUES[5]);
+    player->hand[5] = deck_createCard(SPADES, VALUES[1]);
+    player->hand[6] = deck_createCard(HEARTS, VALUES[4]);
+    player->hand[7] = deck_createCard(CLUBS, VALUES[3]);
+
+    round->trump = HEARTS;
+
+    for(int i = 0; i < 8; i++) {
+        cut_assert_equal_int((i + 1) % 8, game_findNextAllowedCard(player, game,
+                                                              hand, i));
+    }
+
+    for (int i = 0 ; i < 8; i++)
+        deck_deleteCard(&player->hand[i]);
+
+    team_deletePlayer(&player);
+    round_deleteHand(&hand);
+    round_deleteRound(&round);
+    game_deleteGame(&game);
+}
 

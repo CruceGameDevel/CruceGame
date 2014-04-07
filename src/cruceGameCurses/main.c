@@ -1,3 +1,9 @@
+/**
+ * @file main.c
+ * @brief The code in this file controls the activity of the whole game.
+ *        This module is the controller.
+ */
+
 #include "cli.h"
 #include <curses.h>
 #include <locale.h>

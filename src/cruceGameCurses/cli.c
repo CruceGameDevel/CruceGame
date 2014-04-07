@@ -1,3 +1,10 @@
+/**
+ * @file cli.c
+ * @brief Contains implementations of the functions used for creating
+ *        the user interface. These functions are declared in the 
+ *        header file cli.h.
+ */
+
 #include "cli.h"
 
 #include <curses.h>

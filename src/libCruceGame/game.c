@@ -1,3 +1,9 @@
+/**
+ * @file game.c
+ * @brief Contains implementations of the functions used for game-related
+ *        operations.
+ */
+
 #include "game.h"
 #include "errors.h"
 #include "constants.h"

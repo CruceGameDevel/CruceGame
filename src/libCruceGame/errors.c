@@ -1,3 +1,8 @@
+/**
+ * @file errors.c
+ * @brief This file contains the implementation of the error module.
+ */
+
 #include "errors.h"
 
 const char *error(int error_code)

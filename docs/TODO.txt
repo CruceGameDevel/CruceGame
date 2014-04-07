@@ -24,3 +24,12 @@ T3.2 Add tests for game_findPreviousAllowedCard()
 T4. Tests for game_createGame() are failing, probably because of the new
     restrictions for its argument in debug mode.
 
+T5. There are some issues with names:
+
+T5.1 Allow space character inside a name.
+T5.2 Check for buffer overflow when reading a name.
+T5.3 Remove team name member.
+
+T6. Create multiple build targets (release and debug) and find a way to allow
+    configure on machines without cutter installed.
+

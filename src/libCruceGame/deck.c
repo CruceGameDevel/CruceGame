@@ -1,3 +1,10 @@
+/**
+ * @file deck.c
+ * @brief In this file are defined functions used for deck-related 
+ *        operations, these functions are declared in the header 
+ *        file deck.h.
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

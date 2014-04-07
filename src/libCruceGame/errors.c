@@ -1,3 +1,8 @@
+/**
+ * @file errors.c
+ * @brief This file contains the implementation of the error module.
+ */
+
 #include "errors.h"
 
 const char *error(int error_code)
@@ -45,7 +50,7 @@ const char *error(int error_code)
             return "The values or suits of the cards you are trying to compare are illegal in the context";
 
         case HAND_EMPTY:
-            return "Mai este folosit?";
+            return "Is this useful anymore?";
         case DECK_EMPTY:
             return "Trying to distribute cards from a deck not large enough";
 

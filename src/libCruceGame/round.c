@@ -1,3 +1,11 @@
+/**
+ * @file round.c
+ * @brief Contains implementations of the functions used for creation or
+ *        deletion of a round. Also, it contains implementations for the 
+ *        functions used to handle different activities in a round, like
+ *        removing a player.
+ */
+
 #include "round.h"
 #include "errors.h"
 

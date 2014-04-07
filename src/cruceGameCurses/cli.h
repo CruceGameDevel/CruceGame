@@ -1,3 +1,9 @@
+/**
+ * @file cli.h
+ * @brief Contains declaration of the functions used for building the user
+ *        interface.
+ */
+
 #include <cruceGame.h>
 #include <ncurses.h>
 

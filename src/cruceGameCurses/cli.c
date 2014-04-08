@@ -149,7 +149,7 @@ struct Player *newPlayer(int i)
 {
     char *name = malloc(MAX_NAME_SIZE*sizeof(char));
     printw("Insert player %d name: ", i);
-    scanw("%s", name);
+    scanw("%30[^\n]", name);
 
     struct Player *player = team_createPlayer(name, 1);
     free(name);

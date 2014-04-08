@@ -24,18 +24,23 @@ void welcomeMessage()
 
 int printCard(struct Card *card, int position, int selected, WINDOW *win)
 {
+    int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
     switch (card->suit) {
         case DIAMONDS:
+            colorPair = 3;
             suit[2] = 0xA6;
             break;
         case CLUBS:
+            colorPair = 4;
             suit[2] = 0xA3;
             break;
         case HEARTS:
+            colorPair = 1;
             suit[2] = 0xA5;
             break;
         case SPADES:
+            colorPair = 2;
             suit[2] = 0xA0;
             break;
         default:
@@ -72,25 +77,41 @@ int printCard(struct Card *card, int position, int selected, WINDOW *win)
     int x, y;
     getyx(win, y, x);
     wprintw(win, "  %d  ", position + 1);
+    wattroff(win, COLOR_PAIR(1));
     wmove(win, y + 1, x);
 
     if (selected)
         wattron(win, HIGHLIGHT_ATTRIBUTE);
+
     wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
+
     wmove(win, y + 2, x);
     wprintw(win, "%s%c   %s", verticalLine, value, verticalLine);
     wmove(win, y + 3, x);
-    wprintw(win, "%s%s   %s", verticalLine, suit, verticalLine);
+
+    wprintw(win, "%s", verticalLine);
+    wattron(win, COLOR_PAIR(colorPair));
+    wprintw(win, "%s", suit);
+    wattroff(win, COLOR_PAIR(colorPair));
+    wprintw(win, "   %s", verticalLine);
     wmove(win, y + 4, x);
+
     wprintw(win, "%s    %s", verticalLine, verticalLine);
     wmove(win, y + 5, x);
-    wprintw(win, "%s  %s %s", verticalLine, suit, verticalLine);
+    wprintw(win, "%s", verticalLine);
+    wattron(win, COLOR_PAIR(colorPair));
+    wprintw(win, "  %s", suit);
+    wattroff(win, COLOR_PAIR(colorPair));
+
+    wprintw(win, " %s", verticalLine);
     wmove(win, y + 6, x);
     wprintw(win, "%s   %c%s", verticalLine, value, verticalLine);
     wmove(win, y + 7, x);
+
     wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
+
     if (selected)
         wattroff(win, HIGHLIGHT_ATTRIBUTE);
     wmove(win, y + 9, x);
@@ -101,7 +122,7 @@ int printCard(struct Card *card, int position, int selected, WINDOW *win)
 }
 
 int printPlayerCards(struct Game *game, struct Player *player, int selected,
-                     WINDOW *win)
+                      WINDOW *win)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -125,6 +146,7 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
                 wattroff(win, COLOR_PAIR(1));
             } else {
                 printCard(player->hand[i], i, i==selected, win);
+
             }
         }
     }

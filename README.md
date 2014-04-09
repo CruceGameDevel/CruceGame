@@ -55,3 +55,16 @@ should specify it explicitly to configure:
 
 ```$ ./configure CFLAGS=-DBORDERS```
 
+Documentation
+------
+
+We use Doxygen for documentation. There is a html version of the documentation
+for the last release available on branch ```gh-pages```. There is a Doygen
+configuration file, under docs/Doxyfile. To generate a new version of the
+documentation, simply run:
+
+```$ doxygen path-to-docs/Doxyfile```
+
+This will generate 2 directories inside your current directory named ```html```
+and ```latex```, containing 2 versions of the documentation.
+

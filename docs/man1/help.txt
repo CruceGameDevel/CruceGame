@@ -44,7 +44,6 @@ Round In A Game:
 Every round will give you a score, and you have to earn the Game points with
 a difference of 2 game points to win the game.
 
-Each roun
 Score Points:
 Tells the current score of the player/team.
 

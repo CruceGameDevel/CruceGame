@@ -33,3 +33,25 @@ Instructions for testing:
   or use make:
   ```$ make check```
 
+Build options
+------
+
+The method described above will generate a release package (with no debug
+information or debug options). In the development process and for debugging,
+it is recommended to use the debug version. It will also use -O0 and -g flags
+for gcc. To be able to generate it, simply pass --enable-debug="yes" parameter 
+to the configure script:
+
+```$ ./configure --enable-debug="yes"```
+
+Configure will search for cutter, and if it is available, will build tests
+too. If you don't want that, use:
+
+```$ ./configure --with-cutter="no"```
+
+There is also a "hidden" flag, BORDERS. If it is used, a border will be added
+around curses windows, useful in designing the window layout. To use it, you
+should specify it explicitly to configure:
+
+```$ ./configure CFLAGS=-DBORDERS```
+

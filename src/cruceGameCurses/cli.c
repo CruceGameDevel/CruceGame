@@ -250,7 +250,7 @@ void createEmptyTeams(struct Game *game)
 {
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] != NULL) {
-            struct Team *team = team_createTeam(game->players[i]->name);
+            struct Team *team = team_createTeam();
             team_addPlayer(team, game->players[i]);
             game_addTeam(team, game);
         }
@@ -296,13 +296,7 @@ int formTeams (struct Game *game)
 
     char *numerals[] = {"first", "second"};
     for (int i = 0; i < 2; i++) {
-        char *teamName = malloc(100); //WARNING: MAGIC CONSTANT
-        printw("Insert %s team's name: ", numerals[i]);
-        scanw("%s", teamName);
-
-        struct Team *team = team_createTeam(teamName);
-        free(teamName);    
-
+        struct Team *team = team_createTeam();
         team_addPlayer(team, game->players[i]);
         team_addPlayer(team, game->players[i + 1]);
         game_addTeam(team, game);

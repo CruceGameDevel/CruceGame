@@ -105,7 +105,7 @@ void test_addTeam()
     struct Team *team[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
-        team[i] = team_createTeam("A");
+        team[i] = team_createTeam();
         cut_assert_equal_int(NO_ERROR, game_addTeam(team[i], game));
         cut_assert_equal_int(DUPLICATE, game_addTeam(team[i], game));
         int teamAdded = -1;
@@ -115,7 +115,7 @@ void test_addTeam()
         cut_assert_equal_int(0, teamAdded);
     }
 
-    struct Team *team1 = team_createTeam("A");
+    struct Team *team1 = team_createTeam();
     cut_assert_equal_int(GAME_NULL, game_addTeam(team1, NULL));
     cut_assert_equal_int(TEAM_NULL, game_addTeam(NULL, game));
     cut_assert_operator_int(0, >, game_addTeam(NULL, NULL));
@@ -134,7 +134,7 @@ void test_game_removeTeam()
     struct Team *team[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
-        team[i] = team_createTeam("A");
+        team[i] = team_createTeam();
         game_addTeam(team[i], game);
     }
 
@@ -165,7 +165,7 @@ void test_game_winningTeam()
     struct Team *teams[MAX_GAME_TEAMS];
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
-        teams[i] = team_createTeam("A");
+        teams[i] = team_createTeam();
         game_addTeam(teams[i], game);
         players[i] = team_createPlayer("A", i);
         team_addPlayer(teams[i / 2], players[i]);

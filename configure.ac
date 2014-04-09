@@ -10,8 +10,10 @@ AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_PROG_LIBTOOL
 
-AC_CHECK_CUTTER
 AC_CHECK_HEADERS([curses.h])
+
+AC_CHECK_CUTTER
+AM_CONDITIONAL(CUTTER, test x"$cutter_use_cutter" = x"yes")
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile

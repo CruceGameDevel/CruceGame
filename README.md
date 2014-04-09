@@ -10,7 +10,8 @@ to finish.
 "How to build" Game
 =========
 
-Tools required:
+Tools required
+------
 - You must have GNU C Compiler ```gcc```.
 - You must have autotools on your machine (```automake```, ```autoconf``` and
 ```libtool``` packages). Under Ubuntu they are found in ```build-essential```

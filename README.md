@@ -26,7 +26,6 @@ Instructions to build:
 - On successful run of ./autogen.sh, you will have configure file. Run it.
   ```$ ./configure```
 - Next step, is to run make. ```$ make```
-- To install the binaries, using make install. ```$ make install```
 
 Instructions for testing:
 - To run tests you can run either the script provided in tests/run-test.sh:

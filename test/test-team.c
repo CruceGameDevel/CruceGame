@@ -24,12 +24,9 @@ void test_team_createPlayer()
 
 void test_team_createTeam()
 {
-    cut_assert_equal_pointer(NULL, team_createTeam(NULL));
-
     struct Team *team;
     for (int i = 0; i < 100; i++) {
-        team = team_createTeam("A");
-        cut_assert_equal_string("A", team->name);
+        team = team_createTeam();
         cut_assert_operator_int(-1, <, team->id);
         team_deleteTeam(&team);
     }

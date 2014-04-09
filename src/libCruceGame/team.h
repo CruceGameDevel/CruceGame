@@ -49,7 +49,6 @@ struct Player{
  */
 struct Team{
     int id;
-    char *name;
     struct Player *players[MAX_TEAM_PLAYERS];
 };
 
@@ -74,7 +73,7 @@ EXPORT struct Player *team_createPlayer(const char *name, int isHuman);
  *
  * @return Pointer to the created team. Needs to be freed.
  */
-EXPORT struct Team *team_createTeam(const char *name);
+EXPORT struct Team *team_createTeam();
 
 /**
 * @brief Adds a player to a team.

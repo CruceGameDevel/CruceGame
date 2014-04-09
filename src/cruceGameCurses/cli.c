@@ -443,8 +443,8 @@ int getBid(struct Game *game, int playerId)
 }
 
 int displayWinner(struct Team *winner) {
-    if(winner->name != NULL) { 
-        printw("The winner of the game is %s\n", winner->name);
+    if(winner->id <= 4) { 
+        printw("The winner of the game is %d\n", winner->id);
         return NO_ERROR; 
     } else {
         return POINTER_NULL;

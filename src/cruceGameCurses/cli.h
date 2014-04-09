@@ -1,3 +1,6 @@
+#ifndef CLI_H
+#define CLI_H
+
 /**
  * @file cli.h
  * @brief Contains declaration of the functions used for building the user
@@ -124,3 +127,4 @@ int getScoreLimit();
  */
 int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore);
 
+#endif

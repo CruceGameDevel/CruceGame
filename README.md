@@ -17,7 +17,8 @@ Tools required
 ```libtool``` packages). Under Ubuntu they are found in ```build-essential```
 package.
 - You must have cutter framework installed (```cutter-test_framework```
-package).
+package) in order to be able to run tests, but this is not required to build
+the package.
 
 Instructions to build:
 - You need to run ./autogen.sh file (it will generate configure script).

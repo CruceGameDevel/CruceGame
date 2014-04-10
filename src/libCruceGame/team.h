@@ -7,6 +7,7 @@
 #define TEAM_H
 
 #include "deck.h"
+#include "round.h"
 
 /**
  * @struct Player

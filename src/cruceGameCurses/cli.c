@@ -252,10 +252,10 @@ int printScore(struct Game *game, struct Round *round)
             }
             printw("%s", verticalLeftBoxDouble);
             if (playersNumber > 0) {
-                move(y + line - playersNumber, x + maxLength + 1);
-                printw("%*d", 5, team_computePoints(game->teams[i], round));
-                move(y + line - playersNumber, x + maxLength + 8);
-                printw("%*d", 4, game->teams[i]->score);
+                move(y + line - playersNumber, x + maxLength + 2);
+                printw("%*d", 6, team_computePoints(game->teams[i], round));
+                move(y + line - playersNumber, x + maxLength + 9);
+                printw("%*d", 5, game->teams[i]->score);
             }
             line++;
         }

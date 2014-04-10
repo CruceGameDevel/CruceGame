@@ -214,6 +214,7 @@ int printScore(struct Game *game, struct Round *round)
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         if(game->teams[i] != NULL) {
+            int playersNumber = 0; 
             for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
                 if (game->teams[i]->players[j] != NULL) {
                     move(y + line, x);
@@ -239,6 +240,7 @@ int printScore(struct Game *game, struct Round *round)
                         }
                     }
                     line++;
+                    playersNumber++; 
                 }
             --line;
             move(y + line, x + maxLength + 1);
@@ -249,6 +251,12 @@ int printScore(struct Game *game, struct Round *round)
                     printw("%s", horizontalBoxDouble);
             }
             printw("%s", verticalLeftBoxDouble);
+            if (playersNumber > 0) {
+                move(y + line - playersNumber, x + maxLength + 1);
+                printw("%*d", 5, team_computePoints(game->teams[i], round));
+                move(y + line - playersNumber, x + maxLength + 8);
+                printw("%*d", 4, game->teams[i]->score);
+            }
             line++;
         }
 

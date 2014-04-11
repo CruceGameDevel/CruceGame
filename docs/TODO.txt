@@ -33,3 +33,26 @@ T5.3 Remove team name member.
 T6. Create multiple build targets (release and debug) and find a way to allow
     configure on machines without cutter installed.
 
+T7. Round player rotation.
+
+Each round starts with player 1. It should start with the player who's id is
+equal with roundId%numberOfPlayers.
+
+T8. Issues in displaying the round dialog:
+
+T8.1. 0 should be white, not red with +.
+T8.2. On a line should be displayed all team members, not just a player, as
+      it displayes the entire team score update.
+
+T9. ASCII art
+
+T9.1 Add ASCII art for welcome message.
+T9.2 Add ASCII art at game ending.
+
+T10. At every input, make sure the cursor is placed at the bottom of the screen.
+
+T11. Make sure the player swap at team creation (if the game is played on teams)
+is permanent.
+
+T12. Add tests for team_computeScore().
+

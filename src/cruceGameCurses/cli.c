@@ -129,7 +129,7 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
     if (win == NULL)
         return POINTER_NULL;
 
-    wprintw(win, "Your cards are:\n");
+    wprintw(win, "Your cards:\n");
 
     int handId = 0;
     while(game->round->hands[handId]){
@@ -213,57 +213,57 @@ int printScore(struct Game *game, struct Round *round)
     int line = 0;
     getyx(stdscr, y, x);
 
-    printw("%s",downRightBoxDouble);
+    printw("%s",downRightBox);
     for (int i = 1; i <= maxLength + 13; i++){
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", downHorizontalBoxDouble);
+            printw("%s", downHorizontalBox);
         else
-            printw("%s", horizontalBoxDouble);
+            printw("%s", horizontalBox);
     }
-    printw("%s", downLeftBoxDouble);
+    printw("%s", downLeftBox);
     line++;
 
     move(y + 1, x);
-    printw("%sName", verticalBoxDouble);
+    printw("%sName", verticalBox);
     move(y + 1, x + maxLength + 1);
-    printw("%sPoints", verticalBoxDouble);
+    printw("%sPoints", verticalBox);
     move(y + 1, x + maxLength + 8);
-    printw("%sScore%s", verticalBoxDouble, verticalBoxDouble);
+    printw("%sScore%s", verticalBox, verticalBox);
     line++;
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] != NULL) {
             move(y + line, x);
-            printw("%s", verticalRightBoxDouble);
+            printw("%s", verticalRightBox);
             for (int j = 1; j <= maxLength + 13; j++) {
                 if (j == maxLength + 1 || j == maxLength + 8)
-                    printw("%s", verticalHorizontalBoxDouble);
+                    printw("%s", verticalHorizontalBox);
                 else
-                    printw("%s", horizontalBoxDouble);
+                    printw("%s", horizontalBox);
             }
-            printw("%s", verticalLeftBoxDouble);
+            printw("%s", verticalLeftBox);
             line++;
             move(y + line, x);
-            printw("%s%s ", verticalBoxDouble, round->players[i]->name);
+            printw("%s%s ", verticalBox, round->players[i]->name);
             move(y + line, x + maxLength + 1);
-            printw("%s %*d", verticalBoxDouble, 5, round->pointsNumber[i]);
+            printw("%s %*d", verticalBox, 5, round->pointsNumber[i]);
             move(y + line, x + maxLength + 8);
-            printw("%s %*d", verticalBoxDouble, 4, game->players[i]->score);
+            printw("%s %*d", verticalBox, 4, game->players[i]->score);
             move(y + line, x + maxLength + 14);
-            printw("%s", verticalBoxDouble);
+            printw("%s", verticalBox);
             line++;
         }            
     }
 
     move(y + line, x);
-    printw("%s", upRightBoxDouble); 
+    printw("%s", upRightBox); 
     for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", upHorizontalBoxDouble);
+            printw("%s", upHorizontalBox);
         else
-            printw("%s", horizontalBoxDouble);
+            printw("%s", horizontalBox);
     }
-    printw("%s\n", upLeftBoxDouble);
+    printw("%s\n", upLeftBox);
 
     return NO_ERROR;
 }
@@ -365,12 +365,12 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    printw("Player %d %s\n", playerId + 1, player->name);
+    printw("%s's turn:\n", player->name);
 
     if (game->round->trump != SuitEnd)
-        printw("The trump is: %s\n", suit);
+        printw("Trump: %s\n", suit);
     else
-        printw("The trump was not set.\n");
+        printw("Trump was not set.\n");
 
     int y, x;
     getyx(stdscr, y, x);
@@ -379,7 +379,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 #ifdef BORDERS
     box(cardsOnTableWindow, 0, 0);
 #endif
-    wprintw(cardsOnTableWindow, "The cards on table: \n");
+    wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
             printCard(hand->cards[i], i, 0, cardsOnTableWindow);

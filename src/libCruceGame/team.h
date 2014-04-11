@@ -42,8 +42,6 @@ struct Player{
  *
  * @var Team::id
  *     The identifier of the team.
- * @var Team::name
- *     Pointer to the name of the team.
  * @var Team::players
  *     Pointer to the players of the team.
  */

@@ -12,55 +12,8 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <errno.h>
-void cruceGameOptions(int argc,char **argv);
 void cruceGameHelp();
 int cruceGameLogic();
-
-/**
- * @brief
- *
- * @param argc Stores the count of number of argument
- * @param argv Contains the value of arguments
- */
-void cruceGameOptions(int argc,char **argv)
-{
-    int getoptCheck;
-    struct option long_options[] = {
-        {"help", no_argument, 0, 'h'},
-        {"version", no_argument, 0, 'v'},
-        {0, 0, 0, 0}
-    };
-
-    while ((getoptCheck = getopt_long (argc, argv, "hv",long_options, NULL)) != -1) {
-        if (getoptCheck == -1)
-        break;
-     
-        switch (getoptCheck) {
-            case 'h':
-                cruceGameHelp();
-                break;
-     
-            case 'v':
-                printf("CruceGame Version: %s\n",GAME_VERSION);
-                exit(EXIT_SUCCESS);
-                break;
-     
-            case '?':
-                exit(EXIT_FAILURE);
-     
-            default:
-                exit(EXIT_FAILURE);
-            }
-        }
-     
-    if (optind < argc) {
-        printf ("non-option elements passed: ");
-        while (optind < argc) {
-            printf ("%s ", argv[optind++]);
-        }
-        exit(EXIT_FAILURE);
-    }
-}
 
 /**
  * @brief Prints the help manual of cruce game to the screen
@@ -210,12 +163,47 @@ int main(int argc, char *argv[])
 #endif
 { 
     if (argc >= 2) {
-        cruceGameOptions(argc,argv);
+        int getoptCheck;
+        struct option long_options[] = {
+            {"help", no_argument, 0, 'h'},
+            {"version", no_argument, 0, 'v'},
+            {0, 0, 0, 0}
+        };
+
+        while ((getoptCheck = getopt_long (argc, argv, "hv",long_options, NULL)) != -1) {
+            if (getoptCheck == -1)
+            break;
+     
+            switch (getoptCheck) {
+                case 'h':
+                    cruceGameHelp();
+                    break;
+     
+                case 'v':
+                    printf("CruceGame Version: %s\n",GAME_VERSION);
+                    exit(EXIT_SUCCESS);
+                    break;
+     
+                case '?':
+                    exit(EXIT_FAILURE);
+     
+                default:
+                    exit(EXIT_FAILURE);
+            }
+        }
+     
+        if (optind < argc) {
+            printf ("non-option elements passed: ");
+            while (optind < argc) {
+                printf ("%s ", argv[optind++]);
+            }
+            exit(EXIT_FAILURE);
+        }
+
     }
     else {
         cruceGameLogic();
     }
     return EXIT_SUCCESS;
 }
-
 

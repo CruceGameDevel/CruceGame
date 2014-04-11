@@ -1,0 +1,54 @@
+Cruce Game:
+Famous card game, similar to whist.
+
+CruceGame Usage:
+cruceGame [-hv]
+
+	-h, --help
+		Display help or current screen
+
+	-v, --version
+		Current Version of Cruce Game
+
+No. of Players:
+1-4
+
+Type of Deck: 
+II, III, IV, IX, X & ACE
+
+Setup:
+Table.
+Players.
+Deck of cards.
+Score Point table.
+
+Goal:
+Achieve the Game Points before your opponent.
+
+Cards Distribution:
+
+Game Score Limits:
+11,15 & 21 Points.
+
+Round In A Game:
+Every round will give you a score, and you have to earn the Game points with
+a difference of 2 game points to win the game.
+
+Score Points:
+Tells the current score of the player/team.
+
+Game Points:
+Will decide the winner of game (11-15-21).
+
+Bonus Points:
+Pair of III and IV will give you bonus points.
+
+Strategies:
+Choose the bid wisely.
+Choose the trump wisely (the maximum no. of suit cards you have with higher
+values).
+Use team chat with your partner during game play.
+
+Bugs/Issues/Feedback:
+Contact us here: cruce-development@googlegroups.com
+Make sure you use the proper subject.

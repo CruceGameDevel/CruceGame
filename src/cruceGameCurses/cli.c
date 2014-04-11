@@ -129,7 +129,7 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
     if (win == NULL)
         return POINTER_NULL;
 
-    wprintw(win, "Your cards are:\n");
+    wprintw(win, "Your cards:\n");
 
     int handId = 0;
     while(game->round->hands[handId]){
@@ -185,17 +185,17 @@ int printScore(struct Game *game, struct Round *round)
     if (round == NULL)
         return ROUND_NULL;
 
-    char verticalBoxDouble[]           = {0xe2, 0x95, 0x91, 0x00};
-    char horizontalBoxDouble[]         = {0xe2, 0x95, 0x90, 0x00};
-    char downRightBoxDouble[]          = {0xe2, 0x95, 0x94, 0x00};
-    char downLeftBoxDouble[]           = {0xe2, 0x95, 0x97, 0x00};
-    char upRightBoxDouble[]            = {0xe2, 0x95, 0x9a, 0x00};
-    char upLeftBoxDouble[]             = {0xe2, 0x95, 0x9d, 0x00};
-    char downHorizontalBoxDouble[]     = {0xe2, 0x95, 0xa6, 0x00};
-    char upHorizontalBoxDouble[]       = {0xe2, 0x95, 0xa9, 0x00};
-    char verticalHorizontalBoxDouble[] = {0xe2, 0x95, 0xac, 0x00};
-    char verticalRightBoxDouble[]      = {0xe2, 0x95, 0xa0, 0x00}; 
-    char verticalLeftBoxDouble[]       = {0xe2, 0x95, 0xa3, 0x00};
+    char verticalBox[]           = {0xe2, 0x94, 0x82, 0x00};
+    char horizontalBox[]         = {0xe2, 0x94, 0x80, 0x00};
+    char downRightBox[]          = {0xe2, 0x94, 0x8c, 0x00};
+    char downLeftBox[]           = {0xe2, 0x94, 0x90, 0x00};
+    char upRightBox[]            = {0xe2, 0x94, 0x94, 0x00};
+    char upLeftBox[]             = {0xe2, 0x94, 0x98, 0x00};
+    char downHorizontalBox[]     = {0xe2, 0x94, 0xac, 0x00};
+    char upHorizontalBox[]       = {0xe2, 0x94, 0xb4, 0x00};
+    char verticalHorizontalBox[] = {0xe2, 0x94, 0xbc, 0x00};
+    char verticalRightBox[]      = {0xe2, 0x94, 0x9c, 0x00};
+    char verticalLeftBox[]       = {0xe2, 0x94, 0xa4, 0x00};
 
     int maxLength = 0;
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
@@ -213,32 +213,32 @@ int printScore(struct Game *game, struct Round *round)
     int line = 0;
     getyx(stdscr, y, x);
 
-    printw("%s",downRightBoxDouble);
+    printw("%s",downRightBox);
     for (int i = 1; i <= maxLength + 13; i++){
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", downHorizontalBoxDouble);
+            printw("%s", downHorizontalBox);
         else
-            printw("%s", horizontalBoxDouble);
+            printw("%s", horizontalBox);
     }
-    printw("%s", downLeftBoxDouble);
+    printw("%s", downLeftBox);
     line++;
 
     move(y + 1, x);
-    printw("%sName", verticalBoxDouble);
+    printw("%sName", verticalBox);
     move(y + 1, x + maxLength + 1);
-    printw("%sPoints", verticalBoxDouble);
+    printw("%sPoints", verticalBox);
     move(y + 1, x + maxLength + 8);
-    printw("%sScore%s", verticalBoxDouble, verticalBoxDouble);
+    printw("%sScore%s", verticalBox, verticalBox);
     line++;
 
     move(y + line, x);
-    printw("%s", verticalRightBoxDouble);
+    printw("%s", verticalRightBox);
     for (int i = 1; i <= maxLength + 13; i++)
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", verticalHorizontalBoxDouble);
+            printw("%s", verticalHorizontalBox);
         else
-            printw("%s", horizontalBoxDouble);
-    printw("%s", verticalLeftBoxDouble);
+            printw("%s", horizontalBox);
+    printw("%s", verticalLeftBox);
     line++;
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
@@ -247,25 +247,25 @@ int printScore(struct Game *game, struct Round *round)
             for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
                 if (game->teams[i]->players[j] != NULL) {
                     move(y + line, x);
-                    printw("%s%s", verticalBoxDouble,
+                    printw("%s%s", verticalBox,
                                    game->teams[i]->players[j]->name);
                     move(y + line, x + maxLength + 1);
-                    printw("%s", verticalBoxDouble);
+                    printw("%s", verticalBox);
                     move(y + line, x + maxLength + 8);
-                    printw("%s", verticalBoxDouble);
+                    printw("%s", verticalBox);
                     move(y + line, x + maxLength + 14);
-                    printw("%s", verticalBoxDouble);
+                    printw("%s", verticalBox);
                     line++;
                     move(y + line, x);
-                    printw("%s", verticalRightBoxDouble);
+                    printw("%s", verticalRightBox);
                     for (int k = 1; k <= maxLength + 14; k++) {
                         if (k <= maxLength)
-                            printw("%s", horizontalBoxDouble);
+                            printw("%s", horizontalBox);
                         if (k == maxLength + 1)
-                            printw("%s", verticalLeftBoxDouble);
+                            printw("%s", verticalLeftBox);
                         if (k == maxLength + 8 || k == maxLength + 14) {
                             move(y + line, x + k);
-                            printw("%s", verticalBoxDouble);
+                            printw("%s", verticalBox);
                         }
                     }
                     line++;
@@ -275,11 +275,11 @@ int printScore(struct Game *game, struct Round *round)
             move(y + line, x + maxLength + 1);
             for (int k = maxLength + 1; k < maxLength + 14; k++) {
                 if (k == maxLength + 1 || k == maxLength + 8)
-                    printw("%s", verticalHorizontalBoxDouble);
+                    printw("%s", verticalHorizontalBox);
                 else
-                    printw("%s", horizontalBoxDouble);
+                    printw("%s", horizontalBox);
             }
-            printw("%s", verticalLeftBoxDouble);
+            printw("%s", verticalLeftBox);
             if (playersNumber > 0) {
                 move(y + line - playersNumber, x + maxLength + 2);
                 printw("%*d", 6, team_computePoints(game->teams[i], round));
@@ -290,14 +290,14 @@ int printScore(struct Game *game, struct Round *round)
         }
 
     move(y + line - 1, x);
-    printw("%s", upRightBoxDouble); 
+    printw("%s", upRightBox); 
     for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", upHorizontalBoxDouble);
+            printw("%s", upHorizontalBox);
         else
-            printw("%s", horizontalBoxDouble);
+            printw("%s", horizontalBox);
     }
-    printw("%s\n", upLeftBoxDouble);
+    printw("%s\n", upLeftBox);
 
     return NO_ERROR;
 }
@@ -399,12 +399,12 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    printw("Player %d %s\n", playerId + 1, player->name);
+    printw("%s's turn:\n", player->name);
 
     if (game->round->trump != SuitEnd)
-        printw("The trump is: %s\n", suit);
+        printw("Trump: %s\n", suit);
     else
-        printw("The trump was not set.\n");
+        printw("Trump was not set.\n");
 
     int y, x;
     getyx(stdscr, y, x);
@@ -413,7 +413,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 #ifdef BORDERS
     box(cardsOnTableWindow, 0, 0);
 #endif
-    wprintw(cardsOnTableWindow, "The cards on table: \n");
+    wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
             printCard(hand->cards[i], i, 0, cardsOnTableWindow);

@@ -7,6 +7,7 @@
 #include "team.h"
 #include "constants.h"
 #include "errors.h"
+#include "round.h"
 #include <stdlib.h>
 
 #include <string.h>
@@ -51,9 +52,10 @@ struct Team *team_createTeam(const char *name)
     if (newTeam == NULL)
         return NULL;
 
-    newTeam->id   = id++;
-    newTeam->name = malloc((strlen(name) + 1) * sizeof(char));
-    
+    newTeam->id    = id++;
+    newTeam->score = 0;
+    newTeam->name  = malloc((strlen(name) + 1) * sizeof(char));
+
     if(newTeam->name == NULL)
         return NULL;
     strcpy(newTeam->name, name);
@@ -128,31 +130,6 @@ int team_deletePlayer(struct Player **player)
     return NO_ERROR;
 }
 
-
-int team_computeScore(const struct Team *team)
-{
-    if(team == NULL)
-        return TEAM_NULL;
-
-    int bool_atLeastOnePlayerInTeam = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        if(team->players[i] != NULL) {
-            bool_atLeastOnePlayerInTeam = 1;
-            break;
-        }
-            
-    }
-    if(!bool_atLeastOnePlayerInTeam)
-        return TEAM_EMPTY;
-
-    int returnScore = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
-        if(team->players[i] != NULL)
-            returnScore += (team->players[i])->score;
-
-    return returnScore;
-}
-
 int team_addCard(struct Player *player,struct Card *card)
 {
     if (player == NULL)
@@ -184,5 +161,42 @@ int team_hasCards(struct Player *player)
             return 1;
     
     return 0;
+}
+
+int team_updatePlayersScore(struct Team *team)
+{
+    if (team == NULL)
+        return POINTER_NULL;
+
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if (team->players[i] != NULL)
+            team->players[i]->score = team->score;
+    }
+
+    return NO_ERROR;
+}
+
+int team_computePoints(struct Team *team, struct Round *round)
+{
+    if (team == NULL)
+        return TEAM_NULL;
+    if (round == NULL)
+        return ROUND_NULL;
+
+    int playersNumber = 0;
+    int points = 0;
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
+        if (team->players[i] != NULL) {
+            playersNumber++;
+            int j = round_findPlayerIndexRound(team->players[i], round);
+            if (j < 0)
+                return j;
+            points += round->pointsNumber[j];
+        }
+
+    if (playersNumber == 0)
+        return TEAM_EMPTY;
+
+    return points;
 }
 

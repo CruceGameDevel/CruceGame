@@ -7,6 +7,7 @@
 #define TEAM_H
 
 #include "deck.h"
+#include "round.h"
 
 /**
  * @struct Player
@@ -21,7 +22,8 @@
  * @var Player::hand
  *     Pointer to the cards of the player.
  * @var Player::score
- *     The amount of points earned in a hand.
+ *     The points achieved by the player in this game. It is equal with
+ *     team points, if the game is played in teams.
  * @var Player::isHuman
  *     Flag used to indicate if the player is human or robot.
  */
@@ -42,6 +44,8 @@ struct Player{
  *
  * @var Team::id
  *     The identifier of the team.
+ * @var Team::score
+ *     The score achieved by the team in this game.
  * @var Team::name
  *     Pointer to the name of the team.
  * @var Team::players
@@ -49,6 +53,7 @@ struct Player{
  */
 struct Team{
     int id;
+    int score;
     char *name;
     struct Player *players[MAX_TEAM_PLAYERS];
 };
@@ -115,15 +120,6 @@ EXPORT int team_deleteTeam(struct Team **team);
 EXPORT int team_deletePlayer(struct Player **player);
 
 /**
- * @brief Calculates the score of a team
- *
- * @param team The team for which the score is to be be calculated
- *
- * @return Integer representing the score or negative error code on failure.
- */
-EXPORT int team_computeScore(const struct Team *team);
-
-/**
 * @brief Passes a card to a player. The function doesn't check
 *        if the card has valid value and valid suit. 
 *
@@ -143,6 +139,24 @@ EXPORT int team_addCard(struct Player *player, struct Card *card);
 */
 EXPORT int team_hasCards(struct Player *player);
 
+/**
+ * @brief Updates all players scores, assigning team score to them.
+ *
+ * @param team The team where to update the score.
+ *
+ * @return NO_ERROR or 0 on success, negative value otherwise.
+ */
+EXPORT int team_updatePlayersScore(struct Team *team);
+
+/**
+ * @brief Compute round points of a team.
+ *
+ * @param team The team to compute points for.
+ * @param round The round where to compute points.
+ *
+ * @return Number of round points on success, negative value otherwise.
+ */
+EXPORT int team_computePoints(struct Team *team, struct Round *round);
 #ifdef __cplusplus
 }
 #endif

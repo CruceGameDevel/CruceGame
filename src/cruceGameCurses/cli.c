@@ -231,31 +231,65 @@ int printScore(struct Game *game, struct Round *round)
     printw("%sScore%s", verticalBoxDouble, verticalBoxDouble);
     line++;
 
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if (game->players[i] != NULL) {
-            move(y + line, x);
-            printw("%s", verticalRightBoxDouble);
-            for (int j = 1; j <= maxLength + 13; j++) {
-                if (j == maxLength + 1 || j == maxLength + 8)
+    move(y + line, x);
+    printw("%s", verticalRightBoxDouble);
+    for (int i = 1; i <= maxLength + 13; i++)
+        if (i == maxLength + 1 || i == maxLength + 8)
+            printw("%s", verticalHorizontalBoxDouble);
+        else
+            printw("%s", horizontalBoxDouble);
+    printw("%s", verticalLeftBoxDouble);
+    line++;
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++)
+        if(game->teams[i] != NULL) {
+            int playersNumber = 0; 
+            for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
+                if (game->teams[i]->players[j] != NULL) {
+                    move(y + line, x);
+                    printw("%s%s", verticalBoxDouble,
+                                   game->teams[i]->players[j]->name);
+                    move(y + line, x + maxLength + 1);
+                    printw("%s", verticalBoxDouble);
+                    move(y + line, x + maxLength + 8);
+                    printw("%s", verticalBoxDouble);
+                    move(y + line, x + maxLength + 14);
+                    printw("%s", verticalBoxDouble);
+                    line++;
+                    move(y + line, x);
+                    printw("%s", verticalRightBoxDouble);
+                    for (int k = 1; k <= maxLength + 14; k++) {
+                        if (k <= maxLength)
+                            printw("%s", horizontalBoxDouble);
+                        if (k == maxLength + 1)
+                            printw("%s", verticalLeftBoxDouble);
+                        if (k == maxLength + 8 || k == maxLength + 14) {
+                            move(y + line, x + k);
+                            printw("%s", verticalBoxDouble);
+                        }
+                    }
+                    line++;
+                    playersNumber++; 
+                }
+            --line;
+            move(y + line, x + maxLength + 1);
+            for (int k = maxLength + 1; k < maxLength + 14; k++) {
+                if (k == maxLength + 1 || k == maxLength + 8)
                     printw("%s", verticalHorizontalBoxDouble);
                 else
                     printw("%s", horizontalBoxDouble);
             }
             printw("%s", verticalLeftBoxDouble);
+            if (playersNumber > 0) {
+                move(y + line - playersNumber, x + maxLength + 2);
+                printw("%*d", 6, team_computePoints(game->teams[i], round));
+                move(y + line - playersNumber, x + maxLength + 9);
+                printw("%*d", 5, game->teams[i]->score);
+            }
             line++;
-            move(y + line, x);
-            printw("%s%s ", verticalBoxDouble, round->players[i]->name);
-            move(y + line, x + maxLength + 1);
-            printw("%s %*d", verticalBoxDouble, 5, round->pointsNumber[i]);
-            move(y + line, x + maxLength + 8);
-            printw("%s %*d", verticalBoxDouble, 4, game->players[i]->score);
-            move(y + line, x + maxLength + 14);
-            printw("%s", verticalBoxDouble);
-            line++;
-        }            
-    }
+        }
 
-    move(y + line, x);
+    move(y + line - 1, x);
     printw("%s", upRightBoxDouble); 
     for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
@@ -312,8 +346,8 @@ int formTeams (struct Game *game)
     printw("\n");
     ch--;
 
-    struct Player* backup = game->players[2];
-    game->players[2]      = game->players[ch-'0'];
+    struct Player* backup = game->players[1];
+    game->players[1]      = game->players[ch-'0'];
     game->players[ch-'0'] = backup;
 
     char *numerals[] = {"first", "second"};
@@ -325,8 +359,8 @@ int formTeams (struct Game *game)
         struct Team *team = team_createTeam(teamName);
         free(teamName);    
 
-        team_addPlayer(team, game->players[i]);
-        team_addPlayer(team, game->players[i + 1]);
+        team_addPlayer(team, game->players[2 * i]);
+        team_addPlayer(team, game->players[2 * i + 1]);
         game_addTeam(team, game);
     }
 

@@ -142,26 +142,22 @@ struct Team *game_winningTeam(struct Game *game)
     if (game == NULL)
         return NULL;
 
-    int score[MAX_GAME_TEAMS];
     int checkTeams = 0;
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
         if (game->teams[i] != NULL) {
-            score[i] = team_computeScore(game->teams[i]);
-            if (score[i] >= game->pointsNumber)
+            if (game->teams[i]->score >= game->pointsNumber)
                 checkTeams++;
-        } else {
-            score[i] = 0;
         }
     }
 
     if (checkTeams == 0)
         return NULL;
-    if (checkTeams == 1) {
+    else if (checkTeams == 1) {
         for (int i = 0; i < MAX_GAME_TEAMS; i++)
-            if (score[i] >= game->pointsNumber)
+            if (game->teams[i] != NULL && 
+                game->teams[i]->score >= game->pointsNumber)
                 return game->teams[i];
-    }
-    if (checkTeams > 1) {
+    } else {
         game->pointsNumber += 10;
         return NULL;
     }
@@ -281,5 +277,71 @@ int game_findPreviousAllowedCard(struct Player *player, struct Game *game,
                                  struct Hand *hand, int currentCard)
 {
     return findAllowedCard(player, game, hand, currentCard, -1);
+}
+
+struct Team *game_findTeam(struct Game *game, struct Player *player)
+{
+    if (player == NULL)
+        return NULL;
+    if (game == NULL)
+        return NULL;
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
+                if (game->teams[i]->players[j] == player)
+                    return game->teams[i];
+        }
+    }
+
+    return NULL;
+}
+
+int game_updateScore(struct Game *game, struct Player *bidWinner)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (bidWinner == NULL)
+        return PLAYER_NULL;
+
+    struct Team *bidWinnerTeam = game_findTeam(game, bidWinner);
+    int bidWinnerTeamId = -1;
+    int teamScores[MAX_GAME_TEAMS];
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        teamScores[i] = 0;
+        if (game->teams[i] == bidWinnerTeam)
+            bidWinnerTeamId = i;
+    }
+
+    if (bidWinnerTeamId == -1 || bidWinnerTeam == NULL)
+        return NOT_FOUND;
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        if (game->round->players[i] != NULL) {
+            struct Team *team = game_findTeam(game, game->round->players[i]);
+            if (team == NULL)
+                return NOT_FOUND;
+            for (int j = 0; j < MAX_GAME_TEAMS; j++)
+                if (game->teams[j] == team)
+                    teamScores[j] += game->round->pointsNumber[i];
+        }
+    }
+
+    int bidWinnerId = round_findPlayerIndexRound(bidWinner, game->round);
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            if (game->teams[i] != bidWinnerTeam)
+                game->teams[i]->score += teamScores[i] / 33;
+            else if (game->round->bids[bidWinnerId] <=
+                     teamScores[bidWinnerTeamId] / 33)
+                bidWinnerTeam->score += teamScores[bidWinnerTeamId] / 33;
+            else
+                bidWinnerTeam->score -= teamScores[bidWinnerTeamId] / 33;
+        }
+        team_updatePlayersScore(game->teams[i]);
+    }
+
+    return NO_ERROR;
 }
 

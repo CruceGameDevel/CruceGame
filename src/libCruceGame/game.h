@@ -161,6 +161,26 @@ EXPORT int game_findPreviousAllowedCard(struct Player *player,
                                         struct Hand *hand,
                                         int currentCard);
 
+/**
+ * @brief Function to find the team in which a player belongs.
+ *
+ * @param game The game where to search.
+ * @param player The player to find.
+ *
+ * @return Pointer to the required team on success, NULL on failure.
+ */
+EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
+
+/**
+ * @brief Function to update the score of teams and players after a round.
+ *
+ * @param game Game where to update the scores.
+ * @param bidWinner Pointer to the player that won the bid in the last round.
+ *
+ * @return NO_ERROR or 0 on success, negative otherwise.
+ */
+EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
+
 #ifdef __cplusplus
 }
 #endif

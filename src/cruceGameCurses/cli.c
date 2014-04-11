@@ -14,6 +14,8 @@
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 50
 #define ROUND_DIALOG_SCORE_SIZE 5
+#define MAX_USERNAME_LENGTH 30
+
 
 #define HIGHLIGHT_ATTRIBUTE A_BLINK
 
@@ -147,9 +149,11 @@ int getNoOfPlayers()
 
 struct Player *newPlayer(int i)
 {
+    char format[20]; //used to store the format string.
     char *name = malloc(MAX_NAME_SIZE*sizeof(char));
     printw("Insert player %d name: ", i);
-    scanw("%30[^\n]", name);
+    sprintf(format, "%%%i[^\n]",MAX_USERNAME_LENGTH);
+    scanw(format, name);
 
     struct Player *player = team_createPlayer(name, 1);
     free(name);

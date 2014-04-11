@@ -441,8 +441,13 @@ int getBid(struct Game *game, int playerId)
 }
 
 int displayWinner(struct Team *winner) {
+    int i;
     if(winner->id <= 4) { 
-        printw("The winner of the game is %d\n", winner->id);
+        for(i=0;i<MAX_GAME_PLAYERS;i++) {
+            if(winner->players[i]->name != NULL) {
+                printw("The winner of the game is %s\n", winner->players->name);
+            }
+        }
         return NO_ERROR; 
     } else {
         return POINTER_NULL;

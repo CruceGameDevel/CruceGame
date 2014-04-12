@@ -5,7 +5,7 @@ CruceGame Usage:
 cruceGame [-hv]
 
 	-h, --help
-		Display help or current screen
+		Display help
 
 	-v, --version
 		Current Version of Cruce Game

@@ -13,11 +13,9 @@ Goal:
 Achieve the Game Points before your opponent.
 
 Keyboard:
-Left or Right arrow keys to choose the card.
-a or s for card selection.
-Use ENTER to place the card on table.
-Standard keyboard to set other settings of game
-like player name, game points.
+Standard keyboard to set other settings of game like player name, game points.
+Left or Right arrow keys to choose the card. (a or d for card selection.)
+Use ENTER to place the card on table. 
 q to quit the game.
 
 Bugs/Issues/Feedback:

@@ -3,18 +3,21 @@ Famous card game, similar to whist.
 
 CruceGame Usage:
 cruceGame [-hv]
+	-h, --help	Display help
 
-	-h, --help
-		Display help
-
-	-v, --version
-		Current Version of Cruce Game
+	-v, --version Current Version of Cruce Game
 
 No. of Players:
 1-4
 
 Goal:
 Achieve the Game Points before your opponent.
+
+Keyboard:
+Left or Right arrow keys to choose the card.
+Use ENTER to place the card on table.
+Standard keyboard to set other settings of game
+like player name, game points.
 
 Bugs/Issues/Feedback:
 Contact us here: cruce-development@googlegroups.com

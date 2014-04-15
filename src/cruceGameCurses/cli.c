@@ -401,20 +401,20 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    WINDOW *win = newwin(2, 29, 0, 0);
+    WINDOW *trumpAndTurnWindow = newwin(2, 29, 0, 0);
 #ifdef BORDERS
-    box(win, 0, 0);
+    box(trumpAndTurnWindow, 0, 0);
 #endif
 
-    wprintw(win, "%s's turn:\n", player->name);
+    wprintw(trumpAndTurnWindow, "%s's turn:\n", player->name);
 
     if (game->round->trump != SuitEnd)
-        wprintw(win, "Trump: %s\n", suit);
+        wprintw(trumpAndTurnWindow, "Trump: %s\n", suit);
     else
-        wprintw(win, "Trump was not set.\n");
+        wprintw(trumpAndTurnWindow, "Trump was not set.\n");
 
-    wrefresh(win);
-    delwin(win);
+    wrefresh(trumpAndTurnWindow);
+    delwin(trumpAndTurnWindow);
     refresh();
 
     WINDOW *cardsOnTableWindow = newwin(10, 30, 2, 0);

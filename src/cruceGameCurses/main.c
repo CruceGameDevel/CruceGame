@@ -74,7 +74,15 @@ int main()
             round_arrangePlayersHand(game->round, first);
 
             for (int j = 0; j < game->numberPlayers; j++) {
-                printScore(game, game->round);
+                WINDOW *scoreTableWindow = newwin(11, 49, 0, 30);
+#ifdef BORDERS
+                box(scoreTableWindow, 0, 0);
+#endif
+                printScore(game, game->round, scoreTableWindow);
+                wrefresh(scoreTableWindow);
+                delwin(scoreTableWindow);
+                refresh();
+
                 displayCardsAndPickCard(game, j);
                 clear();
                 refresh();

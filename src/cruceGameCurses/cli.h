@@ -63,10 +63,12 @@ struct Player *newPlayer(int i);
  * @brief Function to print the score table.
  *
  * @param game Pointer to the game of where to be printed the score.
+ * @param round Pointer to the round of where to be printed the points.
+ * @param win Pointer to the window in which to display the score.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printScore(struct Game *game, struct Round *round);
+int printScore(struct Game *game, struct Round *round, WINDOW *win);
 
 /**
  * @brief Function to form the teams.

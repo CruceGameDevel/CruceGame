@@ -12,7 +12,7 @@
 #include <string.h>
 
 #define MAX_CARDS_PER_LINE 8
-#define MAX_NAME_SIZE 50
+#define MAX_NAME_SIZE 20
 #define ROUND_DIALOG_SCORE_SIZE 5
 
 #define HIGHLIGHT_ATTRIBUTE A_BLINK
@@ -178,7 +178,7 @@ struct Player *newPlayer(int i)
     return player;
 }
 
-int printScore(struct Game *game, struct Round *round)
+int printScore(struct Game *game, struct Round *round, WINDOW *win)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -211,34 +211,34 @@ int printScore(struct Game *game, struct Round *round)
 
     int x, y;
     int line = 0;
-    getyx(stdscr, y, x);
+    getyx(win, y, x);
 
-    printw("%s",downRightBox);
+    wprintw(win, "%s",downRightBox);
     for (int i = 1; i <= maxLength + 13; i++){
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", downHorizontalBox);
+            wprintw(win, "%s", downHorizontalBox);
         else
-            printw("%s", horizontalBox);
+            wprintw(win, "%s", horizontalBox);
     }
-    printw("%s", downLeftBox);
+    wprintw(win, "%s", downLeftBox);
     line++;
 
-    move(y + 1, x);
-    printw("%sName", verticalBox);
-    move(y + 1, x + maxLength + 1);
-    printw("%sPoints", verticalBox);
-    move(y + 1, x + maxLength + 8);
-    printw("%sScore%s", verticalBox, verticalBox);
+    wmove(win, y + 1, x);
+    wprintw(win, "%sName", verticalBox);
+    wmove(win, y + 1, x + maxLength + 1);
+    wprintw(win, "%sPoints", verticalBox);
+    wmove(win, y + 1, x + maxLength + 8);
+    wprintw(win, "%sScore%s", verticalBox, verticalBox);
     line++;
 
-    move(y + line, x);
-    printw("%s", verticalRightBox);
+    wmove(win, y + line, x);
+    wprintw(win, "%s", verticalRightBox);
     for (int i = 1; i <= maxLength + 13; i++)
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", verticalHorizontalBox);
+            wprintw(win, "%s", verticalHorizontalBox);
         else
-            printw("%s", horizontalBox);
-    printw("%s", verticalLeftBox);
+            wprintw(win, "%s", horizontalBox);
+    wprintw(win, "%s", verticalLeftBox);
     line++;
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
@@ -246,58 +246,60 @@ int printScore(struct Game *game, struct Round *round)
             int playersNumber = 0; 
             for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
                 if (game->teams[i]->players[j] != NULL) {
-                    move(y + line, x);
-                    printw("%s%s", verticalBox,
-                                   game->teams[i]->players[j]->name);
-                    move(y + line, x + maxLength + 1);
-                    printw("%s", verticalBox);
-                    move(y + line, x + maxLength + 8);
-                    printw("%s", verticalBox);
-                    move(y + line, x + maxLength + 14);
-                    printw("%s", verticalBox);
+                    wmove(win, y + line, x);
+                    wprintw(win, "%s%s", verticalBox,
+                                         game->teams[i]->players[j]->name);
+                    wmove(win, y + line, x + maxLength + 1);
+                    wprintw(win, "%s", verticalBox);
+                    wmove(win, y + line, x + maxLength + 8);
+                    wprintw(win, "%s", verticalBox);
+                    wmove(win, y + line, x + maxLength + 14);
+                    wprintw(win, "%s", verticalBox);
                     line++;
-                    move(y + line, x);
-                    printw("%s", verticalRightBox);
+                    wmove(win, y + line, x);
+                    wprintw(win, "%s", verticalRightBox);
                     for (int k = 1; k <= maxLength + 14; k++) {
                         if (k <= maxLength)
-                            printw("%s", horizontalBox);
+                            wprintw(win, "%s", horizontalBox);
                         if (k == maxLength + 1)
-                            printw("%s", verticalLeftBox);
+                            wprintw(win, "%s", verticalLeftBox);
                         if (k == maxLength + 8 || k == maxLength + 14) {
-                            move(y + line, x + k);
-                            printw("%s", verticalBox);
+                            wmove(win, y + line, x + k);
+                            wprintw(win, "%s", verticalBox);
                         }
                     }
                     line++;
                     playersNumber++; 
                 }
             --line;
-            move(y + line, x + maxLength + 1);
+            wmove(win, y + line, x + maxLength + 1);
             for (int k = maxLength + 1; k < maxLength + 14; k++) {
                 if (k == maxLength + 1 || k == maxLength + 8)
-                    printw("%s", verticalHorizontalBox);
+                    wprintw(win, "%s", verticalHorizontalBox);
                 else
-                    printw("%s", horizontalBox);
+                    wprintw(win, "%s", horizontalBox);
             }
-            printw("%s", verticalLeftBox);
+            wprintw(win, "%s", verticalLeftBox);
             if (playersNumber > 0) {
-                move(y + line - playersNumber, x + maxLength + 2);
-                printw("%*d", 6, team_computePoints(game->teams[i], round));
-                move(y + line - playersNumber, x + maxLength + 9);
-                printw("%*d", 5, game->teams[i]->score);
+                wmove(win, y + line - playersNumber, x + maxLength + 2);
+                wprintw(win, "%*d", 6, team_computePoints(game->teams[i], 
+                                       round));
+                wmove(win, y + line - playersNumber, x + maxLength + 9);
+                wprintw(win, "%*d", 5, game->teams[i]->score);
             }
             line++;
         }
 
-    move(y + line - 1, x);
-    printw("%s", upRightBox); 
+    wmove(win, y + line - 1, x);
+    wprintw(win, "%s", upRightBox); 
     for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
-            printw("%s", upHorizontalBox);
+            wprintw(win, "%s", upHorizontalBox);
         else
-            printw("%s", horizontalBox);
+            wprintw(win, "%s", horizontalBox);
     }
-    printw("%s\n", upLeftBox);
+    wprintw(win, "%s\n", upLeftBox);
+    wrefresh(win);
 
     return NO_ERROR;
 }
@@ -399,17 +401,23 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    printw("%s's turn:\n", player->name);
+    WINDOW *trumpAndTurnWindow = newwin(2, 29, 0, 0);
+#ifdef BORDERS
+    box(trumpAndTurnWindow, 0, 0);
+#endif
+
+    wprintw(trumpAndTurnWindow, "%s's turn:\n", player->name);
 
     if (game->round->trump != SuitEnd)
-        printw("Trump: %s\n", suit);
+        wprintw(trumpAndTurnWindow, "Trump: %s\n", suit);
     else
-        printw("Trump was not set.\n");
+        wprintw(trumpAndTurnWindow, "Trump was not set.\n");
 
-    int y, x;
-    getyx(stdscr, y, x);
+    wrefresh(trumpAndTurnWindow);
+    delwin(trumpAndTurnWindow);
+    refresh();
 
-    WINDOW *cardsOnTableWindow = newwin(10, 79, y, 0);
+    WINDOW *cardsOnTableWindow = newwin(10, 30, 2, 0);
 #ifdef BORDERS
     box(cardsOnTableWindow, 0, 0);
 #endif
@@ -422,7 +430,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     refresh();
 
-    WINDOW *cardsInHandWindow = newwin(10, 79, y + 10, 0); //MAGIC NUMBERS
+    WINDOW *cardsInHandWindow = newwin(10, 79, 12, 0); //MAGIC NUMBERS
 #ifdef BORDERS
     box(cardsInHandWindow, 0, 0);
 #endif
@@ -456,7 +464,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     delwin(cardsInHandWindow);
 
-    move(y + 20, 0);
+    move(20, 0);
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[selected]->suit;
 

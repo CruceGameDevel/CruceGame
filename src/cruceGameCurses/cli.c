@@ -401,10 +401,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
             break;
     }
 
-    int y, x;
-    getyx(stdscr, y, x);
-
-    WINDOW *win = newwin(2, 29, y, 0);
+    WINDOW *win = newwin(2, 29, 0, 0);
 #ifdef BORDERS
     box(win, 0, 0);
 #endif
@@ -420,7 +417,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     delwin(win);
     refresh();
 
-    WINDOW *cardsOnTableWindow = newwin(10, 30, y + 2, 0);
+    WINDOW *cardsOnTableWindow = newwin(10, 30, 2, 0);
 #ifdef BORDERS
     box(cardsOnTableWindow, 0, 0);
 #endif
@@ -433,7 +430,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     refresh();
 
-    WINDOW *cardsInHandWindow = newwin(10, 79, y + 12, 0); //MAGIC NUMBERS
+    WINDOW *cardsInHandWindow = newwin(10, 79, 12, 0); //MAGIC NUMBERS
 #ifdef BORDERS
     box(cardsInHandWindow, 0, 0);
 #endif
@@ -467,7 +464,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
 
     delwin(cardsInHandWindow);
 
-    move(y + 20, 0);
+    move(20, 0);
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[selected]->suit;
 

@@ -81,7 +81,6 @@ int main()
                 printScore(game, game->round, scoreTableWindow);
                 wrefresh(scoreTableWindow);
                 delwin(scoreTableWindow);
-                refresh();
 
                 displayCardsAndPickCard(game, j);
                 clear();

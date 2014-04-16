@@ -28,6 +28,25 @@ void welcomeMessage()
                                                                     "\n\n");
 }
 
+void gameEndingMessage(struct Team *team)
+{
+    printw(" ______           _    ____   __    _____    \n"                  
+            "|  ____|         | |  / __ \\ / _|  / ____|      \n"               
+             "| |__   _ __   __| | | |  | | |_  | |  __  __ _ _ __ ___   ___ \n"
+             "|  __| | '_ \\ / _` | | |  | |  _| | | |_ |/ _` | '_ ` _ \\ / _ \\\n"
+            "| |____| | | | (_| | | |__| | |   | |__| | (_| | | | | | |  __/\n"
+            "|______|_| |_|\\__,_|  \\____/|_|    \\_____|\\__,_|_| |_| |_|\\___|\n"
+                                                                         "\n\n");
+
+    for (int i = MAX_TEAM_PLAYERS - 1; i >= 0; --i)
+        if (team->players[i] != NULL)
+            if (i > 0)
+                printw("%s, ", team->players[i]->name);
+            else
+                printw("%s ", team->players[i]->name);
+    printw("won the game.");
+}
+
 int printCard(struct Card *card, int frameColor, WINDOW *win)
 {
     int colorPair;

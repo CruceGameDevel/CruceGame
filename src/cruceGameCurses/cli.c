@@ -22,7 +22,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int position, int selected, WINDOW *win)
+int printCard(struct Card *card, int frameColor, WINDOW *win)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -76,44 +76,51 @@ int printCard(struct Card *card, int position, int selected, WINDOW *win)
     
     int x, y;
     getyx(win, y, x);
-    wprintw(win, "  %d  ", position + 1);
-    wattroff(win, COLOR_PAIR(1));
-    wmove(win, y + 1, x);
 
-    if (selected)
-        wattron(win, HIGHLIGHT_ATTRIBUTE);
-
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
 
+    wmove(win, y + 1, x);
+    wprintw(win, "%s", verticalLine);
+    wattroff(win, COLOR_PAIR(frameColor));
+    wprintw(win, "%c   ", value);
+    wattron(win, COLOR_PAIR(frameColor));
+    wprintw(win, "%s", verticalLine);
     wmove(win, y + 2, x);
-    wprintw(win, "%s%c   %s", verticalLine, value, verticalLine);
-    wmove(win, y + 3, x);
 
     wprintw(win, "%s", verticalLine);
+    wattroff(win, COLOR_PAIR(frameColor));
     wattron(win, COLOR_PAIR(colorPair));
     wprintw(win, "%s", suit);
     wattroff(win, COLOR_PAIR(colorPair));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "   %s", verticalLine);
-    wmove(win, y + 4, x);
+    wmove(win, y + 3, x);
 
     wprintw(win, "%s    %s", verticalLine, verticalLine);
-    wmove(win, y + 5, x);
+    wmove(win, y + 4, x);
     wprintw(win, "%s", verticalLine);
+    wattroff(win, COLOR_PAIR(frameColor));
     wattron(win, COLOR_PAIR(colorPair));
     wprintw(win, "  %s", suit);
     wattroff(win, COLOR_PAIR(colorPair));
 
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, " %s", verticalLine);
+    wmove(win, y + 5, x);
+    wprintw(win, "%s   ", verticalLine);
+    wattroff(win, COLOR_PAIR(frameColor));
+    wattroff(win, COLOR_PAIR(frameColor));
+    wprintw(win, "%c", value);
+    wattron(win, COLOR_PAIR(frameColor));
+    wprintw(win, "%s", verticalLine);
     wmove(win, y + 6, x);
-    wprintw(win, "%s   %c%s", verticalLine, value, verticalLine);
-    wmove(win, y + 7, x);
 
     wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
-
-    if (selected)
-        wattroff(win, HIGHLIGHT_ATTRIBUTE);
+    wattroff(win, COLOR_PAIR(frameColor));
+    
     wmove(win, y + 9, x);
     wmove(win, y, x + 6);
     wrefresh(win);
@@ -140,12 +147,13 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
 
     for (int i = 0; i < MAX_CARDS; i++) {
         if (player->hand[i] != NULL) {
-            if (!game_checkCard(player, game, game->round->hands[handId], i)) {
-                wattron(win, COLOR_PAIR(1));
-                printCard(player->hand[i], i, i==selected, win);
-                wattroff(win, COLOR_PAIR(1));
+            if (game_checkCard(player, game, game->round->hands[handId], i)) {
+                if (i == selected)
+                    printCard(player->hand[i], 3, win);
+                else
+                    printCard(player->hand[i], 7, win);
             } else {
-                printCard(player->hand[i], i, i==selected, win);
+                printCard(player->hand[i], 1, win);
 
             }
         }
@@ -419,7 +427,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], i, 0, cardsOnTableWindow);
+            printCard(hand->cards[i], 7, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
     delwin(cardsOnTableWindow);
 

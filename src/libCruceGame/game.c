@@ -345,3 +345,22 @@ int game_updateScore(struct Game *game, struct Player *bidWinner)
     return NO_ERROR;
 }
 
+int game_arrangePlayersRound(struct Game *game, int i)
+{
+    if (game == NULL)
+        return GAME_NULL;
+    if (i < 0 || i >= MAX_GAME_PLAYERS)
+        return ILLEGAL_VALUE;
+    if (game->round != NULL)
+        return FULL;
+
+    struct Round *round = round_createRound();
+    for (int j = i; j < i + MAX_GAME_PLAYERS; j++)
+        if (game->players[j % MAX_GAME_PLAYERS] != NULL)
+            round_addPlayer(game->players[j % MAX_GAME_PLAYERS], round);
+
+    game->round = round;
+
+    return NO_ERROR;
+}
+

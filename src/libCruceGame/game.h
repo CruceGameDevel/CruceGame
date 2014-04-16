@@ -181,6 +181,17 @@ EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
  */
 EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
 
+/**
+ * @brief Function to add a round to a game and to arrange players into it,
+ *        according to game rules.
+ *
+ * @param game The game to process.
+ * @param i The index of the first player in that round.
+ *
+ * @return NO_ERROR or 0 on success, negative value otherwise.
+ */
+EXPORT int game_arrangePlayersRound(struct Game *game, int i);
+
 #ifdef __cplusplus
 }
 #endif

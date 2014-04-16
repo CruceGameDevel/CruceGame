@@ -604,10 +604,14 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
             int score = terminatedRound->players[i]->score - oldScore[i];         
             int colorPair = (score > 0) ? 2 : 1;
 
-            attron(COLOR_PAIR(colorPair));
-            printw("%+*d \n", scoreLineSize - playersNameWidth, score);
-            attroff(COLOR_PAIR(colorPair));
-         
+            if(score != 0) { 
+                attron(COLOR_PAIR(colorPair));
+                printw("%+*d \n", scoreLineSize - playersNameWidth, score);
+                attroff(COLOR_PAIR(colorPair));
+            } else {
+                printw("%*d \n", scoreLineSize - playersNameWidth, score);
+            }
+
         }
     }
     return NO_ERROR;

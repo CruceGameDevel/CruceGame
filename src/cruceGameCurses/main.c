@@ -51,14 +51,12 @@ int main()
     }
     formTeams(game);
 
-    while (!game_winningTeam(game)) {
-        game->round = round_createRound();
+    for (int i = 0; !game_winningTeam(game); i++) {
+        game_arrangePlayersRound(game, i % MAX_GAME_PLAYERS);
 
         struct Deck *deck = deck_createDeck();
         deck_deckShuffle(deck);
 
-        memcpy(game->round->players, game->players, 
-               sizeof(struct Player*) * game->numberPlayers);
         round_distributeDeck(deck, game->round);
         clear();
         refresh();

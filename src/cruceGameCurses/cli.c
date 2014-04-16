@@ -147,10 +147,13 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
 
     for (int i = 0; i < MAX_CARDS; i++) {
         if (player->hand[i] != NULL) {
-            if (!game_checkCard(player, game, game->round->hands[handId], i)) {
-                printCard(player->hand[i], 0, i==selected, win);
+            if (game_checkCard(player, game, game->round->hands[handId], i)) {
+                if (i == selected)
+                    printCard(player->hand[i], 3, win);
+                else
+                    printCard(player->hand[i], 7, win);
             } else {
-                printCard(player->hand[i], 1, i==selected, win);
+                printCard(player->hand[i], 1, win);
 
             }
         }
@@ -429,7 +432,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], 1, 0, cardsOnTableWindow);
+            printCard(hand->cards[i], 7, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
     delwin(cardsOnTableWindow);
 

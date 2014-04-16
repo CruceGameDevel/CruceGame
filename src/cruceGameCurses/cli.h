@@ -19,12 +19,12 @@ void welcomeMessage();
  * @brief Function to print a Card.
  *
  * @param card Pointer to the card to be printed.
- * @param color The color with which is colored the frame of card.
+ * @param frameColor The color with which is colored the frame of card.
  * @param win The window in which to display the card.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int color, WINDOW *win);
+int printCard(struct Card *card, int frameColor, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.

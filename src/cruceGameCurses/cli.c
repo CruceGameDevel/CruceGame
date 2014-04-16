@@ -39,11 +39,13 @@ void gameEndingMessage(struct Team *team)
                                                                          "\n\n");
 
     for (int i = MAX_TEAM_PLAYERS - 1; i >= 0; --i)
-        if (team->players[i] != NULL)
-            if (i > 0)
+        if (team->players[i] != NULL) {
+            if (i > 0) { 
                 printw("%s, ", team->players[i]->name);
-            else
+            } else { 
                 printw("%s ", team->players[i]->name);
+            }
+        }
     printw("won the game.");
 }
 

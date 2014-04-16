@@ -98,8 +98,7 @@ int round_findPlayerIndexRound(const struct Player *player, const struct Round *
         return ROUND_NULL;
 
     int i = 0;
-    while (round->players[i] != player && 
-           i < MAX_GAME_PLAYERS)
+    while (i < MAX_GAME_PLAYERS && round->players[i] != player)
         i++;
 
     if (i == MAX_GAME_PLAYERS)

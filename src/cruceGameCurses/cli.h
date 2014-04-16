@@ -19,15 +19,12 @@ void welcomeMessage();
  * @brief Function to print a Card.
  *
  * @param card Pointer to the card to be printed.
- * @param allow If this is 0 the card can't be put down, other value if the 
-                card can be put down.
- * @param selected Highlights the card with HIGHLIGHT_ATTRIBUTE if this is
- *                 non-zero, otherwise just displays the card.
+ * @param color The color with which is colored the frame of card.
  * @param win The window in which to display the card.
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int allow, int selected, WINDOW *win);
+int printCard(struct Card *card, int color, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.

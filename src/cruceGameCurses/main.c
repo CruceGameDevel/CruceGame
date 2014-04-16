@@ -116,14 +116,7 @@ int main()
 
     clear();
     refresh();
-    struct Team *team = game_winningTeam(game);
-    for (int i = MAX_TEAM_PLAYERS - 1; i >= 0; --i)
-        if (team->players[i] != NULL)
-            if (i > 0)
-                printw("%s, ", team->players[i]->name);
-            else
-                printw("%s ", team->players[i]->name);
-    printw("won the game.");
+    gameEndingMessage(game_winningTeam(game));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (game->players[i])

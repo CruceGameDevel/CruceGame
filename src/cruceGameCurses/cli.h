@@ -19,6 +19,8 @@ void welcomeMessage();
  * @brief Function to print a Card.
  *
  * @param card Pointer to the card to be printed.
+ * @param allow If this is 0 the card can't be put down, other value if the 
+                card can be put down.
  * @param selected Highlights the card with HIGHLIGHT_ATTRIBUTE if this is
  *                 non-zero, otherwise just displays the card.
  * @param win The window in which to display the card.

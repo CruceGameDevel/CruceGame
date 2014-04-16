@@ -22,7 +22,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int position, int selected, WINDOW *win)
+int printCard(struct Card *card, int selected, WINDOW *win)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -76,8 +76,6 @@ int printCard(struct Card *card, int position, int selected, WINDOW *win)
     
     int x, y;
     getyx(win, y, x);
-    wprintw(win, "  %d  ", position + 1);
-    wattroff(win, COLOR_PAIR(1));
     wmove(win, y + 1, x);
 
     if (selected)
@@ -142,10 +140,10 @@ int printPlayerCards(struct Game *game, struct Player *player, int selected,
         if (player->hand[i] != NULL) {
             if (!game_checkCard(player, game, game->round->hands[handId], i)) {
                 wattron(win, COLOR_PAIR(1));
-                printCard(player->hand[i], i, i==selected, win);
+                printCard(player->hand[i], i==selected, win);
                 wattroff(win, COLOR_PAIR(1));
             } else {
-                printCard(player->hand[i], i, i==selected, win);
+                printCard(player->hand[i], i==selected, win);
 
             }
         }
@@ -424,7 +422,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], i, 0, cardsOnTableWindow);
+            printCard(hand->cards[i], 0, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
     delwin(cardsOnTableWindow);
 

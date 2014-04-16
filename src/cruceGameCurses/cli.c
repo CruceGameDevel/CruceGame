@@ -14,8 +14,6 @@
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 20
 #define ROUND_DIALOG_SCORE_SIZE 5
-#define MAX_USERNAME_LENGTH 30
-
 
 #define HIGHLIGHT_ATTRIBUTE A_BLINK
 
@@ -174,7 +172,7 @@ struct Player *newPlayer(int i)
     char format[20]; //used to store the format string.
     char *name = malloc(MAX_NAME_SIZE*sizeof(char));
     printw("Insert player %d name: ", i);
-    sprintf(format, "%%%i[^\n]",MAX_USERNAME_LENGTH);
+    sprintf(format, "%%%i[^\n]",MAX_NAME_SIZE);
     scanw(format, name);
 
     struct Player *player = team_createPlayer(name, 1);
@@ -580,10 +578,8 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(1, COLOR_RED, COLOR_BLACK);
 
-    int colorPair;
-    int score;
-    int playersNameWidth;  // used for alignmet
-    int scoreLineSize = getBiggestNameSize(terminatedRound) + ROUND_DIALOG_SCORE_SIZE;
+    int scoreLineSize = getBiggestNameSize(terminatedRound) + 
+                                           ROUND_DIALOG_SCORE_SIZE;
 
     printw("  _____                       _        _     _ \n"     
              " / ____|                     | |      | |   | |     \n"
@@ -595,10 +591,10 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
     for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if(terminatedRound->players[i] != NULL) {
             printw("%s", terminatedRound->players[i]->name); 
-            playersNameWidth = strlen(terminatedRound->players[i]->name);
+            int playersNameWidth = strlen(terminatedRound->players[i]->name);
 
-            score = terminatedRound->players[i]->score - oldScore[i];         
-            colorPair = (score > 0) ? 2 : 1;
+            int score = terminatedRound->players[i]->score - oldScore[i];         
+            int colorPair = (score > 0) ? 2 : 1;
 
             attron(COLOR_PAIR(colorPair));
             printw("%+*d \n", scoreLineSize - playersNameWidth, score);

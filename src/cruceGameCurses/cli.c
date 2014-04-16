@@ -22,7 +22,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int allow, int selected, WINDOW *win)
+int printCard(struct Card *card, int color, WINDOW *win)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -76,15 +76,6 @@ int printCard(struct Card *card, int allow, int selected, WINDOW *win)
     
     int x, y;
     getyx(win, y, x);
-
-    int color;
-    if (selected)
-        color = 3;
-    else
-        if (allow)
-            color = 7;
-        else
-            color = 1;
 
     wattron(win, COLOR_PAIR(color));
     wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,

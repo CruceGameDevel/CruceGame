@@ -375,3 +375,32 @@ void test_game_findPreviousAllowedCard()
     round_deleteRound(&round);
     game_deleteGame(&game);
 }
+
+void test_game_arrangePlayersRound()
+{
+    struct Game *game = game_createGame(11);
+
+    cut_assert_equal_int(GAME_NULL, game_arrangePlayersRound(NULL, 1));
+    cut_assert_equal_int(ILLEGAL_VALUE, game_arrangePlayersRound(game, -1));
+    cut_assert_equal_int(ILLEGAL_VALUE,
+                         game_arrangePlayersRound(game, MAX_GAME_PLAYERS));
+
+    char *names[] = {"A", "B", "C", "D"};
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        struct Player *player = team_createPlayer(names[i], 0);
+        game_addPlayer(player, game);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        cut_assert_equal_int(NO_ERROR, game_arrangePlayersRound(game, i));
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+            cut_assert_equal_pointer(game->round->players[j],
+                                    game->players[(i + j) % MAX_GAME_PLAYERS]);
+        round_deleteRound(&game->round);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&game->players[i]);
+    game_deleteGame(&game);
+}
+

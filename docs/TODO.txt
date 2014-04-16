@@ -54,5 +54,14 @@ T10. At every input, make sure the cursor is placed at the bottom of the screen.
 T11. Make sure the player swap at team creation (if the game is played on teams)
 is permanent.
 
-T12. Add tests for team_computeScore().
+T12. Some functions do not have tests. Add tests for:
+
+T12.1 team_computePoints()
+T12.2 team_updatePlayersScore()
+T12.3 round_addPlayerHand()
+T12.4 round_removePlayerHand()
+T12.5 game_findTeam()
+T12.6 game_updateScore()
+
+
 

@@ -22,7 +22,7 @@ void welcomeMessage()
     printw("Welcome to a new game of Cruce\n\n");
 }
 
-int printCard(struct Card *card, int color, WINDOW *win)
+int printCard(struct Card *card, int frameColor, WINDOW *win)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -77,49 +77,49 @@ int printCard(struct Card *card, int color, WINDOW *win)
     int x, y;
     getyx(win, y, x);
 
-    wattron(win, COLOR_PAIR(color));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "%s%s%s%s%s%s", upLeftCorner, horizontalLine, horizontalLine,
              horizontalLine, horizontalLine, upRightCorner);
 
     wmove(win, y + 1, x);
     wprintw(win, "%s", verticalLine);
-    wattroff(win, COLOR_PAIR(color));
+    wattroff(win, COLOR_PAIR(frameColor));
     wprintw(win, "%c   ", value);
-    wattron(win, COLOR_PAIR(color));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "%s", verticalLine);
     wmove(win, y + 2, x);
 
     wprintw(win, "%s", verticalLine);
-    wattroff(win, COLOR_PAIR(color));
+    wattroff(win, COLOR_PAIR(frameColor));
     wattron(win, COLOR_PAIR(colorPair));
     wprintw(win, "%s", suit);
     wattroff(win, COLOR_PAIR(colorPair));
-    wattron(win, COLOR_PAIR(color));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "   %s", verticalLine);
     wmove(win, y + 3, x);
 
     wprintw(win, "%s    %s", verticalLine, verticalLine);
     wmove(win, y + 4, x);
     wprintw(win, "%s", verticalLine);
-    wattroff(win, COLOR_PAIR(color));
+    wattroff(win, COLOR_PAIR(frameColor));
     wattron(win, COLOR_PAIR(colorPair));
     wprintw(win, "  %s", suit);
     wattroff(win, COLOR_PAIR(colorPair));
 
-    wattron(win, COLOR_PAIR(color));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, " %s", verticalLine);
     wmove(win, y + 5, x);
     wprintw(win, "%s   ", verticalLine);
-    wattroff(win, COLOR_PAIR(color));
-    wattroff(win, COLOR_PAIR(color));
+    wattroff(win, COLOR_PAIR(frameColor));
+    wattroff(win, COLOR_PAIR(frameColor));
     wprintw(win, "%c", value);
-    wattron(win, COLOR_PAIR(color));
+    wattron(win, COLOR_PAIR(frameColor));
     wprintw(win, "%s", verticalLine);
     wmove(win, y + 6, x);
 
     wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
-    wattroff(win, COLOR_PAIR(color));
+    wattroff(win, COLOR_PAIR(frameColor));
     
     wmove(win, y + 9, x);
     wmove(win, y, x + 6);

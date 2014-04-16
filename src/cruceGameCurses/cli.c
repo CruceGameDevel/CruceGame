@@ -14,6 +14,8 @@
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 20
 #define ROUND_DIALOG_SCORE_SIZE 5
+#define MAX_USERNAME_LENGTH 30
+
 
 #define HIGHLIGHT_ATTRIBUTE A_BLINK
 
@@ -169,9 +171,11 @@ int getNoOfPlayers()
 
 struct Player *newPlayer(int i)
 {
+    char format[20]; //used to store the format string.
     char *name = malloc(MAX_NAME_SIZE*sizeof(char));
     printw("Insert player %d name: ", i);
-    scanw("%s", name);
+    sprintf(format, "%%%i[^\n]",MAX_USERNAME_LENGTH);
+    scanw(format, name);
 
     struct Player *player = team_createPlayer(name, 1);
     free(name);
@@ -308,7 +312,7 @@ void createEmptyTeams(struct Game *game)
 {
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         if (game->players[i] != NULL) {
-            struct Team *team = team_createTeam(game->players[i]->name);
+            struct Team *team = team_createTeam();
             team_addPlayer(team, game->players[i]);
             game_addTeam(team, game);
         }
@@ -352,17 +356,10 @@ int formTeams (struct Game *game)
     game->players[1]      = game->players[ch-'0'];
     game->players[ch-'0'] = backup;
 
-    char *numerals[] = {"first", "second"};
     for (int i = 0; i < 2; i++) {
-        char *teamName = malloc(100); //WARNING: MAGIC CONSTANT
-        printw("Insert %s team's name: ", numerals[i]);
-        scanw("%s", teamName);
-
-        struct Team *team = team_createTeam(teamName);
-        free(teamName);    
-
-        team_addPlayer(team, game->players[2 * i]);
-        team_addPlayer(team, game->players[2 * i + 1]);
+        struct Team *team = team_createTeam();
+        team_addPlayer(team, game->players[i]);
+        team_addPlayer(team, game->players[i + 1]);
         game_addTeam(team, game);
     }
 
@@ -507,8 +504,14 @@ int getBid(struct Game *game, int playerId)
 }
 
 int displayWinner(struct Team *winner) {
-    if(winner->name != NULL) { 
-        printw("The winner of the game is %s\n", winner->name);
+    int i;
+    if(winner->id <= 4) { 
+        printw("The winner of the game: ");
+        for(i=0;i<MAX_GAME_PLAYERS;i++) {
+            if(winner->players[i]->name != NULL) {
+                printw("%s, ", winner->players[i]->name);
+            }
+        }
         return NO_ERROR; 
     } else {
         return POINTER_NULL;

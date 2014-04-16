@@ -19,7 +19,13 @@
 
 void welcomeMessage()
 {
-    printw("Welcome to a new game of Cruce\n\n");
+    printw("  _____                        _____                      \n"
+           " / ____|                      / ____|                     \n"
+           "| |     _ __ _   _  ___ ___  | |  __  __ _ _ __ ___   ___ \n"
+            "| |    | '__| | | |/ __/ _ \\ | | |_ |/ _` | '_ ` _ \\ / _ \\\n"
+            "| |____| |  | |_| | (_|  __/ | |__| | (_| | | | | | |  __/\n"
+            " \\_____|_|   \\__,_|\\___\\___|  \\_____|\\__,_|_| |_| |_|\\___|"
+                                                                    "\n\n");
 }
 
 int printCard(struct Card *card, int frameColor, WINDOW *win)

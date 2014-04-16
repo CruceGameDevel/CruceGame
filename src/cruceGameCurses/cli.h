@@ -25,7 +25,7 @@ void welcomeMessage();
  *
  * @return NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int selected, WINDOW *win);
+int printCard(struct Card *card, int allow, int selected, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.

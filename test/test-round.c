@@ -86,6 +86,21 @@ void test_round_addPlayer()
     }
 }
 
+void test_round_findPlayerIndexRound()
+{
+    cut_assert_not_equal_int(NO_ERROR, round_findPlayerIndexRound(NULL, NULL));
+    cut_assert_equal_int(PLAYER_NULL, round_findPlayerIndexRound(NULL, rnd));
+    cut_assert_equal_int(ROUND_NULL, round_findPlayerIndexRound(players[0],
+                                                                NULL));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        cut_assert_equal_int(NOT_FOUND, round_findPlayerIndexRound(players[i],
+                                                                   rnd));
+        rnd->players[i] = players[i];
+        cut_assert_equal_int(i, round_findPlayerIndexRound(players[i], rnd));
+    }
+}
+
 void test_round_placeBid()
 {
     cut_assert_equal_int(PLAYER_NULL, round_placeBid(NULL, 2, rnd));
@@ -508,5 +523,4 @@ void test_round_putCard()
     deck_deleteCard(&card);
     deck_deleteDeck(&deck);
 }
-
 

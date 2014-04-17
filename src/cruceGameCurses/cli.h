@@ -16,6 +16,16 @@
 void welcomeMessage();
 
 /**
+ * @brief Function to display the enfing message and the members of
+ *        the winning team.
+ *
+ * @param team Pointer o the winning team.
+ *
+ * @return void
+ */
+ void gameEndingMessage(struct Team *team);
+
+/**
  * @brief Function to print a Card.
  *
  * @param card Pointer to the card to be printed.

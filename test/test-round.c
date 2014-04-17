@@ -524,3 +524,27 @@ void test_round_putCard()
     deck_deleteDeck(&deck);
 }
 
+void test_round_addPlayerHand()
+{
+    struct Hand *hand = round_createHand();
+    struct Player *players[MAX_GAME_PLAYERS];
+    struct Player *player = team_createPlayer("A", 1);
+
+    cut_assert_equal_int(PLAYER_NULL, round_addPlayerHand(NULL, hand));
+    cut_assert_equal_int(HAND_NULL, round_addPlayerHand(player, NULL));
+    cut_assert_operator_int(0, >, round_addPlayerHand(NULL, NULL));
+    
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        players[i] = team_createPlayer("A", i);
+        cut_assert_equal_int(NO_ERROR, round_addPlayerHand(players[i], hand));
+        cut_assert_equal_int(DUPLICATE, round_addPlayerHand(players[i], hand));
+    }
+
+    cut_assert_equal_int(FULL, round_addPlayerHand(player, hand));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&players[i]);
+    team_deletePlayer(&player);
+    round_deleteHand(&hand);
+}
+

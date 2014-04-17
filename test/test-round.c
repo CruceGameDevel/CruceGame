@@ -541,6 +541,11 @@ void test_round_removePlayerHand()
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         cut_assert_equal_int(NO_ERROR,
                              round_removePlayerHand(players[i], hand));
+        int check = 0;
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+            if (hand->players[j] == players[i])
+                check++;
+        cut_assert_equal_int(0, check);
         cut_assert_equal_int(NOT_FOUND,
                              round_removePlayerHand(players[i], hand));
         team_deletePlayer(&players[i]);

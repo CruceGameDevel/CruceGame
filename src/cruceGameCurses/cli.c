@@ -582,27 +582,28 @@ int getScoreLimit()
 
     return processingScore(score);
 }
-
 /**
- * @brief Returns the length of the biggest name of a player in a round,
- *      helper for printRoundTerminationMessage.
+ * @brief Computes the size of line in the score dialog. The 
+ *        size of a line consists in the sum of the lengths 
+ *        of the name plus the number of commas and white spaces
+ *        between them. This function is a helper for 
+ *        getBiggestScoreDialogLineSize and printRoundTerminationMessage.
  *
- * @param terminatedRound The round that has just finished. 
+ * @param currentTeam The desired team that size we want to   
+ *        compue.
  *
- * @return The length of the biggest name of a player.
+ * @return int The size of a team. 
  */
-int getBiggestNameSize(struct Round *terminatedRound)
-{
-    int maxNameSize = strlen(terminatedRound->players[0]->name);
-    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if(terminatedRound->players[i] != NULL) {
-            if(strlen(terminatedRound->players[i]->name) > maxNameSize) {
-                maxNameSize = strlen(terminatedRound->players[i]->name);
-            }
-        }
-    }
-
-    return maxNameSize;
+int getScoreDialogLineSize(struct Team *currentTeam)
+{ 
+   int lineSize = 0;
+   int i;
+   for(i = 0; i < MAX_TEAM_PLAYERS; i++) {
+       if(currentTeam->players[i] != NULL)
+           lineSize += strlen(currentTeam->players[i]->name);
+   }
+   lineSize += i + i - 1;
+   return lineSize;
 }
 
 int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)

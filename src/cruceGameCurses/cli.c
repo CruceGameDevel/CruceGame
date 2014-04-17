@@ -582,38 +582,62 @@ int getScoreLimit()
 
     return processingScore(score);
 }
+/**
+ * @brief Computes the size of line in the score dialog. The 
+ *        size of a line consists in the sum of the lengths 
+ *        of the name plus the number of commas and white spaces
+ *        between them. This function is a helper for 
+ *        getBiggestScoreDialogLineSize and printRoundTerminationMessage.
+ *
+ * @param currentTeam The desired team that size we want to   
+ *        compue.
+ *
+ * @return int The size of a team. 
+ */
+int getScoreDialogLineSize(struct Team *currentTeam)
+{ 
+   int lineSize = 0;
+   int i;
+   for(i = 0; i < MAX_TEAM_PLAYERS; i++) {
+       if(currentTeam->players[i] != NULL)
+           lineSize += strlen(currentTeam->players[i]->name);
+   }
+   lineSize += i + i - 1;
+   return lineSize;
+}
 
 /**
- * @brief Returns the length of the biggest name of a player in a round,
- *      helper for printRoundTerminationMessage.
+ * @brief Get the biggest line's size. This function is a helper for
+ *        printRoundTerminationMessage.
  *
- * @param terminatedRound The round that has just finished. 
+ * @param currentGame The game in which these teams reside.
  *
- * @return The length of the biggest name of a player.
+ * @return int The size of the biggest line.
  */
-int getBiggestNameSize(struct Round *terminatedRound)
-{
-    int maxNameSize = strlen(terminatedRound->players[0]->name);
-    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if(terminatedRound->players[i] != NULL) {
-            if(strlen(terminatedRound->players[i]->name) > maxNameSize) {
-                maxNameSize = strlen(terminatedRound->players[i]->name);
+ int getBiggestScoreDialogLineSize(struct Game *currentGame)
+ {
+    int biggestLineSize = 0;
+    for(int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if(currentGame->teams[i] != NULL) { 
+            int currentLine = getScoreDialogLineSize(currentGame->teams[i]);
+            if(currentLine > biggestLineSize) {
+               biggestLineSize = currentLine;
             }
         }
     }
 
-    return maxNameSize;
+    return biggestLineSize;
 }
 
-int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
+int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
 {
-    if(terminatedRound == NULL || terminatedRound->players == NULL)
+    if(currentGame->round == NULL || currentGame->round->players == NULL)
         return ROUND_NULL;
 
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(1, COLOR_RED, COLOR_BLACK);
 
-    int scoreLineSize = getBiggestNameSize(terminatedRound) + 
+    int scoreLineSize = getBiggestScoreDialogLineSize(currentGame) + 
                                            ROUND_DIALOG_SCORE_SIZE;
 
     printw("  _____                       _        _     _ \n"     
@@ -622,25 +646,30 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
              "  \\___ \\ / __/ _ \\| '__/ _ \\ | __/ _` | '_ \\| |/ _ \\\n"
              "  ____) | (_| (_) | | |  __/ | || (_| | |_) | |  __/\n"
             " |_____/ \\___\\___/|_|  \\___|  \\__\\__,_|_.__/|_|\\___|\n\n\n");
-
-    for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if(terminatedRound->players[i] != NULL) {
-            printw("%s", terminatedRound->players[i]->name); 
-            int playersNameWidth = strlen(terminatedRound->players[i]->name);
-
-            int score = terminatedRound->players[i]->score - oldScore[i];         
+     for(int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if(currentGame->teams[i] != NULL) {
+            for(int j = 0; j < 2; j++) {
+                if(currentGame->teams[i]->players[j] != NULL) {
+                   printw("%s%s ", currentGame->teams[i]->players[j]->name, 
+                            ((currentGame->teams[i]->players[j + 1] == NULL) ? "" : ","));
+                }
+            }
+            int currentTeamSize = getScoreDialogLineSize(currentGame->teams[i]);
+            int score = currentGame->teams[i]->score - oldScore[i];         
             int colorPair = (score > 0) ? 2 : 1;
 
             if(score != 0) { 
                 attron(COLOR_PAIR(colorPair));
-                printw("%+*d \n", scoreLineSize - playersNameWidth, score);
+                printw("%*d\n", scoreLineSize - currentTeamSize,
+                        currentGame->teams[i]->score);
                 attroff(COLOR_PAIR(colorPair));
             } else {
-                printw("%*d \n", scoreLineSize - playersNameWidth, score);
+                printw("%*d\n", scoreLineSize - currentTeamSize,
+                        currentGame->teams[i]->score);
             }
-
         }
     }
+
     return NO_ERROR;
 }
 

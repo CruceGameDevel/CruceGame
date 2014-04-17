@@ -127,10 +127,10 @@ int getScoreLimit();
 /**
  * @brief Prints the score differences between rounds.
  *
- * @param terminatedRound The round that just has finished.
+ * @param currentGame The current game.
  * @param oldScore Old score for every player before the terminated round. 
  *
  * @return int The size of the biggest name of a player in a round.
  */
-int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore);
+int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
 

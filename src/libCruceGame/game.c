@@ -337,7 +337,7 @@ int game_updateScore(struct Game *game, struct Player *bidWinner)
                      teamScores[bidWinnerTeamId] / 33)
                 bidWinnerTeam->score += teamScores[bidWinnerTeamId] / 33;
             else
-                bidWinnerTeam->score -= teamScores[bidWinnerTeamId] / 33;
+                bidWinnerTeam->score -= game->round->bids[bidWinnerId];
         }
         team_updatePlayersScore(game->teams[i]);
     }

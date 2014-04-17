@@ -523,6 +523,8 @@ int getBid(struct Game *game, int playerId)
     getyx(stdscr, y, x);
     move(y + 8, 0);
 
+    displaysBids(game->round, playerId);
+
     printw("Insert a bid please: ");
     char ch = getch();
     while (round_placeBid(game->round->players[playerId], ch - '0', 
@@ -641,6 +643,22 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
 
         }
     }
+    return NO_ERROR;
+}
+
+int displaysBids(struct Round *round, int currentPlayer)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+    if (currentPlayer >= MAX_GAME_PLAYERS || currentPlayer < 0)
+        return ILLEGAL_VALUE;
+
+    for (int i = 0; i < currentPlayer; i++)
+        if (round->players[i] != NULL)
+            printw("Player %d (%s) bid %d\n", i + 1, round->players[i]->name,
+                                              round->bids[i]);
+    printw("\n");
+
     return NO_ERROR;
 }
 

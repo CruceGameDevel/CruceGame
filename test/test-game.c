@@ -404,3 +404,39 @@ void test_game_arrangePlayersRound()
     game_deleteGame(&game);
 }
 
+void test_game_findTeam()
+{
+    struct Game *game = game_createGame(11);
+    struct Player *players[MAX_GAME_PLAYERS];
+    struct Team *teams[MAX_GAME_TEAMS];
+    struct Player *player = team_createPlayer("E", 1);
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        teams[i] = team_createTeam();
+        game_addTeam(teams[i], game);
+    }
+
+    cut_assert_equal_pointer(NULL, game_findTeam(NULL, NULL));
+    cut_assert_equal_pointer(NULL, game_findTeam(NULL, player));
+    cut_assert_equal_pointer(NULL, game_findTeam(game, NULL));
+    cut_assert_equal_pointer(NULL, game_findTeam(game, player));
+
+    char *names[] = {"A", "B", "C", "D"};
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        players[i] = team_createPlayer(names[i], i);
+        team_addPlayer(teams[i % 2], players[i]);
+    }
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        cut_assert_equal_pointer(teams[i % 2], game_findTeam(game, players[i]));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&players[i]);
+
+    for (int i = 0; i < MAX_GAME_TEAMS; i++)
+        team_deleteTeam(&teams[i]);
+
+    team_deletePlayer(&player);
+    game_deleteGame(&game);
+}
+

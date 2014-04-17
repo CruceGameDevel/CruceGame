@@ -660,12 +660,10 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
 
             if(score != 0) { 
                 attron(COLOR_PAIR(colorPair));
-                printw("%+*d \n", scoreLineSize - playersNameWidth, score);
                 printw("%*d\n", scoreLineSize - currentTeamSize,
                         currentGame->teams[i]->score);
                 attroff(COLOR_PAIR(colorPair));
             } else {
-                printw("%*d \n", scoreLineSize - playersNameWidth, score);
                 printw("%*d\n", scoreLineSize - currentTeamSize,
                         currentGame->teams[i]->score);
             }

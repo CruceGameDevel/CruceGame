@@ -97,9 +97,9 @@ int main()
         }
         
         int oldScore[MAX_GAME_PLAYERS];
-        for(int i = 0; i < MAX_GAME_PLAYERS; i++) {
-            if(game->round->players[i] != NULL) {
-                oldScore[i] = game->round->players[i]->score;
+        for(int i = 0; i < MAX_GAME_TEAMS; i++) {
+            if(game->teams[i] != NULL) {
+                oldScore[i] = game->teams[i]->score;
             }
         }
 

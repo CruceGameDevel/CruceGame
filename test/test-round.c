@@ -550,7 +550,35 @@ void test_round_removePlayerHand()
                              round_removePlayerHand(players[i], hand));
         team_deletePlayer(&players[i]);
     }
+    round_deleteHand(&hand);
+}
 
+void test_round_addPlayerHand()
+{
+    struct Hand *hand = round_createHand();
+    struct Player *players[MAX_GAME_PLAYERS];
+    struct Player *player = team_createPlayer("A", 1);
+
+    cut_assert_equal_int(PLAYER_NULL, round_addPlayerHand(NULL, hand));
+    cut_assert_equal_int(HAND_NULL, round_addPlayerHand(player, NULL));
+    cut_assert_operator_int(0, >, round_addPlayerHand(NULL, NULL));
+    
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        players[i] = team_createPlayer("A", i);
+        cut_assert_equal_int(NO_ERROR, round_addPlayerHand(players[i], hand));
+        int check = 0;
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+            if (hand->players[j] == players[i])
+                check++;
+        cut_assert_equal_int(1, check);
+        cut_assert_equal_int(DUPLICATE, round_addPlayerHand(players[i], hand));
+    }
+
+    cut_assert_equal_int(FULL, round_addPlayerHand(player, hand));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&players[i]);
+    team_deletePlayer(&player);
     round_deleteHand(&hand);
 }
 

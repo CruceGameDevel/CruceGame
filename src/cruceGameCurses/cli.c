@@ -606,6 +606,29 @@ int getScoreDialogLineSize(struct Team *currentTeam)
    return lineSize;
 }
 
+/**
+ * @brief Get the biggest line's size. This function is a helper for
+ *        printRoundTerminationMessage.
+ *
+ * @param currentGame The game in which these teams reside.
+ *
+ * @return int The size of the biggest line.
+ */
+ int getBiggestScoreDialogLineSize(struct Game *currentGame)
+ {
+    int biggestLineSize = 0;
+    for(int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if(currentGame->teams[i] != NULL) { 
+            int currentLine = getScoreDialogLineSize(currentGame->teams[i]);
+            if(currentLine > biggestLineSize) {
+               biggestLineSize = currentLine;
+            }
+        }
+    }
+
+    return biggestLineSize;
+}
+
 int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
 {
     if(terminatedRound == NULL || terminatedRound->players == NULL)

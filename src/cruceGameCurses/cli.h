@@ -134,3 +134,13 @@ int getScoreLimit();
  */
 int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore);
 
+/**
+ * @brief Displays how much bid each player.
+ *
+ * @param round The round in which are the players.
+ * @param currentPlayer The player which have to bid.
+ *
+ * @return NO_ERROR on success, other value on failure.
+ */
+int displaysBids(struct Round *round, int currentPlayer);
+

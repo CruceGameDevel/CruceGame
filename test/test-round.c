@@ -537,6 +537,11 @@ void test_round_addPlayerHand()
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         players[i] = team_createPlayer("A", i);
         cut_assert_equal_int(NO_ERROR, round_addPlayerHand(players[i], hand));
+        int check = 0;
+        for (int j = 0; j < MAX_GAME_PLAYERS; j++)
+            if (hand->players[j] == players[i])
+                check++;
+        cut_assert_equal_int(1, check);
         cut_assert_equal_int(DUPLICATE, round_addPlayerHand(players[i], hand));
     }
 

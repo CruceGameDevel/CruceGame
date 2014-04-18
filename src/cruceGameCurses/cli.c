@@ -536,7 +536,7 @@ int printBids(int selected, struct Round *round, WINDOW *win)
                 wprintw(win, "%d ", i);
              else {
                  wattron(win, COLOR_PAIR(1));
-                 wprintw(win, "%d", i);
+                 wprintw(win, "%d ", i);
                  wattroff(win, COLOR_PAIR(1));
              }
 

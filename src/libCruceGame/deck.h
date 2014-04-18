@@ -57,7 +57,7 @@ EXPORT struct Card *deck_createCard(enum Suit suit, int value);
  *
  * @param card Pointer to the pointer to be freed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, error code otherwise.
  */
 EXPORT int deck_deleteCard(struct Card **card);
 
@@ -73,7 +73,7 @@ EXPORT struct Deck *deck_createDeck();
  *
  * @param deck The deck to be shuffled.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, error code otherwise.
  */
 EXPORT int deck_deckShuffle(struct Deck *deck);
 
@@ -82,7 +82,7 @@ EXPORT int deck_deckShuffle(struct Deck *deck);
  *
  * @param deck Pointer to the pointer to be freed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, error code otherwise.
  */
 EXPORT int deck_deleteDeck(struct Deck **deck);
 

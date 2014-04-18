@@ -84,7 +84,7 @@ EXPORT struct Team *team_createTeam();
 * @param team The team to which the player is added.
 * @param player The player to be added to the team.
 *
-* @return \ref NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_addPlayer(struct Team *team, struct Player *player);
 
@@ -94,7 +94,7 @@ EXPORT int team_addPlayer(struct Team *team, struct Player *player);
 * @param team The team from where the player is removed.
 * @param player The player that will be removed.
 *
-* @return \ref NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_removePlayer(struct Team *team, const struct Player *player);
 
@@ -112,7 +112,7 @@ EXPORT int team_deleteTeam(struct Team **team);
  *
  * @param player The player to be deleted.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int team_deletePlayer(struct Player **player);
 
@@ -123,7 +123,7 @@ EXPORT int team_deletePlayer(struct Player **player);
 * @param player The player who receives the card.
 * @param card The card to be received.
 *
-* @return \ref NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_addCard(struct Player *player, struct Card *card);
 
@@ -141,7 +141,7 @@ EXPORT int team_hasCards(struct Player *player);
  *
  * @param team The team where to update the score.
  *
- * @return \ref NO_ERROR or 0 on success, negative value otherwise.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 EXPORT int team_updatePlayersScore(struct Team *team);
 
@@ -151,7 +151,7 @@ EXPORT int team_updatePlayersScore(struct Team *team);
  * @param team The team to compute points for.
  * @param round The round where to compute points.
  *
- * @return Number of round points on success, negative value otherwise.
+ * @return Number of round points on success, other value on failure.
  */
 EXPORT int team_computePoints(struct Team *team, struct Round *round);
 #ifdef __cplusplus

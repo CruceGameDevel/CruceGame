@@ -1,6 +1,7 @@
 /**
  * @file deck.h
- * @brief Card and Deck structures, as well as helper functions.
+ * @brief In this file are located the definitions of 
+ *        Card and Deck structures, as well as helper functions.
  */
 
 #ifndef DECK_H
@@ -57,7 +58,7 @@ EXPORT struct Card *deck_createCard(enum Suit suit, int value);
  *
  * @param card Pointer to the pointer to be freed.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int deck_deleteCard(struct Card **card);
 
@@ -73,7 +74,7 @@ EXPORT struct Deck *deck_createDeck();
  *
  * @param deck The deck to be shuffled.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int deck_deckShuffle(struct Deck *deck);
 
@@ -82,7 +83,7 @@ EXPORT int deck_deckShuffle(struct Deck *deck);
  *
  * @param deck Pointer to the pointer to be freed.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int deck_deleteDeck(struct Deck **deck);
 
@@ -96,7 +97,7 @@ EXPORT int deck_deleteDeck(struct Deck **deck);
 * @return 0 If the cards are equal. 
 *         1 If the first card is winning.
 *         2 If the second card is winning.
-*         Error code otherwise.
+*         Other value on failure.
 */
 EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
 

@@ -79,7 +79,7 @@ EXPORT struct Player *round_getBidWinner(const struct Round *round);
  * @param bid The value of the bid.
  * @param round Pointer to the round where to place the bid.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *round);
 
@@ -89,7 +89,7 @@ EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *ro
  * @param player Pointer to the player to be added.
  * @param round Pointer to the round where to add player.
  * 
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_addPlayer(struct Player* player, struct Round *round);
 
@@ -110,7 +110,7 @@ EXPORT int round_findPlayerIndexRound(const struct Player *player,
  * @param player Pointer to the player to be added.
  * @param hand Pointer to the hand where the player is to be added.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
 
@@ -124,7 +124,7 @@ EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
  * @param handId Id of the hand in which the card is placed.
  * @param round  Pointer to the round in which is hand.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_putCard(struct Player *player, int cardId,
                          int handId, struct Round *round);
@@ -137,11 +137,11 @@ EXPORT int round_putCard(struct Player *player, int cardId,
 EXPORT struct Round *round_createRound();
 
 /**
- * @brief Frees the memory of a round. Makes pointer NULL.
+ * @brief Frees the memory of a round. Makes NULL pointer.
  *
  * @param round Pointer to pointer to the round to be deleted.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_deleteRound(struct Round **round);
 
@@ -157,7 +157,7 @@ EXPORT struct Hand *round_createHand();
  *
  * @param hand Pointer to pointer to the hand to be deleted.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_deleteHand(struct Hand **hand);
 
@@ -167,7 +167,7 @@ EXPORT int round_deleteHand(struct Hand **hand);
  * @param player Pointer to the player to be removed.
  * @param round Pointer to the round from which the player is removed.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_removePlayer(struct Player *player, struct Round *round);
 
@@ -177,7 +177,7 @@ EXPORT int round_removePlayer(struct Player *player, struct Round *round);
  * @param player Pointer to the player to be removed.
  * @param hand Pointer to the hand from where the player is removed.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
 
@@ -199,7 +199,7 @@ EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
  * @param deck Pointer to the deck from where cards are distributed.
  * @param round Pointer to the round containing the players that receive the cards.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 
@@ -209,7 +209,7 @@ EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
  * @param deck Pointer to the deck from where cards are distributed.
  * @param round Pointer to the round that deck is distributed to.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
 

@@ -58,7 +58,7 @@ EXPORT struct Game *game_createGame(int numberPoints);
  *
  * @param game Pointer to the game to be deleted.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_deleteGame(struct Game **game);
 
@@ -68,7 +68,7 @@ EXPORT int game_deleteGame(struct Game **game);
  * @param player The player to be added.
  * @param game The game where the player is to be added.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_addPlayer(struct Player *player, struct Game *game);
 
@@ -78,7 +78,7 @@ EXPORT int game_addPlayer(struct Player *player, struct Game *game);
  * @param player The player to be removed.
  * @param game The game from where the player is to be removed.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_removePlayer(struct Player *player, struct Game *game);
 
@@ -88,7 +88,7 @@ EXPORT int game_removePlayer(struct Player *player, struct Game *game);
  * @param team The team to be added.
  * @param game The game where the team is to be added to.
  *
- * @return \ref NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_addTeam(struct Team *team, struct Game *game);
 
@@ -137,8 +137,7 @@ EXPORT int game_checkCard(struct Player *player, struct Game *game,
  * @param currentCard Function finds the first allowed card after currentCard.
  *
  * @return The next allowed card's id on success (value between 0 and
- *                                                \ref MAX_CARDS -1).
- *          Negative value on failure.
+ *         \ref MAX_CARDS -1). Negative value on failure.
  */
 EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
                                     struct Hand *hand, int currentCard);
@@ -153,8 +152,7 @@ EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
  * @param currentCard Function finds the last allowed card before currentCard.
  *
  * @return The next allowed card's id on success (value between 0 and
- *                                                \ref MAX_CARDS -1).
- *          Negative value on failure.
+ *         \ref MAX_CARDS -1). Negative value on failure.
  */
 EXPORT int game_findPreviousAllowedCard(struct Player *player, 
                                         struct Game *game,
@@ -177,7 +175,7 @@ EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
  * @param game Game where to update the scores.
  * @param bidWinner Pointer to the player that won the bid in the last round.
  *
- * @return \ref NO_ERROR or 0 on success, negative otherwise.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
 
@@ -188,7 +186,7 @@ EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
  * @param game The game to process.
  * @param i The index of the first player in that round.
  *
- * @return \ref NO_ERROR or 0 on success, negative value otherwise.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 EXPORT int game_arrangePlayersRound(struct Game *game, int i);
 

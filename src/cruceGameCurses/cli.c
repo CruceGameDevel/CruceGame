@@ -532,7 +532,7 @@ int printBids(int selected, struct Round *round, WINDOW *win)
             wprintw(win, "%d ", i);
             wattroff(win, COLOR_PAIR(3));
         }
-        else if (i > round_getMaximumBid(round))
+        else if (i > round_getMaximumBid(round) || i == 0)
                 wprintw(win, "%d ", i);
              else {
                  wattron(win, COLOR_PAIR(1));

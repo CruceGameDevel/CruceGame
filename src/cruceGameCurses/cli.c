@@ -541,15 +541,37 @@ int getBid(struct Game *game, int playerId)
 
     displayBids(game->round, playerId);
 
-    printw("Insert a bid please: ");
-    char ch = getch();
-    while (round_placeBid(game->round->players[playerId], ch - '0', 
-                          game->round)) { 
-        printw("\nInsert a valid bid: ");
-        ch = getch();
+    getyx(stdscr, y, x);
+
+    WINDOW *bidsWindow = newwin(1, 6, y, 0);
+#ifdef BORSERS
+    box(bidsWindow, 0, 0);
+#endif
+    keypad(bidsWindow, TRUE);
+
+    int ch, selected = 0;
+    printBids(selected, bidsWindow);
+    while((ch = wgetch(bidsWindow)) != '\n') {
+        switch (ch) {
+            case 'a':
+            case KEY_LEFT:
+                selected = round_findPreviousAllowedBid(game->round, selected);
+                break;
+            case 'd':
+            case KEY_RIGHT:
+                selected = round_findNextAllowedBid(game->round, selected);
+                break;
+            case 'q':
+                exit(0);
+        }
+        wclear(bidsWindow);
+        printBids(selected, bidsWindow);
+        wrefresh(bidsWindow);
     }
 
-    printw("\n\n");
+    delwin(bidsWindow);
+    
+    round_placeBid(game->players[playerId], selected, game->round);
 
     return NO_ERROR;
 }

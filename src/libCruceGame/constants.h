@@ -7,16 +7,6 @@
 #define CONSTANTS_H
 
 /**
- * @brief Define the version of current game
- */
-#define GAME_VERSION "0.4.0"
-
-/**
- * @bried Path to the game help
- */
-#define GAME_HELP_MANUAL "../docs/help.txt"
-
-/**
  * @brief The maximum number of cards in a player's hand.
  */
 #define MAX_CARDS 8

@@ -12,8 +12,6 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <errno.h>
-void cruceGameHelp();
-int cruceGameLogic();
 
 /**
  * @brief Prints the help manual of cruce game to the screen

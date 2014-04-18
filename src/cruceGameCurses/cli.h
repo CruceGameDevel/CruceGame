@@ -23,7 +23,7 @@ void welcomeMessage();
  *
  * @return void
  */
- void gameEndingMessage(struct Team *team);
+ void gameEndingMessage(const struct Team *team);
 
 /**
  * @brief Function to print a Card.
@@ -34,7 +34,7 @@ void welcomeMessage();
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(struct Card *card, int frameColor, WINDOW *win);
+int printCard(const struct Card *card, const int frameColor, WINDOW *win);
 
 /**
  * @brief Function to print all cards in a player's hand.
@@ -48,8 +48,8 @@ int printCard(struct Card *card, int frameColor, WINDOW *win);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(struct Game *game, struct Player *player, int selecte,
-                     WINDOW *win);
+int printPlayerCards(const struct Game *game, struct Player *player, 
+					 const int selecte, WINDOW *win);
 
 /**
  * @brief Function to get the number of players from user.
@@ -65,7 +65,7 @@ int getNoOfPlayers();
  *
  * @return Pointer to the new Player.
  */
-struct Player *newPlayer(int i);
+struct Player *newPlayer(const int i);
 
 /**
  * @brief Function to print the score table.
@@ -76,7 +76,7 @@ struct Player *newPlayer(int i);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printScore(struct Game *game, struct Round *round, WINDOW *win);
+int printScore(const struct Game *game, const struct Round *round, WINDOW *win);
 
 /**
  * @brief Function to form the teams.
@@ -96,7 +96,7 @@ int formTeams(struct Game* game);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int displayCardsAndPickCard(struct Game *game, int playerId);
+int displayCardsAndPickCard(struct Game *game, const int playerId);
 
 /*
  * @brief Function to display player's cards and ask for a bid.
@@ -106,7 +106,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId);
  *
  * @return \ref NO_ERROR or 0 un success, other value on failure.
  */
-int getBid(struct Game* game, int playerId);
+int getBid(const struct Game* game, const int playerId);
 
 /**
  * @brief Function to display the team who wins
@@ -115,7 +115,7 @@ int getBid(struct Game* game, int playerId);
  *
  * @return \ref NO_ERROR on success, otherwise \ref POINTER_NULL on failure
  */
-int displayWinner(struct Team *winner);
+int displayWinner(const struct Team *winner);
 
 /**
  * @brief Function to get the score limit from user.
@@ -132,7 +132,8 @@ int getScoreLimit();
  *
  * @return int The size of the biggest name of a player in a round.
  */
-int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
+int printRoundTerminationMessage(const struct Game *currentGame, 
+								 const int *oldScore);
 
 /**
  * @brief Displays how much bid each player.
@@ -142,5 +143,5 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int displayBids(struct Round *round, int currentPlayer);
+int displayBids(const struct Round *round, const int currentPlayer);
 

@@ -99,7 +99,8 @@ EXPORT int deck_deleteDeck(struct Deck **deck);
 *         2 If the second card is winning.
 *         Other value on failure.
 */
-EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, const enum Suit trump);
+EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, 
+							 const enum Suit trump);
 
 /**
  * @brief The function counts the cards from deck.

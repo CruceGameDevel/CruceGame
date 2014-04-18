@@ -135,7 +135,8 @@ int deck_deckShuffle(struct Deck *deck)
     return NO_ERROR;
 }
 
-int deck_compareCards(const struct Card *card1, const struct Card *card2, const enum Suit trump)
+int deck_compareCards(const struct Card *card1, const struct Card *card2, 
+                      const enum Suit trump)
 {
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;

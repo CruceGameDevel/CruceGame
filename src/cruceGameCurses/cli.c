@@ -17,8 +17,6 @@
 #define ROUND_DIALOG_SCORE_SIZE 5
 #define SLEEP_TIME 2
 
-#define HIGHLIGHT_ATTRIBUTE A_BLINK
-
 void welcomeMessage()
 {
     printw("  _____                        _____                      \n"
@@ -486,6 +484,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
                                                     selected);
                 break;
             case 'q':
+                endwin();
                 exit(0);
         }
         wclear(cardsInHandWindow);
@@ -580,6 +579,10 @@ int processingScore(char *score)
         return 15;
     if (strcmp(score, "21") == 0)
         return 21;
+    if (strcmp(score, "q") == 0) {
+        endwin();
+        exit(0);
+    }
 
     return -1;
 #endif

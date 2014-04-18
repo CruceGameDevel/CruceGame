@@ -3,6 +3,8 @@
 #include <constants.h>
 #include <team.h>
 
+#include<string.h>
+
 #include <cutter.h>
 #include <stdio.h>
 
@@ -438,5 +440,91 @@ void test_game_findTeam()
 
     team_deletePlayer(&player);
     game_deleteGame(&game);
+}
+
+void updateScore_generateTest(int bids[4], int pointsNumber[4], 
+                              int scores[4], struct Game *game) {
+    memcpy(game->round->bids, bids, 4 * sizeof(int));
+    memcpy(game->round->pointsNumber, pointsNumber, 4 * sizeof(int));
+    struct Player *bidWinner = round_getBidWinner(game->round);
+    game_updateScore(game, bidWinner);
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        if (game->teams[i] != NULL) {
+            cut_assert_equal_int(game->teams[i]->score, scores[i]);
+            for (int j = 0; j < MAX_TEAM_PLAYERS; j++) {
+                if (game->teams[i]->players[j] != NULL) {
+                    cut_assert_equal_int(game->teams[i]->players[j]->score,
+                                         game->teams[i]->score);
+                    game->teams[i]->players[j]->score = 0;
+                }
+            }
+            game->teams[i]->score = 0;
+        }
+    }
+}
+
+
+
+void test_game_updateScore()
+{
+    struct Game *game = game_createGame(11);
+    char *names[] = {"A", "B", "C", "D"};
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        struct Player *player = team_createPlayer(names[i], 0);
+        game_addPlayer(player, game);
+    }
+    for (int i = 0; i < MAX_GAME_TEAMS; i++) {
+        struct Team *team = team_createTeam();
+        team_addPlayer(team, game->players[i]);
+        game_addTeam(team, game);
+    }
+    game_arrangePlayersRound(game, 0);
+
+    //test1
+    int bids[4] = {0, 2, 3, 0};
+    int pointsNumber[4] = {10, 66, 100, 53};
+    int scores[4] = {0, 2, 3, 1};
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
+
+    //test2
+    pointsNumber[2] = 33;
+    scores[2] = -3;
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
+
+    //test3
+    bids[1] = 5;
+    bids[2] = 0;
+    bids[3] = 0;
+
+    scores[1] = -5;
+    scores[2] = 1;
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
+
+    //test4
+    pointsNumber[1] = 0;
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
+
+    //test5
+    game->teams[2] = NULL;
+    game->teams[3] = NULL;
+
+    team_addPlayer(game->teams[0], game->players[2]);
+    team_addPlayer(game->teams[1], game->players[3]);
+
+    scores[0] = 1;
+    scores[1] = -5;
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
+
+    //test6
+    pointsNumber[1] = 66;
+    pointsNumber[3] = 100;
+    scores[1] = 5;
+
+    updateScore_generateTest(bids, pointsNumber, scores, game);
 }
 

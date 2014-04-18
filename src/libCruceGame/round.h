@@ -81,7 +81,8 @@ EXPORT struct Player *round_getBidWinner(const struct Round *round);
  *
  * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *round);
+EXPORT int round_placeBid(const struct Player *player, const int bid, 
+                          struct Round *round);
 
 /**
  * @brief Add a player to a round.
@@ -126,8 +127,8 @@ EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
  *
  * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_putCard(struct Player *player, int cardId,
-                         int handId, struct Round *round);
+EXPORT int round_putCard(struct Player *player, const int cardId,
+                         const int handId, struct Round *round);
 
 /**
  * @brief Allocates memory for and initializes a round.
@@ -169,7 +170,7 @@ EXPORT int round_deleteHand(struct Hand **hand);
  *
  * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_removePlayer(struct Player *player, struct Round *round);
+EXPORT int round_removePlayer(const struct Player *player, struct Round *round);
 
 /**
  * @brief Removes a player from a hand.
@@ -179,7 +180,8 @@ EXPORT int round_removePlayer(struct Player *player, struct Round *round);
  *
  * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
+EXPORT int round_removePlayerHand(const struct Player *player, 
+                                  struct Hand *hand);
 
 /**
  * @brief Determines the winner of a hand.
@@ -190,8 +192,9 @@ EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
  *
  * @return Pointer to the winning player or NULL on failure.
  */
-EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
-                                       struct Round *round);
+EXPORT struct Player *round_handWinner(const struct Hand *hand, 
+                                        const enum Suit trump, 
+                                        struct Round *round);
 
 /**
  * @brief Distributes one card to every player.

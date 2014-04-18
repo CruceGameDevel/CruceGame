@@ -90,7 +90,8 @@ struct Player *round_getBidWinner(const struct Round *round)
     return round->players[maxBidIndex];
 }
 
-int round_findPlayerIndexRound(const struct Player *player, const struct Round *round)
+int round_findPlayerIndexRound(const struct Player *player, 
+                                const struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -107,7 +108,8 @@ int round_findPlayerIndexRound(const struct Player *player, const struct Round *
     return i;
 }
 
-int round_placeBid(const struct Player *player, int bid, struct Round *round)
+int round_placeBid(const struct Player *player, const int bid, 
+                    struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -179,7 +181,7 @@ int round_addPlayerHand(struct Player *player, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_removePlayer(struct Player *player, struct Round *round)
+int round_removePlayer(const struct Player *player, struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -196,7 +198,7 @@ int round_removePlayer(struct Player *player, struct Round *round)
     return NO_ERROR;
 }
 
-int round_removePlayerHand(struct Player *player, struct Hand *hand)
+int round_removePlayerHand(const struct Player *player, struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -212,8 +214,8 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand)
     return NOT_FOUND;
 }
 
-int round_putCard(struct Player *player, int cardId,
-                  int handId, struct Round *round)
+int round_putCard(struct Player *player, const int cardId,
+                  const int handId, struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -268,7 +270,7 @@ int totalPointsNumber(const struct Hand *hand)
     return points;
 }
 
-struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
+struct Player *round_handWinner(const struct Hand *hand, const enum Suit trump,
                                 struct Round *round)
 {
     if (hand == NULL || trump == SuitEnd || round == NULL)

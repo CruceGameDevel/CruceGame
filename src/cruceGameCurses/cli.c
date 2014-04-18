@@ -28,7 +28,7 @@ void welcomeMessage()
                                                                     "\n\n");
 }
 
-void gameEndingMessage(struct Team *team)
+void gameEndingMessage(const struct Team *team)
 {
     printw(" ______           _    ____   __    _____    \n"                  
             "|  ____|         | |  / __ \\ / _|  / ____|      \n"               
@@ -49,7 +49,7 @@ void gameEndingMessage(struct Team *team)
     printw("won the game.");
 }
 
-int printCard(struct Card *card, int frameColor, WINDOW *win)
+int printCard(const struct Card *card, const int frameColor, WINDOW *win)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -155,8 +155,8 @@ int printCard(struct Card *card, int frameColor, WINDOW *win)
     return NO_ERROR;
 }
 
-int printPlayerCards(struct Game *game, struct Player *player, int selected,
-                      WINDOW *win)
+int printPlayerCards(const struct Game *game, struct Player *player, 
+                     const int selected, WINDOW *win)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -202,7 +202,7 @@ int getNoOfPlayers()
     return ch - '0';
 }
 
-struct Player *newPlayer(int i)
+struct Player *newPlayer(const int i)
 {
     char format[20]; //used to store the format string.
     char *name = malloc(MAX_NAME_SIZE*sizeof(char));
@@ -215,7 +215,7 @@ struct Player *newPlayer(int i)
     return player;
 }
 
-int printScore(struct Game *game, struct Round *round, WINDOW *win)
+int printScore(const struct Game *game, const struct Round *round, WINDOW *win)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -399,7 +399,7 @@ int formTeams (struct Game *game)
     return NO_ERROR;
 }
 
-int displayCardsAndPickCard(struct Game *game, int playerId)
+int displayCardsAndPickCard(struct Game *game, const int playerId)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -518,7 +518,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     return NO_ERROR;
 }
 
-int getBid(struct Game *game, int playerId)
+int getBid(const struct Game *game, const int playerId)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -553,7 +553,7 @@ int getBid(struct Game *game, int playerId)
     return NO_ERROR;
 }
 
-int displayWinner(struct Team *winner) {
+int displayWinner(const struct Team *winner) {
     int i;
     if(winner->id <= 4) { 
         printw("The winner of the game: ");
@@ -568,7 +568,7 @@ int displayWinner(struct Team *winner) {
     }
 }
 
-int processingScore(char *score)
+int processingScore(const char *score)
 {
 #ifdef DEBUG
     return atoi(score);
@@ -615,7 +615,7 @@ int getScoreLimit()
  *
  * @return int The size of a team. 
  */
-int getScoreDialogLineSize(struct Team *currentTeam)
+int getScoreDialogLineSize(const struct Team *currentTeam)
 { 
    int lineSize = 0;
    int i;
@@ -635,7 +635,7 @@ int getScoreDialogLineSize(struct Team *currentTeam)
  *
  * @return int The size of the biggest line.
  */
- int getBiggestScoreDialogLineSize(struct Game *currentGame)
+ int getBiggestScoreDialogLineSize(const struct Game *currentGame)
  {
     int biggestLineSize = 0;
     for(int i = 0; i < MAX_GAME_TEAMS; i++) {
@@ -650,7 +650,8 @@ int getScoreDialogLineSize(struct Team *currentTeam)
     return biggestLineSize;
 }
 
-int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
+int printRoundTerminationMessage(const struct Game *currentGame, 
+                                 const int *oldScore)
 {
     if(currentGame->round == NULL || currentGame->round->players == NULL)
         return ROUND_NULL;
@@ -672,7 +673,8 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
             for(int j = 0; j < 2; j++) {
                 if(currentGame->teams[i]->players[j] != NULL) {
                    printw("%s%s ", currentGame->teams[i]->players[j]->name, 
-                            ((currentGame->teams[i]->players[j + 1] == NULL) ? "" : ","));
+                            ((currentGame->teams[i]->players[j + 1] == NULL) 
+                             ? "" : ","));
                 }
             }
             int currentTeamSize = getScoreDialogLineSize(currentGame->teams[i]);
@@ -694,7 +696,7 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
     return NO_ERROR;
 }
 
-int displayBids(struct Round *round, int currentPlayer)
+int displayBids(const struct Round *round, const int currentPlayer)
 {
     if (round == NULL)
         return ROUND_NULL;

@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 
-struct Player *team_createPlayer(const char *name, int isHuman)
+struct Player *team_createPlayer(const char *name, const int isHuman)
 {
     if (name == NULL)
         return NULL;
@@ -78,7 +78,7 @@ int team_addPlayer(struct Team *team, struct Player *player)
     return TEAM_FULL;
 }
 
-int team_removePlayer(struct Team *team,const struct Player *player)
+int team_removePlayer(struct Team *team, const struct Player *player)
 {
     if (team == NULL)
         return TEAM_NULL;
@@ -121,7 +121,7 @@ int team_deletePlayer(struct Player **player)
     return NO_ERROR;
 }
 
-int team_addCard(struct Player *player,struct Card *card)
+int team_addCard(struct Player *player, struct Card *card)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -142,7 +142,7 @@ int team_addCard(struct Player *player,struct Card *card)
     return FULL;
 }
 
-int team_hasCards(struct Player *player)
+int team_hasCards(const struct Player *player)
 {
     if(player == NULL)
         return PLAYER_NULL;
@@ -167,7 +167,7 @@ int team_updatePlayersScore(struct Team *team)
     return NO_ERROR;
 }
 
-int team_computePoints(struct Team *team, struct Round *round)
+int team_computePoints(const struct Team *team, const struct Round *round)
 {
     if (team == NULL)
         return TEAM_NULL;

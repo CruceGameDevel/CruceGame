@@ -51,7 +51,7 @@ extern "C" {
  *
  * @return Pointer to the new card on success or NULL on failure.
  */
-EXPORT struct Card *deck_createCard(enum Suit suit, int value);
+EXPORT struct Card *deck_createCard(const enum Suit suit, const int value);
 
 /**
  * @brief Frees the memory of a card and makes the pointer NULL.
@@ -99,7 +99,8 @@ EXPORT int deck_deleteDeck(struct Deck **deck);
 *         2 If the second card is winning.
 *         Other value on failure.
 */
-EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump);
+EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, 
+							 const enum Suit trump);
 
 /**
  * @brief The function counts the cards from deck.
@@ -108,7 +109,7 @@ EXPORT int deck_compareCards(const struct Card *card1,const struct Card *card2, 
  *
  * @return The cards number from deck.
  */
-EXPORT int deck_cardsNumber(struct Deck *deck);
+EXPORT int deck_cardsNumber(const struct Deck *deck);
 
 #ifdef __cplusplus
 }

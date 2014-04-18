@@ -67,7 +67,7 @@ extern "C" {
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-EXPORT struct Player *team_createPlayer(const char *name, int isHuman);
+EXPORT struct Player *team_createPlayer(const char *name, const int isHuman);
 
 /**
  * @brief Creates a team.
@@ -134,7 +134,7 @@ EXPORT int team_addCard(struct Player *player, struct Card *card);
 *
 * @return 1 in case of succes, 0 otherwise
 */
-EXPORT int team_hasCards(struct Player *player);
+EXPORT int team_hasCards(const struct Player *player);
 
 /**
  * @brief Updates all players scores, assigning team score to them.
@@ -153,7 +153,8 @@ EXPORT int team_updatePlayersScore(struct Team *team);
  *
  * @return Number of round points on success, other value on failure.
  */
-EXPORT int team_computePoints(struct Team *team, struct Round *round);
+EXPORT int team_computePoints(const struct Team *team, 
+							  const struct Round *round);
 #ifdef __cplusplus
 }
 #endif

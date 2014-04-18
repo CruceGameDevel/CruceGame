@@ -567,7 +567,7 @@ int getBid(struct Game *game, int playerId)
 
     getyx(stdscr, y, x);
 
-    WINDOW *bidsWindow = newwin(1, 6, y, 0);
+    WINDOW *bidsWindow = newwin(1, 15, y, 0);
 #ifdef BORSERS
     box(bidsWindow, 0, 0);
 #endif

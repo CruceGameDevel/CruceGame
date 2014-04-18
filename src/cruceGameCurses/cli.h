@@ -144,3 +144,14 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
  */
 int displayBids(struct Round *round, int currentPlayer);
 
+/**
+ * @brief Displays the bids for to pick a bid.
+ *
+ * @param selected The selected bid.
+ * @param round The round in which are the bids.
+ * @param win The window in which are display the bids.
+ *
+ * @return NO_ERROR or 0 on success, other value on failure.
+ */
+int printBids(int selected, struct Round *round, WINDOW *win);
+

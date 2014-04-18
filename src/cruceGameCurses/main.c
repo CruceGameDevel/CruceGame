@@ -14,13 +14,23 @@
 #include <errno.h>
 
 /**
+ * @brief Define the version of current game
+ */
+#define GAME_VERSION "0.4.0"
+
+/**
+ * @bried Path to the game help
+ */
+#define GAME_HELP_MANUAL "../docs/help.txt"
+
+/**
  * @brief Prints the help manual of cruce game to the screen
  */
 void cruceGameHelp()
 {
     char text;
     FILE *helpFile;
-    helpFile = fopen(GAME_HELP_MANUAL,"r");
+    helpFile = fopen(GAME_HELP_MANUAL, "r");
     if(!(helpFile)) {
         printf("Unable to open\n");
         if(errno == ENOENT) {
@@ -33,9 +43,9 @@ void cruceGameHelp()
     }
 
     while( (text = fgetc(helpFile)) != EOF ) {
-        printf("%c",text);
+        printf("%c", text);
     }
-    fclose (helpFile);
+    fclose(helpFile);
     exit(EXIT_SUCCESS);
 }
 
@@ -159,7 +169,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #else
 int main(int argc, char *argv[])
 #endif
-{ 
+{
     if (argc >= 2) {
         int getoptCheck;
         struct option long_options[] = {
@@ -168,38 +178,33 @@ int main(int argc, char *argv[])
             {0, 0, 0, 0}
         };
 
-        while ((getoptCheck = getopt_long (argc, argv, "hv",long_options, NULL)) != -1) {
+        while ((getoptCheck =
+                getopt_long(argc, argv, "hv", long_options, NULL)) != -1) {
             if (getoptCheck == -1)
-            break;
-     
+                break;
             switch (getoptCheck) {
                 case 'h':
                     cruceGameHelp();
                     break;
-     
                 case 'v':
-                    printf("CruceGame Version: %s\n",GAME_VERSION);
+                    printf("CruceGame Version: %s\n", GAME_VERSION);
                     exit(EXIT_SUCCESS);
                     break;
-     
                 case '?':
                     exit(EXIT_FAILURE);
-     
                 default:
                     exit(EXIT_FAILURE);
             }
         }
-     
+
         if (optind < argc) {
-            printf ("non-option elements passed: ");
+            printf("non-option elements passed: ");
             while (optind < argc) {
-                printf ("%s ", argv[optind++]);
+                printf("%s ", argv[optind++]);
             }
             exit(EXIT_FAILURE);
         }
-
-    }
-    else {
+    } else {
         cruceGameLogic();
     }
     return EXIT_SUCCESS;

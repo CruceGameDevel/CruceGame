@@ -523,7 +523,7 @@ int getBid(struct Game *game, int playerId)
     getyx(stdscr, y, x);
     move(y + 8, 0);
 
-    displaysBids(game->round, playerId);
+    displayBids(game->round, playerId);
 
     printw("Insert a bid please: ");
     char ch = getch();
@@ -646,7 +646,7 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore)
     return NO_ERROR;
 }
 
-int displaysBids(struct Round *round, int currentPlayer)
+int displayBids(struct Round *round, int currentPlayer)
 {
     if (round == NULL)
         return ROUND_NULL;
@@ -655,8 +655,7 @@ int displaysBids(struct Round *round, int currentPlayer)
 
     for (int i = 0; i < currentPlayer; i++)
         if (round->players[i] != NULL)
-            printw("Player %d (%s) bid %d\n", i + 1, round->players[i]->name,
-                                              round->bids[i]);
+            printw("%s bid %d\n", round->players[i]->name, round->bids[i]);
     printw("\n");
 
     return NO_ERROR;

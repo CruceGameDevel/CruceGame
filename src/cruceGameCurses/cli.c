@@ -17,8 +17,6 @@
 #define ROUND_DIALOG_SCORE_SIZE 5
 #define SLEEP_TIME 2
 
-#define HIGHLIGHT_ATTRIBUTE A_BLINK
-
 void welcomeMessage()
 {
     printw("  _____                        _____                      \n"

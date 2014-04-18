@@ -64,7 +64,7 @@ extern "C" {
 *
 * @return Pointer to a const char representing the text of the error code.
 */
-EXPORT const char *error(int error_code);
+EXPORT const char *error(const int error_code);
 
 #ifdef __cplusplus
 }

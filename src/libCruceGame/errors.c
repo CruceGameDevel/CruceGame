@@ -5,7 +5,7 @@
 
 #include "errors.h"
 
-const char *error(int error_code)
+const char *error(const int error_code)
 {
     switch(error_code) {
 

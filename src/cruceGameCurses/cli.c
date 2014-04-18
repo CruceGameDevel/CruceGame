@@ -393,8 +393,8 @@ int formTeams (struct Game *game)
 
     for (int i = 0; i < 2; i++) {
         struct Team *team = team_createTeam();
-        team_addPlayer(team, game->players[i]);
-        team_addPlayer(team, game->players[i + 1]);
+        team_addPlayer(team, game->players[2 * i]);
+        team_addPlayer(team, game->players[2 * i + 1]);
         game_addTeam(team, game);
     }
 

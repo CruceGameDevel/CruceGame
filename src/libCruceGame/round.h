@@ -232,6 +232,26 @@ EXPORT int round_arrangePlayersHand(struct Round *round, int i);
  */
 EXPORT int round_getMaximumBid(struct Round *round);
 
+/**
+ * @brief Function to find the next allowed bid after currentBid.
+ *
+ * @param round The round where are bids.
+ * @param currentBid Function finds the first allowed bid after currentBid.
+ *
+ * @return The next allowed bid's id on success, negative value on failure.
+ */
+EXPORT int round_findNextAllowedBid(struct Round *round, int currentBid);
+
+/**
+ * @brief Function to find the previous allowed bid before currentBid.
+ *
+ * @param round The round where are bids.
+ * @param currentBid Function finds the first allowed bid before currentBid.
+ *
+ * @return The previous allowed bid's id on success, negative value on failure.
+ */
+EXPORT int round_findPreviousAllowedBid(struct Round *round, int currentBid);
+
 #ifdef __cplusplus
 }
 #endif

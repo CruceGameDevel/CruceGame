@@ -459,3 +459,8 @@ int findAllowedBid(struct Round *round, int currentBid, int searchPattern)
     return currentBid;               
 }
 
+int round_findNextAllowedBid(struct Round *round, int currentBid)
+{
+    return findAllowedBid(round, currentBid, 1);
+}
+

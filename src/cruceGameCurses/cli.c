@@ -10,6 +10,7 @@
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 20
@@ -456,7 +457,6 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
         if (hand->cards[i] != NULL)
             printCard(hand->cards[i], 7, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
-    delwin(cardsOnTableWindow);
 
     refresh();
 
@@ -492,13 +492,28 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
         wrefresh(cardsInHandWindow);
     }
 
-    delwin(cardsInHandWindow);
-
     move(20, 0);
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[selected]->suit;
-
     round_putCard(player, selected, handId, game->round);
+    
+    if (playerId == game->numberPlayers - 1) {
+        wclear(cardsOnTableWindow);
+        wprintw(cardsOnTableWindow, "Table cards: \n");
+        for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+            if (hand->cards[i] != NULL)
+                printCard(hand->cards[i], 7, cardsOnTableWindow);
+        wrefresh(cardsOnTableWindow);
+
+        wclear(cardsInHandWindow);
+        printPlayerCards(game, player, selected, cardsInHandWindow);
+        wrefresh(cardsInHandWindow);
+        sleep(2);
+    }
+
+    delwin(cardsOnTableWindow);
+    delwin(cardsInHandWindow);
+
 
     return NO_ERROR;
 }

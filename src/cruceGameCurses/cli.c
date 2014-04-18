@@ -519,6 +519,30 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
     return NO_ERROR;
 }
 
+int printBids(int selected, struct Round *round, WINDOW *win)
+{
+    if (selected > 6 || selected < 0)
+        return ILLEGAL_VALUE;
+    if (round == NULL)
+        return ROUND_NULL;
+
+    for (int i = 0; i <= 6; i++)
+        if (i == selected) {
+            attron(win, COLOR_PAIR(3));
+            wprintw(win, "%d ", i);
+            attroff(win, COLOR_PAIR(3));
+        }
+        else if (i > round_getMaximumBid(round))
+                wprintw(win, "%d ", i);
+             else {
+                 attron(win, COLOR_PAIR(1));
+                 wprintw(win, "%d", i);
+                 attroff(win, COLOR_PAIR(1));
+             }
+
+    return NO_ERROR;
+}
+
 int getBid(struct Game *game, int playerId)
 {
     if (game == NULL)

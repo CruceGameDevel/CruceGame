@@ -574,7 +574,7 @@ int getBid(struct Game *game, int playerId)
     keypad(bidsWindow, TRUE);
 
     int ch, selected = 0;
-    printBids(selected, bidsWindow);
+    printBids(selected, game->round, bidsWindow);
     while((ch = wgetch(bidsWindow)) != '\n') {
         switch (ch) {
             case 'a':
@@ -589,7 +589,7 @@ int getBid(struct Game *game, int playerId)
                 exit(0);
         }
         wclear(bidsWindow);
-        printBids(selected, bidsWindow);
+        printBids(selected, game->round, bidsWindow);
         wrefresh(bidsWindow);
     }
 

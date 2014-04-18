@@ -528,16 +528,16 @@ int printBids(int selected, struct Round *round, WINDOW *win)
 
     for (int i = 0; i <= 6; i++)
         if (i == selected) {
-            attron(win, COLOR_PAIR(3));
+            wattron(win, COLOR_PAIR(3));
             wprintw(win, "%d ", i);
-            attroff(win, COLOR_PAIR(3));
+            wattroff(win, COLOR_PAIR(3));
         }
         else if (i > round_getMaximumBid(round))
                 wprintw(win, "%d ", i);
              else {
-                 attron(win, COLOR_PAIR(1));
+                 wattron(win, COLOR_PAIR(1));
                  wprintw(win, "%d", i);
-                 attroff(win, COLOR_PAIR(1));
+                 wattroff(win, COLOR_PAIR(1));
              }
 
     return NO_ERROR;

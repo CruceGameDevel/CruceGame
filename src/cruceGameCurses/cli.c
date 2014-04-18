@@ -579,6 +579,10 @@ int processingScore(char *score)
         return 15;
     if (strcmp(score, "21") == 0)
         return 21;
+    if (strcmp(score, "q") == 0) {
+        endwin();
+        exit(0);
+    }
 
     return -1;
 #endif

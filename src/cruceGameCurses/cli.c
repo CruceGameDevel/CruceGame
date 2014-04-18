@@ -484,6 +484,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId)
                                                     selected);
                 break;
             case 'q':
+                endwin();
                 exit(0);
         }
         wclear(cardsInHandWindow);

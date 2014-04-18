@@ -407,3 +407,55 @@ int round_getMaximumBid(struct Round *round)
     return maximumBid;
 }
 
+/**
+ * @brief Helper for findAllowedBid().)
+ *
+ * @param currentBid The bid which is bid.
+ * @param maximumBid Maximum bid from auction.
+ *
+ * @return 1 if the current bid can be bid, otherwise 0.
+ */
+int checkBid(int currentBid, int maximumBid)
+{
+    if (currentBid > maximumBid || currentBid == 0 )
+        return 1;
+
+    return 0;
+}
+
+/**
+ * @brief Helper for functions which search a allowed bid.
+ *
+ * @param round The round in which are the bids.
+ * @param currentBid The bid which is bid.
+ * @param searchPattern This parameter indicate where to search (-1 to left,
+ *                      1 to right).
+ *
+ * @return The first allowed bid found.
+ */
+int findAllowedBid(struct Round *round, int currentBid, int searchPattern)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+    if (currentBid < 0 || currentBid > 6)
+        return ILLEGAL_VALUE;
+    if (searchPattern != 1 && searchPattern != -1)
+        return ILLEGAL_VALUE;
+
+    currentBid += searchPattern;
+    if (currentBid == -1)
+        currentBid = 6;
+    if (currentBid == 7)
+        currentBid = 0;
+
+    while(!checkBid(currentBid, round_getMaximumBid(round))) {
+        currentBid += searchPattern;
+        if (currentBid == -1)
+            currentBid = 6;
+        if (currentBid == 7)
+            currentBid = 0;
+    }
+
+    return currentBid;               
+}
+

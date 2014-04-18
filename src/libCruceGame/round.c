@@ -393,4 +393,17 @@ int round_arrangePlayersHand(struct Round *round, int i)
     return NO_ERROR;
 }
 
+int round_getMaximumBid(struct Round *round)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+
+    int maximumBid = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (round->players[i] != NULL)
+            if (round->bids[i] > maximumBid)
+                maximumBid = round->bids[i];
+
+    return maximumBid;
+}
 

@@ -447,7 +447,7 @@ void updateScore_generateTest(int bids[4], int pointsNumber[4],
     memcpy(game->round->bids, bids, 4 * sizeof(int));
     memcpy(game->round->pointsNumber, pointsNumber, 4 * sizeof(int));
     struct Player *bidWinner = round_getBidWinner(game->round);
-    game_updateScore(game, bidWinner);
+    cut_assert_equal_int(NO_ERROR, game_updateScore(game, bidWinner));
     for (int i = 0; i < MAX_GAME_TEAMS; i++) {
         if (game->teams[i] != NULL) {
             cut_assert_equal_int(game->teams[i]->score, scores[i]);
@@ -479,6 +479,10 @@ void test_game_updateScore()
         game_addTeam(team, game);
     }
     game_arrangePlayersRound(game, 0);
+
+    cut_assert_not_equal_int(NO_ERROR, game_updateScore(NULL, NULL));
+    cut_assert_equal_int(GAME_NULL, game_updateScore(NULL, game->players[0]));
+    cut_assert_equal_int(PLAYER_NULL, game_updateScore(game, NULL));
 
     //test1
     int bids[4] = {0, 2, 3, 0};

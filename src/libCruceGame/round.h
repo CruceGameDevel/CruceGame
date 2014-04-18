@@ -223,6 +223,15 @@ EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
  */
 EXPORT int round_arrangePlayersHand(struct Round *round, int i);
 
+/**
+ * @brief The function search the maximum bid.
+ *
+ * @param round Pointer to the round in which are the bids.
+ *
+ * @return The maximum bid.
+ */
+EXPORT int round_getMaximumBid(struct Round *round);
+
 #ifdef __cplusplus
 }
 #endif

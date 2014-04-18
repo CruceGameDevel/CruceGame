@@ -154,3 +154,19 @@ void test_team_hasCards()
     team_deletePlayer(&player);
 }
 
+void test_team_updatePlayersScore()
+{
+    cut_assert_equal_int(TEAM_NULL, team_updatePlayersScore(NULL));
+    struct Team *team = team_createTeam();
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        struct Player *player = team_createPlayer("A", 0);
+        team_addPlayer(team, player);
+    }
+    team->score = 3;
+    cut_assert_equal_int(NO_ERROR, team_updatePlayersScore(team));
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if (team->players[i] != NULL)
+            cut_assert_equal_int(team->players[i]->score, team->score);
+    }
+}
+

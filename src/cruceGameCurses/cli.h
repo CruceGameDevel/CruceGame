@@ -140,7 +140,7 @@ int printRoundTerminationMessage(struct Round *terminatedRound, int *oldScore);
  * @param round The round in which are the players.
  * @param currentPlayer The player which have to bid.
  *
- * @return NO_ERROR on success, other value on failure.
+ * @return NO_ERROR or 0 on success, other value on failure.
  */
-int displaysBids(struct Round *round, int currentPlayer);
+int displayBids(struct Round *round, int currentPlayer);
 

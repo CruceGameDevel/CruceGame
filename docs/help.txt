@@ -1,0 +1,20 @@
+Famous card game, similar to whist.
+The game can be played by up to 4 players. To win, one must achieve the number
+of points chosen at the beginning of the game.
+
+Controls:
+Use keyboard to insert player names, the numbers of points one must achive to
+win, etc.
+Left and Right arrow keys or a and d to select a card or a bid.
+Use ENTER to submit your choice.
+q to quit the game.
+
+CruceGame Usage:
+cruceGame [-hv]
+    -h, --help      Display this help
+    -v, --version   Current Version of Cruce Game
+
+Bugs/Issues/Feedback:
+Contact us here: cruce-development@googlegroups.com
+Source code: https://github.com/CruceGameDevel/CruceGame
+

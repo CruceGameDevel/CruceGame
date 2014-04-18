@@ -9,14 +9,50 @@
 #include <locale.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdlib.h>
+#include <getopt.h>
+#include <errno.h>
 
-#if defined(WIN32) && defined(NDEBUG)
-#include <Windows.h>
+/**
+ * @brief Define the version of current game
+ */
+#define GAME_VERSION "0.4.0"
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-#else
-int main()
-#endif
+/**
+ * @bried Path to the game help
+ */
+#define GAME_HELP_MANUAL "../docs/help.txt"
+
+/**
+ * @brief Prints the help manual of cruce game to the screen
+ */
+void cruceGameHelp()
+{
+    char text;
+    FILE *helpFile;
+    helpFile = fopen(GAME_HELP_MANUAL, "r");
+    if(!(helpFile)) {
+        printf("Unable to open\n");
+        if(errno == ENOENT) {
+            printf("File manual not exist\n");
+        }
+        if(errno == EACCES) {
+            printf("No permission to read manual\n");
+        }
+        exit(EXIT_SUCCESS);
+    }
+
+    while( (text = fgetc(helpFile)) != EOF ) {
+        printf("%c", text);
+    }
+    fclose(helpFile);
+    exit(EXIT_SUCCESS);
+}
+
+/**
+ * @brief Starts the game, connecting libraries and UI
+ */
+int cruceGameLogic()
 {
     setlocale(LC_ALL, "");
     initscr();
@@ -126,5 +162,54 @@ int main()
 
     getch();
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }
+
+#if defined(WIN32) && defined(NDEBUG)
+#include <Windows.h>
+
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#else
+int main(int argc, char *argv[])
+#endif
+{
+    if (argc >= 2) {
+        int getoptCheck;
+        struct option long_options[] = {
+            {"help", no_argument, 0, 'h'},
+            {"version", no_argument, 0, 'v'},
+            {0, 0, 0, 0}
+        };
+
+        while ((getoptCheck =
+                getopt_long(argc, argv, "hv", long_options, NULL)) != -1) {
+            if (getoptCheck == -1)
+                break;
+            switch (getoptCheck) {
+                case 'h':
+                    cruceGameHelp();
+                    break;
+                case 'v':
+                    printf("CruceGame Version: %s\n", GAME_VERSION);
+                    exit(EXIT_SUCCESS);
+                    break;
+                case '?':
+                    exit(EXIT_FAILURE);
+                default:
+                    exit(EXIT_FAILURE);
+            }
+        }
+
+        if (optind < argc) {
+            printf("non-option elements passed: ");
+            while (optind < argc) {
+                printf("%s ", argv[optind++]);
+            }
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        cruceGameLogic();
+    }
+    return EXIT_SUCCESS;
+}
+

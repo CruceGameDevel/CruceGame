@@ -1,3 +1,6 @@
+#ifndef CLI_H
+#define CLI_H
+
 /**
  * @file cli.h
  * @brief Contains declaration of the functions used for building the user
@@ -144,3 +147,4 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
  */
 int displayBids(struct Round *round, int currentPlayer);
 
+#endif

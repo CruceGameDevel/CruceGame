@@ -567,13 +567,14 @@ int getBid(struct Game *game, int playerId)
 
     getyx(stdscr, y, x);
 
-    WINDOW *bidsWindow = newwin(1, 15, y, 0);
+    WINDOW *bidsWindow = newwin(1, 30, y, 0);
 #ifdef BORSERS
     box(bidsWindow, 0, 0);
 #endif
     keypad(bidsWindow, TRUE);
 
     int ch, selected = 0;
+    wprintw(bidsWindow, "Choose a bid: ");
     printBids(selected, game->round, bidsWindow);
     while((ch = wgetch(bidsWindow)) != '\n') {
         switch (ch) {
@@ -589,6 +590,7 @@ int getBid(struct Game *game, int playerId)
                 exit(0);
         }
         wclear(bidsWindow);
+        wprintw(bidsWindow, "Choose a bid: ");
         printBids(selected, game->round, bidsWindow);
         wrefresh(bidsWindow);
     }

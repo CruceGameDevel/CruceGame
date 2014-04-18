@@ -35,7 +35,7 @@ void welcomeMessage();
  * @param frameColor The color with which is colored the frame of card.
  * @param win The window in which to display the card.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int printCard(struct Card *card, int frameColor, WINDOW *win);
 
@@ -49,7 +49,7 @@ int printCard(struct Card *card, int frameColor, WINDOW *win);
  *                 no card will be selected.
  * @param win The window in which to display the cards.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int printPlayerCards(struct Game *game, struct Player *player, int selecte,
                      WINDOW *win);
@@ -77,7 +77,7 @@ struct Player *newPlayer(int i);
  * @param round Pointer to the round of where to be printed the points.
  * @param win Pointer to the window in which to display the score.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int printScore(struct Game *game, struct Round *round, WINDOW *win);
 
@@ -86,7 +86,7 @@ int printScore(struct Game *game, struct Round *round, WINDOW *win);
  *
  * @param game Pointer to the game where form it the teams.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int formTeams(struct Game* game);
 
@@ -97,7 +97,7 @@ int formTeams(struct Game* game);
  * @param game Pointer to the game where to be the player and the table.
  * @param playerId The player's id to whom displays the cards.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int displayCardsAndPickCard(struct Game *game, int playerId);
 
@@ -107,7 +107,7 @@ int displayCardsAndPickCard(struct Game *game, int playerId);
  * @param game Pointer to the Game.
  * @param playerId Id of the bidding player.
  *
- * @return NO_ERROR or 0 un success, other value on failure.
+ * @return \ref NO_ERROR or 0 un success, other value on failure.
  */
 int getBid(struct Game* game, int playerId);
 
@@ -116,7 +116,7 @@ int getBid(struct Game* game, int playerId);
  *
  * @param winner The team who wins
  *
- * @return NO_ERROR on success, otherwise POINTER_NULL on failure
+ * @return \ref NO_ERROR on success, otherwise \ref POINTER_NULL on failure
  */
 int displayWinner(struct Team *winner);
 
@@ -143,7 +143,7 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore);
  * @param round The round in which are the players.
  * @param currentPlayer The player which have to bid.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 int displayBids(struct Round *round, int currentPlayer);
 

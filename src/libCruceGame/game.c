@@ -1,7 +1,7 @@
 /**
  * @file game.c
- * @brief Contains implementations of the functions used for game-related
- *        operations.
+ * @brief This file contains implementations of the functions used 
+ *        for game-related operations.
  */
 
 #include "game.h"

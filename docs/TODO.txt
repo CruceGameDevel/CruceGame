@@ -50,9 +50,10 @@ T9.1 Add ASCII art for welcome message.
 T9.2 Add ASCII art at game ending.
 
 T10. At every input, make sure the cursor is placed at the bottom of the screen.
+(wontfix)
 
 T11. Make sure the player swap at team creation (if the game is played on teams)
-is permanent.
+is permanent. fixed in 3588e2e
 
 T12. Some functions do not have tests. Add tests for:
 

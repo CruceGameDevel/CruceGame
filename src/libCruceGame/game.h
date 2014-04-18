@@ -51,7 +51,7 @@ extern "C" {
  *
  * @return Pointer to the new game on success or NULL on failure.
  */
-EXPORT struct Game *game_createGame(int numberPoints);
+EXPORT struct Game *game_createGame(const int numberPoints);
 
 /**
  * @brief Frees the memory of a game and makes the pointer NULL.
@@ -80,7 +80,7 @@ EXPORT int game_addPlayer(struct Player *player, struct Game *game);
  *
  * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int game_removePlayer(struct Player *player, struct Game *game);
+EXPORT int game_removePlayer(const struct Player *player, struct Game *game);
 
 /**
  * @brief Adds a team to a game.
@@ -101,7 +101,7 @@ EXPORT int game_addTeam(struct Team *team, struct Game *game);
  *
  * @return \ref NO_ERROR on success, error code otherwise.
  */
-EXPORT int game_removeTeam(struct Team *team, struct Game *game);
+EXPORT int game_removeTeam(const struct Team *team, struct Game *game);
 
 /**
  * @brief Searches the winning team of a game.
@@ -124,8 +124,8 @@ EXPORT struct Team *game_winningTeam(struct Game *game);
  *         0 if the player can't to put the card down
  *         other value on failure.
  */
-EXPORT int game_checkCard(struct Player *player, struct Game *game,
-                          struct Hand *hand, int idCard);
+EXPORT int game_checkCard(struct Player *player, const struct Game *game,
+                          struct Hand *hand, const int idCard);
 
 /**
  * @brief Function to find the next allowed card after currentCard.
@@ -167,7 +167,7 @@ EXPORT int game_findPreviousAllowedCard(struct Player *player,
  *
  * @return Pointer to the required team on success, NULL on failure.
  */
-EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
+EXPORT struct Team *game_findTeam(const struct Game *game, struct Player *player);
 
 /**
  * @brief Function to update the score of teams and players after a round.
@@ -177,7 +177,7 @@ EXPORT struct Team *game_findTeam(struct Game *game, struct Player *player);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
+EXPORT int game_updateScore(const struct Game *game, struct Player *bidWinner);
 
 /**
  * @brief Function to add a round to a game and to arrange players into it,
@@ -188,7 +188,7 @@ EXPORT int game_updateScore(struct Game *game, struct Player *bidWinner);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-EXPORT int game_arrangePlayersRound(struct Game *game, int i);
+EXPORT int game_arrangePlayersRound(struct Game *game, const int i);
 
 #ifdef __cplusplus
 }

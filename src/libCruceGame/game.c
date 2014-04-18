@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Game *game_createGame(int pointsNumber)
+struct Game *game_createGame(const int pointsNumber)
 {
 #ifndef DEBUG
     if (pointsNumber != 11 && pointsNumber != 15 && pointsNumber != 21)
@@ -76,7 +76,7 @@ int game_addPlayer(struct Player *player, struct Game *game)
     return FULL;
 }
 
-int game_removePlayer(struct Player *player, struct Game *game)
+int game_removePlayer(const struct Player *player, struct Game *game)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -118,7 +118,7 @@ int game_addTeam(struct Team *team, struct Game *game)
     return FULL;
 }
 
-int game_removeTeam(struct Team *team, struct Game *game)
+int game_removeTeam(const struct Team *team, struct Game *game)
 {
     if (team == NULL)
         return TEAM_NULL;
@@ -165,7 +165,8 @@ struct Team *game_winningTeam(struct Game *game)
     return NULL;
 }
 
-int game_maximumValue(struct Card *cards[], int length, enum Suit suit)
+int game_maximumValue(struct Card *cards[], const int length, 
+                        const enum Suit suit)
 {
     int maxValue = -1;
     for (int i = 0; i < length; i++)
@@ -176,8 +177,8 @@ int game_maximumValue(struct Card *cards[], int length, enum Suit suit)
     return maxValue;
 }
 
-int game_checkCard(struct Player *player, struct Game *game,
-                   struct Hand *hand, int idCard)
+int game_checkCard(struct Player *player, const struct Game *game,
+                   struct Hand *hand, const int idCard)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -239,8 +240,8 @@ int game_checkCard(struct Player *player, struct Game *game,
  *
  * @return The first allowed card found.
  */
-int findAllowedCard(struct Player *player, struct Game *game, struct Hand *hand,
-             int currentCard, int searchPattern)
+int findAllowedCard(const struct Player *player, const struct Game *game, 
+                    struct Hand *hand, int currentCard, const int searchPattern)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -279,7 +280,7 @@ int game_findPreviousAllowedCard(struct Player *player, struct Game *game,
     return findAllowedCard(player, game, hand, currentCard, -1);
 }
 
-struct Team *game_findTeam(struct Game *game, struct Player *player)
+struct Team *game_findTeam(const struct Game *game, struct Player *player)
 {
     if (player == NULL)
         return NULL;
@@ -297,7 +298,7 @@ struct Team *game_findTeam(struct Game *game, struct Player *player)
     return NULL;
 }
 
-int game_updateScore(struct Game *game, struct Player *bidWinner)
+int game_updateScore(const struct Game *game, struct Player *bidWinner)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -345,7 +346,7 @@ int game_updateScore(struct Game *game, struct Player *bidWinner)
     return NO_ERROR;
 }
 
-int game_arrangePlayersRound(struct Game *game, int i)
+int game_arrangePlayersRound(struct Game *game, const int i)
 {
     if (game == NULL)
         return GAME_NULL;

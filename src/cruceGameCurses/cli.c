@@ -553,21 +553,6 @@ int getBid(const struct Game *game, const int playerId)
     return NO_ERROR;
 }
 
-int displayWinner(const struct Team *winner) {
-    int i;
-    if(winner->id <= 4) { 
-        printw("The winner of the game: ");
-        for(i=0;i<MAX_GAME_PLAYERS;i++) {
-            if(winner->players[i]->name != NULL) {
-                printw("%s, ", winner->players[i]->name);
-            }
-        }
-        return NO_ERROR; 
-    } else {
-        return POINTER_NULL;
-    }
-}
-
 int processingScore(const char *score)
 {
 #ifdef DEBUG

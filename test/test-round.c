@@ -626,3 +626,28 @@ void test_round_findNextAllowedBid()
     team_deletePlayer(&player);
     round_deleteRound(&round);
 }
+
+void test_round_findPreviousAllowedBid()
+{
+    struct Round *round = round_createRound();
+    cut_assert_equal_int(ROUND_NULL, round_findPreviousAllowedBid(NULL, 0));
+    cut_assert_equal_int(ILLEGAL_VALUE, round_findPreviousAllowedBid(round,
+                                                                     -1));
+    cut_assert_equal_int(ILLEGAL_VALUE, round_findPreviousAllowedBid(round, 7));
+
+    struct Player *player = team_createPlayer("A", 0);
+    round_addPlayer(player, round);
+    round_placeBid(player, 2, round);
+
+    cut_assert_equal_int(6, round_findPreviousAllowedBid(round, 0));
+    cut_assert_equal_int(0, round_findPreviousAllowedBid(round, 1));
+    cut_assert_equal_int(0, round_findPreviousAllowedBid(round, 2));
+    cut_assert_equal_int(0, round_findPreviousAllowedBid(round, 3));
+    cut_assert_equal_int(3, round_findPreviousAllowedBid(round, 4));
+    cut_assert_equal_int(4, round_findPreviousAllowedBid(round, 5));
+    cut_assert_equal_int(5, round_findPreviousAllowedBid(round, 6));
+
+    team_deletePlayer(&player);
+    round_deleteRound(&round);
+}
+

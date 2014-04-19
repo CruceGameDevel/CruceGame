@@ -17,7 +17,6 @@ void test_team_createPlayer()
         cut_assert_equal_string("A", player->name);
         cut_assert_equal_int(i, player->isHuman);
         cut_assert_equal_int(0, player->score);
-        cut_assert_operator_int(-1, <, player->id);
         team_deletePlayer(&player);
     }
 }
@@ -27,7 +26,6 @@ void test_team_createTeam()
     struct Team *team;
     for (int i = 0; i < 100; i++) {
         team = team_createTeam();
-        cut_assert_operator_int(-1, <, team->id);
         cut_assert_equal_int(0, team->score);
         team_deleteTeam(&team);
     }

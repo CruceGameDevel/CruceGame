@@ -9,6 +9,7 @@
 #include <locale.h>
 #include <string.h>
 #include <stddef.h>
+#include <unistd.h>
 
 #if defined(WIN32) && defined(NDEBUG)
 #include <Windows.h>
@@ -66,6 +67,11 @@ int main()
             clear();
             refresh();
         }
+        displayBids(game, game->numberPlayers);
+        refresh();
+        sleep(2);
+        clear();
+        refresh();
 
         struct Player *bidWinner = round_getBidWinner(game->round);
         int first = round_findPlayerIndexRound(bidWinner, game->round);

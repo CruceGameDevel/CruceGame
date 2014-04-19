@@ -518,6 +518,30 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
     return NO_ERROR;
 }
 
+int printBids(int selected, struct Round *round, WINDOW *win)
+{
+    if (selected > 6 || selected < 0)
+        return ILLEGAL_VALUE;
+    if (round == NULL)
+        return ROUND_NULL;
+
+    for (int i = 0; i <= 6; i++)
+        if (i == selected) {
+            wattron(win, COLOR_PAIR(3));
+            wprintw(win, "%d ", i);
+            wattroff(win, COLOR_PAIR(3));
+        }
+        else if (i > round_getMaximumBid(round) || i == 0)
+                wprintw(win, "%d ", i);
+             else {
+                 wattron(win, COLOR_PAIR(1));
+                 wprintw(win, "%d ", i);
+                 wattroff(win, COLOR_PAIR(1));
+             }
+
+    return NO_ERROR;
+}
+
 int getBid(const struct Game *game, const int playerId)
 {
     if (game == NULL)
@@ -538,17 +562,42 @@ int getBid(const struct Game *game, const int playerId)
     getyx(stdscr, y, x);
     move(y + 8, 0);
 
-    displayBids(game->round, playerId);
+    displayBids(game, playerId);
 
-    printw("Insert a bid please: ");
-    char ch = getch();
-    while (round_placeBid(game->round->players[playerId], ch - '0', 
-                          game->round)) { 
-        printw("\nInsert a valid bid: ");
-        ch = getch();
+    getyx(stdscr, y, x);
+    refresh();
+
+    WINDOW *bidsWindow = newwin(1, 30, y, 0);
+#ifdef BORSERS
+    box(bidsWindow, 0, 0);
+#endif
+    keypad(bidsWindow, TRUE);
+
+    int ch, selected = 0;
+    wprintw(bidsWindow, "Choose a bid: ");
+    printBids(selected, game->round, bidsWindow);
+    while((ch = wgetch(bidsWindow)) != '\n') {
+        switch (ch) {
+            case 'a':
+            case KEY_LEFT:
+                selected = round_findPreviousAllowedBid(game->round, selected);
+                break;
+            case 'd':
+            case KEY_RIGHT:
+                selected = round_findNextAllowedBid(game->round, selected);
+                break;
+            case 'q':
+                exit(0);
+        }
+        wclear(bidsWindow);
+        wprintw(bidsWindow, "Choose a bid: ");
+        printBids(selected, game->round, bidsWindow);
+        wrefresh(bidsWindow);
     }
 
-    printw("\n\n");
+    delwin(bidsWindow);
+    
+    round_placeBid(game->round->players[playerId], selected, game->round);
 
     return NO_ERROR;
 }
@@ -681,17 +730,22 @@ int printRoundTerminationMessage(const struct Game *currentGame,
     return NO_ERROR;
 }
 
-int displayBids(const struct Round *round, const int currentPlayer)
+int displayBids(const struct Game *game, const int currentPlayer)
 {
-    if (round == NULL)
+    if (game == NULL)
+        return GAME_NULL;
+    if (game->round == NULL)
         return ROUND_NULL;
-    if (currentPlayer >= MAX_GAME_PLAYERS || currentPlayer < 0)
+    if (currentPlayer > game->numberPlayers || currentPlayer < 0)
         return ILLEGAL_VALUE;
 
-    for (int i = 0; i < currentPlayer; i++)
-        if (round->players[i] != NULL)
-            printw("%s bid %d\n", round->players[i]->name, round->bids[i]);
-    printw("\n");
+    for (int i = 0; i < game->numberPlayers; i++)
+        if (game->round->players[i] != NULL)
+            if (i < currentPlayer)
+                printw("%s bid %d\n", game->round->players[i]->name, 
+                                      game->round->bids[i]);
+            else
+                printw("%s bid -\n", game->round->players[i]->name);
 
     return NO_ERROR;
 }

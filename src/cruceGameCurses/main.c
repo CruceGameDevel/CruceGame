@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <errno.h>
+#include <unistd.h>
 
 /**
  * @brief Define the version of current game
@@ -102,6 +103,11 @@ int cruceGameLogic()
             clear();
             refresh();
         }
+        displayBids(game, game->numberPlayers);
+        refresh();
+        sleep(2);
+        clear();
+        refresh();
 
         struct Player *bidWinner = round_getBidWinner(game->round);
         int first = round_findPlayerIndexRound(bidWinner, game->round);

@@ -141,11 +141,23 @@ int printRoundTerminationMessage(const struct Game *currentGame,
 /**
  * @brief Displays how much bid each player.
  *
- * @param round The round in which are the players.
+ * @param game The game in which are the players.
  * @param currentPlayer The player which have to bid.
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int displayBids(const struct Round *round, const int currentPlayer);
+int displayBids(const struct Game *game, const int currentPlayer);
+
+/**
+ * @brief Displays the bids for to pick a bid.
+ *
+ * @param selected The selected bid.
+ * @param round The round in which are the bids.
+ * @param win The window in which are display the bids.
+ *
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
+ */
+int printBids(int selected, struct Round *round, WINDOW *win);
 
 #endif
+

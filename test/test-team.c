@@ -166,6 +166,9 @@ void test_team_updatePlayersScore()
         if (team->players[i] != NULL)
             cut_assert_equal_int(team->players[i]->score, team->score);
     }
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
+        team_deletePlayer(&team->players[i]);
+    team_deleteTeam(&team);
 }
 
 void test_team_computePoints()

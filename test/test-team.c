@@ -159,27 +159,25 @@ void test_team_hasCards()
 
 void test_team_computePoints()
 {
-    int i;
     struct Team *teamA = team_createTeam("teamA");
     struct Team *teamB = team_createTeam("teamB");
     struct Round *round = round_createRound();
-    
-    struct Player *playerA = team_createPlayer("playerA", 1);
-    struct Player *playerB = team_createPlayer("playerB", 1);
-    struct Player *playerC = team_createPlayer("playerC", 1);
-    struct Player *playerD = team_createPlayer("playerD", 1);
-    
-    team_addPlayer(teamA,playerA);
-    team_addPlayer(teamA,playerB);
 
-    round_addPlayer(playerA,round);
-    round_addPlayer(playerB,round);
+    struct Player *player[MAX_GAME_PLAYERS];
 
-    for (i = 0; i < MAX_GAME_PLAYERS; i++) {
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+            player[i] = team_createPlayer("A", i);
+            round_addPlayer(player[i], round);
+    }
+    
+    team_addPlayer(teamA,player[0]);
+    team_addPlayer(teamA,player[1]);
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
         round->pointsNumber[i]  = 2*i;
     }
     
-    cut_assert_equal_int(TEAM_NULL, team_computePoints(NULL,NULL));
+    cut_assert_not_equal_int(NO_ERROR, team_computePoints(NULL,NULL));
     cut_assert_equal_int(ROUND_NULL, team_computePoints(teamA,NULL));
     cut_assert_equal_int(TEAM_NULL, team_computePoints(NULL,round));
 
@@ -188,4 +186,19 @@ void test_team_computePoints()
 
     cut_assert_equal_int(12, team_computePoints(teamA,round));
 
+
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        round_removePlayer(player[i],round);
+    }
+    
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        team_deletePlayer(&round->players[i]);
+    }
+
+    round_deleteRound(&round);
+    
+    team_deleteTeam(&teamA);
+    team_deleteTeam(&teamB);
+
 }
+

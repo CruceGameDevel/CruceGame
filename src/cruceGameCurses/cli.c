@@ -566,6 +566,7 @@ int getBid(struct Game *game, int playerId)
     displayBids(game->round, playerId);
 
     getyx(stdscr, y, x);
+    refresh();
 
     WINDOW *bidsWindow = newwin(1, 30, y, 0);
 #ifdef BORSERS

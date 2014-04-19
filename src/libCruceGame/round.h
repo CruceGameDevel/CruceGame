@@ -223,6 +223,16 @@ EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
  */
 EXPORT int round_arrangePlayersHand(struct Round *round, int i);
 
+/**
+ * @brief Compute round points of a team.
+ *
+ * @param team The team to compute points for.
+ * @param round The round where to compute points.
+ *
+ * @return Number of round points on success, other value on failure.
+ */
+EXPORT int round_computePoints(const struct Team *team,
+                               const struct Round *round);
 #ifdef __cplusplus
 }
 #endif

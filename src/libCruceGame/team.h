@@ -7,7 +7,6 @@
 #define TEAM_H
 
 #include "deck.h"
-#include "round.h"
 
 /**
  * @struct Player
@@ -139,16 +138,6 @@ EXPORT int team_hasCards(const struct Player *player);
  */
 EXPORT int team_updatePlayersScore(struct Team *team);
 
-/**
- * @brief Compute round points of a team.
- *
- * @param team The team to compute points for.
- * @param round The round where to compute points.
- *
- * @return Number of round points on success, other value on failure.
- */
-EXPORT int team_computePoints(const struct Team *team, 
-							  const struct Round *round);
 #ifdef __cplusplus
 }
 #endif

@@ -163,27 +163,3 @@ int team_updatePlayersScore(struct Team *team)
     return NO_ERROR;
 }
 
-int team_computePoints(const struct Team *team, const struct Round *round)
-{
-    if (team == NULL)
-        return TEAM_NULL;
-    if (round == NULL)
-        return ROUND_NULL;
-
-    int playersNumber = 0;
-    int points = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
-        if (team->players[i] != NULL) {
-            playersNumber++;
-            int j = round_findPlayerIndexRound(team->players[i], round);
-            if (j < 0)
-                return j;
-            points += round->pointsNumber[j];
-        }
-
-    if (playersNumber == 0)
-        return TEAM_EMPTY;
-
-    return points;
-}
-

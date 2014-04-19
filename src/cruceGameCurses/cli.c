@@ -319,7 +319,7 @@ int printScore(const struct Game *game, const struct Round *round, WINDOW *win)
             wprintw(win, "%s", verticalLeftBox);
             if (playersNumber > 0) {
                 wmove(win, y + line - playersNumber, x + maxLength + 2);
-                wprintw(win, "%*d", 6, team_computePoints(game->teams[i], 
+                wprintw(win, "%*d", 6, round_computePoints(game->teams[i],
                                        round));
                 wmove(win, y + line - playersNumber, x + maxLength + 9);
                 wprintw(win, "%*d", 5, game->teams[i]->score);

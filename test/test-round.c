@@ -582,3 +582,41 @@ void test_round_addPlayerHand()
     round_deleteHand(&hand);
 }
 
+void test_round_computePoints()
+{
+    struct Team *teamA = team_createTeam();
+    struct Team *teamB = team_createTeam();
+    struct Round *round = round_createRound();
+
+    struct Player *player[MAX_GAME_PLAYERS];
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        player[i] = team_createPlayer("A", i);
+        round_addPlayer(player[i], round);
+        round->pointsNumber[i] = 2*i;
+    }
+
+    cut_assert_not_equal_int(NO_ERROR, round_computePoints(NULL, NULL));
+    cut_assert_equal_int(ROUND_NULL, round_computePoints(teamA, NULL));
+    cut_assert_equal_int(TEAM_NULL, round_computePoints(NULL, round));
+
+    cut_assert_equal_int(TEAM_EMPTY, round_computePoints(teamB, round));
+
+    team_addPlayer(teamA, player[0]);
+    team_addPlayer(teamA, player[1]);
+    team_addPlayer(teamB, player[2]);
+    team_addPlayer(teamB, player[3]);
+
+    cut_assert_equal_int(2, round_computePoints(teamA, round));
+    cut_assert_equal_int(10, round_computePoints(teamB, round));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        team_deletePlayer(&round->players[i]);
+
+    round_deleteRound(&round);
+
+    team_deleteTeam(&teamA);
+    team_deleteTeam(&teamB);
+
+}
+

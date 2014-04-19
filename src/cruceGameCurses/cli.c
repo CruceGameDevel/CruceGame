@@ -598,7 +598,7 @@ int getBid(struct Game *game, int playerId)
 
     delwin(bidsWindow);
     
-    round_placeBid(game->players[playerId], selected, game->round);
+    round_placeBid(game->round->players[playerId], selected, game->round);
 
     return NO_ERROR;
 }

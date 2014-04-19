@@ -159,44 +159,37 @@ void test_team_hasCards()
 
 void test_team_computePoints()
 {
-    struct Team *teamA = team_createTeam("teamA");
-    struct Team *teamB = team_createTeam("teamB");
+    struct Team *teamA = team_createTeam("A");
+    struct Team *teamB = team_createTeam("B");
     struct Round *round = round_createRound();
 
     struct Player *player[MAX_GAME_PLAYERS];
 
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-            player[i] = team_createPlayer("A", i);
-            round_addPlayer(player[i], round);
-    }
-    
-    team_addPlayer(teamA,player[0]);
-    team_addPlayer(teamA,player[1]);
-
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        round->pointsNumber[i]  = 2*i;
+        player[i] = team_createPlayer("A", i);
+        round_addPlayer(player[i], round);
+        round->pointsNumber[i] = 2*i;
     }
-    
-    cut_assert_not_equal_int(NO_ERROR, team_computePoints(NULL,NULL));
-    cut_assert_equal_int(ROUND_NULL, team_computePoints(teamA,NULL));
-    cut_assert_equal_int(TEAM_NULL, team_computePoints(NULL,round));
 
-    cut_assert_not_equal_int(TEAM_EMPTY, team_computePoints(teamA,round));
-    cut_assert_equal_int(TEAM_EMPTY, team_computePoints(teamB,round));
+    cut_assert_not_equal_int(NO_ERROR, team_computePoints(NULL, NULL));
+    cut_assert_equal_int(ROUND_NULL, team_computePoints(teamA, NULL));
+    cut_assert_equal_int(TEAM_NULL, team_computePoints(NULL, round));
 
-    cut_assert_equal_int(12, team_computePoints(teamA,round));
+    cut_assert_equal_int(TEAM_EMPTY, team_computePoints(teamB, round));
 
+    team_addPlayer(teamA, player[0]);
+    team_addPlayer(teamA, player[1]);
+    team_addPlayer(teamB, player[2]);
+    team_addPlayer(teamB, player[3]);
 
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        round_removePlayer(player[i],round);
-    }
-    
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+    cut_assert_equal_int(2, team_computePoints(teamA, round));
+    cut_assert_equal_int(10, team_computePoints(teamB, round));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         team_deletePlayer(&round->players[i]);
-    }
 
     round_deleteRound(&round);
-    
+
     team_deleteTeam(&teamA);
     team_deleteTeam(&teamB);
 

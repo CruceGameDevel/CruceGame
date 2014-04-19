@@ -15,8 +15,6 @@
  *
  * Structure to keep relevant informations about the players.
  *
- * @var Player::id
- *     Identifier of the player.
  * @var Player::name
  *     Pointer to the name of the player.
  * @var Player::hand
@@ -28,7 +26,6 @@
  *     Flag used to indicate if the player is human or robot.
  */
 struct Player{
-    int id;
     char *name;
     struct Card *hand[MAX_CARDS];
     int score;
@@ -42,15 +39,12 @@ struct Player{
  * Players are grouped in teams. One team for 2-3 players,
  * and two teams for 4 players.
  *
- * @var Team::id
- *     The identifier of the team.
  * @var Team::score
  *     The score achieved by the team in this game.
  * @var Team::players
  *     Pointer to the players of the team.
  */
 struct Team{
-    int id;
     int score;
     struct Player *players[MAX_TEAM_PLAYERS];
 };

@@ -18,7 +18,6 @@ struct Player *team_createPlayer(const char *name, const int isHuman)
     if (name == NULL)
         return NULL;
 
-    static int id = 0; //needs rethinking
     struct Player *newPlayer = malloc(sizeof(struct Player));
 
     if (newPlayer == NULL)
@@ -31,7 +30,6 @@ struct Player *team_createPlayer(const char *name, const int isHuman)
     else 
         return NULL;
 
-    newPlayer->id      = id++;
     newPlayer->score   = 0;
     newPlayer->isHuman = isHuman;
 
@@ -43,13 +41,11 @@ struct Player *team_createPlayer(const char *name, const int isHuman)
 
 struct Team *team_createTeam()
 {
-    static int id = 0; //needs rethinking
     struct Team *newTeam = malloc(sizeof(struct Team));
 
     if (newTeam == NULL)
         return NULL;
 
-    newTeam->id    = id++;
     newTeam->score = 0;
 
     newTeam->players[0] = NULL;

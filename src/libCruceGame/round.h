@@ -37,8 +37,6 @@ struct Hand{
  * hands and computes the score until the winner of the
  * round is found.
  *
- * @var Round::id
- *     Identifier of the round.
  * @var Round::trump
  *     The trump of the round.
  * @var Round::hands
@@ -51,7 +49,6 @@ struct Hand{
  *     The total amount of points of the round.
  */
 struct Round{
-    int id;
     enum Suit trump;
     struct Hand *hands[MAX_HANDS];
     int bids[MAX_GAME_PLAYERS];

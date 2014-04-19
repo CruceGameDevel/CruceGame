@@ -746,7 +746,7 @@ int displayBids(struct Game *game, int currentPlayer)
         return GAME_NULL;
     if (game->round == NULL)
         return ROUND_NULL;
-    if (currentPlayer >= game->numberPlayers || currentPlayer < 0)
+    if (currentPlayer > game->numberPlayers || currentPlayer < 0)
         return ILLEGAL_VALUE;
 
     for (int i = 0; i < game->numberPlayers; i++)

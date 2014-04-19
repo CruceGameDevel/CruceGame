@@ -582,3 +582,27 @@ void test_round_addPlayerHand()
     round_deleteHand(&hand);
 }
 
+void test_round_getMaximumBid()
+{
+    cut_assert_equal_int(ROUND_NULL, round_getMaximumBid(NULL));
+
+    struct Round *round = round_createRound();
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
+        round_addPlayer(team_createPlayer("A", 0), round);
+        round->bids[i] = i;
+    }
+
+    cut_assert_equal_int(MAX_GAME_PLAYERS - 1, round_getMaximumBid(round));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        round->bids[i] = MAX_GAME_PLAYERS - i;
+
+    cut_assert_equal_int(MAX_GAME_PLAYERS, round_getMaximumBid(round));
+
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if(round->players[i] != NULL)
+            team_deletePlayer(&round->players[i]);
+    round_deleteRound(&round);
+}
+

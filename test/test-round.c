@@ -622,6 +622,8 @@ void test_round_findNextAllowedBid()
     cut_assert_equal_int(3, round_findNextAllowedBid(round, 2));
     cut_assert_equal_int(4, round_findNextAllowedBid(round, 3));
     cut_assert_equal_int(5, round_findNextAllowedBid(round, 4));
+    cut_assert_equal_int(6, round_findNextAllowedBid(round, 5));
+    cut_assert_equal_int(0, round_findNextAllowedBid(round, 6));
 
     team_deletePlayer(&player);
     round_deleteRound(&round);

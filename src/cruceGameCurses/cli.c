@@ -563,7 +563,7 @@ int getBid(struct Game *game, int playerId)
     getyx(stdscr, y, x);
     move(y + 8, 0);
 
-    displayBids(game->round, playerId);
+    displayBids(game, playerId);
 
     getyx(stdscr, y, x);
     refresh();
@@ -740,17 +740,22 @@ int printRoundTerminationMessage(struct Game *currentGame, int *oldScore)
     return NO_ERROR;
 }
 
-int displayBids(struct Round *round, int currentPlayer)
+int displayBids(struct Game *game, int currentPlayer)
 {
-    if (round == NULL)
+    if (game == NULL)
+        return GAME_NULL;
+    if (game->round == NULL)
         return ROUND_NULL;
-    if (currentPlayer >= MAX_GAME_PLAYERS || currentPlayer < 0)
+    if (currentPlayer >= game->numberPlayers || currentPlayer < 0)
         return ILLEGAL_VALUE;
 
-    for (int i = 0; i < currentPlayer; i++)
-        if (round->players[i] != NULL)
-            printw("%s bid %d\n", round->players[i]->name, round->bids[i]);
-    printw("\n");
+    for (int i = 0; i < game->numberPlayers; i++)
+        if (game->round->players[i] != NULL)
+            if (i < currentPlayer)
+                printw("%s bid %d\n", game->round->players[i]->name, 
+                                      game->round->bids[i]);
+            else
+                printw("%s bid -\n", game->round->players[i]->name);
 
     return NO_ERROR;
 }

@@ -13,7 +13,7 @@
  * @struct Player
  * @brief Player structure.
  *
- * Structure to keep relevant informations about the players.
+ * Structure to keep relevant information about the players.
  *
  * @var Player::name
  *     Pointer to the name of the player.
@@ -23,7 +23,7 @@
  *     The points achieved by the player in this game. It is equal with
  *     team points, if the game is played in teams.
  * @var Player::isHuman
- *     Flag used to indicate if the player is human or robot.
+ *     Flag used to indicate if the player is human or AI.
  */
 struct Player{
     char *name;
@@ -124,9 +124,9 @@ EXPORT int team_addCard(struct Player *player, struct Card *card);
 /**
 * @brief Checks if a player has any card
 * 
-* @param player Pointer to the player that is ckecked
+* @param player Pointer to the player that is checked
 *
-* @return 1 in case of succes, 0 otherwise
+* @return 1 in case of success, 0 otherwise
 */
 EXPORT int team_hasCards(const struct Player *player);
 

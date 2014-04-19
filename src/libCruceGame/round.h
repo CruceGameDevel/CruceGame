@@ -184,14 +184,12 @@ EXPORT int round_removePlayerHand(const struct Player *player,
  * @brief Determines the winner of a hand.
  *
  * @param hand Pointer to the hand.
- * @param trump The trump of round.
  * @param round Pointer to the round containing the hand that the player won.
  *
  * @return Pointer to the winning player or NULL on failure.
  */
-EXPORT struct Player *round_handWinner(const struct Hand *hand, 
-                                        const enum Suit trump, 
-                                        struct Round *round);
+EXPORT struct Player *round_handWinner(const struct Hand *hand,
+                                       struct Round *round);
 
 /**
  * @brief Distributes one card to every player.

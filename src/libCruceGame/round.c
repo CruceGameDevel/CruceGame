@@ -270,12 +270,12 @@ int totalPointsNumber(const struct Hand *hand)
     return points;
 }
 
-struct Player *round_handWinner(const struct Hand *hand, const enum Suit trump,
-                                struct Round *round)
+struct Player *round_handWinner(const struct Hand *hand, struct Round *round)
 {
-    if (hand == NULL || trump == SuitEnd || round == NULL)
+    if (hand == NULL || round == NULL || round->trump == SuitEnd)
         return NULL;
 
+    enum Suit trump = round->trump;
     int playerWinner = -1;
     int numberPlayers = 0;
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {

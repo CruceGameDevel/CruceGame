@@ -1,4 +1,4 @@
-/**
+/*
  * @file main.c
  * @brief The code in this file controls the activity of the whole game.
  *        This module is the controller.
@@ -123,7 +123,6 @@ int cruceGameLogic()
             }
 
             struct Player *handWinner = round_handWinner(game->round->hands[i],
-                                                         game->round->trump, 
                                                          game->round);
             first = round_findPlayerIndexRound(handWinner, game->round);
 

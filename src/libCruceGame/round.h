@@ -232,7 +232,7 @@ EXPORT int round_arrangePlayersHand(struct Round *round, int i);
 EXPORT int round_computePoints(const struct Team *team,
                                const struct Round *round);
 
-/*
+/**
  * @brief The function search the maximum bid.
  *
  * @param round Pointer to the round in which are the bids.

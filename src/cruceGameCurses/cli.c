@@ -212,8 +212,7 @@ struct Player *newPlayer(const int i)
         sprintf(format, "%%%i[^\n]", MAX_NAME_SIZE);
         scanw(format, name);
         length = strlen(name);
-    }
-    while(length == 0);
+    } while(length == 0);
 
     struct Player *player = team_createPlayer(name, 1);
     free(name);
@@ -636,8 +635,7 @@ int getScoreLimit()
         printw("Insert the score limit (11-15-21): ");
         scanw("%s", score);
         length = strlen(score);
-    }
-    while(length == 0);
+    } while(length == 0);
 
     while (processingScore(score) == -1) {
         printw("Insert the correct score limit (11-15-21): ");

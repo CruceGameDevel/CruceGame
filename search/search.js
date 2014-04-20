@@ -7,11 +7,14 @@
 
 var indexSectionsWithContent =
 {
-  0: "bcdghinprstv",
+  0: "bcdefghilmnprstv",
   1: "cdghprt",
-  2: "dgprt",
-  3: "dgrt",
-  4: "bcdhinprstv"
+  2: "cdegprt",
+  3: "cdefgmrt",
+  4: "bcdhinprstv",
+  5: "es",
+  6: "cdefghilmnprt",
+  7: "dms"
 };
 
 var indexSectionNames =
@@ -20,7 +23,10 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables"
+  4: "variables",
+  5: "enums",
+  6: "enumvalues",
+  7: "defines"
 };
 
 function convertToId(search)

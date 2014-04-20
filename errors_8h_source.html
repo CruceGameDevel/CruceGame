@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,63 +88,93 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">errors.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ERRORS_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ERRORS_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="platform_8h.html">platform.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">enum</span> ERROR_CODE {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    NO_ERROR      = 0,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    POINTER_NULL  = -1,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    MALLOC_ERROR  = -2,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    CARD_NULL     = -3,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    DECK_NULL     = -4,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    PLAYER_NULL   = -5,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    TEAM_NULL     = -6,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    TEAM_FULL     = -7,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    TEAM_EMPTY    = -8,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    DUPLICATE     = -9,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    NOT_FOUND     = -10,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ROUND_NULL    = -11,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    HAND_NULL     = -12,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ILLEGAL_VALUE = -13,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    FULL          = -14,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ERROR_COMPARE = -15,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    HAND_EMPTY    = -16,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    DECK_EMPTY    = -17,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    INSUFFICIENT_PLAYERS  = -18,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    LESS_CARDS    = -19,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    GAME_NULL     = -20,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ROUND_EMPTY   = -21,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    GAME_EMPTY    = -22</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;EXPORT <span class="keyword">const</span> <span class="keywordtype">char</span> *error(<span class="keywordtype">int</span> error_code);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
+<a href="errors_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef ERRORS_H</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ERRORS_H</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="platform_8h.html">platform.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28c">   18</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28c">ERROR_CODE</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">   19</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a>      = 0,   </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca1d9109dc66df8f33c439cb9c528611a6">   21</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca1d9109dc66df8f33c439cb9c528611a6">POINTER_NULL</a>  = -1,  </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cae3ff4e9d26fde964d55d0503fa68b687">   22</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cae3ff4e9d26fde964d55d0503fa68b687">MALLOC_ERROR</a>  = -2,  </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca9d023b99aa59c74f11cc021696870fbc">   24</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca9d023b99aa59c74f11cc021696870fbc">CARD_NULL</a>     = -3,  </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca4c4069373e186843ea366194baf8984e">   25</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca4c4069373e186843ea366194baf8984e">DECK_NULL</a>     = -4,  </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca385a8a7d34ee0ac97b8ecc2787be915b">   26</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca385a8a7d34ee0ac97b8ecc2787be915b">PLAYER_NULL</a>   = -5,  </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca83ba328b6a1e7f0468f78201eb97419c">   27</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca83ba328b6a1e7f0468f78201eb97419c">TEAM_NULL</a>     = -6,  </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caac407ceb0ac615753baee650bcb968ad">   29</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caac407ceb0ac615753baee650bcb968ad">TEAM_FULL</a>     = -7,  </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7472cab17516e7c6af632e0adf97d3fc">   30</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7472cab17516e7c6af632e0adf97d3fc">TEAM_EMPTY</a>    = -8,  </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca6d0b42a4ceb4a0594120df04371fad5f">   32</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca6d0b42a4ceb4a0594120df04371fad5f">DUPLICATE</a>     = -9,  </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cacdaa2919bac56fe1090eb3dbb9526472">   33</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cacdaa2919bac56fe1090eb3dbb9526472">NOT_FOUND</a>     = -10, </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cafcb1011a1bc1cdf8bf25d0645c546e37">   35</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cafcb1011a1bc1cdf8bf25d0645c546e37">ROUND_NULL</a>    = -11, </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cab195f193cde06044ce034ad11f09073b">   36</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cab195f193cde06044ce034ad11f09073b">HAND_NULL</a>     = -12, </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca26b75a3b7e8a89524870f466729f9e38">   38</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca26b75a3b7e8a89524870f466729f9e38">ILLEGAL_VALUE</a> = -13, </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cad08f8ac0aa8dfb59589824359772459e">   40</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cad08f8ac0aa8dfb59589824359772459e">FULL</a>          = -14, </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cac21babd93f31848985b15a97380bf8a5">   41</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cac21babd93f31848985b15a97380bf8a5">ERROR_COMPARE</a> = -15, </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca82c494c055cddbce92f300158eceb561">   43</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca82c494c055cddbce92f300158eceb561">HAND_EMPTY</a>    = -16, </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca97b62fe642c3ccc71675ffddbacd1e00">   44</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca97b62fe642c3ccc71675ffddbacd1e00">DECK_EMPTY</a>    = -17, </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7dd141e18468213401d45b9f881722ed">   46</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7dd141e18468213401d45b9f881722ed">INSUFFICIENT_PLAYERS</a>  = -18, </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca007c91407ebc1854cc0770d0c924e74e">   47</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca007c91407ebc1854cc0770d0c924e74e">LESS_CARDS</a>    = -19, </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca3819d067376eb6c98d6e94c7a0655702">   49</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca3819d067376eb6c98d6e94c7a0655702">GAME_NULL</a>     = -20, </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca8e4b080522be6978de9606f625ebd6ee">   50</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca8e4b080522be6978de9606f625ebd6ee">ROUND_EMPTY</a>   = -21, </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca258d426a2fd34167a05639aebe00d383">   51</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca258d426a2fd34167a05639aebe00d383">GAME_EMPTY</a>    = -22, </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a">   53</a></span>&#160;    <a class="code" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a">DUPLICATE_NAME</a> = -23 </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;EXPORT <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="errors_8h.html#a5e80f3c341dccc88ae38fbe5b7f41873">error</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> error_code);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor"></span></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a">DUPLICATE_NAME</a></div><div class="ttdoc">There is one more player with this name. </div><div class="ttdef"><b>Definition:</b> errors.h:53</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca3819d067376eb6c98d6e94c7a0655702"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca3819d067376eb6c98d6e94c7a0655702">GAME_NULL</a></div><div class="ttdoc">The value of the argument that should point to a Game is equal to NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:49</div></div>
+<div class="ttc" id="errors_8h_html_a5e80f3c341dccc88ae38fbe5b7f41873"><div class="ttname"><a href="errors_8h.html#a5e80f3c341dccc88ae38fbe5b7f41873">error</a></div><div class="ttdeci">EXPORT const char * error(const int error_code)</div><div class="ttdoc">Returns the error code text of the error code given. </div><div class="ttdef"><b>Definition:</b> errors.c:8</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca4c4069373e186843ea366194baf8984e"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca4c4069373e186843ea366194baf8984e">DECK_NULL</a></div><div class="ttdoc">The deck of the current player is NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:25</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cad08f8ac0aa8dfb59589824359772459e"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cad08f8ac0aa8dfb59589824359772459e">FULL</a></div><div class="ttdoc">There is no place left for one more player or hand. </div><div class="ttdef"><b>Definition:</b> errors.h:40</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca6d0b42a4ceb4a0594120df04371fad5f"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca6d0b42a4ceb4a0594120df04371fad5f">DUPLICATE</a></div><div class="ttdoc">There is one more player or card with that name. </div><div class="ttdef"><b>Definition:</b> errors.h:32</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca7472cab17516e7c6af632e0adf97d3fc"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7472cab17516e7c6af632e0adf97d3fc">TEAM_EMPTY</a></div><div class="ttdoc">An attempt to operate on a team that has no members. </div><div class="ttdef"><b>Definition:</b> errors.h:30</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca26b75a3b7e8a89524870f466729f9e38"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca26b75a3b7e8a89524870f466729f9e38">ILLEGAL_VALUE</a></div><div class="ttdoc">The bid&#39;s value o the player&#39;s id is not a valid one. </div><div class="ttdef"><b>Definition:</b> errors.h:38</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca7dd141e18468213401d45b9f881722ed"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7dd141e18468213401d45b9f881722ed">INSUFFICIENT_PLAYERS</a></div><div class="ttdoc">In this context, the number of players is not big enough. </div><div class="ttdef"><b>Definition:</b> errors.h:46</div></div>
 <div class="ttc" id="platform_8h_html"><div class="ttname"><a href="platform_8h.html">platform.h</a></div><div class="ttdoc">Contains platform specific definitions. </div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cacdaa2919bac56fe1090eb3dbb9526472"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cacdaa2919bac56fe1090eb3dbb9526472">NOT_FOUND</a></div><div class="ttdoc">The item you are operating on was not found. </div><div class="ttdef"><b>Definition:</b> errors.h:33</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28c"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28c">ERROR_CODE</a></div><div class="ttdeci">ERROR_CODE</div><div class="ttdoc">Specifies the error codes used to specify the wrong behaviour of the functions used in the game...</div><div class="ttdef"><b>Definition:</b> errors.h:18</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cafcb1011a1bc1cdf8bf25d0645c546e37"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cafcb1011a1bc1cdf8bf25d0645c546e37">ROUND_NULL</a></div><div class="ttdoc">The value of the argument that is supposed to point to a Round is equal to NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:35</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cae3ff4e9d26fde964d55d0503fa68b687"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cae3ff4e9d26fde964d55d0503fa68b687">MALLOC_ERROR</a></div><div class="ttdoc">This error status is encountered when malloc faild to allocate memory. </div><div class="ttdef"><b>Definition:</b> errors.h:22</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca385a8a7d34ee0ac97b8ecc2787be915b"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca385a8a7d34ee0ac97b8ecc2787be915b">PLAYER_NULL</a></div><div class="ttdoc">The value of the variable that points to a Player is equal to NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:26</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28caac407ceb0ac615753baee650bcb968ad"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caac407ceb0ac615753baee650bcb968ad">TEAM_FULL</a></div><div class="ttdoc">There are no free spaces in the current team. </div><div class="ttdef"><b>Definition:</b> errors.h:29</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca97b62fe642c3ccc71675ffddbacd1e00"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca97b62fe642c3ccc71675ffddbacd1e00">DECK_EMPTY</a></div><div class="ttdoc">Can&#39;t distriute cards from an empty deck. </div><div class="ttdef"><b>Definition:</b> errors.h:44</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca9d023b99aa59c74f11cc021696870fbc"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca9d023b99aa59c74f11cc021696870fbc">CARD_NULL</a></div><div class="ttdoc">The player&#39;s card is NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:24</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca258d426a2fd34167a05639aebe00d383"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca258d426a2fd34167a05639aebe00d383">GAME_EMPTY</a></div><div class="ttdoc">There are no players in a game. </div><div class="ttdef"><b>Definition:</b> errors.h:51</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca1d9109dc66df8f33c439cb9c528611a6"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca1d9109dc66df8f33c439cb9c528611a6">POINTER_NULL</a></div><div class="ttdoc">The parameter of the function is NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:21</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca8e4b080522be6978de9606f625ebd6ee"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca8e4b080522be6978de9606f625ebd6ee">ROUND_EMPTY</a></div><div class="ttdoc">There are no players in a round. </div><div class="ttdef"><b>Definition:</b> errors.h:50</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cac21babd93f31848985b15a97380bf8a5"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cac21babd93f31848985b15a97380bf8a5">ERROR_COMPARE</a></div><div class="ttdoc">In this context, the values you are trying to compare are illegal. </div><div class="ttdef"><b>Definition:</b> errors.h:41</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca83ba328b6a1e7f0468f78201eb97419c"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca83ba328b6a1e7f0468f78201eb97419c">TEAM_NULL</a></div><div class="ttdoc">The value of the argument that points to a Team is equal to NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:27</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca82c494c055cddbce92f300158eceb561"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca82c494c055cddbce92f300158eceb561">HAND_EMPTY</a></div><div class="ttdoc">The current hand is empty. </div><div class="ttdef"><b>Definition:</b> errors.h:43</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28ca007c91407ebc1854cc0770d0c924e74e"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca007c91407ebc1854cc0770d0c924e74e">LESS_CARDS</a></div><div class="ttdoc">The operation can&#39;t be completed due to the insufficient number of cards. </div><div class="ttdef"><b>Definition:</b> errors.h:47</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a></div><div class="ttdoc">Normal behaviour, no error is recieved. </div><div class="ttdef"><b>Definition:</b> errors.h:19</div></div>
+<div class="ttc" id="errors_8h_html_a4db9ee29f2ff83c71567c12f6bfbf28cab195f193cde06044ce034ad11f09073b"><div class="ttname"><a href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cab195f193cde06044ce034ad11f09073b">HAND_NULL</a></div><div class="ttdoc">The value of the argument that is supposed to point to a Hand is equal to NULL. </div><div class="ttdef"><b>Definition:</b> errors.h:36</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

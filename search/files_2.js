@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['platform_2eh',['platform.h',['../platform_8h.html',1,'']]]
+  ['errors_2ec',['errors.c',['../errors_8c.html',1,'']]],
+  ['errors_2eh',['errors.h',['../errors_8h.html',1,'']]]
 ];

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['platform_2eh',['platform.h',['../platform_8h.html',1,'']]],
-  ['player',['Player',['../structPlayer.html',1,'']]],
-  ['players',['players',['../structGame.html#acba543497949627a2acde2ab56d50881',1,'Game::players()'],['../structHand.html#a7e343f39120b98d70bb6bbcd012868ae',1,'Hand::players()'],['../structRound.html#ad6de69c57dd3c7c9e160b34cbf1cba4a',1,'Round::players()'],['../structTeam.html#afebf21c904b74300723c1f80674252c5',1,'Team::players()']]],
-  ['pointsnumber',['pointsNumber',['../structGame.html#a34abb2df2e24fe662436383aef4bd0b5',1,'Game::pointsNumber()'],['../structRound.html#a5f7091cf2ceef1637cf190b85d55b534',1,'Round::pointsNumber()']]]
+  ['illegal_5fvalue',['ILLEGAL_VALUE',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca26b75a3b7e8a89524870f466729f9e38',1,'errors.h']]],
+  ['insufficient_5fplayers',['INSUFFICIENT_PLAYERS',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca7dd141e18468213401d45b9f881722ed',1,'errors.h']]],
+  ['ishuman',['isHuman',['../structPlayer.html#a9b9291f75531eb86f20f0314b0e63b1b',1,'Player']]]
 ];

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,17 +96,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a653ea78f09d41e096197256d0e409570"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a653ea78f09d41e096197256d0e409570">id</a></td></tr>
-<tr class="separator:a653ea78f09d41e096197256d0e409570"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab60ea7354e1a72fb2fecb5dd27920f77"><td class="memItemLeft" align="right" valign="top">enum Suit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#ab60ea7354e1a72fb2fecb5dd27920f77">trump</a></td></tr>
+<tr class="memitem:ab60ea7354e1a72fb2fecb5dd27920f77"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="constants_8h.html#af78e1c8ea5e6837b6ab9452a1e435e4e">Suit</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#ab60ea7354e1a72fb2fecb5dd27920f77">trump</a></td></tr>
 <tr class="separator:ab60ea7354e1a72fb2fecb5dd27920f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a273f53c36cd46adb14a16604b95a930e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structHand.html">Hand</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a273f53c36cd46adb14a16604b95a930e">hands</a> [MAX_HANDS]</td></tr>
+<tr class="memitem:a273f53c36cd46adb14a16604b95a930e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structHand.html">Hand</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a273f53c36cd46adb14a16604b95a930e">hands</a> [<a class="el" href="constants_8h.html#aa85968e6c37e676491c175f3309c5433">MAX_HANDS</a>]</td></tr>
 <tr class="separator:a273f53c36cd46adb14a16604b95a930e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63368743af4b752599578493d9e956f8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a63368743af4b752599578493d9e956f8">bids</a> [MAX_GAME_PLAYERS]</td></tr>
+<tr class="memitem:a63368743af4b752599578493d9e956f8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a63368743af4b752599578493d9e956f8">bids</a> [<a class="el" href="constants_8h.html#ab240bab7db284c76bb6466a5409fe881">MAX_GAME_PLAYERS</a>]</td></tr>
 <tr class="separator:a63368743af4b752599578493d9e956f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6de69c57dd3c7c9e160b34cbf1cba4a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#ad6de69c57dd3c7c9e160b34cbf1cba4a">players</a> [MAX_GAME_PLAYERS]</td></tr>
+<tr class="memitem:ad6de69c57dd3c7c9e160b34cbf1cba4a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#ad6de69c57dd3c7c9e160b34cbf1cba4a">players</a> [<a class="el" href="constants_8h.html#ab240bab7db284c76bb6466a5409fe881">MAX_GAME_PLAYERS</a>]</td></tr>
 <tr class="separator:ad6de69c57dd3c7c9e160b34cbf1cba4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7091cf2ceef1637cf190b85d55b534"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a5f7091cf2ceef1637cf190b85d55b534">pointsNumber</a> [MAX_GAME_PLAYERS]</td></tr>
+<tr class="memitem:a5f7091cf2ceef1637cf190b85d55b534"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRound.html#a5f7091cf2ceef1637cf190b85d55b534">pointsNumber</a> [<a class="el" href="constants_8h.html#ab240bab7db284c76bb6466a5409fe881">MAX_GAME_PLAYERS</a>]</td></tr>
 <tr class="separator:a5f7091cf2ceef1637cf190b85d55b534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -136,19 +134,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Pointer to the hands of the round. </p>
-
-</div>
-</div>
-<a class="anchor" id="a653ea78f09d41e096197256d0e409570"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Round::id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Identifier of the round. </p>
 
 </div>
 </div>
@@ -197,7 +182,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

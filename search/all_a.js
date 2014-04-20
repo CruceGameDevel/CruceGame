@@ -1,16 +1,7 @@
 var searchData=
 [
-  ['team',['Team',['../structTeam.html',1,'']]],
-  ['team_2eh',['team.h',['../team_8h.html',1,'']]],
-  ['team_5faddcard',['team_addCard',['../team_8h.html#a7ac8c8f60c81d1926ae0136361e9e748',1,'team.c']]],
-  ['team_5faddplayer',['team_addPlayer',['../team_8h.html#af1e601fa3b9b4a0a11e4c7ff12736e8a',1,'team.c']]],
-  ['team_5fcomputescore',['team_computeScore',['../team_8h.html#a362506027b3b65db09bbdac8f04bd68b',1,'team.c']]],
-  ['team_5fcreateplayer',['team_createPlayer',['../team_8h.html#ab21b0da2584ac785badff2de184bd75e',1,'team.c']]],
-  ['team_5fcreateteam',['team_createTeam',['../team_8h.html#a5b28a6bd9f5dfe8513ffce932b0e62fc',1,'team.c']]],
-  ['team_5fdeleteplayer',['team_deletePlayer',['../team_8h.html#a97fe30124c18d6c74717108d699c541e',1,'team.c']]],
-  ['team_5fdeleteteam',['team_deleteTeam',['../team_8h.html#a90d5b1bfe27c8d9873744a512c88592f',1,'team.c']]],
-  ['team_5fhascards',['team_hasCards',['../team_8h.html#a3edd89be4feb10dffd0cf6608bdd5804',1,'team.c']]],
-  ['team_5fremoveplayer',['team_removePlayer',['../team_8h.html#a0af957e3f042d28dd54d70bd4da68583',1,'team.c']]],
-  ['teams',['teams',['../structGame.html#af3600901b07cb4ee53b1b23a2890e528',1,'Game']]],
-  ['trump',['trump',['../structRound.html#ab60ea7354e1a72fb2fecb5dd27920f77',1,'Round']]]
+  ['name',['name',['../structPlayer.html#a4cefb7a127807dd94ec8fa3828bad582',1,'Player']]],
+  ['no_5ferror',['NO_ERROR',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94',1,'errors.h']]],
+  ['not_5ffound',['NOT_FOUND',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cacdaa2919bac56fe1090eb3dbb9526472',1,'errors.h']]],
+  ['numberplayers',['numberPlayers',['../structGame.html#ad99c0390066c13b0ca6b89f8a89c54b5',1,'Game']]]
 ];

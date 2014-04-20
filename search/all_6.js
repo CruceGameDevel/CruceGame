@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['name',['name',['../structPlayer.html#a4cefb7a127807dd94ec8fa3828bad582',1,'Player::name()'],['../structTeam.html#abeda6f24746e08e7b4cbce2b732e91e2',1,'Team::name()']]],
-  ['numberplayers',['numberPlayers',['../structGame.html#ad99c0390066c13b0ca6b89f8a89c54b5',1,'Game']]]
+  ['hand',['Hand',['../structHand.html',1,'Hand'],['../structPlayer.html#ad737f60abe38db871bf2eaf7f9c75f14',1,'Player::hand()']]],
+  ['hand_5fempty',['HAND_EMPTY',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca82c494c055cddbce92f300158eceb561',1,'errors.h']]],
+  ['hand_5fnull',['HAND_NULL',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cab195f193cde06044ce034ad11f09073b',1,'errors.h']]],
+  ['hands',['hands',['../structRound.html#a273f53c36cd46adb14a16604b95a930e',1,'Round']]]
 ];

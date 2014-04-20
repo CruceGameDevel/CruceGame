@@ -68,12 +68,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li class="current"><a href="#index_t"><span>t</span></a></li>
     </ul>
@@ -84,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,147 +104,258 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 &#160;
 
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>checkBid()
+: <a class="el" href="round_8c.html#af34ce794b6106c0575529fea065b21fd">round.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>deck_cardsNumber()
-: <a class="el" href="deck_8h.html#a6e5bc31e8e44bdc716c93d3961ed2237">deck.h</a>
+: <a class="el" href="deck_8c.html#a4826ac5b2814831f6105ec3a6800963b">deck.c</a>
+, <a class="el" href="deck_8h.html#a054685ad9e0837109465e55e3b3c740c">deck.h</a>
 </li>
 <li>deck_compareCards()
-: <a class="el" href="deck_8h.html#abb6dec5d47413e90669382ccf61a2b4f">deck.h</a>
+: <a class="el" href="deck_8c.html#a1647baa8abe68893752ee281d0d147df">deck.c</a>
+, <a class="el" href="deck_8h.html#a127dcf5a923c63a9b06adde974fda988">deck.h</a>
 </li>
 <li>deck_createCard()
-: <a class="el" href="deck_8h.html#a29ead12d9e0cf62cb20f99427747bbf2">deck.h</a>
+: <a class="el" href="deck_8c.html#a07f0e646c4f0817a76d77558e0a3f030">deck.c</a>
+, <a class="el" href="deck_8h.html#a1d9d04ccf7234e91f9ff6e400de301e5">deck.h</a>
 </li>
 <li>deck_createDeck()
-: <a class="el" href="deck_8h.html#a8651ee5f2679466164c5cebc08df7a6f">deck.h</a>
+: <a class="el" href="deck_8c.html#ae33d79a1f2bd616c5d81ac1cd9c0bd0b">deck.c</a>
+, <a class="el" href="deck_8h.html#a8651ee5f2679466164c5cebc08df7a6f">deck.h</a>
 </li>
 <li>deck_deckShuffle()
-: <a class="el" href="deck_8h.html#aff14a6975fd8ffa9c6a1ab12a58c83d3">deck.h</a>
+: <a class="el" href="deck_8c.html#a84ecb896dc58921f28449d0797a1412b">deck.c</a>
+, <a class="el" href="deck_8h.html#aff14a6975fd8ffa9c6a1ab12a58c83d3">deck.h</a>
 </li>
 <li>deck_deleteCard()
-: <a class="el" href="deck_8h.html#ab43cad25932aa2810a5821bb62c65be4">deck.h</a>
+: <a class="el" href="deck_8c.html#abed51d10e1192899ae43c7775dc67658">deck.c</a>
+, <a class="el" href="deck_8h.html#ab43cad25932aa2810a5821bb62c65be4">deck.h</a>
 </li>
 <li>deck_deleteDeck()
-: <a class="el" href="deck_8h.html#a251761e6a47950b1c04eee2c4c600560">deck.h</a>
+: <a class="el" href="deck_8c.html#a61157d18afda9e4167bac45e64835f05">deck.c</a>
+, <a class="el" href="deck_8h.html#a251761e6a47950b1c04eee2c4c600560">deck.h</a>
+</li>
+<li>deck_swap()
+: <a class="el" href="deck_8c.html#a8369f3e95e8b523de4cf4e63ebc43dad">deck.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>error()
+: <a class="el" href="errors_8c.html#acd602dec222a0aa6994852770f6e279a">errors.c</a>
+, <a class="el" href="errors_8h.html#a5e80f3c341dccc88ae38fbe5b7f41873">errors.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>findAllowedBid()
+: <a class="el" href="round_8c.html#ac012dd677079d00a5b851acb443e0c83">round.c</a>
+</li>
+<li>findAllowedCard()
+: <a class="el" href="game_8c.html#a1240546e4697e8c8c05d5e5efca575e8">game.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
 <li>game_addPlayer()
-: <a class="el" href="game_8h.html#a2723c29cc636f39864b0cc6bd70fed26">game.h</a>
+: <a class="el" href="game_8c.html#a4e8c591c80fd81fc19693c899594c538">game.c</a>
+, <a class="el" href="game_8h.html#a2723c29cc636f39864b0cc6bd70fed26">game.h</a>
 </li>
 <li>game_addTeam()
-: <a class="el" href="game_8h.html#aad5d6f921c89a19747e19a408816ef61">game.h</a>
+: <a class="el" href="game_8c.html#a2b4d74723606a9d2488eade774047727">game.c</a>
+, <a class="el" href="game_8h.html#aad5d6f921c89a19747e19a408816ef61">game.h</a>
+</li>
+<li>game_arrangePlayersRound()
+: <a class="el" href="game_8c.html#aff105dcfd668c087d1f259c9d424b3b4">game.c</a>
+, <a class="el" href="game_8h.html#a176724a3db8e196323bd39c8f96a2644">game.h</a>
 </li>
 <li>game_checkCard()
-: <a class="el" href="game_8h.html#a2e4872a16bd88f9c861f00aa465950ae">game.h</a>
+: <a class="el" href="game_8c.html#afefa6243b7136bbbb6b332885850570b">game.c</a>
+, <a class="el" href="game_8h.html#adb29dd1aeb4bee64770d65f5c0691e11">game.h</a>
 </li>
 <li>game_createGame()
-: <a class="el" href="game_8h.html#adcd84d5240346f911cb2c0807c9e7d58">game.h</a>
+: <a class="el" href="game_8c.html#ae2c60437995bd9e888c47df2bbe22a87">game.c</a>
+, <a class="el" href="game_8h.html#a6528e1eef45cdad8b76bccfadba61b25">game.h</a>
 </li>
 <li>game_deleteGame()
-: <a class="el" href="game_8h.html#a120ec2e93e065b9aec0266572f0e2964">game.h</a>
+: <a class="el" href="game_8c.html#ac9daf52ef82640cc7ade07cbdeb275d8">game.c</a>
+, <a class="el" href="game_8h.html#a120ec2e93e065b9aec0266572f0e2964">game.h</a>
+</li>
+<li>game_findNextAllowedCard()
+: <a class="el" href="game_8c.html#a30b4f62c6dbbb80bd59566336d635136">game.c</a>
+, <a class="el" href="game_8h.html#a6c2c922adff55a453a5ccc4d07d17ef3">game.h</a>
+</li>
+<li>game_findPreviousAllowedCard()
+: <a class="el" href="game_8c.html#a788a597c7b6eabc6ab4b071dc42d1ee1">game.c</a>
+, <a class="el" href="game_8h.html#aafabf7cce62e5d80e632de971a70d447">game.h</a>
+</li>
+<li>game_findTeam()
+: <a class="el" href="game_8c.html#a0868990c70a7dd6c3f37209001fe5d2c">game.c</a>
+, <a class="el" href="game_8h.html#a44309aa6c5f678e198b18faebd3bebda">game.h</a>
 </li>
 <li>game_removePlayer()
-: <a class="el" href="game_8h.html#ad88b2b2d23e8a3ed815d4ee7c2eafd1f">game.h</a>
+: <a class="el" href="game_8c.html#aabe791364a5179114322d04b92c1fa86">game.c</a>
+, <a class="el" href="game_8h.html#ada23a544cb21999457994f31514cf9e7">game.h</a>
 </li>
 <li>game_removeTeam()
-: <a class="el" href="game_8h.html#aa174bfddbee15b919a2b258e92145526">game.h</a>
+: <a class="el" href="game_8c.html#aa9cc941813a51a7077a8a7d37f1faa5b">game.c</a>
+, <a class="el" href="game_8h.html#af89639c4b14dda39b58e8e4edce5da6c">game.h</a>
+</li>
+<li>game_updateScore()
+: <a class="el" href="game_8c.html#ab843bf281598f3af34819bf2d27177af">game.c</a>
+, <a class="el" href="game_8h.html#aab2f1c8971b951b8bd88cea6fcf2110f">game.h</a>
 </li>
 <li>game_winningTeam()
-: <a class="el" href="game_8h.html#a8d21e55713f9d3b7fb09444b23a096d3">game.h</a>
+: <a class="el" href="game_8c.html#a6916ef95fea20257d187f504a8cdc1d7">game.c</a>
+, <a class="el" href="game_8h.html#a8d21e55713f9d3b7fb09444b23a096d3">game.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>maximumValue()
+: <a class="el" href="game_8c.html#afb45590b310f52e21076ab07ba7a19a1">game.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
 <li>round_addPlayer()
-: <a class="el" href="round_8h.html#a2f420674c84b2571b37bc71da6fc80aa">round.h</a>
+: <a class="el" href="round_8c.html#a618d063b38f057535f9b0abbebeee557">round.c</a>
+, <a class="el" href="round_8h.html#a2f420674c84b2571b37bc71da6fc80aa">round.h</a>
 </li>
 <li>round_addPlayerHand()
-: <a class="el" href="round_8h.html#ad0834aefc764e4dff4480bc39f7320f5">round.h</a>
+: <a class="el" href="round_8c.html#aaac4e21065468d4297bbc9b198f1a78b">round.c</a>
+, <a class="el" href="round_8h.html#ad0834aefc764e4dff4480bc39f7320f5">round.h</a>
 </li>
 <li>round_arrangePlayersHand()
-: <a class="el" href="round_8h.html#a3807f0e47f64f301a1d0a07f42e23aea">round.h</a>
+: <a class="el" href="round_8c.html#ab1fccb26765afadec368d5f2c876acfc">round.c</a>
+, <a class="el" href="round_8h.html#a3807f0e47f64f301a1d0a07f42e23aea">round.h</a>
 </li>
-<li>round_computeScore()
-: <a class="el" href="round_8h.html#aeb475fc5e32c77f874f688ebddad715c">round.h</a>
+<li>round_computePoints()
+: <a class="el" href="round_8c.html#ab48995d99274ed2f630ccf1f1f377736">round.c</a>
+, <a class="el" href="round_8h.html#ae0739ad235d22bd2d51b63a53a3ede2d">round.h</a>
 </li>
 <li>round_createHand()
-: <a class="el" href="round_8h.html#aabdadce8085adbc3d5541800e3b0f7cd">round.h</a>
+: <a class="el" href="round_8c.html#aae4f0cbae713250090d8e48dbc0826ad">round.c</a>
+, <a class="el" href="round_8h.html#aabdadce8085adbc3d5541800e3b0f7cd">round.h</a>
 </li>
 <li>round_createRound()
-: <a class="el" href="round_8h.html#ad9ca7ad9a0ad902cc61814fc2b79e36c">round.h</a>
+: <a class="el" href="round_8c.html#a5ff089aafa05011c1541497e982f9510">round.c</a>
+, <a class="el" href="round_8h.html#ad9ca7ad9a0ad902cc61814fc2b79e36c">round.h</a>
 </li>
 <li>round_deleteHand()
-: <a class="el" href="round_8h.html#aafdce88b3f0e6f8373eface3c5e25043">round.h</a>
+: <a class="el" href="round_8c.html#aa6927014a564d25cb65c19c4c805ccd9">round.c</a>
+, <a class="el" href="round_8h.html#aafdce88b3f0e6f8373eface3c5e25043">round.h</a>
 </li>
 <li>round_deleteRound()
-: <a class="el" href="round_8h.html#a5133b4293efd4aad0d7b2d8a9f1e28a4">round.h</a>
+: <a class="el" href="round_8c.html#ab46de07ed0a8e560de56515dcdbce26b">round.c</a>
+, <a class="el" href="round_8h.html#a5133b4293efd4aad0d7b2d8a9f1e28a4">round.h</a>
 </li>
 <li>round_distributeCard()
-: <a class="el" href="round_8h.html#ae8e21bd1a28226b767ae951ce9071638">round.h</a>
+: <a class="el" href="round_8c.html#af4376896ddd04edb49bccd36a6effa48">round.c</a>
+, <a class="el" href="round_8h.html#ae8e21bd1a28226b767ae951ce9071638">round.h</a>
 </li>
 <li>round_distributeDeck()
-: <a class="el" href="round_8h.html#acf2ee8e219c448e00f3498255d47bd83">round.h</a>
+: <a class="el" href="round_8c.html#a84bf7decc1b1f4752dc1a737f26bd389">round.c</a>
+, <a class="el" href="round_8h.html#acf2ee8e219c448e00f3498255d47bd83">round.h</a>
+</li>
+<li>round_findNextAllowedBid()
+: <a class="el" href="round_8c.html#a5e03aff2b292dbc6e6becca16b5a8484">round.c</a>
+, <a class="el" href="round_8h.html#a6cb4fd791870e66e1c4413b741eb2f1b">round.h</a>
 </li>
 <li>round_findPlayerIndexRound()
-: <a class="el" href="round_8h.html#a40645a114e41ecc95ccfa24f7c2c1b52">round.h</a>
+: <a class="el" href="round_8c.html#a1e9a846b24d8d4d5e6b757feb7b9ca01">round.c</a>
+, <a class="el" href="round_8h.html#a40645a114e41ecc95ccfa24f7c2c1b52">round.h</a>
+</li>
+<li>round_findPreviousAllowedBid()
+: <a class="el" href="round_8c.html#a5d86476b2e15b519a27903700e734d4d">round.c</a>
+, <a class="el" href="round_8h.html#a2f3c62d37b67b38c67a3f813a7ad326f">round.h</a>
 </li>
 <li>round_getBidWinner()
-: <a class="el" href="round_8h.html#a4aadeaac7c84c6ae97b3293a96ba7506">round.h</a>
+: <a class="el" href="round_8c.html#a7b84d4ce638ccbe09a8e2a9e625a89b7">round.c</a>
+, <a class="el" href="round_8h.html#a4aadeaac7c84c6ae97b3293a96ba7506">round.h</a>
+</li>
+<li>round_getMaximumBid()
+: <a class="el" href="round_8c.html#a49be83b58ca3ee4e5d42a0f823c3b351">round.c</a>
+, <a class="el" href="round_8h.html#a897b92861ca393b18a7b88b8c85474c0">round.h</a>
 </li>
 <li>round_handWinner()
-: <a class="el" href="round_8h.html#a880e5233eded27332f26e0a826c3bac6">round.h</a>
+: <a class="el" href="round_8c.html#af9872da3a7bf50f0457dcc1cd499e50f">round.c</a>
+, <a class="el" href="round_8h.html#a57d11ed61d9501134911fe81d1dee4c7">round.h</a>
 </li>
 <li>round_placeBid()
-: <a class="el" href="round_8h.html#a79ec0c861b5364dd014d89f5648356e2">round.h</a>
+: <a class="el" href="round_8c.html#ac48501bc605c19ed51fbb8d61cdeacb3">round.c</a>
+, <a class="el" href="round_8h.html#a9f0ee9fbe0153e67df4d559535db2ebe">round.h</a>
 </li>
 <li>round_putCard()
-: <a class="el" href="round_8h.html#a4b1e21affbd7ccff92b61448be2d2cda">round.h</a>
+: <a class="el" href="round_8c.html#a4111a3baf74f40792ecbbbcf899047c1">round.c</a>
+, <a class="el" href="round_8h.html#aada66ce0c291ac2020fa3f3518ea64ed">round.h</a>
 </li>
 <li>round_removePlayer()
-: <a class="el" href="round_8h.html#a31eb753fac800e5874adf850100529ec">round.h</a>
+: <a class="el" href="round_8c.html#acfbeff5561ff79f0786c3bfbd441bda2">round.c</a>
+, <a class="el" href="round_8h.html#a5f43fc89fb5f5a0ff85af92b50ba2c7a">round.h</a>
 </li>
 <li>round_removePlayerHand()
-: <a class="el" href="round_8h.html#a4a597b2f735996a5d71cf5e611161567">round.h</a>
+: <a class="el" href="round_8c.html#a7e61e878d0b395d024a19a2ce03a1b30">round.c</a>
+, <a class="el" href="round_8h.html#a0e05b2dc5703a89e19dc5f6adf759a74">round.h</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>team_addCard()
-: <a class="el" href="team_8h.html#a7ac8c8f60c81d1926ae0136361e9e748">team.h</a>
+: <a class="el" href="team_8c.html#a00962931ed091cf54d25a5f68508a2d9">team.c</a>
+, <a class="el" href="team_8h.html#a7ac8c8f60c81d1926ae0136361e9e748">team.h</a>
 </li>
 <li>team_addPlayer()
-: <a class="el" href="team_8h.html#af1e601fa3b9b4a0a11e4c7ff12736e8a">team.h</a>
-</li>
-<li>team_computeScore()
-: <a class="el" href="team_8h.html#a362506027b3b65db09bbdac8f04bd68b">team.h</a>
+: <a class="el" href="team_8c.html#a775f2ca1c9c13a95a109f9fe45ac90d8">team.c</a>
+, <a class="el" href="team_8h.html#af1e601fa3b9b4a0a11e4c7ff12736e8a">team.h</a>
 </li>
 <li>team_createPlayer()
-: <a class="el" href="team_8h.html#ab21b0da2584ac785badff2de184bd75e">team.h</a>
+: <a class="el" href="team_8c.html#aeba05d4c21881e3bfae25c991412de1b">team.c</a>
+, <a class="el" href="team_8h.html#ac7997ec3d9e519740a7a7bbccb8930bd">team.h</a>
 </li>
 <li>team_createTeam()
-: <a class="el" href="team_8h.html#a5b28a6bd9f5dfe8513ffce932b0e62fc">team.h</a>
+: <a class="el" href="team_8c.html#a9b2dbd04796dc2a6ef118bbaa90c89b9">team.c</a>
+, <a class="el" href="team_8h.html#a2c3708e027fa378e63913e327213cee3">team.h</a>
 </li>
 <li>team_deletePlayer()
-: <a class="el" href="team_8h.html#a97fe30124c18d6c74717108d699c541e">team.h</a>
+: <a class="el" href="team_8c.html#ae8f20bd973f4c0c8914026bf97a9f4ce">team.c</a>
+, <a class="el" href="team_8h.html#a97fe30124c18d6c74717108d699c541e">team.h</a>
 </li>
 <li>team_deleteTeam()
-: <a class="el" href="team_8h.html#a90d5b1bfe27c8d9873744a512c88592f">team.h</a>
+: <a class="el" href="team_8c.html#a9fc78ecaa86363485e1770bc1f1b5844">team.c</a>
+, <a class="el" href="team_8h.html#a90d5b1bfe27c8d9873744a512c88592f">team.h</a>
 </li>
 <li>team_hasCards()
-: <a class="el" href="team_8h.html#a3edd89be4feb10dffd0cf6608bdd5804">team.h</a>
+: <a class="el" href="team_8c.html#a71314847b87c58c304b2754673e324ad">team.c</a>
+, <a class="el" href="team_8h.html#a24aa17970221463f8dc7477b64fd73bd">team.h</a>
 </li>
 <li>team_removePlayer()
-: <a class="el" href="team_8h.html#a0af957e3f042d28dd54d70bd4da68583">team.h</a>
+: <a class="el" href="team_8c.html#a638bfcf39b04551f328cb48b1c30f2aa">team.c</a>
+, <a class="el" href="team_8h.html#a0af957e3f042d28dd54d70bd4da68583">team.h</a>
+</li>
+<li>team_updatePlayersScore()
+: <a class="el" href="team_8c.html#a237a2641cd93380caa762eae84a6bfa8">team.c</a>
+, <a class="el" href="team_8h.html#adfa63adfc9f69502afb445025ba30996">team.h</a>
+</li>
+<li>totalPointsNumber()
+: <a class="el" href="round_8c.html#a44235f33f8032d9048e84756f069632d">round.c</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

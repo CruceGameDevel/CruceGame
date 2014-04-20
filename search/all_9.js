@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['score',['score',['../structPlayer.html#a7ebf371042aeae881083a14a606ad1fb',1,'Player']]],
-  ['suit',['suit',['../structCard.html#a7ba4c91d8aa6ae1a07b657d7b48e2a91',1,'Card']]]
+  ['malloc_5ferror',['MALLOC_ERROR',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cae3ff4e9d26fde964d55d0503fa68b687',1,'errors.h']]],
+  ['max_5fcards',['MAX_CARDS',['../constants_8h.html#aab98652040501bb254ea844c951aa742',1,'constants.h']]],
+  ['max_5fgame_5fplayers',['MAX_GAME_PLAYERS',['../constants_8h.html#ab240bab7db284c76bb6466a5409fe881',1,'constants.h']]],
+  ['max_5fgame_5fteams',['MAX_GAME_TEAMS',['../constants_8h.html#afaf8fc826cdc5309ddde31c4309c240b',1,'constants.h']]],
+  ['max_5fhands',['MAX_HANDS',['../constants_8h.html#aa85968e6c37e676491c175f3309c5433',1,'constants.h']]],
+  ['max_5fteam_5fplayers',['MAX_TEAM_PLAYERS',['../constants_8h.html#a2cfd47dd773bbdfd91bf22b13c727f77',1,'constants.h']]],
+  ['maximumvalue',['maximumValue',['../game_8c.html#afb45590b310f52e21076ab07ba7a19a1',1,'game.c']]]
 ];

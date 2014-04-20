@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -92,10 +92,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="structCard.html" title="Card structure, to keep suit and value. ">Card</a> and <a class="el" href="structDeck.html" title="A 28 card deck used in this game. ">Deck</a> structures, as well as helper functions.  
+<p>In this file are located the definitions of <a class="el" href="structCard.html" title="Card structure, to keep suit and value. ">Card</a> and <a class="el" href="structDeck.html" title="A 28 card deck used in this game. ">Deck</a> structures, as well as helper functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="platform_8h_source.html">platform.h</a>&quot;</code><br/>
-<code>#include &quot;constants.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br/>
 </div>
 <p><a href="deck_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -110,9 +110,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a29ead12d9e0cf62cb20f99427747bbf2"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structCard.html">Card</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a29ead12d9e0cf62cb20f99427747bbf2">deck_createCard</a> (enum Suit suit, int value)</td></tr>
-<tr class="memdesc:a29ead12d9e0cf62cb20f99427747bbf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and initializes a card.  <a href="#a29ead12d9e0cf62cb20f99427747bbf2">More...</a><br/></td></tr>
-<tr class="separator:a29ead12d9e0cf62cb20f99427747bbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9d04ccf7234e91f9ff6e400de301e5"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structCard.html">Card</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a1d9d04ccf7234e91f9ff6e400de301e5">deck_createCard</a> (const enum <a class="el" href="constants_8h.html#af78e1c8ea5e6837b6ab9452a1e435e4e">Suit</a> suit, const int value)</td></tr>
+<tr class="memdesc:a1d9d04ccf7234e91f9ff6e400de301e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and initializes a card.  <a href="#a1d9d04ccf7234e91f9ff6e400de301e5">More...</a><br/></td></tr>
+<tr class="separator:a1d9d04ccf7234e91f9ff6e400de301e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab43cad25932aa2810a5821bb62c65be4"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#ab43cad25932aa2810a5821bb62c65be4">deck_deleteCard</a> (struct <a class="el" href="structCard.html">Card</a> **card)</td></tr>
 <tr class="memdesc:ab43cad25932aa2810a5821bb62c65be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a card and makes the pointer NULL.  <a href="#ab43cad25932aa2810a5821bb62c65be4">More...</a><br/></td></tr>
 <tr class="separator:ab43cad25932aa2810a5821bb62c65be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,24 +125,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a251761e6a47950b1c04eee2c4c600560"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a251761e6a47950b1c04eee2c4c600560">deck_deleteDeck</a> (struct <a class="el" href="structDeck.html">Deck</a> **deck)</td></tr>
 <tr class="memdesc:a251761e6a47950b1c04eee2c4c600560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a deck and sets the pointer to NULL.  <a href="#a251761e6a47950b1c04eee2c4c600560">More...</a><br/></td></tr>
 <tr class="separator:a251761e6a47950b1c04eee2c4c600560"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb6dec5d47413e90669382ccf61a2b4f"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#abb6dec5d47413e90669382ccf61a2b4f">deck_compareCards</a> (const struct <a class="el" href="structCard.html">Card</a> *card1, const struct <a class="el" href="structCard.html">Card</a> *card2, enum Suit trump)</td></tr>
-<tr class="memdesc:abb6dec5d47413e90669382ccf61a2b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two cards.  <a href="#abb6dec5d47413e90669382ccf61a2b4f">More...</a><br/></td></tr>
-<tr class="separator:abb6dec5d47413e90669382ccf61a2b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e5bc31e8e44bdc716c93d3961ed2237"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a6e5bc31e8e44bdc716c93d3961ed2237">deck_cardsNumber</a> (struct <a class="el" href="structDeck.html">Deck</a> *deck)</td></tr>
-<tr class="memdesc:a6e5bc31e8e44bdc716c93d3961ed2237"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function counts the cards from deck.  <a href="#a6e5bc31e8e44bdc716c93d3961ed2237">More...</a><br/></td></tr>
-<tr class="separator:a6e5bc31e8e44bdc716c93d3961ed2237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a127dcf5a923c63a9b06adde974fda988"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a127dcf5a923c63a9b06adde974fda988">deck_compareCards</a> (const struct <a class="el" href="structCard.html">Card</a> *card1, const struct <a class="el" href="structCard.html">Card</a> *card2, const enum <a class="el" href="constants_8h.html#af78e1c8ea5e6837b6ab9452a1e435e4e">Suit</a> trump)</td></tr>
+<tr class="memdesc:a127dcf5a923c63a9b06adde974fda988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two cards.  <a href="#a127dcf5a923c63a9b06adde974fda988">More...</a><br/></td></tr>
+<tr class="separator:a127dcf5a923c63a9b06adde974fda988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a054685ad9e0837109465e55e3b3c740c"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="deck_8h.html#a054685ad9e0837109465e55e3b3c740c">deck_cardsNumber</a> (const struct <a class="el" href="structDeck.html">Deck</a> *deck)</td></tr>
+<tr class="memdesc:a054685ad9e0837109465e55e3b3c740c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function counts the cards from deck.  <a href="#a054685ad9e0837109465e55e3b3c740c">More...</a><br/></td></tr>
+<tr class="separator:a054685ad9e0837109465e55e3b3c740c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="structCard.html" title="Card structure, to keep suit and value. ">Card</a> and <a class="el" href="structDeck.html" title="A 28 card deck used in this game. ">Deck</a> structures, as well as helper functions. </p>
+<div class="textblock"><p>In this file are located the definitions of <a class="el" href="structCard.html" title="Card structure, to keep suit and value. ">Card</a> and <a class="el" href="structDeck.html" title="A 28 card deck used in this game. ">Deck</a> structures, as well as helper functions. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a6e5bc31e8e44bdc716c93d3961ed2237"></a>
+<a class="anchor" id="a054685ad9e0837109465e55e3b3c740c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT int deck_cardsNumber </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structDeck.html">Deck</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structDeck.html">Deck</a> *&#160;</td>
           <td class="paramname"><em>deck</em></td><td>)</td>
           <td></td>
         </tr>
@@ -160,7 +160,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abb6dec5d47413e90669382ccf61a2b4f"></a>
+<a class="anchor" id="a127dcf5a923c63a9b06adde974fda988"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -179,7 +179,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum Suit&#160;</td>
+          <td class="paramtype">const enum <a class="el" href="constants_8h.html#af78e1c8ea5e6837b6ab9452a1e435e4e">Suit</a>&#160;</td>
           <td class="paramname"><em>trump</em>&#160;</td>
         </tr>
         <tr>
@@ -199,24 +199,24 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 If the cards are equal. 1 If the first card is winning. 2 If the second card is winning. Error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 If the cards are equal. 1 If the first card is winning. 2 If the second card is winning. Other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a29ead12d9e0cf62cb20f99427747bbf2"></a>
+<a class="anchor" id="a1d9d04ccf7234e91f9ff6e400de301e5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT struct <a class="el" href="structCard.html">Card</a>* deck_createCard </td>
           <td>(</td>
-          <td class="paramtype">enum Suit&#160;</td>
+          <td class="paramtype">const enum <a class="el" href="constants_8h.html#af78e1c8ea5e6837b6ab9452a1e435e4e">Suit</a>&#160;</td>
           <td class="paramname"><em>suit</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -279,7 +279,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure.</dd></dl>
 <p>This function randomly shuffles the deck. It uses rand function from stdlib with time as seed. The shuffle is performed by random swaps. The number of swaps is also random, but it is at least SWAP_MIN and smaller then SWAP_MAX. </p>
 
 </div>
@@ -305,7 +305,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -330,14 +330,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

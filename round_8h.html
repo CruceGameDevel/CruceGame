@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,8 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="platform_8h_source.html">platform.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="deck_8h_source.html">deck.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="team_8h_source.html">team.h</a>&quot;</code><br/>
-<code>#include &quot;constants.h&quot;</code><br/>
-<code>#include &quot;errors.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="errors_8h_source.html">errors.h</a>&quot;</code><br/>
 </div>
 <p><a href="round_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -116,9 +116,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4aadeaac7c84c6ae97b3293a96ba7506"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4aadeaac7c84c6ae97b3293a96ba7506">round_getBidWinner</a> (const struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
 <tr class="memdesc:a4aadeaac7c84c6ae97b3293a96ba7506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the winner of a bid in a round.  <a href="#a4aadeaac7c84c6ae97b3293a96ba7506">More...</a><br/></td></tr>
 <tr class="separator:a4aadeaac7c84c6ae97b3293a96ba7506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79ec0c861b5364dd014d89f5648356e2"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a79ec0c861b5364dd014d89f5648356e2">round_placeBid</a> (const struct <a class="el" href="structPlayer.html">Player</a> *player, int bid, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
-<tr class="memdesc:a79ec0c861b5364dd014d89f5648356e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places the bid of a player.  <a href="#a79ec0c861b5364dd014d89f5648356e2">More...</a><br/></td></tr>
-<tr class="separator:a79ec0c861b5364dd014d89f5648356e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0ee9fbe0153e67df4d559535db2ebe"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a9f0ee9fbe0153e67df4d559535db2ebe">round_placeBid</a> (const struct <a class="el" href="structPlayer.html">Player</a> *player, const int bid, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:a9f0ee9fbe0153e67df4d559535db2ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places the bid of a player.  <a href="#a9f0ee9fbe0153e67df4d559535db2ebe">More...</a><br/></td></tr>
+<tr class="separator:a9f0ee9fbe0153e67df4d559535db2ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f420674c84b2571b37bc71da6fc80aa"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a2f420674c84b2571b37bc71da6fc80aa">round_addPlayer</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
 <tr class="memdesc:a2f420674c84b2571b37bc71da6fc80aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a player to a round.  <a href="#a2f420674c84b2571b37bc71da6fc80aa">More...</a><br/></td></tr>
 <tr class="separator:a2f420674c84b2571b37bc71da6fc80aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,17 +128,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ad0834aefc764e4dff4480bc39f7320f5"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ad0834aefc764e4dff4480bc39f7320f5">round_addPlayerHand</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structHand.html">Hand</a> *hand)</td></tr>
 <tr class="memdesc:ad0834aefc764e4dff4480bc39f7320f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a player to a hand.  <a href="#ad0834aefc764e4dff4480bc39f7320f5">More...</a><br/></td></tr>
 <tr class="separator:ad0834aefc764e4dff4480bc39f7320f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1e21affbd7ccff92b61448be2d2cda"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4b1e21affbd7ccff92b61448be2d2cda">round_putCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, int cardId, struct <a class="el" href="structHand.html">Hand</a> *hand)</td></tr>
-<tr class="memdesc:a4b1e21affbd7ccff92b61448be2d2cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places a card from a player to a hand.  <a href="#a4b1e21affbd7ccff92b61448be2d2cda">More...</a><br/></td></tr>
-<tr class="separator:a4b1e21affbd7ccff92b61448be2d2cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb475fc5e32c77f874f688ebddad715c"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aeb475fc5e32c77f874f688ebddad715c">round_computeScore</a> (const struct <a class="el" href="structHand.html">Hand</a> *hand)</td></tr>
-<tr class="memdesc:aeb475fc5e32c77f874f688ebddad715c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the score of a hand (in game points).  <a href="#aeb475fc5e32c77f874f688ebddad715c">More...</a><br/></td></tr>
-<tr class="separator:aeb475fc5e32c77f874f688ebddad715c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aada66ce0c291ac2020fa3f3518ea64ed"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aada66ce0c291ac2020fa3f3518ea64ed">round_putCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, const int cardId, const int handId, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:aada66ce0c291ac2020fa3f3518ea64ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places a card from a player to a hand and offers the player 20 points if has 3 and 4 of same suit or 40 points if has 3 and 4 of same suit as the trump.  <a href="#aada66ce0c291ac2020fa3f3518ea64ed">More...</a><br/></td></tr>
+<tr class="separator:aada66ce0c291ac2020fa3f3518ea64ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9ca7ad9a0ad902cc61814fc2b79e36c"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structRound.html">Round</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ad9ca7ad9a0ad902cc61814fc2b79e36c">round_createRound</a> ()</td></tr>
 <tr class="memdesc:ad9ca7ad9a0ad902cc61814fc2b79e36c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory for and initializes a round.  <a href="#ad9ca7ad9a0ad902cc61814fc2b79e36c">More...</a><br/></td></tr>
 <tr class="separator:ad9ca7ad9a0ad902cc61814fc2b79e36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5133b4293efd4aad0d7b2d8a9f1e28a4"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a5133b4293efd4aad0d7b2d8a9f1e28a4">round_deleteRound</a> (struct <a class="el" href="structRound.html">Round</a> **round)</td></tr>
-<tr class="memdesc:a5133b4293efd4aad0d7b2d8a9f1e28a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a round. Makes pointer NULL.  <a href="#a5133b4293efd4aad0d7b2d8a9f1e28a4">More...</a><br/></td></tr>
+<tr class="memdesc:a5133b4293efd4aad0d7b2d8a9f1e28a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a round. Makes NULL pointer.  <a href="#a5133b4293efd4aad0d7b2d8a9f1e28a4">More...</a><br/></td></tr>
 <tr class="separator:a5133b4293efd4aad0d7b2d8a9f1e28a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabdadce8085adbc3d5541800e3b0f7cd"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structHand.html">Hand</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aabdadce8085adbc3d5541800e3b0f7cd">round_createHand</a> ()</td></tr>
 <tr class="memdesc:aabdadce8085adbc3d5541800e3b0f7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory for and initializes a hand.  <a href="#aabdadce8085adbc3d5541800e3b0f7cd">More...</a><br/></td></tr>
@@ -146,15 +143,15 @@ Functions</h2></td></tr>
 <tr class="memitem:aafdce88b3f0e6f8373eface3c5e25043"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aafdce88b3f0e6f8373eface3c5e25043">round_deleteHand</a> (struct <a class="el" href="structHand.html">Hand</a> **hand)</td></tr>
 <tr class="memdesc:aafdce88b3f0e6f8373eface3c5e25043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a hand. Makes pointer NULL.  <a href="#aafdce88b3f0e6f8373eface3c5e25043">More...</a><br/></td></tr>
 <tr class="separator:aafdce88b3f0e6f8373eface3c5e25043"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31eb753fac800e5874adf850100529ec"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a31eb753fac800e5874adf850100529ec">round_removePlayer</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
-<tr class="memdesc:a31eb753fac800e5874adf850100529ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a round.  <a href="#a31eb753fac800e5874adf850100529ec">More...</a><br/></td></tr>
-<tr class="separator:a31eb753fac800e5874adf850100529ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a597b2f735996a5d71cf5e611161567"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4a597b2f735996a5d71cf5e611161567">round_removePlayerHand</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structHand.html">Hand</a> *hand)</td></tr>
-<tr class="memdesc:a4a597b2f735996a5d71cf5e611161567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a hand.  <a href="#a4a597b2f735996a5d71cf5e611161567">More...</a><br/></td></tr>
-<tr class="separator:a4a597b2f735996a5d71cf5e611161567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a880e5233eded27332f26e0a826c3bac6"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a880e5233eded27332f26e0a826c3bac6">round_handWinner</a> (const struct <a class="el" href="structHand.html">Hand</a> *hand, enum Suit trump, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
-<tr class="memdesc:a880e5233eded27332f26e0a826c3bac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the winner of a hand.  <a href="#a880e5233eded27332f26e0a826c3bac6">More...</a><br/></td></tr>
-<tr class="separator:a880e5233eded27332f26e0a826c3bac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f43fc89fb5f5a0ff85af92b50ba2c7a"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a5f43fc89fb5f5a0ff85af92b50ba2c7a">round_removePlayer</a> (const struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:a5f43fc89fb5f5a0ff85af92b50ba2c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a round.  <a href="#a5f43fc89fb5f5a0ff85af92b50ba2c7a">More...</a><br/></td></tr>
+<tr class="separator:a5f43fc89fb5f5a0ff85af92b50ba2c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e05b2dc5703a89e19dc5f6adf759a74"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a0e05b2dc5703a89e19dc5f6adf759a74">round_removePlayerHand</a> (const struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structHand.html">Hand</a> *hand)</td></tr>
+<tr class="memdesc:a0e05b2dc5703a89e19dc5f6adf759a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a hand.  <a href="#a0e05b2dc5703a89e19dc5f6adf759a74">More...</a><br/></td></tr>
+<tr class="separator:a0e05b2dc5703a89e19dc5f6adf759a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d11ed61d9501134911fe81d1dee4c7"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a57d11ed61d9501134911fe81d1dee4c7">round_handWinner</a> (const struct <a class="el" href="structHand.html">Hand</a> *hand, struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:a57d11ed61d9501134911fe81d1dee4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the winner of a hand.  <a href="#a57d11ed61d9501134911fe81d1dee4c7">More...</a><br/></td></tr>
+<tr class="separator:a57d11ed61d9501134911fe81d1dee4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e21bd1a28226b767ae951ce9071638"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ae8e21bd1a28226b767ae951ce9071638">round_distributeCard</a> (struct <a class="el" href="structDeck.html">Deck</a> *deck, const struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
 <tr class="memdesc:ae8e21bd1a28226b767ae951ce9071638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distributes one card to every player.  <a href="#ae8e21bd1a28226b767ae951ce9071638">More...</a><br/></td></tr>
 <tr class="separator:ae8e21bd1a28226b767ae951ce9071638"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,6 +161,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a3807f0e47f64f301a1d0a07f42e23aea"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a3807f0e47f64f301a1d0a07f42e23aea">round_arrangePlayersHand</a> (struct <a class="el" href="structRound.html">Round</a> *round, int i)</td></tr>
 <tr class="memdesc:a3807f0e47f64f301a1d0a07f42e23aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function arranges the players in a hand.  <a href="#a3807f0e47f64f301a1d0a07f42e23aea">More...</a><br/></td></tr>
 <tr class="separator:a3807f0e47f64f301a1d0a07f42e23aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0739ad235d22bd2d51b63a53a3ede2d"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ae0739ad235d22bd2d51b63a53a3ede2d">round_computePoints</a> (const struct <a class="el" href="structTeam.html">Team</a> *team, const struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:ae0739ad235d22bd2d51b63a53a3ede2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute round points of a team.  <a href="#ae0739ad235d22bd2d51b63a53a3ede2d">More...</a><br/></td></tr>
+<tr class="separator:ae0739ad235d22bd2d51b63a53a3ede2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a897b92861ca393b18a7b88b8c85474c0"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a897b92861ca393b18a7b88b8c85474c0">round_getMaximumBid</a> (struct <a class="el" href="structRound.html">Round</a> *round)</td></tr>
+<tr class="memdesc:a897b92861ca393b18a7b88b8c85474c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function search the maximum bid.  <a href="#a897b92861ca393b18a7b88b8c85474c0">More...</a><br/></td></tr>
+<tr class="separator:a897b92861ca393b18a7b88b8c85474c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb4fd791870e66e1c4413b741eb2f1b"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a6cb4fd791870e66e1c4413b741eb2f1b">round_findNextAllowedBid</a> (struct <a class="el" href="structRound.html">Round</a> *round, int currentBid)</td></tr>
+<tr class="memdesc:a6cb4fd791870e66e1c4413b741eb2f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to find the next allowed bid after currentBid.  <a href="#a6cb4fd791870e66e1c4413b741eb2f1b">More...</a><br/></td></tr>
+<tr class="separator:a6cb4fd791870e66e1c4413b741eb2f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f3c62d37b67b38c67a3f813a7ad326f"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a2f3c62d37b67b38c67a3f813a7ad326f">round_findPreviousAllowedBid</a> (struct <a class="el" href="structRound.html">Round</a> *round, int currentBid)</td></tr>
+<tr class="memdesc:a2f3c62d37b67b38c67a3f813a7ad326f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to find the previous allowed bid before currentBid.  <a href="#a2f3c62d37b67b38c67a3f813a7ad326f">More...</a><br/></td></tr>
+<tr class="separator:a2f3c62d37b67b38c67a3f813a7ad326f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structRound.html" title="Round structure. ">Round</a> and <a class="el" href="structHand.html" title="Hand structure. ">Hand</a> structures, as well as helper functions. </p>
@@ -200,7 +209,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -236,7 +245,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -272,32 +281,43 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR or 0 on success, other value on failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> or 0 on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aeb475fc5e32c77f874f688ebddad715c"></a>
+<a class="anchor" id="ae0739ad235d22bd2d51b63a53a3ede2d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EXPORT int round_computeScore </td>
+          <td class="memname">EXPORT int round_computePoints </td>
           <td>(</td>
-          <td class="paramtype">const struct <a class="el" href="structHand.html">Hand</a> *&#160;</td>
-          <td class="paramname"><em>hand</em></td><td>)</td>
+          <td class="paramtype">const struct <a class="el" href="structTeam.html">Team</a> *&#160;</td>
+          <td class="paramname"><em>team</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const struct <a class="el" href="structRound.html">Round</a> *&#160;</td>
+          <td class="paramname"><em>round</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Computes the score of a hand (in game points). </p>
+<p>Compute round points of a team. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hand</td><td>Pointer to the hand for which the score is computed.</td></tr>
+    <tr><td class="paramname">team</td><td>The team to compute points for. </td></tr>
+    <tr><td class="paramname">round</td><td>The round where to compute points.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Integer representing the score or negative error code on failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of round points on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -358,7 +378,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -376,14 +396,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Frees the memory of a round. Makes pointer NULL. </p>
+<p>Frees the memory of a round. Makes NULL pointer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">round</td><td>Pointer to pointer to the round to be deleted.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -419,7 +439,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -455,7 +475,43 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6cb4fd791870e66e1c4413b741eb2f1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int round_findNextAllowedBid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structRound.html">Round</a> *&#160;</td>
+          <td class="paramname"><em>round</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentBid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to find the next allowed bid after currentBid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">round</td><td>The round where are bids. </td></tr>
+    <tr><td class="paramname">currentBid</td><td>Function finds the first allowed bid after currentBid.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The next allowed bid's id on success, negative value on failure. </dd></dl>
 
 </div>
 </div>
@@ -495,6 +551,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2f3c62d37b67b38c67a3f813a7ad326f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int round_findPreviousAllowedBid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structRound.html">Round</a> *&#160;</td>
+          <td class="paramname"><em>round</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentBid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to find the previous allowed bid before currentBid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">round</td><td>The round where are bids. </td></tr>
+    <tr><td class="paramname">currentBid</td><td>Function finds the first allowed bid before currentBid.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The previous allowed bid's id on success, negative value on failure. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a4aadeaac7c84c6ae97b3293a96ba7506"></a>
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +612,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a880e5233eded27332f26e0a826c3bac6"></a>
+<a class="anchor" id="a897b92861ca393b18a7b88b8c85474c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int round_getMaximumBid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structRound.html">Round</a> *&#160;</td>
+          <td class="paramname"><em>round</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The function search the maximum bid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">round</td><td>Pointer to the round in which are the bids.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum bid. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a57d11ed61d9501134911fe81d1dee4c7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -529,12 +646,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const struct <a class="el" href="structHand.html">Hand</a> *&#160;</td>
           <td class="paramname"><em>hand</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">enum Suit&#160;</td>
-          <td class="paramname"><em>trump</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -554,7 +665,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hand</td><td>Pointer to the hand. </td></tr>
-    <tr><td class="paramname">trump</td><td>The trump of round. </td></tr>
     <tr><td class="paramname">round</td><td>Pointer to the round containing the hand that the player won.</td></tr>
   </table>
   </dd>
@@ -563,7 +673,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a79ec0c861b5364dd014d89f5648356e2"></a>
+<a class="anchor" id="a9f0ee9fbe0153e67df4d559535db2ebe"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -576,7 +686,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>bid</em>, </td>
         </tr>
         <tr>
@@ -602,11 +712,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4b1e21affbd7ccff92b61448be2d2cda"></a>
+<a class="anchor" id="aada66ce0c291ac2020fa3f3518ea64ed"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -619,14 +729,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>cardId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structHand.html">Hand</a> *&#160;</td>
-          <td class="paramname"><em>hand</em>&#160;</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>handId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structRound.html">Round</a> *&#160;</td>
+          <td class="paramname"><em>round</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -636,27 +752,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Places a card from a player to a hand. </p>
+<p>Places a card from a player to a hand and offers the player 20 points if has 3 and 4 of same suit or 40 points if has 3 and 4 of same suit as the trump. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">player</td><td>Pointer to the player who places the card. </td></tr>
     <tr><td class="paramname">cardId</td><td>Id of the card placed by the player (id from Player.cards). </td></tr>
-    <tr><td class="paramname">hand</td><td>Pointer to the hand in which the card is placed.</td></tr>
+    <tr><td class="paramname">handId</td><td>Id of the hand in which the card is placed. </td></tr>
+    <tr><td class="paramname">round</td><td>Pointer to the round in which is hand.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a31eb753fac800e5874adf850100529ec"></a>
+<a class="anchor" id="a5f43fc89fb5f5a0ff85af92b50ba2c7a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT int round_removePlayer </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
           <td class="paramname"><em>player</em>, </td>
         </tr>
         <tr>
@@ -681,18 +798,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4a597b2f735996a5d71cf5e611161567"></a>
+<a class="anchor" id="a0e05b2dc5703a89e19dc5f6adf759a74"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT int round_removePlayerHand </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
           <td class="paramname"><em>player</em>, </td>
         </tr>
         <tr>
@@ -717,14 +834,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

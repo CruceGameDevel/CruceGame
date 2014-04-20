@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p><a class="el" href="structGame.html" title="Game structure. ">Game</a> structures, as well as helper functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="platform_8h_source.html">platform.h</a>&quot;</code><br/>
-<code>#include &quot;constants.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="team_8h_source.html">team.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="deck_8h_source.html">deck.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="round_8h_source.html">round.h</a>&quot;</code><br/>
@@ -110,30 +110,45 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adcd84d5240346f911cb2c0807c9e7d58"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structGame.html">Game</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#adcd84d5240346f911cb2c0807c9e7d58">game_createGame</a> (int numberPoints)</td></tr>
-<tr class="memdesc:adcd84d5240346f911cb2c0807c9e7d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory for and initializes a game.  <a href="#adcd84d5240346f911cb2c0807c9e7d58">More...</a><br/></td></tr>
-<tr class="separator:adcd84d5240346f911cb2c0807c9e7d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6528e1eef45cdad8b76bccfadba61b25"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structGame.html">Game</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a6528e1eef45cdad8b76bccfadba61b25">game_createGame</a> (const int numberPoints)</td></tr>
+<tr class="memdesc:a6528e1eef45cdad8b76bccfadba61b25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory for and initializes a game.  <a href="#a6528e1eef45cdad8b76bccfadba61b25">More...</a><br/></td></tr>
+<tr class="separator:a6528e1eef45cdad8b76bccfadba61b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a120ec2e93e065b9aec0266572f0e2964"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a120ec2e93e065b9aec0266572f0e2964">game_deleteGame</a> (struct <a class="el" href="structGame.html">Game</a> **game)</td></tr>
 <tr class="memdesc:a120ec2e93e065b9aec0266572f0e2964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory of a game and makes the pointer NULL.  <a href="#a120ec2e93e065b9aec0266572f0e2964">More...</a><br/></td></tr>
 <tr class="separator:a120ec2e93e065b9aec0266572f0e2964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2723c29cc636f39864b0cc6bd70fed26"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a2723c29cc636f39864b0cc6bd70fed26">game_addPlayer</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
 <tr class="memdesc:a2723c29cc636f39864b0cc6bd70fed26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a player to a game.  <a href="#a2723c29cc636f39864b0cc6bd70fed26">More...</a><br/></td></tr>
 <tr class="separator:a2723c29cc636f39864b0cc6bd70fed26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad88b2b2d23e8a3ed815d4ee7c2eafd1f"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ad88b2b2d23e8a3ed815d4ee7c2eafd1f">game_removePlayer</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
-<tr class="memdesc:ad88b2b2d23e8a3ed815d4ee7c2eafd1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a game.  <a href="#ad88b2b2d23e8a3ed815d4ee7c2eafd1f">More...</a><br/></td></tr>
-<tr class="separator:ad88b2b2d23e8a3ed815d4ee7c2eafd1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada23a544cb21999457994f31514cf9e7"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ada23a544cb21999457994f31514cf9e7">game_removePlayer</a> (const struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
+<tr class="memdesc:ada23a544cb21999457994f31514cf9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a player from a game.  <a href="#ada23a544cb21999457994f31514cf9e7">More...</a><br/></td></tr>
+<tr class="separator:ada23a544cb21999457994f31514cf9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad5d6f921c89a19747e19a408816ef61"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#aad5d6f921c89a19747e19a408816ef61">game_addTeam</a> (struct <a class="el" href="structTeam.html">Team</a> *team, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
 <tr class="memdesc:aad5d6f921c89a19747e19a408816ef61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a team to a game.  <a href="#aad5d6f921c89a19747e19a408816ef61">More...</a><br/></td></tr>
 <tr class="separator:aad5d6f921c89a19747e19a408816ef61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa174bfddbee15b919a2b258e92145526"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#aa174bfddbee15b919a2b258e92145526">game_removeTeam</a> (struct <a class="el" href="structTeam.html">Team</a> *team, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
-<tr class="memdesc:aa174bfddbee15b919a2b258e92145526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a team from a game.  <a href="#aa174bfddbee15b919a2b258e92145526">More...</a><br/></td></tr>
-<tr class="separator:aa174bfddbee15b919a2b258e92145526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af89639c4b14dda39b58e8e4edce5da6c"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#af89639c4b14dda39b58e8e4edce5da6c">game_removeTeam</a> (const struct <a class="el" href="structTeam.html">Team</a> *team, struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
+<tr class="memdesc:af89639c4b14dda39b58e8e4edce5da6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a team from a game.  <a href="#af89639c4b14dda39b58e8e4edce5da6c">More...</a><br/></td></tr>
+<tr class="separator:af89639c4b14dda39b58e8e4edce5da6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d21e55713f9d3b7fb09444b23a096d3"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structTeam.html">Team</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a8d21e55713f9d3b7fb09444b23a096d3">game_winningTeam</a> (struct <a class="el" href="structGame.html">Game</a> *game)</td></tr>
 <tr class="memdesc:a8d21e55713f9d3b7fb09444b23a096d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the winning team of a game.  <a href="#a8d21e55713f9d3b7fb09444b23a096d3">More...</a><br/></td></tr>
 <tr class="separator:a8d21e55713f9d3b7fb09444b23a096d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e4872a16bd88f9c861f00aa465950ae"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a2e4872a16bd88f9c861f00aa465950ae">game_checkCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structHand.html">Hand</a> *hand, int idCard)</td></tr>
-<tr class="memdesc:a2e4872a16bd88f9c861f00aa465950ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function checks if the player can put a card down.  <a href="#a2e4872a16bd88f9c861f00aa465950ae">More...</a><br/></td></tr>
-<tr class="separator:a2e4872a16bd88f9c861f00aa465950ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb29dd1aeb4bee64770d65f5c0691e11"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#adb29dd1aeb4bee64770d65f5c0691e11">game_checkCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, const struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structHand.html">Hand</a> *hand, const int idCard)</td></tr>
+<tr class="memdesc:adb29dd1aeb4bee64770d65f5c0691e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function checks if the player can put a card down.  <a href="#adb29dd1aeb4bee64770d65f5c0691e11">More...</a><br/></td></tr>
+<tr class="separator:adb29dd1aeb4bee64770d65f5c0691e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c2c922adff55a453a5ccc4d07d17ef3"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a6c2c922adff55a453a5ccc4d07d17ef3">game_findNextAllowedCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structHand.html">Hand</a> *hand, int currentCard)</td></tr>
+<tr class="memdesc:a6c2c922adff55a453a5ccc4d07d17ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to find the next allowed card after currentCard. Uses game_checkCard to check if a card is allowed.  <a href="#a6c2c922adff55a453a5ccc4d07d17ef3">More...</a><br/></td></tr>
+<tr class="separator:a6c2c922adff55a453a5ccc4d07d17ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafabf7cce62e5d80e632de971a70d447"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#aafabf7cce62e5d80e632de971a70d447">game_findPreviousAllowedCard</a> (struct <a class="el" href="structPlayer.html">Player</a> *player, struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structHand.html">Hand</a> *hand, int currentCard)</td></tr>
+<tr class="memdesc:aafabf7cce62e5d80e632de971a70d447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to find the previous allowed card before currentCard. Uses game_checkCard to check if a card is allowed.  <a href="#aafabf7cce62e5d80e632de971a70d447">More...</a><br/></td></tr>
+<tr class="separator:aafabf7cce62e5d80e632de971a70d447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44309aa6c5f678e198b18faebd3bebda"><td class="memItemLeft" align="right" valign="top">EXPORT struct <a class="el" href="structTeam.html">Team</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a44309aa6c5f678e198b18faebd3bebda">game_findTeam</a> (const struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structPlayer.html">Player</a> *player)</td></tr>
+<tr class="memdesc:a44309aa6c5f678e198b18faebd3bebda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to find the team in which a player belongs.  <a href="#a44309aa6c5f678e198b18faebd3bebda">More...</a><br/></td></tr>
+<tr class="separator:a44309aa6c5f678e198b18faebd3bebda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab2f1c8971b951b8bd88cea6fcf2110f"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#aab2f1c8971b951b8bd88cea6fcf2110f">game_updateScore</a> (const struct <a class="el" href="structGame.html">Game</a> *game, struct <a class="el" href="structPlayer.html">Player</a> *bidWinner)</td></tr>
+<tr class="memdesc:aab2f1c8971b951b8bd88cea6fcf2110f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to update the score of teams and players after a round.  <a href="#aab2f1c8971b951b8bd88cea6fcf2110f">More...</a><br/></td></tr>
+<tr class="separator:aab2f1c8971b951b8bd88cea6fcf2110f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176724a3db8e196323bd39c8f96a2644"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a176724a3db8e196323bd39c8f96a2644">game_arrangePlayersRound</a> (struct <a class="el" href="structGame.html">Game</a> *game, const int i)</td></tr>
+<tr class="memdesc:a176724a3db8e196323bd39c8f96a2644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to add a round to a game and to arrange players into it, according to game rules.  <a href="#a176724a3db8e196323bd39c8f96a2644">More...</a><br/></td></tr>
+<tr class="separator:a176724a3db8e196323bd39c8f96a2644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structGame.html" title="Game structure. ">Game</a> structures, as well as helper functions. </p>
@@ -170,7 +185,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -206,11 +221,47 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a2e4872a16bd88f9c861f00aa465950ae"></a>
+<a class="anchor" id="a176724a3db8e196323bd39c8f96a2644"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int game_arrangePlayersRound </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramname"><em>game</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>i</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to add a round to a game and to arrange players into it, according to game rules. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">game</td><td>The game to process. </td></tr>
+    <tr><td class="paramname">i</td><td>The index of the first player in that round.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> or 0 on success, other value on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adb29dd1aeb4bee64770d65f5c0691e11"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -223,7 +274,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
           <td class="paramname"><em>game</em>, </td>
         </tr>
         <tr>
@@ -235,7 +286,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>idCard</em>&#160;</td>
         </tr>
         <tr>
@@ -260,14 +311,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adcd84d5240346f911cb2c0807c9e7d58"></a>
+<a class="anchor" id="a6528e1eef45cdad8b76bccfadba61b25"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT struct <a class="el" href="structGame.html">Game</a>* game_createGame </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>numberPoints</em></td><td>)</td>
           <td></td>
         </tr>
@@ -306,18 +357,154 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad88b2b2d23e8a3ed815d4ee7c2eafd1f"></a>
+<a class="anchor" id="a6c2c922adff55a453a5ccc4d07d17ef3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int game_findNextAllowedCard </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramname"><em>game</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structHand.html">Hand</a> *&#160;</td>
+          <td class="paramname"><em>hand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentCard</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to find the next allowed card after currentCard. Uses game_checkCard to check if a card is allowed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">player</td><td>The player who has the cards. </td></tr>
+    <tr><td class="paramname">game</td><td>The game where the player is located. </td></tr>
+    <tr><td class="paramname">hand</td><td>The hand in which should put the card. </td></tr>
+    <tr><td class="paramname">currentCard</td><td>Function finds the first allowed card after currentCard.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The next allowed card's id on success (value between 0 and <a class="el" href="constants_8h.html#aab98652040501bb254ea844c951aa742">MAX_CARDS</a> -1). Negative value on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aafabf7cce62e5d80e632de971a70d447"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int game_findPreviousAllowedCard </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramname"><em>game</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structHand.html">Hand</a> *&#160;</td>
+          <td class="paramname"><em>hand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentCard</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to find the previous allowed card before currentCard. Uses game_checkCard to check if a card is allowed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">player</td><td>The player who has the cards. </td></tr>
+    <tr><td class="paramname">game</td><td>The game where the player is located. </td></tr>
+    <tr><td class="paramname">hand</td><td>The hand in which should put the card. </td></tr>
+    <tr><td class="paramname">currentCard</td><td>Function finds the last allowed card before currentCard.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The next allowed card's id on success (value between 0 and <a class="el" href="constants_8h.html#aab98652040501bb254ea844c951aa742">MAX_CARDS</a> -1). Negative value on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a44309aa6c5f678e198b18faebd3bebda"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT struct <a class="el" href="structTeam.html">Team</a>* game_findTeam </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramname"><em>game</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to find the team in which a player belongs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">game</td><td>The game where to search. </td></tr>
+    <tr><td class="paramname">player</td><td>The player to find.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the required team on success, NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ada23a544cb21999457994f31514cf9e7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT int game_removePlayer </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
           <td class="paramname"><em>player</em>, </td>
         </tr>
         <tr>
@@ -342,18 +529,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, other value on failure. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aa174bfddbee15b919a2b258e92145526"></a>
+<a class="anchor" id="af89639c4b14dda39b58e8e4edce5da6c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">EXPORT int game_removeTeam </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structTeam.html">Team</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="structTeam.html">Team</a> *&#160;</td>
           <td class="paramname"><em>team</em>, </td>
         </tr>
         <tr>
@@ -378,7 +565,43 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NO_ERROR on success, error code otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> on success, error code otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aab2f1c8971b951b8bd88cea6fcf2110f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXPORT int game_updateScore </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structGame.html">Game</a> *&#160;</td>
+          <td class="paramname"><em>game</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structPlayer.html">Player</a> *&#160;</td>
+          <td class="paramname"><em>bidWinner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to update the score of teams and players after a round. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">game</td><td><a class="el" href="structGame.html" title="Game structure. ">Game</a> where to update the scores. </td></tr>
+    <tr><td class="paramname">bidWinner</td><td>Pointer to the player that won the bid in the last round.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28cabf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a> or 0 on success, other value on failure. </dd></dl>
 
 </div>
 </div>
@@ -410,7 +633,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 16 2014 21:25:43 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 20 2014 20:48:22 for CruceGame by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

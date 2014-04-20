@@ -601,6 +601,7 @@ int getBid(const struct Game *game, const int playerId)
                 selected = round_findNextAllowedBid(game->round, selected);
                 break;
             case 'q':
+                endwin();
                 exit(0);
         }
         wclear(bidsWindow);

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCruceGame", "libCruceGame\libCruceGame.vcxproj", "{50934296-9867-42D2-8555-4CB9BFB179C7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCruceGame.NET", "libCruceGame.NET\libCruceGame.NET.vcxproj", "{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cruceGameCurses", "cruceGameCurses\cruceGameCurses.vcxproj", "{F79A344B-B448-484B-B387-34454F1EB2A3}"
 EndProject
 Global
@@ -35,6 +37,21 @@ Global
 		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Mixed Platforms.Build.0 = Release-Static|Win32
 		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Win32.ActiveCfg = Release-Static|Win32
 		{50934296-9867-42D2-8555-4CB9BFB179C7}.Release-Static|Win32.Build.0 = Release-Static|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Debug|Win32.Build.0 = Debug|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release|Any CPU.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release|Win32.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release|Win32.Build.0 = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release-Static|Any CPU.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release-Static|Mixed Platforms.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release-Static|Mixed Platforms.Build.0 = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release-Static|Win32.ActiveCfg = Release|Win32
+		{A3D63CF3-DF52-4446-9D9B-A31DC937FBF0}.Release-Static|Win32.Build.0 = Release|Win32
 		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{F79A344B-B448-484B-B387-34454F1EB2A3}.Debug|Mixed Platforms.Build.0 = Debug|Win32

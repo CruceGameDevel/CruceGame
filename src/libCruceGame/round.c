@@ -257,6 +257,13 @@ int round_putCard(struct Player *player, const int cardId,
     return NOT_FOUND;
 }
 
+/**
+ * @brief Function to compute the number of points in a hand.
+ *
+ * @param hand The hand where to compute the number of points.
+ *
+ * @return The number of points in hand on succes, negative otherwise.
+ */
 int totalPointsNumber(const struct Hand *hand)
 {
     if (hand == NULL)

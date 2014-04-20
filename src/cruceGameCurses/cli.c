@@ -10,7 +10,12 @@
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef WIN32
+#include <Windows.h>
+#define sleep(s) Sleep(s*1000)
+#else
 #include <unistd.h>
+#endif
 
 #define MAX_CARDS_PER_LINE 8
 #define MAX_NAME_SIZE 20

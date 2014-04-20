@@ -10,9 +10,16 @@
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
+#ifndef WIN32
 #include <getopt.h>
+#endif
 #include <errno.h>
+#ifdef WIN32
+#include <Windows.h>
+#define sleep(s) Sleep(s*1000)
+#else
 #include <unistd.h>
+#endif 
 
 /**
  * @brief Define the version of current game
@@ -178,6 +185,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 int main(int argc, char *argv[])
 #endif
 {
+#ifndef WIN32
     if (argc >= 2) {
         int getoptCheck;
         struct option long_options[] = {
@@ -213,8 +221,11 @@ int main(int argc, char *argv[])
             exit(EXIT_FAILURE);
         }
     } else {
+#endif
         cruceGameLogic();
+#ifndef WIN32
     }
+#endif
     return EXIT_SUCCESS;
 }
 

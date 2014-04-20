@@ -65,8 +65,6 @@ EXPORT struct Player *team_createPlayer(const char *name, const int isHuman);
 /**
  * @brief Creates a team.
  *
- * @param name The name of the new team.
- *
  * @return Pointer to the created team. Needs to be freed.
  */
 EXPORT struct Team *team_createTeam();

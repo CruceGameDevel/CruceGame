@@ -419,6 +419,7 @@ int formTeams (struct Game *game)
 
 int displayCardsAndPickCard(struct Game *game, const int playerId)
 {
+    int colorPair;
     if (game == NULL)
         return GAME_NULL;
     int handId=0;
@@ -456,8 +457,28 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
 
     wprintw(trumpAndTurnWindow, "%s's turn:\n", player->name);
 
-    if (game->round->trump != SuitEnd)
-        wprintw(trumpAndTurnWindow, "Trump: %s\n", suit);
+    if (game->round->trump != SuitEnd) {
+        switch (game->round->trump) {
+            case DIAMONDS:
+                colorPair = 3;
+                break;
+            case CLUBS:
+                colorPair = 4;
+                break;
+            case HEARTS:
+                colorPair = 1;
+                break;
+            case SPADES:
+                colorPair = 2;
+                break;
+            default:
+                return ILLEGAL_VALUE;
+        }
+        wprintw(trumpAndTurnWindow, "Trump: ");
+        wattron(trumpAndTurnWindow, COLOR_PAIR(colorPair));
+        wprintw(trumpAndTurnWindow, "%s\n", suit);
+        wattroff(trumpAndTurnWindow, COLOR_PAIR(colorPair));
+    }
     else
         wprintw(trumpAndTurnWindow, "Trump was not set.\n");
 

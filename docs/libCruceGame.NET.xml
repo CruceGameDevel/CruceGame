@@ -1,0 +1,560 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "libCruceGame.NET"
+    </assembly>
+    <members>
+        <member name="M:CruceGame.Round.GetPoints(CruceGame.Team)">
+            <summary>
+Gets the points of a team
+</summary>
+            <param name="team" />
+        </member>
+        <member name="M:CruceGame.Round.GetPoints(CruceGame.Player)">
+            <summary>
+Gets the points of a player
+</summary>
+            <param name="player" />
+        </member>
+        <member name="M:CruceGame.Round.GetHandWinner(CruceGame.Hand)">
+            <summary>
+Gets the winner of a hand
+</summary>
+            <param name="hand" />
+            <returns />
+        </member>
+        <member name="M:CruceGame.Round.PlaceCard(CruceGame.Hand,CruceGame.Player,CruceGame.Card)">
+            <summary>
+Places a card of a player in a hand
+</summary>
+            <param name="hand" />
+            <param name="player" />
+            <param name="card" />
+        </member>
+        <member name="M:CruceGame.Round.GetBidWinner">
+            <summary>
+Gets the winner of the bid
+</summary>
+            <returns />
+        </member>
+        <member name="M:CruceGame.Round.GetBid(CruceGame.Player)">
+            <summary>
+Gets the bid of a player
+</summary>
+            <param name="player" />
+            <returns />
+        </member>
+        <member name="M:CruceGame.Round.PlaceBid(CruceGame.Player,System.Int32)">
+            <summary>
+Places a bid for a player
+</summary>
+            <param name="player" />
+            <param name="bid" />
+        </member>
+        <member name="M:CruceGame.Round.DistributeOneCardToEachPlayer(CruceGame.Deck)">
+            <summary>
+Distributes a card from the deck to each player
+</summary>
+            <param name="deck" />
+        </member>
+        <member name="M:CruceGame.Round.DistributeDeck(CruceGame.Deck)">
+            <summary>
+Distributes a deck to all the players in the round
+</summary>
+            <param name="deck" />
+        </member>
+        <member name="M:CruceGame.Round.RemovePlayer(CruceGame.Player)">
+            <summary>
+Removes a player from the round
+</summary>
+            <param name="player" />
+        </member>
+        <member name="M:CruceGame.Round.AddPlayer(CruceGame.Player)">
+            <summary>
+Adds a player to the round
+</summary>
+            <param name="player" />
+        </member>
+        <member name="P:CruceGame.Round.Players">
+            <summary>
+Gets the players in the round
+</summary>
+        </member>
+        <member name="P:CruceGame.Round.Hands">
+            <summary>
+Gets the hands of the round
+</summary>
+        </member>
+        <member name="P:CruceGame.Round.Trump">
+            <summary>
+Gets or sets the trump of the round
+</summary>
+        </member>
+        <member name="P:CruceGame.Round.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the round
+</summary>
+        </member>
+        <member name="M:CruceGame.Round.Finalize">
+            <summary>
+Destroys the round
+</summary>
+        </member>
+        <member name="M:CruceGame.Round.Dispose">
+            <summary>
+Destroys the round
+</summary>
+        </member>
+        <member name="M:CruceGame.Round.#ctor(System.IntPtr)">
+            <summary>
+Creates a new round wrapper from an existing handle
+</summary>
+        </member>
+        <member name="M:CruceGame.Round.#ctor">
+            <summary>
+Creates a new round
+</summary>
+        </member>
+        <member name="T:CruceGame.Round">
+            <summary>
+Represents a round
+</summary>
+        </member>
+        <member name="M:CruceGame.Deck.Shuffle">
+            <summary>
+Shuffles the deck
+</summary>
+        </member>
+        <member name="P:CruceGame.Deck.CardsCount">
+            <summary>
+Gets the number of cards in the deck
+</summary>
+        </member>
+        <member name="P:CruceGame.Deck.Cards">
+            <summary>
+Gets the cards of the deck
+</summary>
+        </member>
+        <member name="P:CruceGame.Deck.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the deck
+</summary>
+        </member>
+        <member name="M:CruceGame.Deck.Finalize">
+            <summary>
+Destroys the deck
+</summary>
+        </member>
+        <member name="M:CruceGame.Deck.Dispose">
+            <summary>
+Destroys the deck
+</summary>
+        </member>
+        <member name="M:CruceGame.Deck.#ctor(System.IntPtr)">
+            <summary>
+Creates a new deck wrapper from an existing handle
+</summary>
+            <param name="handle" />
+        </member>
+        <member name="M:CruceGame.Deck.#ctor">
+            <summary>
+Creates a new deck
+</summary>
+        </member>
+        <member name="T:CruceGame.Deck">
+            <summary>
+Represents a deck of cards
+</summary>
+        </member>
+        <member name="M:CruceGame.Game.StartRound(CruceGame.Player)">
+            <summary>
+Starts a new round
+</summary>
+            <param name="firstInRound">Player to be the first to play in the round</param>
+        </member>
+        <member name="M:CruceGame.Game.UpdateScore(CruceGame.Player)">
+            <summary>
+Updates the score
+</summary>
+            <param name="bidWinner" />
+        </member>
+        <member name="M:CruceGame.Game.CheckCard(CruceGame.Hand,CruceGame.Player,CruceGame.Card)">
+            <summary>
+Checks if a card can be played in the game
+</summary>
+            <param name="hand">Current hand</param>
+            <param name="player">Player that wants to play the card</param>
+            <param name="card">Card to be played</param>
+            <returns>TRUE if the card can be played</returns>
+        </member>
+        <member name="M:CruceGame.Game.FindTeam(CruceGame.Player)">
+            <summary>
+Finds the team that a player belongs to
+</summary>
+            <param name="player" />
+            <returns>The team that the player belongs to or NULL on failure</returns>
+        </member>
+        <member name="M:CruceGame.Game.GetWinningTeam">
+            <summary>
+Gets the winning team
+</summary>
+            <returns />
+        </member>
+        <member name="M:CruceGame.Game.RemoveTeam(CruceGame.Team)">
+            <summary>
+Removes a team from the game
+</summary>
+            <param name="team" />
+        </member>
+        <member name="M:CruceGame.Game.AddTeam(CruceGame.Team)">
+            <summary>
+Adds a team to the game
+</summary>
+            <param name="team" />
+        </member>
+        <member name="M:CruceGame.Game.RemovePlayer(CruceGame.Player)">
+            <summary>
+Removes a player from the game
+</summary>
+            <param name="player" />
+        </member>
+        <member name="M:CruceGame.Game.AddPlayer(CruceGame.Player)">
+            <summary>
+Adds a player to the game
+</summary>
+            <param name="player" />
+        </member>
+        <member name="P:CruceGame.Game.Teams">
+            <summary>
+Gets the teams in the game
+</summary>
+        </member>
+        <member name="P:CruceGame.Game.Players">
+            <summary>
+Gets the players in the game
+</summary>
+        </member>
+        <member name="P:CruceGame.Game.TotalPoints">
+            <summary>
+Gets the total points necessary to win the game
+</summary>
+        </member>
+        <member name="P:CruceGame.Game.PlayersCount">
+            <summary>
+Gets the ammount of players in the game
+</summary>
+        </member>
+        <member name="P:CruceGame.Game.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the game
+</summary>
+        </member>
+        <member name="M:CruceGame.Game.Finalize">
+            <summary>
+Destroys the game
+</summary>
+        </member>
+        <member name="M:CruceGame.Game.Dispose">
+            <summary>
+Destroys the game
+</summary>
+        </member>
+        <member name="M:CruceGame.Game.Create(System.Int32)">
+            <summary>
+Creates a new game with the specified ammount of total points
+</summary>
+            <param name="points" />
+            <returns>An instance of the new game or NULL on failure</returns>
+        </member>
+        <member name="M:CruceGame.Game.#ctor(System.IntPtr)">
+            <summary>
+Creates a new game wrapper from an existing handle
+</summary>
+            <param name="handle" />
+        </member>
+        <member name="T:CruceGame.Game">
+            <summary>
+Represents a game
+</summary>
+        </member>
+        <member name="M:CruceGame.Hand.RemovePlayer(CruceGame.Player)">
+            <summary>
+Removes a player from the hand
+</summary>
+            <param name="player" />
+        </member>
+        <member name="M:CruceGame.Hand.AddPlayer(CruceGame.Player)">
+            <summary>
+Adds a player to the hand
+</summary>
+            <param name="player" />
+        </member>
+        <member name="P:CruceGame.Hand.Players">
+            <summary>
+Gets the players in the hand
+</summary>
+        </member>
+        <member name="P:CruceGame.Hand.Cards">
+            <summary>
+Gets the cards in the hand
+</summary>
+        </member>
+        <member name="P:CruceGame.Hand.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the hand
+</summary>
+        </member>
+        <member name="M:CruceGame.Hand.Finalize">
+            <summary>
+Destroys the hand
+</summary>
+        </member>
+        <member name="M:CruceGame.Hand.Dispose">
+            <summary>
+Destroys the hand
+</summary>
+        </member>
+        <member name="M:CruceGame.Hand.#ctor(System.IntPtr)">
+            <summary>
+Creates a new hand wrapper fron an existing handle
+</summary>
+        </member>
+        <member name="M:CruceGame.Hand.#ctor">
+            <summary>
+Creates a new hand
+</summary>
+        </member>
+        <member name="T:CruceGame.Hand">
+            <summary>
+Represents a hand
+</summary>
+        </member>
+        <member name="M:CruceGame.Team.UpdatePlayersScore">
+            <summary>
+Updates the score of players
+</summary>
+        </member>
+        <member name="M:CruceGame.Team.RemovePlayer(CruceGame.Player)">
+            <summary>
+Removes a player from the team
+</summary>
+            <param name="player" />
+        </member>
+        <member name="M:CruceGame.Team.AddPlayer(CruceGame.Player)">
+            <summary>
+Adds a player to the team
+</summary>
+            <param name="player" />
+        </member>
+        <member name="P:CruceGame.Team.Score">
+            <summary>
+Gets the score of the team
+</summary>
+        </member>
+        <member name="P:CruceGame.Team.Players">
+            <summary>
+Gets the players in the team
+</summary>
+        </member>
+        <member name="P:CruceGame.Team.Handle">
+            <summary>
+Gets a handle to the unmananged memory of the team
+</summary>
+        </member>
+        <member name="M:CruceGame.Team.Finalize">
+            <summary>
+Destroys the team
+</summary>
+        </member>
+        <member name="M:CruceGame.Team.Dispose">
+            <summary>
+Destroys the team
+</summary>
+        </member>
+        <member name="M:CruceGame.Team.Create">
+            <summary>
+Creates a new team
+</summary>
+            <returns>A new team or NULL on error</returns>
+        </member>
+        <member name="M:CruceGame.Team.#ctor(System.IntPtr)">
+            <summary>
+Creates a new team wrapper from an existing handle
+</summary>
+        </member>
+        <member name="T:CruceGame.Team">
+            <summary>
+Represents a team
+</summary>
+        </member>
+        <member name="M:CruceGame.Player.ToString">
+            <summary>
+Creates a string representation of the player
+</summary>
+        </member>
+        <member name="M:CruceGame.Player.AddCard(CruceGame.Card)">
+            <summary>
+Adds a card to the hand of the player
+</summary>
+            <param name="card" />
+        </member>
+        <member name="P:CruceGame.Player.HasCards">
+            <summary>
+Gets whether the player has any cards
+</summary>
+        </member>
+        <member name="P:CruceGame.Player.IsHuman">
+            <summary>
+Gets whether the player is human
+</summary>
+        </member>
+        <member name="P:CruceGame.Player.Score">
+            <summary>
+Gets or sets the score of the player
+</summary>
+        </member>
+        <member name="P:CruceGame.Player.Hand">
+            <summary>
+Gets the current hand of the player
+</summary>
+        </member>
+        <member name="P:CruceGame.Player.Name">
+            <summary>
+Gets the name of the player
+</summary>
+        </member>
+        <member name="P:CruceGame.Player.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the player
+</summary>
+        </member>
+        <member name="M:CruceGame.Player.Finalize">
+            <summary>
+Destroys the player
+</summary>
+        </member>
+        <member name="M:CruceGame.Player.Dispose">
+            <summary>
+Destroys the player
+</summary>
+        </member>
+        <member name="M:CruceGame.Player.Create(System.String)">
+            <summary>
+Creates a new player with a unique name
+</summary>
+            <param name="name" />
+            <returns>The new player or NULL on failure</returns>
+        </member>
+        <member name="M:CruceGame.Player.#ctor(System.IntPtr)">
+            <summary>
+Creates a new player wrapper from an existing handle
+</summary>
+        </member>
+        <member name="T:CruceGame.Player">
+            <summary>
+Represents a player
+</summary>
+        </member>
+        <member name="M:CruceGame.Card.ToString">
+            <summary>
+Creates a string representation of the card
+</summary>
+        </member>
+        <member name="M:CruceGame.Card.Compare(CruceGame.Card,CruceGame.Suit)">
+            <summary>
+Compares the card to another one based on a trump
+</summary>
+            <returns>The more significant card</returns>
+            <param name="second" />
+            <param name="trump" />
+        </member>
+        <member name="P:CruceGame.Card.Value">
+            <summary>
+Gets the card's value
+</summary>
+        </member>
+        <member name="P:CruceGame.Card.Suit">
+            <summary>
+Gets the card's suit
+</summary>
+        </member>
+        <member name="P:CruceGame.Card.Handle">
+            <summary>
+Gets a handle to the unmanaged memory of the card
+</summary>
+        </member>
+        <member name="M:CruceGame.Card.Finalize">
+            <summary>
+Destroys the card
+</summary>
+        </member>
+        <member name="M:CruceGame.Card.Dispose">
+            <summary>
+Destroys the card
+</summary>
+        </member>
+        <member name="M:CruceGame.Card.#ctor(System.IntPtr)">
+            <summary>
+Creates a new card wrapper from an existing handle
+</summary>
+            <param name="handle" />
+        </member>
+        <member name="M:CruceGame.Card.Create(CruceGame.Suit,System.Int32)">
+            <summary>
+Creates a new card with the specified suit and value
+</summary>
+            <param name="suit" />
+            <param name="value" />
+        </member>
+        <member name="T:CruceGame.Card">
+            <summary>
+Represents a card 
+</summary>
+        </member>
+        <member name="T:CruceGame.Suit">
+            <summary>
+The suit of a card
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.CardValues">
+            <summary>
+Stores the numeric value of each card
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.MaxGameTeams">
+            <summary>
+Stores the maximum number of teams in a game
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.MaxGamePlayers">
+            <summary>
+Stores the maximum number of players in a game
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.MaxHands">
+            <summary>
+Stores the maximum number of hands
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.DeckSize">
+            <summary>
+Stores the maximum number of cards in a deck
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.MaxTeamPlayers">
+            <summary>
+Stores the maximum number of players in a team
+</summary>
+        </member>
+        <member name="F:CruceGame.Constants.MaxCards">
+            <summary>
+Stores the maximum number of cards in a game
+</summary>
+        </member>
+        <member name="T:CruceGame.Constants">
+            <summary>
+Stores game-related constants
+</summary>
+        </member>
+    </members>
+</doc>

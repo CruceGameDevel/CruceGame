@@ -165,7 +165,16 @@ struct Team *game_winningTeam(struct Game *game)
     return NULL;
 }
 
-int game_maximumValue(struct Card *cards[], const int length, 
+/**
+ * @brief Function to find the maximum value of a certain suit.
+ *
+ * @param cards The card array where to look for.
+ * @param length The length of cards array.
+ * @param suit The suit to search for.
+ *
+ * @return The maximum value of cards of suit indicated as parameter.
+ */
+int maximumValue(struct Card *cards[], const int length, 
                         const enum Suit suit)
 {
     int maxValue = -1;
@@ -198,14 +207,14 @@ int game_checkCard(struct Player *player, const struct Game *game,
     if (hand->cards[0] == NULL)
         return 1;
 
-    int maxFirstCardValuePlayer = game_maximumValue(player->hand, MAX_CARDS,
+    int maxFirstCardValuePlayer = maximumValue(player->hand, MAX_CARDS,
                                                     hand->cards[0]->suit);
-    int maxTrumpValuePlayer     = game_maximumValue(player->hand, MAX_CARDS,
+    int maxTrumpValuePlayer     = maximumValue(player->hand, MAX_CARDS,
                                                     game->round->trump);
-    int maxFirstCardValue       = game_maximumValue(hand->cards,
+    int maxFirstCardValue       = maximumValue(hand->cards,
                                                     MAX_GAME_PLAYERS,
                                                     hand->cards[0]->suit);
-    int maxTrumpValue           = game_maximumValue(hand->cards,
+    int maxTrumpValue           = maximumValue(hand->cards,
                                                     MAX_GAME_PLAYERS,
                                                     game->round->trump);
 

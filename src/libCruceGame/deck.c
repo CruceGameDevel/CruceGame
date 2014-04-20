@@ -99,8 +99,8 @@ int deck_deleteDeck(struct Deck **deck)
  * 
  * Helper for deckShuffle
  *
- * @param a.
- * @param b.
+ * @param a
+ * @param b
  * @return void.
  */
 void deck_swap(struct Card **a, struct Card **b)

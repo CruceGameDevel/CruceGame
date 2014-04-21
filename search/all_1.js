@@ -4,5 +4,7 @@ var searchData=
   ['card_5fnull',['CARD_NULL',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca9d023b99aa59c74f11cc021696870fbc',1,'errors.h']]],
   ['cards',['cards',['../structDeck.html#ad4f6d765505fabbceb5f00250f833a3c',1,'Deck::cards()'],['../structHand.html#af403eeed198e76da56f15a330368aca9',1,'Hand::cards()']]],
   ['checkbid',['checkBid',['../round_8c.html#af34ce794b6106c0575529fea065b21fd',1,'round.c']]],
-  ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]]
+  ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]],
+  ['crucegame_20coding_20standard',['CruceGame Coding Standard',['../md_docs_coding-standard.html',1,'']]],
+  ['crucegame_20community_20guide_20_28a_2ek_2ea_2e_20_22hacking_22_29',['CruceGame Community Guide (a.k.a. &quot;HACKING&quot;)',['../md_docs_hacking.html',1,'']]]
 ];

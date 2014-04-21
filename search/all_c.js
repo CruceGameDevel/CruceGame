@@ -1,5 +1,9 @@
 var searchData=
 [
+  ['regulile_20jocului',['Regulile jocului',['../md_docs_game-rules_ro.html',1,'']]],
+  ['requirements',['Requirements',['../md_docs_requirements.html',1,'']]],
+  ['roadmap',['Roadmap',['../md_docs_roadmap.html',1,'']]],
+  ['roadmap_20for_20v0_2e2_2e0',['Roadmap for v0.2.0',['../md_docs_roadmap_v0_82_80.html',1,'']]],
   ['round',['Round',['../structRound.html',1,'Round'],['../structGame.html#aeab5e8d5301e69bf4d04f4d3343444de',1,'Game::round()']]],
   ['round_2ec',['round.c',['../round_8c.html',1,'']]],
   ['round_2eh',['round.h',['../round_8h.html',1,'']]],

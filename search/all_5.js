@@ -17,5 +17,6 @@ var searchData=
   ['game_5fremoveplayer',['game_removePlayer',['../game_8c.html#aabe791364a5179114322d04b92c1fa86',1,'game_removePlayer(const struct Player *player, struct Game *game):&#160;game.c'],['../game_8h.html#ada23a544cb21999457994f31514cf9e7',1,'game_removePlayer(const struct Player *player, struct Game *game):&#160;game.c']]],
   ['game_5fremoveteam',['game_removeTeam',['../game_8c.html#aa9cc941813a51a7077a8a7d37f1faa5b',1,'game_removeTeam(const struct Team *team, struct Game *game):&#160;game.c'],['../game_8h.html#af89639c4b14dda39b58e8e4edce5da6c',1,'game_removeTeam(const struct Team *team, struct Game *game):&#160;game.c']]],
   ['game_5fupdatescore',['game_updateScore',['../game_8c.html#ab843bf281598f3af34819bf2d27177af',1,'game_updateScore(const struct Game *game, struct Player *bidWinner):&#160;game.c'],['../game_8h.html#aab2f1c8971b951b8bd88cea6fcf2110f',1,'game_updateScore(const struct Game *game, struct Player *bidWinner):&#160;game.c']]],
-  ['game_5fwinningteam',['game_winningTeam',['../game_8c.html#a6916ef95fea20257d187f504a8cdc1d7',1,'game_winningTeam(struct Game *game):&#160;game.c'],['../game_8h.html#a8d21e55713f9d3b7fb09444b23a096d3',1,'game_winningTeam(struct Game *game):&#160;game.c']]]
+  ['game_5fwinningteam',['game_winningTeam',['../game_8c.html#a6916ef95fea20257d187f504a8cdc1d7',1,'game_winningTeam(struct Game *game):&#160;game.c'],['../game_8h.html#a8d21e55713f9d3b7fb09444b23a096d3',1,'game_winningTeam(struct Game *game):&#160;game.c']]],
+  ['game_20rules',['Game Rules',['../md_docs_game-rules_en.html',1,'']]]
 ];

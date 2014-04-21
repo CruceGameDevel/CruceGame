@@ -14,7 +14,8 @@ var indexSectionsWithContent =
   4: "bcdhinprstv",
   5: "es",
   6: "cdefghilmnprt",
-  7: "dms"
+  7: "dms",
+  8: "cdfgrt"
 };
 
 var indexSectionNames =
@@ -26,7 +27,8 @@ var indexSectionNames =
   4: "variables",
   5: "enums",
   6: "enumvalues",
-  7: "defines"
+  7: "defines",
+  8: "pages"
 };
 
 function convertToId(search)

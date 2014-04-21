@@ -15,5 +15,7 @@ var searchData=
   ['deck_5fsize',['DECK_SIZE',['../constants_8h.html#ab48a679225d82ec51e09e62d14313b34',1,'constants.h']]],
   ['deck_5fswap',['deck_swap',['../deck_8c.html#a8369f3e95e8b523de4cf4e63ebc43dad',1,'deck.c']]],
   ['duplicate',['DUPLICATE',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28ca6d0b42a4ceb4a0594120df04371fad5f',1,'errors.h']]],
-  ['duplicate_5fname',['DUPLICATE_NAME',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a',1,'errors.h']]]
+  ['duplicate_5fname',['DUPLICATE_NAME',['../errors_8h.html#a4db9ee29f2ff83c71567c12f6bfbf28caa109e757964509a9991fb6f448d2ea0a',1,'errors.h']]],
+  ['dezvoltarea_20unui_20joc_20de_20cărți',['Dezvoltarea unui joc de cărți',['../md_docs_introduction_ro.html',1,'']]],
+  ['developing_20crucegame_20on_20microsoft_20windows',['Developing CruceGame on Microsoft Windows',['../md_docs_windows.html',1,'']]]
 ];

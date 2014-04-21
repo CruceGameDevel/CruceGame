@@ -37,8 +37,6 @@ struct Hand{
  * hands and computes the score until the winner of the
  * round is found.
  *
- * @var Round::id
- *     Identifier of the round.
  * @var Round::trump
  *     The trump of the round.
  * @var Round::hands
@@ -51,7 +49,6 @@ struct Hand{
  *     The total amount of points of the round.
  */
 struct Round{
-    int id;
     enum Suit trump;
     struct Hand *hands[MAX_HANDS];
     int bids[MAX_GAME_PLAYERS];
@@ -79,9 +76,10 @@ EXPORT struct Player *round_getBidWinner(const struct Round *round);
  * @param bid The value of the bid.
  * @param round Pointer to the round where to place the bid.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *round);
+EXPORT int round_placeBid(const struct Player *player, const int bid, 
+                          struct Round *round);
 
 /**
  * @brief Add a player to a round.
@@ -89,7 +87,7 @@ EXPORT int round_placeBid(const struct Player *player, int bid, struct Round *ro
  * @param player Pointer to the player to be added.
  * @param round Pointer to the round where to add player.
  * 
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_addPlayer(struct Player* player, struct Round *round);
 
@@ -110,30 +108,24 @@ EXPORT int round_findPlayerIndexRound(const struct Player *player,
  * @param player Pointer to the player to be added.
  * @param hand Pointer to the hand where the player is to be added.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_addPlayerHand(struct Player *player, struct Hand *hand);
 
 /**
- * @brief Places a card from a player to a hand.
+ * @brief Places a card from a player to a hand and offers the player 20 points
+ *        if has 3 and 4 of same suit or 40 points if has 3 and 4 of same suit
+ *        as the trump.
  *
  * @param player Pointer to the player who places the card.
  * @param cardId Id of the card placed by the player (id from Player.cards).
- * @param hand Pointer to the hand in which the card is placed.
+ * @param handId Id of the hand in which the card is placed.
+ * @param round  Pointer to the round in which is hand.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_putCard(struct Player *player, int cardId, struct Hand *hand);
- 
-/**
- * @brief Computes the score of a hand (in game points).
- *
- * @param hand Pointer to the hand for which the score is computed.
- *
- * @return Integer representing the score or negative error code on failure.
- *
- */
-EXPORT int round_computeScore(const struct Hand *hand);
+EXPORT int round_putCard(struct Player *player, const int cardId,
+                         const int handId, struct Round *round);
 
 /**
  * @brief Allocates memory for and initializes a round.
@@ -143,11 +135,11 @@ EXPORT int round_computeScore(const struct Hand *hand);
 EXPORT struct Round *round_createRound();
 
 /**
- * @brief Frees the memory of a round. Makes pointer NULL.
+ * @brief Frees the memory of a round. Makes NULL pointer.
  *
  * @param round Pointer to pointer to the round to be deleted.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_deleteRound(struct Round **round);
 
@@ -163,7 +155,7 @@ EXPORT struct Hand *round_createHand();
  *
  * @param hand Pointer to pointer to the hand to be deleted.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_deleteHand(struct Hand **hand);
 
@@ -173,9 +165,9 @@ EXPORT int round_deleteHand(struct Hand **hand);
  * @param player Pointer to the player to be removed.
  * @param round Pointer to the round from which the player is removed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_removePlayer(struct Player *player, struct Round *round);
+EXPORT int round_removePlayer(const struct Player *player, struct Round *round);
 
 /**
  * @brief Removes a player from a hand.
@@ -183,20 +175,20 @@ EXPORT int round_removePlayer(struct Player *player, struct Round *round);
  * @param player Pointer to the player to be removed.
  * @param hand Pointer to the hand from where the player is removed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int round_removePlayerHand(struct Player *player, struct Hand *hand);
+EXPORT int round_removePlayerHand(const struct Player *player, 
+                                  struct Hand *hand);
 
 /**
  * @brief Determines the winner of a hand.
  *
  * @param hand Pointer to the hand.
- * @param trump The trump of round.
  * @param round Pointer to the round containing the hand that the player won.
  *
  * @return Pointer to the winning player or NULL on failure.
  */
-EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
+EXPORT struct Player *round_handWinner(const struct Hand *hand,
                                        struct Round *round);
 
 /**
@@ -205,7 +197,7 @@ EXPORT struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
  * @param deck Pointer to the deck from where cards are distributed.
  * @param round Pointer to the round containing the players that receive the cards.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
 
@@ -215,7 +207,7 @@ EXPORT int round_distributeCard(struct Deck *deck, const struct Round *round);
  * @param deck Pointer to the deck from where cards are distributed.
  * @param round Pointer to the round that deck is distributed to.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
 
@@ -225,9 +217,49 @@ EXPORT int round_distributeDeck(struct Deck *deck, const struct Round *round);
  * @param round Pointer to the round from which arranges it the players.
  * @param i The position from where begin arranging.
  *
- * @return NO_ERROR or 0 on success, other value on failure.
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
 EXPORT int round_arrangePlayersHand(struct Round *round, int i);
+
+/**
+ * @brief Compute round points of a team.
+ *
+ * @param team The team to compute points for.
+ * @param round The round where to compute points.
+ *
+ * @return Number of round points on success, other value on failure.
+ */
+EXPORT int round_computePoints(const struct Team *team,
+                               const struct Round *round);
+
+/**
+ * @brief The function search the maximum bid.
+ *
+ * @param round Pointer to the round in which are the bids.
+ *
+ * @return The maximum bid.
+ */
+EXPORT int round_getMaximumBid(struct Round *round);
+
+/**
+ * @brief Function to find the next allowed bid after currentBid.
+ *
+ * @param round The round where are bids.
+ * @param currentBid Function finds the first allowed bid after currentBid.
+ *
+ * @return The next allowed bid's id on success, negative value on failure.
+ */
+EXPORT int round_findNextAllowedBid(struct Round *round, int currentBid);
+
+/**
+ * @brief Function to find the previous allowed bid before currentBid.
+ *
+ * @param round The round where are bids.
+ * @param currentBid Function finds the first allowed bid before currentBid.
+ *
+ * @return The previous allowed bid's id on success, negative value on failure.
+ */
+EXPORT int round_findPreviousAllowedBid(struct Round *round, int currentBid);
 
 #ifdef __cplusplus
 }

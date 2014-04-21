@@ -1,17 +1,23 @@
+/**
+* @file team.c
+* @brief Contains implementations for the functions used for team-related 
+*        operations, like creating and deleting a team.
+*/
+
 #include "team.h"
 #include "constants.h"
 #include "errors.h"
+#include "round.h"
 #include <stdlib.h>
 
 #include <string.h>
 #include <stdio.h>
 
-struct Player *team_createPlayer(const char *name, int isHuman)
+struct Player *team_createPlayer(const char *name, const int isHuman)
 {
     if (name == NULL)
         return NULL;
 
-    static int id = 0; //needs rethinking
     struct Player *newPlayer = malloc(sizeof(struct Player));
 
     if (newPlayer == NULL)
@@ -24,7 +30,6 @@ struct Player *team_createPlayer(const char *name, int isHuman)
     else 
         return NULL;
 
-    newPlayer->id      = id++;
     newPlayer->score   = 0;
     newPlayer->isHuman = isHuman;
 
@@ -34,23 +39,14 @@ struct Player *team_createPlayer(const char *name, int isHuman)
     return newPlayer;
 }
 
-struct Team *team_createTeam(const char *name)
+struct Team *team_createTeam()
 {
-    if (name == NULL)
-        return NULL;
-
-    static int id = 0; //needs rethinking
     struct Team *newTeam = malloc(sizeof(struct Team));
 
     if (newTeam == NULL)
         return NULL;
 
-    newTeam->id   = id++;
-    newTeam->name = malloc((strlen(name) + 1) * sizeof(char));
-    
-    if(newTeam->name == NULL)
-        return NULL;
-    strcpy(newTeam->name, name);
+    newTeam->score = 0;
 
     newTeam->players[0] = NULL;
     newTeam->players[1] = NULL;
@@ -78,7 +74,7 @@ int team_addPlayer(struct Team *team, struct Player *player)
     return TEAM_FULL;
 }
 
-int team_removePlayer(struct Team *team,const struct Player *player)
+int team_removePlayer(struct Team *team, const struct Player *player)
 {
     if (team == NULL)
         return TEAM_NULL;
@@ -101,7 +97,6 @@ int team_deleteTeam(struct Team **team)
     if (*team == NULL)
         return TEAM_NULL;
 
-    free((*team)->name);
     free(*team);
     *team = NULL;
 
@@ -122,32 +117,7 @@ int team_deletePlayer(struct Player **player)
     return NO_ERROR;
 }
 
-
-int team_computeScore(const struct Team *team)
-{
-    if(team == NULL)
-        return TEAM_NULL;
-
-    int bool_atLeastOnePlayerInTeam = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
-        if(team->players[i] != NULL) {
-            bool_atLeastOnePlayerInTeam = 1;
-            break;
-        }
-            
-    }
-    if(!bool_atLeastOnePlayerInTeam)
-        return TEAM_EMPTY;
-
-    int returnScore = 0;
-    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
-        if(team->players[i] != NULL)
-            returnScore += (team->players[i])->score;
-
-    return returnScore;
-}
-
-int team_addCard(struct Player *player,struct Card *card)
+int team_addCard(struct Player *player, struct Card *card)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -168,7 +138,7 @@ int team_addCard(struct Player *player,struct Card *card)
     return FULL;
 }
 
-int team_hasCards(struct Player *player)
+int team_hasCards(const struct Player *player)
 {
     if(player == NULL)
         return PLAYER_NULL;
@@ -179,3 +149,17 @@ int team_hasCards(struct Player *player)
     
     return 0;
 }
+
+int team_updatePlayersScore(struct Team *team)
+{
+    if (team == NULL)
+        return TEAM_NULL;
+
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++) {
+        if (team->players[i] != NULL)
+            team->players[i]->score = team->score;
+    }
+
+    return NO_ERROR;
+}
+

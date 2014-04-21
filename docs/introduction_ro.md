@@ -72,7 +72,7 @@ stilul de codare](https://github.com/danij/CruceGame/blob/develop/docs/coding-st
 * Funcțiile din biblioteca de bază nu conțin apeluri spre funcții gen `printf`, `scanf`. 
 De ce? Deoarece această biblioteca nu știe (și nici nu o interesează) cum sunt afișate 
 datele, sau de unde sunt citite. Astfel funcțiile vor primi toate informațiile necesare 
-prin intermediul parametriilor, ex. `struct Team *team_createTeam(char *name)`
+prin intermediul parametriilor, ex. `struct Team *team_createTeam()`
 * Deoarece o bibliotecă conține doar astfel de funcții, testarea acesteia sa va realiza 
 folosind [unit tests](http://en.wikipedia.org/wiki/Unit_testing). Acestea sunt compuse 
 din simple funcții care apelează funcțiile din bibliotecă cu anumiți parametrii, iar apoi

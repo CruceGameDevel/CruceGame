@@ -1,3 +1,10 @@
+/**
+ * @file deck.c
+ * @brief In this file are defined functions used for deck-related 
+ *        operations, these functions are declared in the header 
+ *        file deck.h.
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -13,7 +20,7 @@
  */
 const int VALUES[] = {2, 3, 4, 0, 10, 11, -1};
 
-struct Card *deck_createCard(enum Suit suit, int value)
+struct Card *deck_createCard(const enum Suit suit, const int value)
 {
     struct Card *card = malloc(sizeof(struct Card));
 
@@ -88,13 +95,13 @@ int deck_deleteDeck(struct Deck **deck)
 }
 
 /**
- * @brief Swap 2 Cards
+ * @brief Swap 2 Cards.
  * 
  * Helper for deckShuffle
  *
  * @param a
  * @param b
- * @return void
+ * @return void.
  */
 void deck_swap(struct Card **a, struct Card **b)
 {
@@ -128,7 +135,8 @@ int deck_deckShuffle(struct Deck *deck)
     return NO_ERROR;
 }
 
-int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Suit trump)
+int deck_compareCards(const struct Card *card1, const struct Card *card2, 
+                      const enum Suit trump)
 {
     if (card1 == NULL || card2 == NULL)
         return CARD_NULL;
@@ -156,7 +164,7 @@ int deck_compareCards(const struct Card *card1,const struct Card *card2, enum Su
     return ERROR_COMPARE;
 }
 
-int deck_cardsNumber(struct Deck *deck)
+int deck_cardsNumber(const struct Deck *deck)
 {
     if (deck == NULL)
         return DECK_NULL;

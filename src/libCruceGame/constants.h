@@ -1,3 +1,8 @@
+/**
+ * @file constants.h
+ * @brief Contains definitions of various symbolic constants. 
+ */
+
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
@@ -12,39 +17,39 @@
 #define MAX_TEAM_PLAYERS 2
 
 /**
- * @brief Deck size
+ * @brief Deck size.
  */
 #define DECK_SIZE 24
 
 /**
- * @brief Minimum number of swaps performed by deckShuffle
+ * @brief Minimum number of swaps performed by deckShuffle.
  */
 #define SWAP_MIN 100
 
 /**
- * @brief Maximum number of swaps performed by deckSuffle
+ * @brief Maximum number of swaps performed by deckSuffle.
  */
 #define SWAP_MAX 200
 
 /**
  * @brief Maximum number of hands in a round.
  */
-#define MAX_HANDS 12
+#define MAX_HANDS 13
 
 /**
- * @brief Maximum number of players in a game
+ * @brief Maximum number of players in a game.
  */
 #define MAX_GAME_PLAYERS 4
 
 /** 
-* @brief MAximum number of teams in a game
-*/
+ * @brief Maximum number of teams in a game.
+ */
 #define MAX_GAME_TEAMS 4
 
 /**
  * @brief Constants for suit.
  *
- * SuitEnd is a flag used when iterating
+ * SuitEnd is a flag used when iterating.
  */
 enum Suit {DIAMONDS = 0, CLUBS, SPADES, HEARTS, SuitEnd};
 
@@ -53,9 +58,9 @@ extern "C" {
 #endif
 
 /**
- * @brief Game values for cards
+ * @brief Game values for cards.
  *
- * -1 is a flag used when iterating
+ * -1 is a flag used when iterating.
  */
 extern const int VALUES[7];
 
@@ -64,3 +69,4 @@ extern const int VALUES[7];
 #endif
 
 #endif
+

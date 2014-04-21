@@ -109,4 +109,5 @@ Miscellaneous
 * Do not leave dangling pointers. After you free a memory location, make
 sure you set the pointer to NULL.
 
+* Make sure there is an empty line at the end of each file.
 

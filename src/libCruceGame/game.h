@@ -51,14 +51,14 @@ extern "C" {
  *
  * @return Pointer to the new game on success or NULL on failure.
  */
-EXPORT struct Game *game_createGame(int numberPoints);
+EXPORT struct Game *game_createGame(const int numberPoints);
 
 /**
  * @brief Frees the memory of a game and makes the pointer NULL.
  *
  * @param game Pointer to the game to be deleted.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_deleteGame(struct Game **game);
 
@@ -68,7 +68,7 @@ EXPORT int game_deleteGame(struct Game **game);
  * @param player The player to be added.
  * @param game The game where the player is to be added.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_addPlayer(struct Player *player, struct Game *game);
 
@@ -78,9 +78,9 @@ EXPORT int game_addPlayer(struct Player *player, struct Game *game);
  * @param player The player to be removed.
  * @param game The game from where the player is to be removed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
-EXPORT int game_removePlayer(struct Player *player, struct Game *game);
+EXPORT int game_removePlayer(const struct Player *player, struct Game *game);
 
 /**
  * @brief Adds a team to a game.
@@ -88,7 +88,7 @@ EXPORT int game_removePlayer(struct Player *player, struct Game *game);
  * @param team The team to be added.
  * @param game The game where the team is to be added to.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int game_addTeam(struct Team *team, struct Game *game);
 
@@ -99,9 +99,9 @@ EXPORT int game_addTeam(struct Team *team, struct Game *game);
  * @param team The team to be removed.
  * @param game The game from where the team is to be removed.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, error code otherwise.
  */
-EXPORT int game_removeTeam(struct Team *team, struct Game *game);
+EXPORT int game_removeTeam(const struct Team *team, struct Game *game);
 
 /**
  * @brief Searches the winning team of a game.
@@ -124,9 +124,71 @@ EXPORT struct Team *game_winningTeam(struct Game *game);
  *         0 if the player can't to put the card down
  *         other value on failure.
  */
-EXPORT int game_checkCard(struct Player *player, struct Game *game,
-                          struct Hand *hand, int idCard);
+EXPORT int game_checkCard(struct Player *player, const struct Game *game,
+                          struct Hand *hand, const int idCard);
 
+/**
+ * @brief Function to find the next allowed card after currentCard.
+ *        Uses game_checkCard to check if a card is allowed.
+ *
+ * @param player The player who has the cards.
+ * @param game The game where the player is located.
+ * @param hand The hand in which should put the card.
+ * @param currentCard Function finds the first allowed card after currentCard.
+ *
+ * @return The next allowed card's id on success (value between 0 and
+ *         \ref MAX_CARDS -1). Negative value on failure.
+ */
+EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
+                                    struct Hand *hand, int currentCard);
+
+/**
+ * @brief Function to find the previous allowed card before currentCard.
+ *        Uses game_checkCard to check if a card is allowed.
+ *
+ * @param player The player who has the cards.
+ * @param game The game where the player is located.
+ * @param hand The hand in which should put the card.
+ * @param currentCard Function finds the last allowed card before currentCard.
+ *
+ * @return The next allowed card's id on success (value between 0 and
+ *         \ref MAX_CARDS -1). Negative value on failure.
+ */
+EXPORT int game_findPreviousAllowedCard(struct Player *player, 
+                                        struct Game *game,
+                                        struct Hand *hand,
+                                        int currentCard);
+
+/**
+ * @brief Function to find the team in which a player belongs.
+ *
+ * @param game The game where to search.
+ * @param player The player to find.
+ *
+ * @return Pointer to the required team on success, NULL on failure.
+ */
+EXPORT struct Team *game_findTeam(const struct Game *game, struct Player *player);
+
+/**
+ * @brief Function to update the score of teams and players after a round.
+ *
+ * @param game Game where to update the scores.
+ * @param bidWinner Pointer to the player that won the bid in the last round.
+ *
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
+ */
+EXPORT int game_updateScore(const struct Game *game, struct Player *bidWinner);
+
+/**
+ * @brief Function to add a round to a game and to arrange players into it,
+ *        according to game rules.
+ *
+ * @param game The game to process.
+ * @param i The index of the first player in that round.
+ *
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
+ */
+EXPORT int game_arrangePlayersRound(struct Game *game, const int i);
 
 #ifdef __cplusplus
 }

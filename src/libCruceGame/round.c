@@ -1,3 +1,11 @@
+/**
+ * @file round.c
+ * @brief Contains implementations of the functions used for creation or
+ *        deletion of a round. Also, it contains implementations for the 
+ *        functions used to handle different activities in a round, like
+ *        removing a player.
+ */
+
 #include "round.h"
 #include "errors.h"
 
@@ -82,7 +90,8 @@ struct Player *round_getBidWinner(const struct Round *round)
     return round->players[maxBidIndex];
 }
 
-int round_findPlayerIndexRound(const struct Player *player, const struct Round *round)
+int round_findPlayerIndexRound(const struct Player *player, 
+                                const struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -90,8 +99,7 @@ int round_findPlayerIndexRound(const struct Player *player, const struct Round *
         return ROUND_NULL;
 
     int i = 0;
-    while (round->players[i] != player && 
-           i < MAX_GAME_PLAYERS)
+    while (i < MAX_GAME_PLAYERS && round->players[i] != player)
         i++;
 
     if (i == MAX_GAME_PLAYERS)
@@ -100,7 +108,8 @@ int round_findPlayerIndexRound(const struct Player *player, const struct Round *
     return i;
 }
 
-int round_placeBid(const struct Player *player, int bid, struct Round *round)
+int round_placeBid(const struct Player *player, const int bid, 
+                    struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -172,7 +181,7 @@ int round_addPlayerHand(struct Player *player, struct Hand *hand)
     return NO_ERROR;
 }
 
-int round_removePlayer(struct Player *player, struct Round *round)
+int round_removePlayer(const struct Player *player, struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -189,7 +198,7 @@ int round_removePlayer(struct Player *player, struct Round *round)
     return NO_ERROR;
 }
 
-int round_removePlayerHand(struct Player *player, struct Hand *hand)
+int round_removePlayerHand(const struct Player *player, struct Hand *hand)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -205,19 +214,42 @@ int round_removePlayerHand(struct Player *player, struct Hand *hand)
     return NOT_FOUND;
 }
 
-int round_putCard(struct Player *player, int cardId,struct Hand *hand)
+int round_putCard(struct Player *player, const int cardId,
+                  const int handId, struct Round *round)
 {
     if (player == NULL)
         return PLAYER_NULL;
     if (player->hand[cardId] == NULL)
         return CARD_NULL;
-    if (hand == NULL)
+    if (round == NULL)
+        return ROUND_NULL;
+    if (round->hands[handId] == NULL)
         return HAND_NULL;
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
-        if (hand->players[i] == player){
-            hand->cards[i] = player->hand[cardId];
+        if (round->hands[handId]->players[i] == player){
+            round->hands[handId]->cards[i] = player->hand[cardId];
+            enum Suit suit = player->hand[cardId]->suit;
+            int value = player->hand[cardId]->value;
             player->hand[cardId] = NULL;
+            if (i == 0 && (value == 3 || value == 4)) {
+                int check = 0;
+                for (int j = 0; j < MAX_CARDS; j++) {
+                    if (player->hand[j] != NULL &&
+                       (player->hand[j]->value == 3 ||
+                        player->hand[j]->value == 4) &&
+                        suit == player->hand[j]->suit) {
+                        check = 1;
+                    }
+                }
+                if (check == 1) {
+                    int position = round_findPlayerIndexRound(player, round);
+                    if (suit == round->trump)
+                        round->pointsNumber[position] += 40;
+                    else
+                        round->pointsNumber[position] += 20;
+                }
+            }
             return NO_ERROR;
         }
     }
@@ -225,23 +257,13 @@ int round_putCard(struct Player *player, int cardId,struct Hand *hand)
     return NOT_FOUND;
 }
 
-int round_computeScore(const struct Hand *hand)
-{
-    if (hand == NULL)
-        return HAND_NULL;
-
-    int cardsScore = 0;
-    for (int i = 0; hand->players[i] != NULL; i++) {
-        if (hand->cards[i] == NULL)
-            return CARD_NULL;
-        cardsScore += hand->cards[i]->value;
-    }
-
-    int gameScore = cardsScore / 33;
-
-    return gameScore;
-}
-
+/**
+ * @brief Function to compute the number of points in a hand.
+ *
+ * @param hand The hand where to compute the number of points.
+ *
+ * @return The number of points in hand on succes, negative otherwise.
+ */
 int totalPointsNumber(const struct Hand *hand)
 {
     if (hand == NULL)
@@ -255,12 +277,12 @@ int totalPointsNumber(const struct Hand *hand)
     return points;
 }
 
-struct Player *round_handWinner(const struct Hand *hand, enum Suit trump,
-                                struct Round *round)
+struct Player *round_handWinner(const struct Hand *hand, struct Round *round)
 {
-    if (hand == NULL || trump == SuitEnd || round == NULL)
+    if (hand == NULL || round == NULL || round->trump == SuitEnd)
         return NULL;
 
+    enum Suit trump = round->trump;
     int playerWinner = -1;
     int numberPlayers = 0;
     for (int i = 0; i < MAX_GAME_PLAYERS; i++) {
@@ -380,4 +402,103 @@ int round_arrangePlayersHand(struct Round *round, int i)
     return NO_ERROR;
 }
 
+int round_computePoints(const struct Team *team, const struct Round *round)
+{
+    if (team == NULL)
+        return TEAM_NULL;
+    if (round == NULL)
+        return ROUND_NULL;
+
+    int playersNumber = 0;
+    int points = 0;
+    for (int i = 0; i < MAX_TEAM_PLAYERS; i++)
+        if (team->players[i] != NULL) {
+            playersNumber++;
+            int j = round_findPlayerIndexRound(team->players[i], round);
+            if (j < 0)
+                return j;
+            points += round->pointsNumber[j];
+        }
+
+    if (playersNumber == 0)
+        return TEAM_EMPTY;
+
+    return points;
+}
+
+int round_getMaximumBid(struct Round *round)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+
+    int maximumBid = 0;
+    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
+        if (round->players[i] != NULL)
+            if (round->bids[i] > maximumBid)
+                maximumBid = round->bids[i];
+
+    return maximumBid;
+}
+
+/**
+ * @brief Helper for findAllowedBid().)
+ *
+ * @param currentBid The bid which is bid.
+ * @param maximumBid Maximum bid from auction.
+ *
+ * @return 1 if the current bid can be bid, otherwise 0.
+ */
+int checkBid(int currentBid, int maximumBid)
+{
+    if (currentBid > maximumBid || currentBid == 0 )
+        return 1;
+
+    return 0;
+}
+
+/**
+ * @brief Helper for functions which search a allowed bid.
+ *
+ * @param round The round in which are the bids.
+ * @param currentBid The bid which is bid.
+ * @param searchPattern This parameter indicate where to search (-1 to left,
+ *                      1 to right).
+ *
+ * @return The first allowed bid found.
+ */
+int findAllowedBid(struct Round *round, int currentBid, int searchPattern)
+{
+    if (round == NULL)
+        return ROUND_NULL;
+    if (currentBid < 0 || currentBid > 6)
+        return ILLEGAL_VALUE;
+    if (searchPattern != 1 && searchPattern != -1)
+        return ILLEGAL_VALUE;
+
+    currentBid += searchPattern;
+    if (currentBid == -1)
+        currentBid = 6;
+    if (currentBid == 7)
+        currentBid = 0;
+
+    while(!checkBid(currentBid, round_getMaximumBid(round))) {
+        currentBid += searchPattern;
+        if (currentBid == -1)
+            currentBid = 6;
+        if (currentBid == 7)
+            currentBid = 0;
+    }
+
+    return currentBid;               
+}
+
+int round_findNextAllowedBid(struct Round *round, int currentBid)
+{
+    return findAllowedBid(round, currentBid, 1);
+}
+
+int round_findPreviousAllowedBid(struct Round *round, int currentBid)
+{
+    return findAllowedBid(round, currentBid, -1);
+}
 

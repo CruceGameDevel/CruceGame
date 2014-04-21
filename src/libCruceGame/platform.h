@@ -1,6 +1,6 @@
 /**
  * @file platform.h
- * @brief Contains platform specific definitions
+ * @brief Contains platform specific definitions.
  */
 
 #ifndef PLATFORM_H
@@ -18,3 +18,4 @@
 
 
 #endif
+

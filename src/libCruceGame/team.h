@@ -12,21 +12,19 @@
  * @struct Player
  * @brief Player structure.
  *
- * Structure to keep relevant informations about the players.
+ * Structure to keep relevant information about the players.
  *
- * @var Player::id
- *     Identifier of the player.
  * @var Player::name
  *     Pointer to the name of the player.
  * @var Player::hand
  *     Pointer to the cards of the player.
  * @var Player::score
- *     The amount of points earned in a hand.
+ *     The points achieved by the player in this game. It is equal with
+ *     team points, if the game is played in teams.
  * @var Player::isHuman
- *     Flag used to indicate if the player is human or robot.
+ *     Flag used to indicate if the player is human or AI.
  */
 struct Player{
-    int id;
     char *name;
     struct Card *hand[MAX_CARDS];
     int score;
@@ -40,16 +38,13 @@ struct Player{
  * Players are grouped in teams. One team for 2-3 players,
  * and two teams for 4 players.
  *
- * @var Team::id
- *     The identifier of the team.
- * @var Team::name
- *     Pointer to the name of the team.
+ * @var Team::score
+ *     The score achieved by the team in this game.
  * @var Team::players
  *     Pointer to the players of the team.
  */
 struct Team{
-    int id;
-    char *name;
+    int score;
     struct Player *players[MAX_TEAM_PLAYERS];
 };
 
@@ -65,16 +60,14 @@ extern "C" {
  *
  * @return Pointer to the created player. Needs to be freed.
  */
-EXPORT struct Player *team_createPlayer(const char *name, int isHuman);
+EXPORT struct Player *team_createPlayer(const char *name, const int isHuman);
 
 /**
  * @brief Creates a team.
  *
- * @param name The name of the new team.
- *
  * @return Pointer to the created team. Needs to be freed.
  */
-EXPORT struct Team *team_createTeam(const char *name);
+EXPORT struct Team *team_createTeam();
 
 /**
 * @brief Adds a player to a team.
@@ -82,7 +75,7 @@ EXPORT struct Team *team_createTeam(const char *name);
 * @param team The team to which the player is added.
 * @param player The player to be added to the team.
 *
-* @return NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_addPlayer(struct Team *team, struct Player *player);
 
@@ -92,7 +85,7 @@ EXPORT int team_addPlayer(struct Team *team, struct Player *player);
 * @param team The team from where the player is removed.
 * @param player The player that will be removed.
 *
-* @return NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_removePlayer(struct Team *team, const struct Player *player);
 
@@ -101,7 +94,7 @@ EXPORT int team_removePlayer(struct Team *team, const struct Player *player);
  *
  * @param team The team to be deleted.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, error code otherwise.
  */
 EXPORT int team_deleteTeam(struct Team **team);
 
@@ -110,18 +103,9 @@ EXPORT int team_deleteTeam(struct Team **team);
  *
  * @param player The player to be deleted.
  *
- * @return NO_ERROR on success, error code otherwise.
+ * @return \ref NO_ERROR on success, other value on failure.
  */
 EXPORT int team_deletePlayer(struct Player **player);
-
-/**
- * @brief Calculates the score of a team
- *
- * @param team The team for which the score is to be be calculated
- *
- * @return Integer representing the score or negative error code on failure.
- */
-EXPORT int team_computeScore(const struct Team *team);
 
 /**
 * @brief Passes a card to a player. The function doesn't check
@@ -130,21 +114,31 @@ EXPORT int team_computeScore(const struct Team *team);
 * @param player The player who receives the card.
 * @param card The card to be received.
 *
-* @return NO_ERROR on success, error code otherwise.
+* @return \ref NO_ERROR on success, other value on failure.
 */
 EXPORT int team_addCard(struct Player *player, struct Card *card);
 
 /**
 * @brief Checks if a player has any card
 * 
-* @param player Pointer to the player that is ckecked
+* @param player Pointer to the player that is checked
 *
-* @return 1 in case of succes, 0 otherwise
+* @return 1 in case of success, 0 otherwise
 */
-EXPORT int team_hasCards(struct Player *player);
+EXPORT int team_hasCards(const struct Player *player);
+
+/**
+ * @brief Updates all players scores, assigning team score to them.
+ *
+ * @param team The team where to update the score.
+ *
+ * @return \ref NO_ERROR or 0 on success, other value on failure.
+ */
+EXPORT int team_updatePlayersScore(struct Team *team);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+

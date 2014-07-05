@@ -125,7 +125,7 @@ int displayWinner(const struct Team *winner);
  *
  * @return The score limit (11-15-21).
  */
-int getScoreLimit();
+int getScoreLimit(WINDOW *win);
 
 /**
  * @brief Prints the score differences between rounds.

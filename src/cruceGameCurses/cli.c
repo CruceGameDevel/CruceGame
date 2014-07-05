@@ -659,22 +659,23 @@ int processingScore(const char *score)
 #endif
 }
 
-int getScoreLimit()
+int getScoreLimit(WINDOW *win)
 {
     char score[3];
     int length;
 
     do{
-        printw("Insert the score limit (11-15-21): ");
-        scanw("%s", score);
+        wprintw(win, "Insert the score limit (11-15-21): ");
+        wscanw(win, "%s", score);
         length = strlen(score);
     } while(length == 0);
 
     while (processingScore(score) == -1) {
-        printw("Insert the correct score limit (11-15-21): ");
-        scanw("%s", score);
+        wprintw(win, "Insert the correct score limit (11-15-21): ");
+        wscanw(win, "%s", score);
     }
-    printw("\n");
+    wprintw(win, "\n");
+    wrefresh(win);
 
     return processingScore(score);
 }

@@ -34,25 +34,26 @@ void welcomeMessage(WINDOW *win)
             "\n\n");
 }
 
-void gameEndingMessage(const struct Team *team)
+void gameEndingMessage(WINDOW *win, const struct Team *team)
 {
-    printw(" ______           _    ____   __    _____    \n"                  
-            "|  ____|         | |  / __ \\ / _|  / ____|      \n"               
-             "| |__   _ __   __| | | |  | | |_  | |  __  __ _ _ __ ___   ___ \n"
-             "|  __| | '_ \\ / _` | | |  | |  _| | | |_ |/ _` | '_ ` _ \\ / _ \\\n"
-            "| |____| | | | (_| | | |__| | |   | |__| | (_| | | | | | |  __/\n"
-            "|______|_| |_|\\__,_|  \\____/|_|    \\_____|\\__,_|_| |_| |_|\\___|\n"
-                                                                         "\n\n");
+    wprintw(win,
+       " ______           _    ____   __    _____                           \n"
+       "|  ____|         | |  / __ \\ / _|  / ____|                         \n"
+       "| |__   _ __   __| | | |  | | |_  | |  __  __ _ _ __ ___   ___      \n"
+       "|  __| | '_ \\ / _` | | |  | |  _| | | |_ |/ _` | '_ ` _ \\ / _ \\  \n"
+       "| |____| | | | (_| | | |__| | |   | |__| | (_| | | | | | |  __/     \n"
+       "|______|_| |_|\\__,_|  \\____/|_|    \\_____|\\__,_|_| |_| |_|\\___|\n"
+       "\n\n");
 
     for (int i = MAX_TEAM_PLAYERS - 1; i >= 0; --i)
         if (team->players[i] != NULL) {
-            if (i > 0) { 
-                printw("%s, ", team->players[i]->name);
-            } else { 
-                printw("%s ", team->players[i]->name);
+            if (i > 0) {
+                wprintw(win, "%s, ", team->players[i]->name);
+            } else {
+                wprintw(win, "%s ", team->players[i]->name);
             }
         }
-    printw("won the game.");
+    wprintw(win, "won the game.");
 }
 
 int printCard(const struct Card *card, const int frameColor, WINDOW *win)

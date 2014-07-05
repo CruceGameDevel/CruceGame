@@ -26,7 +26,7 @@ void welcomeMessage(WINDOW *win);
  *
  * @return void
  */
- void gameEndingMessage(const struct Team *team);
+ void gameEndingMessage(WINDOW *win, const struct Team *team);
 
 /**
  * @brief Function to print a Card.

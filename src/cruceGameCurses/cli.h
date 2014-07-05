@@ -45,14 +45,14 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor);
  * @param player The player whose cards to be printed.
  * @param game The game which contains the player.
  * @param selected The position of the selected card. If there is no card at
- *                 that position (there is a NULL card or it is out of range) 
+ *                 that position (there is a NULL card or it is out of range)
  *                 no card will be selected.
  * @param win The window in which to display the cards.
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(const struct Game *game, struct Player *player, 
-					 const int selecte, WINDOW *win);
+int printPlayerCards(const struct Game *game, struct Player *player,
+                     const int selecte, WINDOW *win);
 
 /**
  * @brief Function to get the number of players from user.
@@ -131,7 +131,7 @@ int getScoreLimit(WINDOW *win);
  * @brief Prints the score differences between rounds.
  *
  * @param currentGame The current game.
- * @param oldScore Old score for every player before the terminated round. 
+ * @param oldScore Old score for every player before the terminated round.
  *
  * @return int The size of the biggest name of a player in a round.
  */

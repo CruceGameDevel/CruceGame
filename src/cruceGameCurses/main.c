@@ -81,19 +81,22 @@ int cruceGameLogic()
     init_pair(7, COLOR_WHITE, COLOR_BLACK);
     refresh();
 
-    welcomeMessage();
-    int limitScore  = getScoreLimit();
-    int noOfPlayers = getNoOfPlayers();
+    WINDOW *welcomeWin = newwin(80, 79, 0, 0);
+    welcomeMessage(welcomeWin);
+    int limitScore  = getScoreLimit(welcomeWin);
+    int noOfPlayers = getNoOfPlayers(welcomeWin);
 
     struct Game *game = game_createGame(limitScore);
     for (int i = 0; i < noOfPlayers; i++) {
         int err;
-        while ((err = game_addPlayer(newPlayer(i + 1), game)) == DUPLICATE_NAME)
-             printw("The player's name have to be unique\n");
+        while ((err = game_addPlayer(newPlayer(welcomeWin, i + 1), game)) == DUPLICATE_NAME)
+            wprintw(welcomeWin, "The player's name have to be unique\n");
         if (err != 0)
-            printw("ERROR: game_addPlayer() %d\n", err);
+            wprintw(welcomeWin, "ERROR: game_addPlayer() %d\n", err);
     }
-    formTeams(game);
+    formTeams(welcomeWin, game);
+
+    delwin(welcomeWin);
 
     for (int i = 0; !game_winningTeam(game); i++) {
         game_arrangePlayersRound(game, i % MAX_GAME_PLAYERS);

@@ -109,7 +109,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId);
  *
  * @return \ref NO_ERROR or 0 un success, other value on failure.
  */
-int getBid(const struct Game* game, const int playerId);
+int getBid(WINDOW *win, const struct Game* game, const int playerId);
 
 /**
  * @brief Function to display the team who wins

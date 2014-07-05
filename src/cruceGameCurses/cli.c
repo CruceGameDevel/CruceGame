@@ -582,7 +582,7 @@ int printBids(int selected, struct Round *round, WINDOW *win)
     return NO_ERROR;
 }
 
-int getBid(const struct Game *game, const int playerId)
+int getBid(WINDOW *win, const struct Game *game, const int playerId)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -593,19 +593,19 @@ int getBid(const struct Game *game, const int playerId)
     if (game->round->players[playerId] == NULL)
         return PLAYER_NULL;
 
-    printw("Player %d %s\n", playerId + 1,
-                             game->round->players[playerId]->name);
+    wprintw(win, "Player %d %s\n", playerId + 1,
+                                   game->round->players[playerId]->name);
 
-    printPlayerCards(game, game->round->players[playerId], -1, stdscr);
+    printPlayerCards(game, game->round->players[playerId], -1, win);
 
     int y, x;
-    getyx(stdscr, y, x);
-    move(y + 8, 0);
+    getyx(win, y, x);
+    wmove(win, y + 8, 0);
 
-    displayBids(game, playerId);
+    displayBids(win, game, playerId);
 
-    getyx(stdscr, y, x);
-    refresh();
+    getyx(win, y, x);
+    wrefresh(win);
 
     WINDOW *bidsWindow = newwin(1, 30, y, 0);
 #ifdef BORSERS

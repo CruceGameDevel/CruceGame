@@ -105,19 +105,21 @@ int cruceGameLogic()
         deck_deckShuffle(deck);
 
         round_distributeDeck(deck, game->round);
-        clear();
-        refresh();
 
+        WINDOW *bidSelectWindow = newwin(80, 79, 0, 0);
         for (int i = 0; i < game->numberPlayers; i++) {
-            getBid(game, i);
-            clear();
-            refresh();
+            getBid(bidSelectWindow, game, i);
+            if (i < game->numberPlayers - 1)
+                wmove(bidSelectWindow, 0, 0);
         }
-        displayBids(game, game->numberPlayers);
-        refresh();
+        int x, y;
+        getyx(bidSelectWindow, y, x);
+        wmove(bidSelectWindow, y - game->numberPlayers, 0);
+        displayBids(bidSelectWindow, game, game->numberPlayers);
+        wmove(bidSelectWindow, y + 1, 0);
+        wrefresh(bidSelectWindow);
+        delwin(bidSelectWindow);
         sleep(2);
-        clear();
-        refresh();
 
         struct Player *bidWinner = round_getBidWinner(game->round);
         int first = round_findPlayerIndexRound(bidWinner, game->round);

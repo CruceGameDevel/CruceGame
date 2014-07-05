@@ -371,7 +371,7 @@ void createEmptyTeams(struct Game *game)
     }
 }
 
-int formTeams (struct Game *game)
+int formTeams(WINDOW *win, struct Game *game)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -385,23 +385,23 @@ int formTeams (struct Game *game)
         return NO_ERROR;
     }
 
-    printw("Do you want to play on teams? (Y/n) ");
-    char ch = getch();
-    printw("\n");
+    wprintw(win, "Do you want to play on teams? (Y/n) ");
+    char ch = wgetch(win);
+    wprintw(win, "\n");
 
     if (ch == 'n' || ch == 'N') {
         createEmptyTeams(game);
         return NO_ERROR;
     }
 
-    printw("Player 1 (%s): Please insert your teammate's id: ",
+    wprintw(win, "Player 1 (%s): Please insert your teammate's id: ",
             game->players[0]->name);
-    ch = getch();
+    ch = wgetch(win);
     while (ch < '2' || ch > '4') {
-        printw("\nPlease insert a correct player id. ");
-        ch = getch();
+        wprintw(win, "\nPlease insert a correct player id. ");
+        ch = wgetch(win);
     }
-    printw("\n");
+    wprintw(win, "\n");
     ch--;
 
     struct Player* backup = game->players[1];

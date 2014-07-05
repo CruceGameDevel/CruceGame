@@ -88,7 +88,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int formTeams(struct Game* game);
+int formTeams(WINDOW *win, struct Game* game);
 
 /**
  * @brief Function displays the trump, the cards on table, the player's cards

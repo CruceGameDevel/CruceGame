@@ -726,7 +726,7 @@ int getScoreDialogLineSize(const struct Team *currentTeam)
     return biggestLineSize;
 }
 
-int printRoundTerminationMessage(const struct Game *currentGame, 
+int printRoundTerminationMessage(WINDOW *win, const struct Game *currentGame,
                                  const int *oldScore)
 {
     if(currentGame->round == NULL || currentGame->round->players == NULL)
@@ -735,38 +735,40 @@ int printRoundTerminationMessage(const struct Game *currentGame,
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(1, COLOR_RED, COLOR_BLACK);
 
-    int scoreLineSize = getBiggestScoreDialogLineSize(currentGame) + 
+    int scoreLineSize = getBiggestScoreDialogLineSize(currentGame) +
                                            ROUND_DIALOG_SCORE_SIZE;
 
-    printw("  _____                       _        _     _ \n"     
-             " / ____|                     | |      | |   | |     \n"
-            " | (___   ___ ___  _ __ ___  | |_ __ _| |__ | | ___ \n"
-             "  \\___ \\ / __/ _ \\| '__/ _ \\ | __/ _` | '_ \\| |/ _ \\\n"
-             "  ____) | (_| (_) | | |  __/ | || (_| | |_) | |  __/\n"
+    wprintw(win,
+            "  _____                       _        _     _            \n"
+            " / ____|                     | |      | |   | |           \n"
+            " | (___   ___ ___  _ __ ___  | |_ __ _| |__ | | ___       \n"
+            "  \\___ \\ / __/ _ \\| '__/ _ \\ | __/ _` | '_ \\| |/ _ \\\n"
+            "  ____) | (_| (_) | | |  __/ | || (_| | |_) | |  __/      \n"
             " |_____/ \\___\\___/|_|  \\___|  \\__\\__,_|_.__/|_|\\___|\n\n\n");
      for(int i = 0; i < MAX_GAME_TEAMS; i++) {
         if(currentGame->teams[i] != NULL) {
             for(int j = 0; j < 2; j++) {
                 if(currentGame->teams[i]->players[j] != NULL) {
-                   printw("%s%s ", currentGame->teams[i]->players[j]->name, 
-                            ((currentGame->teams[i]->players[j + 1] == NULL) 
-                             ? "" : ","));
+                       wprintw(win, "%s%s ",
+                               currentGame->teams[i]->players[j]->name,
+                               ((currentGame->teams[i]->players[j + 1] == NULL)
+                               ? "" : ","));
                 }
             }
             int currentTeamSize = getScoreDialogLineSize(currentGame->teams[i]);
-            int score = currentGame->teams[i]->score - oldScore[i];         
+            int score = currentGame->teams[i]->score - oldScore[i];
             int colorPair = (score > 0) ? 2 : 1;
 
-            if(score != 0) { 
-                attron(COLOR_PAIR(colorPair));
-                printw("%*d\n", scoreLineSize - currentTeamSize,
+            if(score != 0) {
+                wattron(win, COLOR_PAIR(colorPair));
+                wprintw(win, "%*d\n", scoreLineSize - currentTeamSize,
                         currentGame->teams[i]->score);
-                attroff(COLOR_PAIR(colorPair));
+                wattroff(win, COLOR_PAIR(colorPair));
             } else {
-                printw("%*d\n", scoreLineSize - currentTeamSize,
+                wprintw(win, "%*d\n", scoreLineSize - currentTeamSize,
                         currentGame->teams[i]->score);
             }
-        }
+         }
     }
 
     return NO_ERROR;

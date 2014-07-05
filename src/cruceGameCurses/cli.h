@@ -135,8 +135,8 @@ int getScoreLimit(WINDOW *win);
  *
  * @return int The size of the biggest name of a player in a round.
  */
-int printRoundTerminationMessage(const struct Game *currentGame, 
-								 const int *oldScore);
+int printRoundTerminationMessage(WINDOW *win, const struct Game *currentGame,
+                                 const int *oldScore);
 
 /**
  * @brief Displays how much bid each player.

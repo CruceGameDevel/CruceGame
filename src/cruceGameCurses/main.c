@@ -156,8 +156,11 @@ int cruceGameLogic()
 
         game_updateScore(game, bidWinner);
 
-        printRoundTerminationMessage(game, oldScore);
-        getch();
+        WINDOW *roundTerminationWindow = newwin(30, 79, 0, 0);
+        printRoundTerminationMessage(roundTerminationWindow, game, oldScore);
+        wrefresh(roundTerminationWindow);
+        wgetch(roundTerminationWindow);
+        delwin(roundTerminationWindow);
 
         deck_deleteDeck(&deck);
         round_deleteRound(&game->round);

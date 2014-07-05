@@ -485,7 +485,6 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
 
     wrefresh(trumpAndTurnWindow);
     delwin(trumpAndTurnWindow);
-    refresh();
 
     WINDOW *cardsOnTableWindow = newwin(10, 30, 2, 0);
 #ifdef BORDERS
@@ -496,8 +495,6 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
         if (hand->cards[i] != NULL)
             printCard(hand->cards[i], 7, cardsOnTableWindow);
     wrefresh(cardsOnTableWindow);
-
-    refresh();
 
     WINDOW *cardsInHandWindow = newwin(10, 79, 12, 0); //MAGIC NUMBERS
 #ifdef BORDERS
@@ -532,7 +529,6 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
         wrefresh(cardsInHandWindow);
     }
 
-    move(20, 0);
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[selected]->suit;
     round_putCard(player, selected, handId, game->round);

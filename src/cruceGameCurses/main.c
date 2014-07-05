@@ -166,9 +166,8 @@ int cruceGameLogic()
         round_deleteRound(&game->round);
     }
 
-    clear();
-    refresh();
-    gameEndingMessage(game_winningTeam(game));
+    WINDOW *gameEndingWindow = newwin(30, 79, 0, 0);
+    gameEndingMessage(gameEndingWindow, game_winningTeam(game));
 
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (game->players[i])
@@ -178,7 +177,6 @@ int cruceGameLogic()
             team_deleteTeam(&game->teams[i]);
     game_deleteGame(&game);
 
-    getch();
     endwin();
     return EXIT_SUCCESS;
 }

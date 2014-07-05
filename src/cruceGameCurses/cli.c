@@ -604,7 +604,7 @@ int getBid(WINDOW *win, const struct Game *game, const int playerId)
     wrefresh(win);
 
     WINDOW *bidsWindow = newwin(1, 30, y, 0);
-#ifdef BORSERS
+#ifdef BORDERS
     box(bidsWindow, 0, 0);
 #endif
     keypad(bidsWindow, TRUE);

@@ -204,15 +204,15 @@ int printPlayerCards(const struct Game *game, struct Player *player,
     return NO_ERROR;
 }
 
-int getNoOfPlayers()
+int getNoOfPlayers(WINDOW *win)
 {
-    printw("Insert the number of players (2-4) ");
-    char ch = getch();
+    wprintw(win, "Insert the number of players (2-4) ");
+    char ch = wgetch(win);
     while (ch < '2' || ch > '4') {
-        printw("\nPlease insert a number between 2 and 4. ");
-        ch = getch();
+        wprintw(win, "\nPlease insert a number between 2 and 4. ");
+        ch = wgetch(win);
     }
-    printw("\n");
+    wprintw(win, "\n");
 
     return ch - '0';
 }

@@ -59,7 +59,7 @@ int printPlayerCards(const struct Game *game, struct Player *player,
  *
  * @return The number of players.
  */
-int getNoOfPlayers();
+int getNoOfPlayers(WINDOW *win);
 
 /**
  * @brief Function to get user data and create a new Player.

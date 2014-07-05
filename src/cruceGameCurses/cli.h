@@ -37,7 +37,7 @@ void welcomeMessage(WINDOW *win);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printCard(const struct Card *card, const int frameColor, WINDOW *win);
+int printCard(WINDOW *win, const struct Card *card, const int frameColor);
 
 /**
  * @brief Function to print all cards in a player's hand.

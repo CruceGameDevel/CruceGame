@@ -56,7 +56,7 @@ void gameEndingMessage(WINDOW *win, const struct Team *team)
     wprintw(win, "won the game.");
 }
 
-int printCard(const struct Card *card, const int frameColor, WINDOW *win)
+int printCard(WINDOW *win, const struct Card *card, const int frameColor)
 {
     int colorPair;
     char suit[] = {0xE2, 0x99, 0x00, 0x00};
@@ -192,12 +192,11 @@ int printPlayerCards(const struct Game *game, struct Player *player,
         if (player->hand[i] != NULL) {
             if (game_checkCard(player, game, game->round->hands[handId], i)) {
                 if (i == selected)
-                    printCard(player->hand[i], 3, win);
+                    printCard(win, player->hand[i], 3);
                 else
-                    printCard(player->hand[i], 7, win);
+                    printCard(win, player->hand[i], 7);
             } else {
-                printCard(player->hand[i], 1, win);
-
+                printCard(win, player->hand[i], 1);
             }
         }
     }
@@ -537,13 +536,13 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
     if (handId == 0 && playerId == 0)
         game->round->trump=player->hand[selected]->suit;
     round_putCard(player, selected, handId, game->round);
-    
+
     if (playerId == game->numberPlayers - 1) {
         wclear(cardsOnTableWindow);
         wprintw(cardsOnTableWindow, "Table cards: \n");
         for (int i = 0; i < MAX_GAME_PLAYERS; i++)
             if (hand->cards[i] != NULL)
-                printCard(hand->cards[i], 7, cardsOnTableWindow);
+                printCard(cardsOnTableWindow, hand->cards[i], 7);
         wrefresh(cardsOnTableWindow);
 
         wclear(cardsInHandWindow);

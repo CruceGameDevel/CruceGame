@@ -146,7 +146,7 @@ int printRoundTerminationMessage(WINDOW *win, const struct Game *currentGame,
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int displayBids(const struct Game *game, const int currentPlayer);
+int displayBids(WINDOW *win, const struct Game *game, const int currentPlayer);
 
 /**
  * @brief Displays the bids for to pick a bid.

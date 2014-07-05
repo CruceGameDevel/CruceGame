@@ -774,7 +774,7 @@ int printRoundTerminationMessage(WINDOW *win, const struct Game *currentGame,
     return NO_ERROR;
 }
 
-int displayBids(const struct Game *game, const int currentPlayer)
+int displayBids(WINDOW *win, const struct Game *game, const int currentPlayer)
 {
     if (game == NULL)
         return GAME_NULL;
@@ -783,13 +783,16 @@ int displayBids(const struct Game *game, const int currentPlayer)
     if (currentPlayer > game->numberPlayers || currentPlayer < 0)
         return ILLEGAL_VALUE;
 
-    for (int i = 0; i < game->numberPlayers; i++)
-        if (game->round->players[i] != NULL)
-            if (i < currentPlayer)
-                printw("%s bid %d\n", game->round->players[i]->name, 
-                                      game->round->bids[i]);
-            else
-                printw("%s bid -\n", game->round->players[i]->name);
+    for (int i = 0; i < game->numberPlayers; i++) {
+        if (game->round->players[i] != NULL) {
+            if (i < currentPlayer) {
+                wprintw(win, "%s bid %d\n", game->round->players[i]->name,
+                                            game->round->bids[i]);
+            } else {
+                wprintw(win, "%s bid -\n", game->round->players[i]->name);
+            }
+        }
+    }
 
     return NO_ERROR;
 }

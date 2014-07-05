@@ -234,7 +234,7 @@ struct Player *newPlayer(WINDOW *win, const int i)
     return player;
 }
 
-int printScore(const struct Game *game, const struct Round *round, WINDOW *win)
+int printScore(WINDOW *win, const struct Game *game, const struct Round *round)
 {
     if (game == NULL)
         return GAME_NULL;

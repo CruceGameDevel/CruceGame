@@ -79,7 +79,7 @@ struct Player *newPlayer(WINDOW *win, const int i);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printScore(const struct Game *game, const struct Round *round, WINDOW *win);
+int printScore(WINDOW *win, const struct Game *game, const struct Round *round);
 
 /**
  * @brief Function to form the teams.

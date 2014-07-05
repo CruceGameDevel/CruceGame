@@ -1,7 +1,7 @@
 /**
  * @file cli.c
  * @brief Contains implementations of the functions used for creating
- *        the user interface. These functions are declared in the 
+ *        the user interface. These functions are declared in the
  *        header file cli.h.
  */
 
@@ -163,7 +163,7 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor)
     wprintw(win, "%s%s%s%s%s%s",downLeftCorner, horizontalLine,horizontalLine, 
             horizontalLine, horizontalLine, downRightCorner);
     wattroff(win, COLOR_PAIR(frameColor));
-    
+
     wmove(win, y + 9, x);
     wmove(win, y, x + 6);
     wrefresh(win);
@@ -171,7 +171,7 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor)
     return NO_ERROR;
 }
 
-int printPlayerCards(const struct Game *game, struct Player *player, 
+int printPlayerCards(const struct Game *game, struct Player *player,
                      const int selected, WINDOW *win)
 {
     if (player == NULL)
@@ -263,7 +263,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round)
     maxLength++;
 
     if (maxLength < 4 )
-        maxLength = 4; 
+        maxLength = 4;
 
     int x, y;
     int line = 0;
@@ -299,7 +299,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round)
 
     for (int i = 0; i < MAX_GAME_TEAMS; i++)
         if(game->teams[i] != NULL) {
-            int playersNumber = 0; 
+            int playersNumber = 0;
             for (int j = 0; j < MAX_TEAM_PLAYERS; j++)
                 if (game->teams[i]->players[j] != NULL) {
                     wmove(win, y + line, x);
@@ -325,7 +325,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round)
                         }
                     }
                     line++;
-                    playersNumber++; 
+                    playersNumber++;
                 }
             --line;
             wmove(win, y + line, x + maxLength + 1);
@@ -347,7 +347,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round)
         }
 
     wmove(win, y + line - 1, x);
-    wprintw(win, "%s", upRightBox); 
+    wprintw(win, "%s", upRightBox);
     for (int i = 1; i <= maxLength + 13; i++) {
         if (i == maxLength + 1 || i == maxLength + 8)
             wprintw(win, "%s", upHorizontalBox);
@@ -502,11 +502,14 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
 #endif
     keypad(cardsInHandWindow, TRUE);
     int ch, selected;
+
     if (game_checkCard(player, game, hand, 0) == 1)
         selected = 0;
     else
         selected = game_findNextAllowedCard(player, game, hand, 0);
+
     printPlayerCards(game, player, selected, cardsInHandWindow);
+
     while (( ch = wgetch(cardsInHandWindow)) != '\n') {
         wprintw(cardsInHandWindow, "%d", ch);
         switch (ch) {
@@ -566,14 +569,15 @@ int printBids(int selected, struct Round *round, WINDOW *win)
             wattron(win, COLOR_PAIR(3));
             wprintw(win, "%d ", i);
             wattroff(win, COLOR_PAIR(3));
-        }
-        else if (i > round_getMaximumBid(round) || i == 0)
-                wprintw(win, "%d ", i);
-             else {
+        } else {
+            if (i > round_getMaximumBid(round) || i == 0) {
+                 wprintw(win, "%d ", i);
+            } else {
                  wattron(win, COLOR_PAIR(1));
                  wprintw(win, "%d ", i);
                  wattroff(win, COLOR_PAIR(1));
-             }
+            }
+        }
 
     return NO_ERROR;
 }
@@ -633,7 +637,7 @@ int getBid(WINDOW *win, const struct Game *game, const int playerId)
     }
 
     delwin(bidsWindow);
-    
+
     round_placeBid(game->round->players[playerId], selected, game->round);
 
     return NO_ERROR;
@@ -680,19 +684,18 @@ int getScoreLimit(WINDOW *win)
     return processingScore(score);
 }
 /**
- * @brief Computes the size of line in the score dialog. The 
- *        size of a line consists in the sum of the lengths 
+ * @brief Computes the size of line in the score dialog. The
+ *        size of a line consists in the sum of the lengths
  *        of the name plus the number of commas and white spaces
- *        between them. This function is a helper for 
+ *        between them. This function is a helper for
  *        getBiggestScoreDialogLineSize and printRoundTerminationMessage.
  *
- * @param currentTeam The desired team that size we want to   
- *        compue.
+ * @param currentTeam The desired team that size we want to compute.
  *
- * @return int The size of a team. 
+ * @return int The size of a team.
  */
 int getScoreDialogLineSize(const struct Team *currentTeam)
-{ 
+{
    int lineSize = 0;
    int i;
    for(i = 0; i < MAX_TEAM_PLAYERS; i++) {
@@ -715,10 +718,10 @@ int getScoreDialogLineSize(const struct Team *currentTeam)
  {
     int biggestLineSize = 0;
     for(int i = 0; i < MAX_GAME_TEAMS; i++) {
-        if(currentGame->teams[i] != NULL) { 
+        if(currentGame->teams[i] != NULL) {
             int currentLine = getScoreDialogLineSize(currentGame->teams[i]);
             if(currentLine > biggestLineSize) {
-               biggestLineSize = currentLine;
+                biggestLineSize = currentLine;
             }
         }
     }

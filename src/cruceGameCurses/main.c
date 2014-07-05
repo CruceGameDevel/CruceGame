@@ -126,19 +126,17 @@ int cruceGameLogic()
         for (int i = 0; team_hasCards(game->players[0]); i++) {
             round_arrangePlayersHand(game->round, first);
 
-            for (int j = 0; j < game->numberPlayers; j++) {
-                WINDOW *scoreTableWindow = newwin(11, 49, 0, 30);
+            WINDOW *scoreTableWindow = newwin(11, 49, 0, 30);
 #ifdef BORDERS
-                box(scoreTableWindow, 0, 0);
+            box(scoreTableWindow, 0, 0);
 #endif
-                printScore(game, game->round, scoreTableWindow);
+            for (int j = 0; j < game->numberPlayers; j++) {
+                printScore(scoreTableWindow, game, game->round);
+                wmove(scoreTableWindow, 0, 0);
                 wrefresh(scoreTableWindow);
-                delwin(scoreTableWindow);
-
                 displayCardsAndPickCard(game, j);
-                clear();
-                refresh();
             }
+            delwin(scoreTableWindow);
 
             struct Player *handWinner = round_handWinner(game->round->hands[i],
                                                          game->round);

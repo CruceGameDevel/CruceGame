@@ -16,7 +16,7 @@
  * 
  * @return void.
  */
-void welcomeMessage();
+void welcomeMessage(WINDOW *win);
 
 /**
  * @brief Function to display the enfing message and the members of

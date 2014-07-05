@@ -493,7 +493,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
     wprintw(cardsOnTableWindow, "Table cards: \n");
     for (int i = 0; i < MAX_GAME_PLAYERS; i++)
         if (hand->cards[i] != NULL)
-            printCard(hand->cards[i], 7, cardsOnTableWindow);
+            printCard(cardsOnTableWindow, hand->cards[i], 7);
     wrefresh(cardsOnTableWindow);
 
     WINDOW *cardsInHandWindow = newwin(10, 79, 12, 0); //MAGIC NUMBERS

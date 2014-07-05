@@ -217,15 +217,15 @@ int getNoOfPlayers(WINDOW *win)
     return ch - '0';
 }
 
-struct Player *newPlayer(const int i)
+struct Player *newPlayer(WINDOW *win, const int i)
 {
     char format[20]; //used to store the format string.
-    char *name = malloc(MAX_NAME_SIZE*sizeof(char));
+    char *name = calloc(MAX_NAME_SIZE * sizeof(char), sizeof(char));
     int length;
-    do{
-        printw("Insert player %d name: ", i);
+    do {
+        wprintw(win, "Insert player %d name: ", i);
         sprintf(format, "%%%i[^\n]", MAX_NAME_SIZE);
-        scanw(format, name);
+        wscanw(win, format, name);
         length = strlen(name);
     } while(length == 0);
 

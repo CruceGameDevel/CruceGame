@@ -68,7 +68,7 @@ int getNoOfPlayers(WINDOW *win);
  *
  * @return Pointer to the new Player.
  */
-struct Player *newPlayer(const int i);
+struct Player *newPlayer(WINDOW *win, const int i);
 
 /**
  * @brief Function to print the score table.

@@ -82,6 +82,11 @@ int cruceGameLogic()
 
     WINDOW *welcomeWin = newwin(80, 79, 0, 0);
     welcomeMessage(welcomeWin);
+
+#ifdef DEBUG
+    wprintw(welcomeWin, "DEBUG MODE\n");
+#endif
+
     int limitScore  = getScoreLimit(welcomeWin);
     int noOfPlayers = getNoOfPlayers(welcomeWin);
 

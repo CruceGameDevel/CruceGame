@@ -79,7 +79,6 @@ int cruceGameLogic()
     init_pair(4, COLOR_BLUE, COLOR_BLACK);
     init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(7, COLOR_WHITE, COLOR_BLACK);
-    refresh();
 
     WINDOW *welcomeWin = newwin(80, 79, 0, 0);
     welcomeMessage(welcomeWin);

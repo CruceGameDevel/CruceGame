@@ -547,7 +547,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
         wclear(cardsInHandWindow);
         printPlayerCards(game, player, selected, cardsInHandWindow);
         wrefresh(cardsInHandWindow);
-        sleep(SLEEP_TIME);
+        wgetch(cardsInHandWindow);
     }
 
     delwin(cardsOnTableWindow);

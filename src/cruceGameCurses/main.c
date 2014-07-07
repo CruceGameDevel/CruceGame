@@ -19,7 +19,7 @@
 #define sleep(s) Sleep(s*1000)
 #else
 #include <unistd.h>
-#endif 
+#endif
 
 /**
  * @brief Define the version of current game
@@ -122,8 +122,8 @@ int cruceGameLogic()
         displayBids(bidSelectWindow, game, game->numberPlayers);
         wmove(bidSelectWindow, y + 1, 0);
         wrefresh(bidSelectWindow);
+        wgetch(bidSelectWindow);
         delwin(bidSelectWindow);
-        sleep(2);
 
         struct Player *bidWinner = round_getBidWinner(game->round);
         int first = round_findPlayerIndexRound(bidWinner, game->round);
@@ -150,7 +150,7 @@ int cruceGameLogic()
                 round_distributeCard(deck, game->round);
 
         }
-        
+
         int oldScore[MAX_GAME_PLAYERS];
         for(int i = 0; i < MAX_GAME_TEAMS; i++) {
             if(game->teams[i] != NULL) {

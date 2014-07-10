@@ -116,11 +116,9 @@ int cruceGameLogic()
             if (i < game->numberPlayers - 1)
                 wmove(bidSelectWindow, 0, 0);
         }
-        int x, y;
-        getyx(bidSelectWindow, y, x);
-        wmove(bidSelectWindow, y - game->numberPlayers, 0);
+        wmove(bidSelectWindow, 0, 0);
+        wclear(bidSelectWindow);
         displayBids(bidSelectWindow, game, game->numberPlayers);
-        wmove(bidSelectWindow, y + 1, 0);
         wrefresh(bidSelectWindow);
         wgetch(bidSelectWindow);
         delwin(bidSelectWindow);

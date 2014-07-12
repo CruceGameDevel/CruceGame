@@ -14,15 +14,17 @@
  * @brief Function to display a greeting message at the beginning of a new
  *        game.
  * 
+ * @param win Pointer to the window in which the output will be displayed.
  * @return void.
  */
 void welcomeMessage(WINDOW *win);
 
 /**
- * @brief Function to display the enfing message and the members of
+ * @brief Function to display the ending message and the members of
  *        the winning team.
  *
- * @param team Pointer o the winning team.
+ * @param win  Pointer to the window in which the output will be displayed.
+ * @param team Pointer to the winning team.
  *
  * @return void
  */
@@ -31,6 +33,7 @@ void welcomeMessage(WINDOW *win);
 /**
  * @brief Function to print a Card.
  *
+ * @param win  Pointer to the window in which the output will be displayed.
  * @param card Pointer to the card to be printed.
  * @param frameColor The color with which is colored the frame of card.
  * @param win The window in which to display the card.
@@ -42,6 +45,7 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor);
 /**
  * @brief Function to print all cards in a player's hand.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param player The player whose cards to be printed.
  * @param game The game which contains the player.
  * @param selected The position of the selected card. If there is no card at
@@ -51,11 +55,13 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor);
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printPlayerCards(const struct Game *game, struct Player *player,
-                     const int selecte, WINDOW *win);
+int printPlayerCards(WINDOW *win, const struct Game *game, 
+                     struct Player *player, const int selected);
 
 /**
  * @brief Function to get the number of players from user.
+ *
+ * @param win Pointer to the window in which the data will be displayed.
  *
  * @return The number of players.
  */
@@ -64,6 +70,7 @@ int getNoOfPlayers(WINDOW *win);
 /**
  * @brief Function to get user data and create a new Player.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param i The player number.
  *
  * @return Pointer to the new Player.
@@ -73,9 +80,9 @@ struct Player *newPlayer(WINDOW *win, const int i);
 /**
  * @brief Function to print the score table.
  *
+ * @param win Pointer to the window in which to display the score.
  * @param game Pointer to the game of where to be printed the score.
  * @param round Pointer to the round of where to be printed the points.
- * @param win Pointer to the window in which to display the score.
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
@@ -84,6 +91,7 @@ int printScore(WINDOW *win, const struct Game *game, const struct Round *round);
 /**
  * @brief Function to form the teams.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param game Pointer to the game where form it the teams.
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
@@ -104,6 +112,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId);
 /*
  * @brief Function to display player's cards and ask for a bid.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param game Pointer to the Game.
  * @param playerId Id of the bidding player.
  *
@@ -123,6 +132,8 @@ int displayWinner(const struct Team *winner);
 /**
  * @brief Function to get the score limit from user.
  *
+ * @param win Pointer to the window in which the data will be displayed.
+ *
  * @return The score limit (11-15-21).
  */
 int getScoreLimit(WINDOW *win);
@@ -130,6 +141,7 @@ int getScoreLimit(WINDOW *win);
 /**
  * @brief Prints the score differences between rounds.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param currentGame The current game.
  * @param oldScore Old score for every player before the terminated round.
  *
@@ -141,6 +153,7 @@ int printRoundTerminationMessage(WINDOW *win, const struct Game *currentGame,
 /**
  * @brief Displays how much bid each player.
  *
+ * @param win Pointer to the window in which the data will be displayed.
  * @param game The game in which are the players.
  * @param currentPlayer The player which have to bid.
  *
@@ -151,13 +164,13 @@ int displayBids(WINDOW *win, const struct Game *game, const int currentPlayer);
 /**
  * @brief Displays the bids for to pick a bid.
  *
+ * @param win The window in which are display the bids.
  * @param selected The selected bid.
  * @param round The round in which are the bids.
- * @param win The window in which are display the bids.
  *
  * @return \ref NO_ERROR or 0 on success, other value on failure.
  */
-int printBids(int selected, struct Round *round, WINDOW *win);
+int printBids(WINDOW *win, int selected, struct Round *round);
 
 #endif
 

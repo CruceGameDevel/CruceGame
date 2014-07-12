@@ -1,6 +1,6 @@
 /**
  * @file game.c
- * @brief This file contains implementations of the functions used 
+ * @brief This file contains implementations of the functions used
  *        for game-related operations.
  */
 
@@ -174,8 +174,8 @@ struct Team *game_winningTeam(struct Game *game)
  *
  * @return The maximum value of cards of suit indicated as parameter.
  */
-int maximumValue(struct Card *cards[], const int length, 
-                        const enum Suit suit)
+int maximumValue(struct Card *cards[], const int length,
+                 const enum Suit suit)
 {
     int maxValue = -1;
     for (int i = 0; i < length; i++)
@@ -229,7 +229,7 @@ int game_checkCard(struct Player *player, const struct Game *game,
         (firstCard->suit != trump || chosenCard->value > maxTrumpValue)))) ||
         (maxFirstCardValuePlayer == -1 && chosenCard->suit == trump &&
         (chosenCard->value > maxTrumpValue ||
-        maxTrumpValue > maxTrumpValuePlayer))) 
+        maxTrumpValue > maxTrumpValuePlayer)))
         return 1;
 
     return 0;
@@ -249,7 +249,7 @@ int game_checkCard(struct Player *player, const struct Game *game,
  *
  * @return The first allowed card found.
  */
-int findAllowedCard(const struct Player *player, const struct Game *game, 
+int findAllowedCard(struct Player *player, const struct Game *game,
                     struct Hand *hand, int currentCard, const int searchPattern)
 {
     if (player == NULL)
@@ -272,18 +272,18 @@ int findAllowedCard(const struct Player *player, const struct Game *game,
             currentCard += searchPattern;
         if (game_checkCard(player, game, hand, currentCard % MAX_CARDS) == 1)
             return currentCard % MAX_CARDS;
-        if (abs(currentCard) > 15) 
+        if (abs(currentCard) > 15)
              return NOT_FOUND;
     }
 }
 
-int game_findNextAllowedCard(struct Player *player, struct Game *game,
+int game_findNextAllowedCard(struct Player *player, const struct Game *game,
                              struct Hand *hand, int currentCard)
 {
     return findAllowedCard(player, game, hand, currentCard, 1);
 }
 
-int game_findPreviousAllowedCard(struct Player *player, struct Game *game,
+int game_findPreviousAllowedCard(struct Player *player, const struct Game *game,
                                  struct Hand *hand, int currentCard)
 {
     return findAllowedCard(player, game, hand, currentCard, -1);

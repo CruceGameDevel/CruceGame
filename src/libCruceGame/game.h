@@ -139,7 +139,8 @@ EXPORT int game_checkCard(struct Player *player, const struct Game *game,
  * @return The next allowed card's id on success (value between 0 and
  *         \ref MAX_CARDS -1). Negative value on failure.
  */
-EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
+EXPORT int game_findNextAllowedCard(struct Player *player,
+                                    const struct Game *game,
                                     struct Hand *hand, int currentCard);
 
 /**
@@ -154,8 +155,8 @@ EXPORT int game_findNextAllowedCard(struct Player *player, struct Game *game,
  * @return The next allowed card's id on success (value between 0 and
  *         \ref MAX_CARDS -1). Negative value on failure.
  */
-EXPORT int game_findPreviousAllowedCard(struct Player *player, 
-                                        struct Game *game,
+EXPORT int game_findPreviousAllowedCard(struct Player *player,
+                                        const struct Game *game,
                                         struct Hand *hand,
                                         int currentCard);
 

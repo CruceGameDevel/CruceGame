@@ -171,8 +171,8 @@ int printCard(WINDOW *win, const struct Card *card, const int frameColor)
     return NO_ERROR;
 }
 
-int printPlayerCards(const struct Game *game, struct Player *player,
-                     const int selected, WINDOW *win)
+int printPlayerCards(WINDOW *win, const struct Game *game,
+                     struct Player *player, const int selected)
 {
     if (player == NULL)
         return PLAYER_NULL;
@@ -508,7 +508,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
     else
         selected = game_findNextAllowedCard(player, game, hand, 0);
 
-    printPlayerCards(game, player, selected, cardsInHandWindow);
+    printPlayerCards(cardsInHandWindow, game, player, selected);
 
     while (( ch = wgetch(cardsInHandWindow)) != '\n') {
         wprintw(cardsInHandWindow, "%d", ch);
@@ -528,7 +528,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
                 exit(0);
         }
         wclear(cardsInHandWindow);
-        printPlayerCards(game, player, selected, cardsInHandWindow);
+        printPlayerCards(cardsInHandWindow, game, player, selected);
         wrefresh(cardsInHandWindow);
     }
 
@@ -545,7 +545,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
         wrefresh(cardsOnTableWindow);
 
         wclear(cardsInHandWindow);
-        printPlayerCards(game, player, selected, cardsInHandWindow);
+        printPlayerCards(cardsInHandWindow, game, player, selected);
         wrefresh(cardsInHandWindow);
         wgetch(cardsInHandWindow);
     }
@@ -557,7 +557,7 @@ int displayCardsAndPickCard(struct Game *game, const int playerId)
     return NO_ERROR;
 }
 
-int printBids(int selected, struct Round *round, WINDOW *win)
+int printBids(WINDOW *win, int selected, struct Round *round)
 {
     if (selected > 6 || selected < 0)
         return ILLEGAL_VALUE;
@@ -596,7 +596,7 @@ int getBid(WINDOW *win, const struct Game *game, const int playerId)
     wprintw(win, "Player %d %s\n", playerId + 1,
                                    game->round->players[playerId]->name);
 
-    printPlayerCards(game, game->round->players[playerId], -1, win);
+    printPlayerCards(win, game, game->round->players[playerId], -1);
 
     int y, x;
     getyx(win, y, x);
@@ -615,7 +615,7 @@ int getBid(WINDOW *win, const struct Game *game, const int playerId)
 
     int ch, selected = 0;
     wprintw(bidsWindow, "Choose a bid: ");
-    printBids(selected, game->round, bidsWindow);
+    printBids(bidsWindow, selected, game->round);
     while((ch = wgetch(bidsWindow)) != '\n') {
         switch (ch) {
             case 'a':
@@ -632,7 +632,7 @@ int getBid(WINDOW *win, const struct Game *game, const int playerId)
         }
         wclear(bidsWindow);
         wprintw(bidsWindow, "Choose a bid: ");
-        printBids(selected, game->round, bidsWindow);
+        printBids(bidsWindow, selected, game->round);
         wrefresh(bidsWindow);
     }
 

@@ -313,6 +313,9 @@
 <node COLOR="#3333ff" CREATED="1394721004648" ID="ID_1758644977" MODIFIED="1394721160519" TEXT="welcomeMessage()">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
+<node COLOR="#3333ff" CREATED="1405189641594" ID="ID_712826003" MODIFIED="1405190031808" TEXT="gameEndingMessage()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
 <node COLOR="#3333ff" CREATED="1394721005515" ID="ID_501149067" MODIFIED="1394721160519" TEXT="printCard()">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
@@ -320,6 +323,9 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node COLOR="#3333ff" CREATED="1394721014425" ID="ID_1343761802" MODIFIED="1394721160518" TEXT="getNoOfPlayers()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1405189709588" ID="ID_1666129897" MODIFIED="1405190031809" TEXT="getScoreLimit()">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node COLOR="#3333ff" CREATED="1394721015798" ID="ID_657457874" MODIFIED="1394721160516" TEXT="newPlayer()">
@@ -335,6 +341,18 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node COLOR="#3333ff" CREATED="1394721129053" ID="ID_718023706" MODIFIED="1394721160509" TEXT="getBid()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1405189725139" ID="ID_1385056028" MODIFIED="1405190031808" TEXT="printRoundTerminationMessage()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1405189733283" ID="ID_981878427" MODIFIED="1405190031809" TEXT="displayBids()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1405189750611" ID="ID_1415726702" MODIFIED="1405190031809" TEXT="printBids()">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#3333ff" CREATED="1405189907928" ID="ID_910115899" MODIFIED="1405190031809" TEXT="bidSummary()">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

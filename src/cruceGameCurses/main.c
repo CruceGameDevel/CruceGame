@@ -101,6 +101,7 @@ int cruceGameLogic()
     formTeams(welcomeWin, game);
 
     delwin(welcomeWin);
+    curs_set(0);
 
     for (int i = 0; !game_winningTeam(game); i++) {
         game_arrangePlayersRound(game, i % MAX_GAME_PLAYERS);

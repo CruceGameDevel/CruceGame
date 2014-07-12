@@ -172,5 +172,15 @@ int displayBids(WINDOW *win, const struct Game *game, const int currentPlayer);
  */
 int printBids(WINDOW *win, int selected, struct Round *round);
 
+/**
+ * @brief Displays bid summary.
+ *
+ * @param win Window where to display the bid summary.
+ * @param game The game for which the bid summary is generated.
+ *
+ * @return void.
+ */
+void bidSummary(WINDOW *win, struct Game *game);
+
 #endif
 

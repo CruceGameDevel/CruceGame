@@ -56,6 +56,22 @@ void gameEndingMessage(WINDOW *win, const struct Team *team)
     wprintw(win, "won the game.");
 }
 
+void bidSummary(WINDOW *win, struct Game *game)
+{
+    wprintw(win,
+        " ____  _     _                                                      \n"
+        "|  _ \\(_)   | |                                                    \n"
+        "| |_) |_  __| |  ___ _   _ _ __ ___  _ __ ___   __ _ _ __ _   _     \n"
+        "|  _ <| |/ _` | / __| | | | '_ ` _ \\| '_ ` _ \\ / _` | '__| | | |  \n"
+        "| |_) | | (_| | \\__ \\ |_| | | | | | | | | | | | (_| | |  | |_| |  \n"
+        "|____/|_|\\__,_| |___/\\__,_|_| |_| |_|_| |_| |_|\\__,_|_|   \\__, |\n"
+        "                                                           __/ |    \n"
+        "                                                          |___/     \n"
+    );
+
+    displayBids(win, game, game->numberPlayers);
+}
+
 int printCard(WINDOW *win, const struct Card *card, const int frameColor)
 {
     int colorPair;

@@ -118,7 +118,7 @@ int cruceGameLogic()
         }
         wmove(bidSelectWindow, 0, 0);
         wclear(bidSelectWindow);
-        displayBids(bidSelectWindow, game, game->numberPlayers);
+        bidSummary(bidSelectWindow, game);
         wrefresh(bidSelectWindow);
         wgetch(bidSelectWindow);
         delwin(bidSelectWindow);

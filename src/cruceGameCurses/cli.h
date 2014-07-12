@@ -121,15 +121,6 @@ int displayCardsAndPickCard(struct Game *game, const int playerId);
 int getBid(WINDOW *win, const struct Game* game, const int playerId);
 
 /**
- * @brief Function to display the team who wins
- *
- * @param winner The team who wins
- *
- * @return \ref NO_ERROR on success, otherwise \ref POINTER_NULL on failure
- */
-int displayWinner(const struct Team *winner);
-
-/**
  * @brief Function to get the score limit from user.
  *
  * @param win Pointer to the window in which the data will be displayed.

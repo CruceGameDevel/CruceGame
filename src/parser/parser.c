@@ -8,7 +8,7 @@ int parser(char *line, struct Parser *parser)
         return POINTER_NULL;
 
     if (line[0] != COMMAND_FLAG)
-        return 1;
+        return CHAT_LINE;
 
     return NO_ERROR;
 }

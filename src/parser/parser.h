@@ -8,6 +8,11 @@
 #define PARSER_H
 
 /**
+ * @brief Return code for char lines.
+ */
+#define CHAT_LINE 1
+
+/**
  * @var COMMAND_FLAG
  * @brief Flag found at the beginning of the game commands.
  */

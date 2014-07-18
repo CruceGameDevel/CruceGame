@@ -13,5 +13,8 @@ TESTS = run-test.sh
 noinst_LTLIBRARIES = test_game.la
 LIBS = $(CUTTER_LIBS) ${top_builddir}/src/libCruceGame.la
 
-test_game_la_SOURCES = test-deck.c test-team.c test-round.c test-game.c
+test_game_la_SOURCES = test-libCruceGame/test-deck.c \
+		       test-libCruceGame/test-team.c \
+		       test-libCruceGame/test-round.c \
+		       test-libCruceGame/test-game.c
 

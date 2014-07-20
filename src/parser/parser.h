@@ -28,6 +28,9 @@ const char COMMAND_FLAG = '&';
  */
 struct Parser{
     struct Game *game;
+    int commandCount;
+    const char **commands;
+    int (**handlers)(char *line_noCommand, struct Parser *parser);
 };
 
 /**

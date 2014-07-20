@@ -27,7 +27,17 @@ int onCreateGame(const char *line_noCommand, struct Parser *parser)
     return NO_ERROR;
 }
 
-int parser(char *line, struct Parser *parser)
+int (*handlers[])(const char *line_noCommand, struct Parser *parser) = {onCreateGame};
+const char *command[] = {"CREATE_GAME"};
+
+struct Parser *createParser()
+{
+    struct Parser *parser = malloc(sizeof(struct Parser));
+    parser->commandCount = sizeof(handlers) / sizeof(void*);
+    return parser;
+}
+
+int parser(const char *line, struct Parser *parser)
 {
     if (line == NULL || parser == NULL)
         return POINTER_NULL;

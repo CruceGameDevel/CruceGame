@@ -1,6 +1,7 @@
 #include "parser.h"
 #include <cruceGame.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Parser *createParser()
 {
@@ -26,5 +27,9 @@ int parser(char *line, struct Parser *parser)
     if (line[0] != COMMAND_FLAG)
         return CHAT_LINE;
 
+    for (int i = 0; i < parser->commandCount; i++) {
+        if (strncmp(line, command[i], strlen(command[i])) == 0)
+            return handlers[0](line + strlen(command[i]), parser);
+    }
     return NO_ERROR;
 }

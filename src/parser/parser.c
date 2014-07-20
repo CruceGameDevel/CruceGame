@@ -8,6 +8,16 @@ struct Parser *createParser()
     return parser;
 }
 
+int deleteParser(struct Parser *parser)
+{
+    if (parser == NULL)
+        return POINTER_NULL;
+
+    free(parser);
+
+    return NO_ERROR;
+}
+
 int parser(char *line, struct Parser *parser)
 {
     if (line == NULL || parser == NULL)

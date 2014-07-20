@@ -52,4 +52,11 @@ int parse(char *line, struct Parser *parser);
  */
 struct Parser *createParser();
 
+/**
+ * Function to free memory for a Parser.
+ *
+ * @return \ref NO_ERROR on success, negative value on failure.
+ */
+int deleteParser(struct Parser *parser);
+
 #endif

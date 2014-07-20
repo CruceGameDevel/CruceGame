@@ -50,7 +50,9 @@ enum ERROR_CODE {
     ROUND_EMPTY   = -21, //!< There are no players in a round.
     GAME_EMPTY    = -22, //!< There are no players in a game.
 
-    DUPLICATE_NAME = -23 //!< There is one more player with this name.
+    DUPLICATE_NAME = -23, //!< There is one more player with this name.
+
+    ALLOC_ERROR   = -24  //!< There have been a memory allocation error.
 };
 
 #ifdef __cplusplus

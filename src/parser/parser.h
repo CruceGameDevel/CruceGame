@@ -57,6 +57,6 @@ struct Parser *createParser();
  *
  * @return \ref NO_ERROR on success, negative value on failure.
  */
-int deleteParser(struct Parser *parser);
+int deleteParser(struct Parser **parser);
 
 #endif

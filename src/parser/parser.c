@@ -3,10 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Parser *createParser()
+int deleteParser(struct Parser **parser)
 {
-    struct Parser *parser = malloc(sizeof(struct Parser));
-    return parser;
+    if (parser == NULL || *parser == NULL)
+        return POINTER_NULL;
+
+    free(*parser);
+
+    return NO_ERROR;
 }
 
 int deleteParser(struct Parser *parser)

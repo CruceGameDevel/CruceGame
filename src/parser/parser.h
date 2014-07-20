@@ -42,7 +42,7 @@ struct Parser{
  *         successfully and it's a game command and positive value if the
  *         string is a chat line.
  */
-int parse(char *line, struct Parser *parser);
+int parse(const char *line, struct Parser *parser);
 
 /**
  * Function to allocate memory for a Parser structure. The allocated memory

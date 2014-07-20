@@ -44,4 +44,12 @@ struct Parser{
  */
 int parse(char *line, struct Parser *parser);
 
+/**
+ * Function to allocate memory for a Parser structure. The allocated memory
+ * must be freed with deleteParser().
+ *
+ * @return void.
+ */
+struct Parser *createParser();
+
 #endif

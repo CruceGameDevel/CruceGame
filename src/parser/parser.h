@@ -12,6 +12,13 @@
  */
 #define CHAT_LINE 1
 
+struct Parser;
+
+/**
+ * \typedef Represents a function pointer data type to parser handlers.
+ */
+typedef int (*parserHandlers)(const char *line_noCommand, struct Parser *parser);
+
 /**
  * @var COMMAND_FLAG
  * @brief Flag found at the beginning of the game commands.
@@ -30,7 +37,7 @@ struct Parser{
     struct Game *game;
     int commandCount;
     const char **commands;
-    int (**handlers)(char *line_noCommand, struct Parser *parser);
+    parserHandlers *handlers;
 };
 
 /**

@@ -27,7 +27,7 @@ int onCreateGame(const char *line_noCommand, struct Parser *parser)
     return NO_ERROR;
 }
 
-int (*handlers[])(const char *line_noCommand, struct Parser *parser) = {onCreateGame};
+parserHandlers handlers[] = {onCreateGame};
 const char *command[] = {"CREATE_GAME"};
 
 struct Parser *createParser()

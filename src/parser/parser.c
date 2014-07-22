@@ -6,8 +6,10 @@
 #define WRONG_COMMAND 2
 #define MAX_COMMAND_NUMBER 100
 
+#define HANDLER_NAME(name) on##name
+
 #define BEGIN_PARSER_HANDLER(command)                                         \
-    int on##command(const char *line, struct Parser *parser) {                \
+    int HANDLER_NAME(const char *line, struct Parser *parser) {                \
         if (line_noCommand == NULL || parser == NULL)                         \
             return POINTER_NULL;                                              \
         if (strncmp((line), #command, strlen(#command)) != 0)                 \

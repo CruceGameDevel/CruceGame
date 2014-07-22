@@ -4,7 +4,6 @@
 #include <string.h>
 
 #define WRONG_COMMAND 2
-#define MAX_COMMAND_NUMBER 100
 
 #define HANDLER_NAME(name) on##name
 

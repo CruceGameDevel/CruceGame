@@ -7,12 +7,12 @@
 #define MAX_COMMAND_NUMBER 100
 
 #define BEGIN_PARSER_HANDLER(command)                                     \
-    int on ##command(const char *line_noCommand, struct Parser *parser) { \
+    int on##command(const char *line_noCommand, struct Parser *parser) {  \
         handlers[handlersEnd++] = on ##command;                           \
         handlers[handlersEnd]   = NULL;                                   \
         if (line_noCommand == NULL || parser == NULL)                     \
             return POINTER_NULL;                                          \
-        if (strncmp(line_noCommand), #command, strlen(#command) != 0)     \
+        if (strncmp((line_noCommand), #command, strlen(#command)) != 0)   \
             return WRONG_COMMAND;
 
 #define END_PARSER_HANDLER }

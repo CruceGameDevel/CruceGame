@@ -8,11 +8,11 @@
 
 #define HANDLER_NAME(name) on##name
 
-#define BEGIN_PARSER_HANDLER(command)                                         \
-    int HANDLER_NAME(const char *line, struct Parser *parser) {                \
-        if (line_noCommand == NULL || parser == NULL)                         \
-            return POINTER_NULL;                                              \
-        if (strncmp((line), #command, strlen(#command)) != 0)                 \
+#define BEGIN_PARSER_HANDLER(command)                            \
+    int HANDLER_NAME(const char *line, struct Parser *parser) {  \
+        if (line_noCommand == NULL || parser == NULL)            \
+            return POINTER_NULL;                                 \
+        if (strncmp((line), #command, strlen(#command)) != 0)    \
             return WRONG_COMMAND;
 
 #define END_PARSER_HANDLER            \
@@ -62,3 +62,4 @@ int parser(const char *line, struct Parser *parser)
     }
     return NO_ERROR;
 }
+

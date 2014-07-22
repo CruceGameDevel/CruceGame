@@ -8,14 +8,6 @@
 
 #define BEGIN_PARSER_HANDLER(command)                                         \
     int on##command(const char *line, struct Parser *parser) {                \
-        int handlersEnd = 0;                                                  \
-        for (; handlers[handlersEnd] != NULL; handlersEnd++)                  \
-            if (handlersEnd == on##command)                                   \
-                break;                                                        \
-        if (handlers[handlersEnd] == NULL) {                                  \
-            handlers[handlersEnd++] = on ##command;                           \
-            handlers[handlersEnd]   = NULL;                                   \
-        }                                                                     \
         if (line_noCommand == NULL || parser == NULL)                         \
             return POINTER_NULL;                                              \
         if (strncmp((line), #command, strlen(#command)) != 0)                 \

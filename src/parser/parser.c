@@ -55,10 +55,8 @@ int parser(const char *line, struct Parser *parser)
     if (line[0] != COMMAND_FLAG)
         return CHAT_LINE;
 
-    for (int i = 0; i < parser->commandCount; i++) {
-        if (strncmp(line, command[i], strlen(command[i])) == 0)
-            return handlers[0](line + strlen(command[i]), parser);
-    }
+    for (int i = 0; handlers[i] != NULL && !handlers[i](line, parser); i++);
+
     return NO_ERROR;
 }
 

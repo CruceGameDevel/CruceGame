@@ -44,7 +44,6 @@ END_PARSER_HANDLER
 struct Parser *createParser()
 {
     struct Parser *parser = malloc(sizeof(struct Parser));
-    parser->commandCount = sizeof(handlers) / sizeof(void*);
     return parser;
 }
 

@@ -35,7 +35,6 @@ const char COMMAND_FLAG = '&';
  */
 struct Parser{
     struct Game *game;
-    int commandCount;
     const char **commands;
     parserHandlers *handlers;
 };

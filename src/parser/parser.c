@@ -6,16 +6,23 @@
 #define WRONG_COMMAND 2
 #define MAX_COMMAND_NUMBER 100
 
-#define BEGIN_PARSER_HANDLER(command)                                     \
-    int on##command(const char *line_noCommand, struct Parser *parser) {  \
-        handlers[handlersEnd++] = on ##command;                           \
-        handlers[handlersEnd]   = NULL;                                   \
-        if (line_noCommand == NULL || parser == NULL)                     \
-            return POINTER_NULL;                                          \
-        if (strncmp((line_noCommand), #command, strlen(#command)) != 0)   \
-            return WRONG_COMMAND;
+#define BEGIN_PARSER_HANDLER(command)                                         \
+    int on##command(const char *line, struct Parser *parser) {                \
+        int handlersEnd = 0;                                                  \
+        for (; handlers[handlersEnd] != NULL; handlersEnd++);                 \
+        handlers[handlersEnd++] = on ##command;                               \
+        handlers[handlersEnd]   = NULL;                                       \
+        if (line_noCommand == NULL || parser == NULL)                         \
+            return POINTER_NULL;                                              \
+        for (int i = 0; i < handlersEnd; i++) {                               \
+            if (strncmp((line_noCommand), #command, strlen(#command)) == 0) { \
 
-#define END_PARSER_HANDLER }
+#define END_PARSER_HANDLER            \
+        return NO_ERROR;              \
+        }                             \
+    }                                 \
+    return WRONG_COMMAND;
+}
 
 const static parserHandlers handlers[MAX_COMMAND_NUMBER];
 

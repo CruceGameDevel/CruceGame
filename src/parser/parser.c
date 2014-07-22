@@ -47,7 +47,7 @@ struct Parser *createParser()
     return parser;
 }
 
-int parser(const char *line, struct Parser *parser)
+int parse(const char *line, struct Parser *parser)
 {
     if (line == NULL || parser == NULL)
         return POINTER_NULL;

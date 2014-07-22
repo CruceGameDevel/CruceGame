@@ -9,20 +9,21 @@
 #define BEGIN_PARSER_HANDLER(command)                                         \
     int on##command(const char *line, struct Parser *parser) {                \
         int handlersEnd = 0;                                                  \
-        for (; handlers[handlersEnd] != NULL; handlersEnd++);                 \
-        handlers[handlersEnd++] = on ##command;                               \
-        handlers[handlersEnd]   = NULL;                                       \
+        for (; handlers[handlersEnd] != NULL; handlersEnd++)                  \
+            if (handlersEnd == on##command)                                   \
+                break;                                                        \
+        if (handlers[handlersEnd] == NULL) {                                  \
+            handlers[handlersEnd++] = on ##command;                           \
+            handlers[handlersEnd]   = NULL;                                   \
+        }                                                                     \
         if (line_noCommand == NULL || parser == NULL)                         \
             return POINTER_NULL;                                              \
-        for (int i = 0; i < handlersEnd; i++) {                               \
-            if (strncmp((line_noCommand), #command, strlen(#command)) == 0) { \
+        if (strncmp((line), #command, strlen(#command)) != 0)                 \
+            return WRONG_COMMAND;
 
 #define END_PARSER_HANDLER            \
         return NO_ERROR;              \
-        }                             \
-    }                                 \
-    return WRONG_COMMAND;
-}
+    }
 
 const static parserHandlers handlers[MAX_COMMAND_NUMBER];
 

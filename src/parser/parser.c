@@ -4,6 +4,7 @@
 #include <string.h>
 
 #define WRONG_COMMAND 2
+#define MAX_COMMAND_NUMBER 100
 
 #define BEGIN_PARSER_HANDLER(command)                                     \
     int on ##command(const char *line_noCommand, struct Parser *parser) { \
@@ -15,6 +16,8 @@
             return WRONG_COMMAND;
 
 #define END_PARSER_HANDLER }
+
+const static parserHandlers handlers[MAX_COMMAND_NUMBER];
 
 int deleteParser(struct Parser **parser)
 {
@@ -39,9 +42,6 @@ int onCreateGame(const char *line_noCommand, struct Parser *parser)
 
     return NO_ERROR;
 }
-
-parserHandlers handlers[] = {onCreateGame};
-const char *command[] = {"CREATE_GAME"};
 
 struct Parser *createParser()
 {

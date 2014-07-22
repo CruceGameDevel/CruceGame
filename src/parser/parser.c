@@ -19,7 +19,7 @@
         return NO_ERROR;              \
     }
 
-const static parserHandlers handlers[MAX_COMMAND_NUMBER];
+const static parserHandlers handlers[] = {HANDLER_NAME(CREATE_GAME), NULL};
 
 int deleteParser(struct Parser **parser)
 {

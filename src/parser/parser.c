@@ -36,10 +36,7 @@ int deleteParser(struct Parser **parser)
     return NO_ERROR;
 }
 
-int onCreateGame(const char *line_noCommand, struct Parser *parser)
-{
-    if (line_noCommand == NULL || parser == NULL)
-        return POINTER_NULL;
+BEGIN_PARSER_HANDLER(CREATE_GAME)
 
     int gameLimit = atoi(line_noCommand);
     parser->game = game_createGame(gameLimit);
@@ -47,8 +44,7 @@ int onCreateGame(const char *line_noCommand, struct Parser *parser)
     if (parser->game == NULL)
         return ALLOC_ERROR;
 
-    return NO_ERROR;
-}
+END_PARSER_HANDLER
 
 struct Parser *createParser()
 {

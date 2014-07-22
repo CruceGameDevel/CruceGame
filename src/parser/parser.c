@@ -8,18 +8,16 @@
 
 #define HANDLER_NAME(name) on##name
 
-#define BEGIN_PARSER_HANDLER(command)                            \
-    int HANDLER_NAME(const char *line, struct Parser *parser) {  \
-        if (line_noCommand == NULL || parser == NULL)            \
-            return POINTER_NULL;                                 \
-        if (strncmp((line), #command, strlen(#command)) != 0)    \
+#define BEGIN_PARSER_HANDLER(command)                                     \
+    int HANDLER_NAME(command)(const char *line, struct Parser *parser) {  \
+        if (line == NULL || parser == NULL)                               \
+            return POINTER_NULL;                                          \
+        if (strncmp((line), #command, strlen(#command)) != 0)             \
             return WRONG_COMMAND;
 
 #define END_PARSER_HANDLER            \
         return NO_ERROR;              \
     }
-
-const static parserHandlers handlers[] = {HANDLER_NAME(CREATE_GAME), NULL};
 
 int deleteParser(struct Parser **parser)
 {
@@ -33,13 +31,15 @@ int deleteParser(struct Parser **parser)
 
 BEGIN_PARSER_HANDLER(CREATE_GAME)
 
-    int gameLimit = atoi(line_noCommand);
+    int gameLimit = atoi(line);
     parser->game = game_createGame(gameLimit);
 
     if (parser->game == NULL)
         return ALLOC_ERROR;
 
 END_PARSER_HANDLER
+
+const static parserHandlers handlers[] = {HANDLER_NAME(CREATE_GAME), NULL};
 
 struct Parser *createParser()
 {

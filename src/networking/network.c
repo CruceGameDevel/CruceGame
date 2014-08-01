@@ -96,3 +96,30 @@ void *readFromKeyboard(void *arg)
     return NULL;
 }
 
+void ircParse(char *str, void *arg)
+{
+    if (strncmp(str, "PING", 4) == 0) {
+        char buffer[strlen(str)];
+        strcpy(buffer, str);
+        buffer[1] = 'O';
+        write(sockfd, buffer, strlen(buffer));
+    } else if (strstr(str, "PRIVMSG") != NULL) {
+        //parse messages formatted ":sender!... PRIVMSG :message"
+        char sender[11];
+        char *exclamationMark = strchr(str, '!');
+        if (exclamationMark != NULL) {
+            int senderNameLen = exclamationMark - str;
+            strncpy(sender, str+1, senderNameLen - 1);
+            sender[senderNameLen - 1] = '\0';
+
+            char *message = strchr(str + 1, ':');
+            char buffer[strlen(message) + strlen(sender) + 11];
+            sprintf(buffer, "%s: %s", sender, message + 1);
+
+            wprintw(arg, "%s", buffer);
+        }
+    } else {
+        wprintw(arg, "%s", str);
+    }
+    wrefresh(arg);
+}

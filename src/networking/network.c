@@ -4,18 +4,25 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <strings.h>
 #include <string.h>
 #include <stdio.h>
 
+#include <pthread.h>
+#include <ncurses.h>
+
 #define CHANNEL "#cruce-devel "
-#define BUF_SIZE 512
 #define PORT 6667
 #define HOST_NAME "irc.freenode.net"
 
-void sendIrcMessage(int sockfd, char *message)   //TODO: errors
+#define BUF_SIZE 64
+
+static int sockfd;
+
+void sendIrcMessage(char *message, int len)   //TODO: errors
 {
-    char messageCommand[BUF_SIZE + 9];
-    sprintf(messageCommand, "PRIVMSG %s:%s", CHANNEL, message);
+    char messageCommand[len + 10];
+    sprintf(messageCommand, "PRIVMSG %s:%s\n", CHANNEL, message);
     write(sockfd, messageCommand, strlen(messageCommand));
 }
 
@@ -27,8 +34,9 @@ void disconnect(int sockfd)
 
 int Connect(char *name)
 {
+    Log = fopen("Log.txt", "w");
     int portno = PORT;
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         return -1;     //TODO: error code
     }
@@ -39,7 +47,7 @@ int Connect(char *name)
     struct sockaddr_in serv_addr;
     bzero((char*)&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char*)server->h_addr, (char*)&serv_addr.sin_addr.s_addr, server->h_length);
+    bcopy((char*)server->h_addr_list[0], (char*)&serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         return -3; //TODO: error code
@@ -61,47 +69,30 @@ int Connect(char *name)
     return sockfd;
 }
 
-void reset_timeout(struct timeval *timeout)
+void* readFromSocket(void *arg)
 {
-    timeout->tv_sec = 250;
-    timeout->tv_usec = 0;     //TODO: use constants
-}
-
-void loop(int infd, int outfd)
-{
-    fd_set master_set, working_set;
-    FD_ZERO(&master_set);
-    FD_ZERO(&working_set);
-    FD_SET(infd, &master_set);
-    FD_SET(outfd, &master_set);
-
     char buffer[BUF_SIZE];
-    struct timeval timeout;
-    int rc=1;
-    while (rc > 0){
-        reset_timeout(&timeout);
-        memcpy(&working_set, &master_set, sizeof(master_set));
-        rc = select(outfd + 1, &working_set, NULL, NULL, &timeout);
-        if (FD_ISSET(infd, &working_set)) {
-            int n = read(infd, buffer, BUF_SIZE);
-            buffer[n] = '\0';
-            sendIrcMessage(outfd, buffer);
+    int i = 0;
+    while(1) {
+        int n = read(sockfd, buffer, BUF_SIZE);
+        char *p;
+        while (p = strchr(buffer, '\r')) {
+            *p = ' ';
         }
-        if (FD_ISSET(outfd, &working_set)) {
-            int n = read(outfd, buffer, BUF_SIZE);
-            buffer[n] = '\0';
-            printf("%s", buffer);
-        }
+        buffer[n] = '\0';
+        wprintw(arg, "%s", buffer);
+        wrefresh(arg);
     }
-
-    printf("\n TIMEOUT DISCONNECT");
-    disconnect(outfd);
+    return NULL;
 }
 
-int main() {
-    int sockfd = Connect("Dipol");
-    loop(0, sockfd);
-    return 0;
+void *readFromKeyboard(void *arg)
+{
+    char buffer[BUF_SIZE];
+    while(1) {
+        int n = wscanw(arg, "%[^\n]", buffer);
+        sendIrcMessage(buffer, strlen(buffer));
+    }
+    return NULL;
 }
-
 

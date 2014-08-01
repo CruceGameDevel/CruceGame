@@ -19,9 +19,9 @@
 
 static int sockfd;
 
-void sendIrcMessage(char *message, int len)   //TODO: errors
+void sendIrcMessage(char *message)   //TODO: errors
 {
-    char messageCommand[len + 10];
+    char messageCommand[strlen(message) + strlen(CHANNEL) + 11];
     sprintf(messageCommand, "PRIVMSG %s:%s\n", CHANNEL, message);
     write(sockfd, messageCommand, strlen(messageCommand));
 }

@@ -36,7 +36,6 @@ void disconnect(int sockfd)
 
 int Connect(char *name)
 {
-    Log = fopen("Log.txt", "w");
     int portno = PORT;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {

@@ -11,6 +11,8 @@
 #include <pthread.h>
 #include <ncurses.h>
 
+#include "network.h"
+
 #define CHANNEL "#cruce-devel "
 #define PORT 6667
 #define HOST_NAME "irc.freenode.net"

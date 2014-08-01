@@ -81,8 +81,7 @@ void* readFromSocket(void *arg)
             *p = ' ';
         }
         buffer[n] = '\0';
-        wprintw(arg, "%s", buffer);
-        wrefresh(arg);
+        ircParse(buffer, arg);
     }
     return NULL;
 }

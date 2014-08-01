@@ -103,10 +103,10 @@ int cruceGameLogic()
     Connect(name);
 
     pthread_t readFromSocket_var;
-    pthread_create(&readFromSocket_var, NULL, &readFromSocket, readWin);
+    pthread_create(&readFromSocket_var, NULL, &readFromSocket, printWin);
 
     pthread_t readFromKeyboard_var;
-    pthread_create(&readFromKeyboard_var, NULL, &readFromKeyboard, printWin);
+    pthread_create(&readFromKeyboard_var, NULL, &readFromKeyboard, readWin);
 
     pthread_join(readFromKeyboard_var, NULL);
     pthread_join(readFromSocket_var, NULL);

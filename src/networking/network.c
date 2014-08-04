@@ -120,6 +120,10 @@ void *readFromKeyboard(void *arg)
 
 void ircParse(char *str, void *arg)
 {
+    char *p;
+    while (p = strchr(str, '\r')) {
+        *p = ' ';
+    }
     if (strncmp(str, "PING", 4) == 0) {
         char buffer[strlen(str)];
         strcpy(buffer, str);

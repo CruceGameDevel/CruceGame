@@ -17,7 +17,7 @@
 #define PORT 6667
 #define HOST_NAME "irc.freenode.net"
 
-#define BUF_SIZE 64
+#define BUF_SIZE 1024
 
 static int sockfd;
 

@@ -21,6 +21,20 @@
 
 static int sockfd;
 
+#ifdef DEBUG
+FILE *Log;
+
+void printString(char *s) {
+    for (int i = 0; i < BUF_SIZE; i++) {
+        if (s[i] > ' ')
+            fprintf(Log, "%c ", s[i]);
+        else
+            fprintf(Log, "%d ", s[i]);
+    }
+    fprintf(Log, "\nEND\n");
+}
+#endif
+
 void sendIrcMessage(char *message)   //TODO: errors
 {
     char messageCommand[strlen(message) + strlen(CHANNEL) + 11];
@@ -36,6 +50,9 @@ void disconnect(int sockfd)
 
 int Connect(char *name)
 {
+#ifdef DEBUG
+    Log = fopen("Log.txt", "w");
+#endif
     int portno = PORT;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {

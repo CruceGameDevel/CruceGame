@@ -87,18 +87,23 @@ int Connect(char *name)
     return sockfd;
 }
 
-void* readFromSocket(void *arg)
+void *readFromSocket(void *arg)
 {
     char buffer[BUF_SIZE];
-    int i = 0;
+    char line[BUF_SIZE];
+    memset(buffer, 0, BUF_SIZE);
+    int j = 0;
     while(1) {
         int n = read(sockfd, buffer, BUF_SIZE);
-        char *p;
-        while (p = strchr(buffer, '\r')) {
-            *p = ' ';
-        }
         buffer[n] = '\0';
-        ircParse(buffer, arg);
+        for (int i = 0; i < BUF_SIZE && buffer[i] != '\0'; i++, j++) {
+            line[j] = buffer[i];
+            if (buffer[i] == '\n') {
+                line [j + 1] = '\0';
+                ircParse(line, arg);
+                j = -1;
+            }
+        }
     }
     return NULL;
 }

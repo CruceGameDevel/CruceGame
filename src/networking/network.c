@@ -140,3 +140,4 @@ void ircParse(char *str, void *arg)
     }
     wrefresh(arg);
 }
+

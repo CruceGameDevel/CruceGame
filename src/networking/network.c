@@ -131,19 +131,18 @@ void ircParse(char *str, void *arg)
         write(sockfd, buffer, strlen(buffer));
     } else if (strstr(str, "PRIVMSG") != NULL) {
         //parse messages formatted ":sender!... PRIVMSG :message"
-        char sender[11];
-        char *exclamationMark = strchr(str, '!');
-        if (exclamationMark != NULL) {
-            int senderNameLen = exclamationMark - str;
-            strncpy(sender, str+1, senderNameLen - 1);
-            sender[senderNameLen - 1] = '\0';
-
-            char *message = strchr(str + 1, ':');
-            char buffer[strlen(message) + strlen(sender) + 11];
-            sprintf(buffer, "%s: %s", sender, message + 1);
-
-            wprintw(arg, "%s", buffer);
+        char sender[30]; //TODO: constant
+        int senderLen = strchr(str, ' ') - str;
+        strncpy(sender, str, senderLen); //TODO: add exception for n>30
+        sender[senderLen] = '\0';
+        char *exclamationMark = strchr(sender, '!');
+        if (exclamationMark) {
+            *exclamationMark = '\0';
         }
+        char *message = strchr(str + 1, ':');
+        char buffer[strlen(message) + strlen(sender) + 11];
+        sprintf(buffer, "%s: %s", sender, message + 1);
+        wprintw(arg, "%s", buffer);
     } else {
         wprintw(arg, "%s", str);
     }

@@ -1,3 +1,13 @@
+struct Message{
+    char *prefix;
+    char *command;
+    char *trailing;
+};
+
+struct Handlers{
+    int (*onPRIVMSG)(struct Message *);
+};
+
 int Connect(char *name);
 void disconnect(int sockfd);
 void sendIrcMessage(char *message);

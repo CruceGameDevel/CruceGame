@@ -119,7 +119,15 @@ void *readFromKeyboard(void *arg)
     return NULL;
 }
 
-void ircParse(char *str, void *arg)
+struct Message *newMessage(int prefixLen, int commandLen, int trailingLen)
+{
+    struct Message *message = malloc(sizeof(struct Message));
+    message->prefix   = malloc(prefixLen);
+    message->command  = malloc(commandLen);
+    message->trailing = malloc(trailingLen);
+    return message;
+}
+
 {
     char *p;
     while (p = strchr(str, '\r')) {

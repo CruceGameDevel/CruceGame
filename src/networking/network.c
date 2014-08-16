@@ -101,7 +101,8 @@ void *readFromSocket(void *arg)
             line[j] = buffer[i];
             if (buffer[i] == '\n') {
                 line [j + 1] = '\0';
-                ircParse(line, arg);
+                struct Message *message = ircParse(line);
+                handleMessage(message, arg);
                 j = -1;
             }
         }

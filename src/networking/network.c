@@ -128,6 +128,15 @@ struct Message *newMessage(int prefixLen, int commandLen, int trailingLen)
     return message;
 }
 
+void distroyMessage(struct Message **message)
+{
+    free((*message)->prefix);
+    free((*message)->command);
+    free((*message)->trailing);
+    free( *message);
+    *message = NULL;
+}
+
 {
     char *p;
     while (p = strchr(str, '\r')) {

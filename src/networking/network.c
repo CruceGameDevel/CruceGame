@@ -137,34 +137,41 @@ void distroyMessage(struct Message **message)
     *message = NULL;
 }
 
+struct Message *ircParse(char *str)
 {
     char *p;
-    while (p = strchr(str, '\r')) {
+    while ((p = strchr(str, '\r'))) {
         *p = ' ';
     }
-    if (strncmp(str, "PING", 4) == 0) {
-        char buffer[strlen(str)];
-        strcpy(buffer, str);
-        buffer[1] = 'O';
-        write(sockfd, buffer, strlen(buffer));
-    } else if (strstr(str, "PRIVMSG") != NULL) {
-        //parse messages formatted ":sender!... PRIVMSG :message"
-        char sender[11];
-        char *exclamationMark = strchr(str, '!');
-        if (exclamationMark != NULL) {
-            int senderNameLen = exclamationMark - str;
-            strncpy(sender, str+1, senderNameLen - 1);
-            sender[senderNameLen - 1] = '\0';
 
-            char *message = strchr(str + 1, ':');
-            char buffer[strlen(message) + strlen(sender) + 11];
-            sprintf(buffer, "%s: %s", sender, message + 1);
-
-            wprintw(arg, "%s", buffer);
-        }
-    } else {
-        wprintw(arg, "%s", str);
+    char *prefixEnd     = str + 1; //parsing prefix
+    int prefixLen       = 0;
+    if (str[0] == ':') {
+        prefixEnd       = strchr(str, ' ') - 1;
+        prefixLen       = prefixEnd - str;
     }
-    wrefresh(arg);
+
+    char *trailingStart = strchr(prefixEnd + 2, ' ') + 1; //parsing trailing
+    int   trailingLen   = strlen(trailingStart);
+
+    char *commandStart  = prefixEnd + 2; //parsing command
+    char *commandEnd    = trailingStart - 2;
+    int   commandLen    = commandEnd - commandStart + 1;
+
+    struct Message *message = newMessage(prefixLen   + 1,
+                                         commandLen  + 1,
+                                         trailingLen + 1);
+
+    strncpy(message->prefix, str+1, prefixLen);
+    strncpy(message->command, commandStart, commandLen);
+    strncpy(message->trailing, trailingStart, trailingLen);
+
+    message->prefix[prefixLen]     = '\0';
+    message->command[commandLen]   = '\0';
+    message->trailing[trailingLen] = '\0';
+
+    return message;
+}
+
 }
 

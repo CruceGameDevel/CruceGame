@@ -173,5 +173,11 @@ struct Message *ircParse(char *str)
     return message;
 }
 
+void handleMessage(struct Message *message, void *win)
+{
+    wprintw(win, "%s\n", message->prefix);
+    wprintw(win, "%s\n", message->command);
+    wprintw(win, "%s", message->trailing);
+    wrefresh(win);
 }
 

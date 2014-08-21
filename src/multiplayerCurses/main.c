@@ -94,116 +94,21 @@ int cruceGameLogic()
     wclear(welcomeWin);
     delwin(welcomeWin);
 
-    WINDOW *printWin = newwin(35, 150, 0, 0);
-    WINDOW *readWin  = newwin(1,  79,  36, 0);
-
-    scrollok(readWin,  TRUE);
-    scrollok(printWin, TRUE);
-
     Connect(name);
 
-    pthread_t readFromSocket_var;
-    pthread_create(&readFromSocket_var, NULL, &readFromSocket, printWin);
+    initWindows();
 
-    pthread_t readFromKeyboard_var;
-    pthread_create(&readFromKeyboard_var, NULL, &readFromKeyboard, readWin);
+    struct Handlers *handlers = malloc(sizeof(struct Handlers)); //TODO: free it
+    handlers->onPRIVMSG = onPRIVMSG_handler;
+
+    pthread_t readFromSocket_var, readFromKeyboard_var;
+
+    pthread_create(&readFromSocket_var, NULL, &readFromSocket, handlers);
+    pthread_create(&readFromKeyboard_var, NULL,
+                   &readFromKeyboard, getReadWin());
 
     pthread_join(readFromKeyboard_var, NULL);
     pthread_join(readFromSocket_var, NULL);
-
-//old code
-    int limitScore  = getScoreLimit(welcomeWin);
-    int noOfPlayers = getNoOfPlayers(welcomeWin);
-
-    struct Game *game = game_createGame(limitScore);
-    for (int i = 0; i < noOfPlayers; i++) {
-        int err;
-        while ((err = game_addPlayer(newPlayer(welcomeWin, i + 1), game)) == DUPLICATE_NAME)
-            wprintw(welcomeWin, "The player's name have to be unique\n");
-        if (err != 0)
-            wprintw(welcomeWin, "ERROR: game_addPlayer() %d\n", err);
-    }
-    formTeams(welcomeWin, game);
-
-    delwin(welcomeWin);
-    curs_set(0);
-
-    for (int i = 0; !game_winningTeam(game); i++) {
-        game_arrangePlayersRound(game, i % MAX_GAME_PLAYERS);
-
-        struct Deck *deck = deck_createDeck();
-        deck_deckShuffle(deck);
-
-        round_distributeDeck(deck, game->round);
-
-        WINDOW *bidSelectWindow = newwin(80, 79, 0, 0);
-        for (int i = 0; i < game->numberPlayers; i++) {
-            getBid(bidSelectWindow, game, i);
-            if (i < game->numberPlayers - 1)
-                wmove(bidSelectWindow, 0, 0);
-        }
-        wmove(bidSelectWindow, 0, 0);
-        wclear(bidSelectWindow);
-        bidSummary(bidSelectWindow, game);
-        wrefresh(bidSelectWindow);
-        wgetch(bidSelectWindow);
-        delwin(bidSelectWindow);
-
-        struct Player *bidWinner = round_getBidWinner(game->round);
-        int first = round_findPlayerIndexRound(bidWinner, game->round);
-        for (int i = 0; team_hasCards(game->players[0]); i++) {
-            round_arrangePlayersHand(game->round, first);
-
-            WINDOW *scoreTableWindow = newwin(11, 49, 0, 30);
-#ifdef BORDERS
-            box(scoreTableWindow, 0, 0);
-#endif
-            for (int j = 0; j < game->numberPlayers; j++) {
-                printScore(scoreTableWindow, game, game->round);
-                wmove(scoreTableWindow, 0, 0);
-                wrefresh(scoreTableWindow);
-                displayCardsAndPickCard(game, j);
-            }
-            delwin(scoreTableWindow);
-
-            struct Player *handWinner = round_handWinner(game->round->hands[i],
-                                                         game->round);
-            first = round_findPlayerIndexRound(handWinner, game->round);
-
-            if (deck_cardsNumber(deck) > 0)
-                round_distributeCard(deck, game->round);
-
-        }
-
-        int oldScore[MAX_GAME_PLAYERS];
-        for(int i = 0; i < MAX_GAME_TEAMS; i++) {
-            if(game->teams[i] != NULL) {
-                oldScore[i] = game->teams[i]->score;
-            }
-        }
-
-        game_updateScore(game, bidWinner);
-
-        WINDOW *roundTerminationWindow = newwin(30, 79, 0, 0);
-        printRoundTerminationMessage(roundTerminationWindow, game, oldScore);
-        wrefresh(roundTerminationWindow);
-        wgetch(roundTerminationWindow);
-        delwin(roundTerminationWindow);
-
-        deck_deleteDeck(&deck);
-        round_deleteRound(&game->round);
-    }
-
-    WINDOW *gameEndingWindow = newwin(30, 79, 0, 0);
-    gameEndingMessage(gameEndingWindow, game_winningTeam(game));
-
-    for (int i = 0; i < MAX_GAME_PLAYERS; i++)
-        if (game->players[i])
-            team_deletePlayer(&game->players[i]);
-    for (int i = 0; i < MAX_GAME_TEAMS; i++)
-        if (game->teams[i])
-            team_deleteTeam(&game->teams[i]);
-    game_deleteGame(&game);
 
     endwin();
     return EXIT_SUCCESS;

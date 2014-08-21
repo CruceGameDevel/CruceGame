@@ -14,9 +14,9 @@ struct Handlers{
 int Connect(char *name);
 void disconnect(int sockfd);
 void sendIrcMessage(char *message);
-void *readFromSocket(void *arg);
+void *readFromSocket(void *handlers);
 void *readFromKeyboard(void *arg);
 struct Message *ircParse(char *str);
-void handleMessage(struct Message *message, void *win);
+void handleMessage(struct Message *message, struct Handlers *handlers);
 
 #endif

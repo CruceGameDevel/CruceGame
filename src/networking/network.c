@@ -143,12 +143,31 @@ struct Message *ircParse(char *str)
     return message;
 }
 
-void handleMessage(struct Message *message, void *win)
+#ifdef DEBUG
+void handlerError(char *command, int errorCode)
 {
-    wprintw(win, "%s\n", message->prefix);
-    wprintw(win, "%s\n", message->command);
-    wprintw(win, "%s", message->trailing);
-    wrefresh(win);
+    if (errorCode != NO_ERROR) {
+        fprintf(Log, "Handler for %s exited with error code %d\n",
+                command, errorCode);
+        exit(errorCode);
+    }
+}
+#endif
+
+void handleMessage(struct Message *message, struct Handlers *handlers)
+{
+    if (strcmp(message->command, "PRIVMSG") == 0) {
+        int ret = handlers->onPRIVMSG(message);
+#ifdef DEBUG
+        handlerError(message->command, ret);
+#endif
+    } else if (strcmp(message->command, "PING") == 0) {
+        char pong[BUF_SIZE];
+        sprintf(pong, "PONG: %s\n", message->trailing);
+        write(sockfd, pong, strlen(pong));
+    } else {
+    }
+}
 
 void *readFromSocket(void *handlers)
 {

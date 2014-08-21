@@ -1,3 +1,6 @@
+#ifndef NETWORK_H
+#define NETWORK_H
+
 struct Message{
     char *prefix;
     char *command;
@@ -15,3 +18,5 @@ void *readFromSocket(void *arg);
 void *readFromKeyboard(void *arg);
 struct Message *ircParse(char *str);
 void handleMessage(struct Message *message, void *win);
+
+#endif

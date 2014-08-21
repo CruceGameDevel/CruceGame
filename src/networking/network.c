@@ -89,28 +89,6 @@ int Connect(char *name)
     return sockfd;
 }
 
-void *readFromSocket(void *arg)
-{
-    char buffer[BUF_SIZE];
-    char line[BUF_SIZE];
-    memset(buffer, 0, BUF_SIZE);
-    int j = 0;
-    while(1) {
-        int n = read(sockfd, buffer, BUF_SIZE);
-        buffer[n] = '\0';
-        for (int i = 0; i < BUF_SIZE && buffer[i] != '\0'; i++, j++) {
-            line[j] = buffer[i];
-            if (buffer[i] == '\n') {
-                line [j + 1] = '\0';
-                struct Message *message = ircParse(line);
-                handleMessage(message, arg);
-                j = -1;
-            }
-        }
-    }
-    return NULL;
-}
-
 void *readFromKeyboard(void *arg)
 {
     char buffer[BUF_SIZE];
@@ -181,5 +159,30 @@ void handleMessage(struct Message *message, void *win)
     wprintw(win, "%s\n", message->command);
     wprintw(win, "%s", message->trailing);
     wrefresh(win);
+
+void *readFromSocket(void *handlers)
+{
+    handlers = (struct Handlers*)handlers;
+    char buffer[BUF_SIZE];
+    char line[BUF_SIZE];
+    memset(buffer, 0, BUF_SIZE);
+    int j = 0;
+    while(1) {
+        int n = read(sockfd, buffer, BUF_SIZE);
+        buffer[n] = '\0';
+        for (int i = 0; i < BUF_SIZE && buffer[i] != '\0'; i++, j++) {
+            line[j] = buffer[i];
+            if (buffer[i] == '\n') {
+                line [j + 1] = '\0';
+                struct Message *message = ircParse(line);
+                handleMessage(message, handlers);
+                distroyMessage(&message);
+                j = -1;
+            }
+        }
+    }
+    return NULL;
+}
+
 }
 

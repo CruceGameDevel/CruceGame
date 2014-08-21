@@ -13,6 +13,7 @@
 #include <ncurses.h>
 
 #include "network.h"
+#include "errors.h"
 
 #define CHANNEL "#cruce-devel "
 #define PORT 6667

@@ -89,16 +89,6 @@ int Connect(char *name)
     return sockfd;
 }
 
-void *readFromKeyboard(void *arg)
-{
-    char buffer[BUF_SIZE];
-    while(1) {
-        int n = wscanw(arg, "%[^\n]", buffer);
-        sendIrcMessage(buffer);
-    }
-    return NULL;
-}
-
 struct Message *newMessage(int prefixLen, int commandLen, int trailingLen)
 {
     struct Message *message = malloc(sizeof(struct Message));
@@ -184,5 +174,13 @@ void *readFromSocket(void *handlers)
     return NULL;
 }
 
+void *readFromKeyboard(void *arg)
+{
+    char buffer[BUF_SIZE];
+    while(1) {
+        int n = wscanw(arg, "%[^\n]", buffer);
+        sendIrcMessage(buffer);
+    }
+    return NULL;
 }
 

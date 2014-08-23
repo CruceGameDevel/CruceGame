@@ -7,11 +7,13 @@
 #include <strings.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <pthread.h>
 #include <ncurses.h>
 
 #include "network.h"
+#include "errors.h"
 
 #define CHANNEL "#cruce-devel "
 #define PORT 6667
@@ -87,8 +89,89 @@ int Connect(char *name)
     return sockfd;
 }
 
-void *readFromSocket(void *arg)
+struct Message *newMessage(int prefixLen, int commandLen, int trailingLen)
 {
+    struct Message *message = malloc(sizeof(struct Message));
+    message->prefix   = malloc(prefixLen);
+    message->command  = malloc(commandLen);
+    message->trailing = malloc(trailingLen);
+    return message;
+}
+
+void distroyMessage(struct Message **message)
+{
+    free((*message)->prefix);
+    free((*message)->command);
+    free((*message)->trailing);
+    free( *message);
+    *message = NULL;
+}
+
+struct Message *ircParse(char *str)
+{
+    char *p;
+    while ((p = strchr(str, '\r'))) {
+        *p = ' ';
+    }
+
+    char *prefixEnd     = str + 1; //parsing prefix
+    int prefixLen       = 0;
+    if (str[0] == ':') {
+        prefixEnd       = strchr(str, ' ') - 1;
+        prefixLen       = prefixEnd - str;
+    }
+
+    char *trailingStart = strchr(prefixEnd + 2, ' ') + 1; //parsing trailing
+    int   trailingLen   = strlen(trailingStart);
+
+    char *commandStart  = prefixEnd + 2; //parsing command
+    char *commandEnd    = trailingStart - 2;
+    int   commandLen    = commandEnd - commandStart + 1;
+
+    struct Message *message = newMessage(prefixLen   + 1,
+                                         commandLen  + 1,
+                                         trailingLen + 1);
+
+    strncpy(message->prefix, str+1, prefixLen);
+    strncpy(message->command, commandStart, commandLen);
+    strncpy(message->trailing, trailingStart, trailingLen);
+
+    message->prefix[prefixLen]     = '\0';
+    message->command[commandLen]   = '\0';
+    message->trailing[trailingLen] = '\0';
+
+    return message;
+}
+
+#ifdef DEBUG
+void handlerError(char *command, int errorCode)
+{
+    if (errorCode != NO_ERROR) {
+        fprintf(Log, "Handler for %s exited with error code %d\n",
+                command, errorCode);
+        exit(errorCode);
+    }
+}
+#endif
+
+void handleMessage(struct Message *message, struct Handlers *handlers)
+{
+    if (strcmp(message->command, "PRIVMSG") == 0) {
+        int ret = handlers->onPRIVMSG(message);
+#ifdef DEBUG
+        handlerError(message->command, ret);
+#endif
+    } else if (strcmp(message->command, "PING") == 0) {
+        char pong[BUF_SIZE];
+        sprintf(pong, "PONG: %s\n", message->trailing);
+        write(sockfd, pong, strlen(pong));
+    } else {
+    }
+}
+
+void *readFromSocket(void *handlers)
+{
+    handlers = (struct Handlers*)handlers;
     char buffer[BUF_SIZE];
     char line[BUF_SIZE];
     memset(buffer, 0, BUF_SIZE);
@@ -100,7 +183,9 @@ void *readFromSocket(void *arg)
             line[j] = buffer[i];
             if (buffer[i] == '\n') {
                 line [j + 1] = '\0';
-                ircParse(line, arg);
+                struct Message *message = ircParse(line);
+                handleMessage(message, handlers);
+                distroyMessage(&message);
                 j = -1;
             }
         }

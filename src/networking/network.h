@@ -9,6 +9,8 @@ struct Message{
 
 struct Handlers{
     int (*onPRIVMSG)(struct Message *);
+    int (*onJOIN)(struct Message *);
+    int (*onQUIT)(struct Message *);
 };
 
 int Connect(char *name);

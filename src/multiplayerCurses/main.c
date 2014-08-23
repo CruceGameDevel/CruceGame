@@ -100,6 +100,8 @@ int cruceGameLogic()
 
     struct Handlers *handlers = malloc(sizeof(struct Handlers)); //TODO: free it
     handlers->onPRIVMSG = onPRIVMSG_handler;
+    handlers->onJOIN    = onJOIN_handler;
+    handlers->onQUIT    = onQUIT_handler;
 
     pthread_t readFromSocket_var, readFromKeyboard_var;
 

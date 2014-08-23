@@ -156,17 +156,23 @@ void handlerError(char *command, int errorCode)
 
 void handleMessage(struct Message *message, struct Handlers *handlers)
 {
+    int ret;
     if (strcmp(message->command, "PRIVMSG") == 0) {
-        int ret = handlers->onPRIVMSG(message);
-#ifdef DEBUG
-        handlerError(message->command, ret);
-#endif
+        ret = handlers->onPRIVMSG(message);
+    } else if (strcmp(message->command, "JOIN") == 0) {
+        ret = handlers->onJOIN(message);
+    } else if (strcmp(message->command, "QUIT") == 0) {
+        ret = handlers->onQUIT(message);
     } else if (strcmp(message->command, "PING") == 0) {
         char pong[BUF_SIZE];
         sprintf(pong, "PONG: %s\n", message->trailing);
         write(sockfd, pong, strlen(pong));
     } else {
     }
+
+#ifdef DEBUG
+    handlerError(message->command, ret);
+#endif
 }
 
 void *readFromSocket(void *handlers)
@@ -201,36 +207,5 @@ void *readFromKeyboard(void *arg)
         sendIrcMessage(buffer);
     }
     return NULL;
-}
-
-void ircParse(char *str, void *arg)
-{
-    char *p;
-    while (p = strchr(str, '\r')) {
-        *p = ' ';
-    }
-    if (strncmp(str, "PING", 4) == 0) {
-        char buffer[strlen(str)];
-        strcpy(buffer, str);
-        buffer[1] = 'O';
-        write(sockfd, buffer, strlen(buffer));
-    } else if (strstr(str, "PRIVMSG") != NULL) {
-        //parse messages formatted ":sender!... PRIVMSG :message"
-        char sender[30]; //TODO: constant
-        int senderLen = strchr(str, ' ') - str;
-        strncpy(sender, str, senderLen); //TODO: add exception for n>30
-        sender[senderLen] = '\0';
-        char *exclamationMark = strchr(sender, '!');
-        if (exclamationMark) {
-            *exclamationMark = '\0';
-        }
-        char *message = strchr(str + 1, ':');
-        char buffer[strlen(message) + strlen(sender) + 11];
-        sprintf(buffer, "%s: %s", sender, message + 1);
-        wprintw(arg, "%s", buffer);
-    } else {
-        wprintw(arg, "%s", str);
-    }
-    wrefresh(arg);
 }
 

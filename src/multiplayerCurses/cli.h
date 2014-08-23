@@ -46,6 +46,24 @@ void initWindows();
  */
 int onPRIVMSG_handler(struct Message *message);
 
+/**
+ * @brief Handler for IRC JOIN command.
+ *
+ * @param message Pointer to the Message recieved from IRC server parsed by
+ *                ircParse().
+ * @return NO_ERROR on success, other value on failure.
+ */
+int onJOIN_handler(struct Message *message);
+
+/**
+ * @brief Handler for IRC QUIT command.
+ *
+ * @param message Pointer to the Message recieved from IRC server parsed by
+ *                ircParse().
+ * @return NO_ERROR on success, other value on failure.
+ */
+int onQUIT_handler(struct Message *message);
+
 WINDOW *getReadWin(); //TEMPORARY
 
 

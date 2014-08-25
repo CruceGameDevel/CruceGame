@@ -220,7 +220,7 @@ int deletePrivmsg(struct Privmsg **privmsg)
 
 void handleMessage(struct Message *message, struct Handlers *handlers)
 {
-    int ret;
+    int ret = NO_ERROR;
     if (strcmp(message->command, "PRIVMSG") == 0) {
         struct Privmsg *privmsg = newPrivmsg(message);
         ret = handlers->onPRIVMSG(privmsg);

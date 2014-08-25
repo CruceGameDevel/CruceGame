@@ -16,7 +16,7 @@ struct Privmsg{
 };
 
 struct Handlers{
-    int (*onPRIVMSG)(struct Message *);
+    int (*onPRIVMSG)(struct Privmsg *);
     int (*onJOIN)(struct Message *);
     int (*onQUIT)(struct Message *);
 };

@@ -98,7 +98,7 @@ struct Message *newMessage(int prefixLen, int commandLen, int trailingLen)
     return message;
 }
 
-void distroyMessage(struct Message **message)
+void deleteMessage(struct Message **message)
 {
     free((*message)->prefix);
     free((*message)->command);
@@ -254,7 +254,7 @@ void *readFromSocket(void *handlers)
                 line [j + 1] = '\0';
                 struct Message *message = ircParse(line);
                 handleMessage(message, handlers);
-                distroyMessage(&message);
+                deleteMessage(&message);
                 j = -1;
             }
         }

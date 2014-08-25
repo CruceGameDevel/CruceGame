@@ -19,6 +19,7 @@ struct Handlers{
     int (*onPRIVMSG)(struct Privmsg *);
     int (*onJOIN)(struct Message *);
     int (*onQUIT)(struct Message *);
+    int (*onNOTICE)(struct Message *);
 };
 
 int Connect(char *name);

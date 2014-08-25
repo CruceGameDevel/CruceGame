@@ -23,6 +23,8 @@
 #endif
 
 #include <network.h>
+#include "ircHandlers.h"
+
 /**
  * @brief Define the version of current game
  */

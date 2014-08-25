@@ -229,6 +229,8 @@ void handleMessage(struct Message *message, struct Handlers *handlers)
         ret = handlers->onJOIN(message);
     } else if (strcmp(message->command, "QUIT") == 0) {
         ret = handlers->onQUIT(message);
+    } else if (strcmp(message->command, "NOTICE") == 0) {
+        ret = handlers->onNOTICE(message);
     } else if (strcmp(message->command, "PING") == 0) {
         char pong[BUF_SIZE];
         sprintf(pong, "PONG: %s\n", message->trailing);

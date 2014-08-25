@@ -109,6 +109,9 @@ void deleteMessage(struct Message **message)
 
 struct Message *ircParse(char *str)
 {
+#ifdef DEBUG
+    fprintf(Log, "%s\n", str);
+#endif
     char *p;
     while ((p = strchr(str, '\r'))) {
         *p = ' ';

@@ -11,6 +11,8 @@
 #include <ncurses.h>
 #include <network.h>
 
+#define GAME_COMMAND_FLAG '#'
+
 /**
  * @brief Function to display a greeting message at the beginning of a new
  *        game.
@@ -44,7 +46,7 @@ void initWindows();
  *                ircParse().
  * @return NO_ERROR on success, other value on failure.
  */
-int onPRIVMSG_handler(struct Message *message);
+int onPRIVMSG_handler(struct Privmsg *privmsg);
 
 /**
  * @brief Handler for IRC JOIN command.
@@ -65,6 +67,6 @@ int onJOIN_handler(struct Message *message);
 int onQUIT_handler(struct Message *message);
 
 WINDOW *getReadWin(); //TEMPORARY
-
+WINDOW *getPrintWin();
 
 #endif

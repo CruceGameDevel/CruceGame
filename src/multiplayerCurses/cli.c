@@ -53,31 +53,13 @@ void initWindows()
     scrollok(printWin, TRUE);
 }
 
-int onPRIVMSG_handler(struct Message *message)
-{
-    wprintw(printWin, "%s %s", message->prefix, strchr(message->trailing, ' '));
-    wrefresh(printWin);
-    return NO_ERROR;
-}
-
-int onJOIN_handler(struct Message *message)
-{
-    wprintw(printWin, "JOIN\n");
-    wprintw(printWin, "prefix: %s\n", message->prefix);
-    wprintw(printWin, "command: %s\n", message->command);
-    wprintw(printWin, "trailing: %s\n", message->trailing);
-}
-
-int onQUIT_handler(struct Message *message)
-{
-    wprintw(printWin, "QUIT\n");
-    wprintw(printWin, "prefix: %s\n", message->prefix);
-    wprintw(printWin, "command: %s\n", message->command);
-    wprintw(printWin, "trailing: %s\n", message->trailing);
-}
-
 WINDOW *getReadWin()
 {
     return readWin;
+}
+
+WINDOW *getPrintWin()
+{
+    return printWin;
 }
 

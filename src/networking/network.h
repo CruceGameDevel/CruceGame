@@ -7,6 +7,14 @@ struct Message{
     char *trailing;
 };
 
+struct Privmsg{
+    char *nick;
+    char *ident;
+    char *host;
+    char *target;
+    char *message;
+};
+
 struct Handlers{
     int (*onPRIVMSG)(struct Message *);
     int (*onJOIN)(struct Message *);

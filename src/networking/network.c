@@ -121,11 +121,11 @@ struct Message *ircParse(char *str)
     int prefixLen       = 0;
     if (str[0] == ':') {
         prefixEnd       = strchr(str, ' ') - 1;
-        prefixLen       = prefixEnd - str;
+        prefixLen       = prefixEnd - str - 1;
     }
 
     char *trailingStart = strchr(prefixEnd + 2, ' ') + 1; //parsing trailing
-    int   trailingLen   = strlen(trailingStart);
+    int   trailingLen   = strlen(trailingStart) - 1;
 
     char *commandStart  = prefixEnd + 2; //parsing command
     char *commandEnd    = trailingStart - 2;

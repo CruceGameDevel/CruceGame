@@ -9,7 +9,10 @@ endif
 lib_LTLIBRARIES = libCruceGame.la libNetworking.la
 bin_PROGRAMS = cruceGame
 
-cruceGame_SOURCES = multiplayerCurses/main.c multiplayerCurses/cli.c
+cruceGame_SOURCES = multiplayerCurses/main.c        \
+		    multiplayerCurses/cli.c         \
+		    multiplayerCurses/ircHandlers.c
+
 cruceGame_LDADD = libCruceGame.la libNetworking.la
 cruceGame_LDFLAGS = -lncursesw -lpthread
 

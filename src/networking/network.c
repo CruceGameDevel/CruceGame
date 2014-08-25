@@ -219,7 +219,9 @@ void handleMessage(struct Message *message, struct Handlers *handlers)
 {
     int ret;
     if (strcmp(message->command, "PRIVMSG") == 0) {
-        ret = handlers->onPRIVMSG(message);
+        struct Privmsg *privmsg = newPrivmsg(message);
+        ret = handlers->onPRIVMSG(privmsg);
+        deletePrivmsg(&privmsg);
     } else if (strcmp(message->command, "JOIN") == 0) {
         ret = handlers->onJOIN(message);
     } else if (strcmp(message->command, "QUIT") == 0) {

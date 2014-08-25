@@ -104,6 +104,7 @@ int cruceGameLogic()
     handlers->onPRIVMSG = onPRIVMSG_handler;
     handlers->onJOIN    = onJOIN_handler;
     handlers->onQUIT    = onQUIT_handler;
+    handlers->onNOTICE  = onNOTICE_handler;
 
     pthread_t readFromSocket_var, readFromKeyboard_var;
 

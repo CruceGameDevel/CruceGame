@@ -154,6 +154,67 @@ void handlerError(char *command, int errorCode)
 }
 #endif
 
+struct Privmsg *newPrivmsg(struct Message *message)
+{
+    struct Privmsg *privmsg = malloc(sizeof(struct Privmsg));
+    char *exclamationMark = strchr(message->prefix, '!');
+    if (exclamationMark == NULL) {
+        privmsg->nick  = malloc(strlen(message->prefix) + 1);
+        privmsg->ident = NULL;
+        privmsg->host  = NULL;
+        strcpy(privmsg->nick, message->prefix);
+    } else {
+        int nickSize = exclamationMark - message->prefix;
+        privmsg->nick = malloc(nickSize + 1);
+        strncpy(privmsg->nick, message->prefix, nickSize);
+        privmsg->nick[nickSize] = '\0';
+
+        char *at = strchr(exclamationMark, '@');
+        int identSize = at - exclamationMark - 1;
+        privmsg->ident = malloc(identSize + 1);
+        strncpy(privmsg->ident, exclamationMark + 1, identSize);
+        privmsg->ident[identSize] = '\0';
+
+        privmsg->host = malloc(strlen(at + 1) + 1);
+        strcpy(privmsg->host, at + 1);
+    }
+
+    char *space = strchr(message->trailing, ' ');
+    int targetSize = space - message->trailing + 1;
+    privmsg->target = malloc(targetSize);
+    strncpy(privmsg->target, message->trailing, targetSize);
+    privmsg->target[targetSize - 1] = '\0';
+
+    int messageLen = strlen(space + 2);
+    privmsg->message = malloc(messageLen);
+    strncpy(privmsg->message, space + 2, messageLen - 1);
+    privmsg->message[messageLen - 1] = '\0';
+
+    return privmsg;
+}
+
+int deletePrivmsg(struct Privmsg **privmsg)
+{
+    if (privmsg == NULL)
+        return POINTER_NULL;
+
+    if ((*privmsg)->nick    != NULL)
+        free((*privmsg)->nick);
+    if ((*privmsg)->ident   != NULL)
+        free((*privmsg)->ident);
+    if ((*privmsg)->host    != NULL)
+        free((*privmsg)->host);
+    if ((*privmsg)->target  != NULL)
+        free((*privmsg)->target);
+    if ((*privmsg)->message != NULL)
+        free((*privmsg)->message);
+
+    free(*privmsg);
+    *privmsg = NULL;
+
+    return NO_ERROR;
+}
+
 void handleMessage(struct Message *message, struct Handlers *handlers)
 {
     int ret;

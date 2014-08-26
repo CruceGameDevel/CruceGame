@@ -106,13 +106,11 @@ int cruceGameLogic()
     handlers->onQUIT    = onQUIT_handler;
     handlers->onNOTICE  = onNOTICE_handler;
 
-    pthread_t readFromSocket_var, readFromKeyboard_var;
-
+    pthread_t readFromSocket_var;
     pthread_create(&readFromSocket_var, NULL, &readFromSocket, handlers);
-    pthread_create(&readFromKeyboard_var, NULL,
-                   &readFromKeyboard, getReadWin());
 
-    pthread_join(readFromKeyboard_var, NULL);
+    readFromKeyboard(getReadWin());
+
     pthread_join(readFromSocket_var, NULL);
 
     endwin();

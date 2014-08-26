@@ -267,13 +267,12 @@ void *readFromSocket(void *handlers)
     return NULL;
 }
 
-void *readFromKeyboard(void *arg)
+void readFromKeyboard(void *window)
 {
     char buffer[BUF_SIZE];
     while(1) {
-        int n = wscanw(arg, "%[^\n]", buffer);
+        int n = wscanw(window, "%[^\n]", buffer);
         sendIrcMessage(buffer);
     }
-    return NULL;
 }
 

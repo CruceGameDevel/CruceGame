@@ -50,7 +50,7 @@ void disconnect(int sockfd)
     close(sockfd);
 }
 
-int userJoin(char *name)
+void userJoin(char *name)
 {
     char nickCommand[20];
     char joinCommand[20];

@@ -240,6 +240,14 @@ void handleMessage(struct Message *message, struct Handlers *handlers)
         char pong[BUF_SIZE];
         sprintf(pong, "PONG: %s\n", message->trailing);
         write(sockfd, pong, strlen(pong));
+    } else if (strcmp(message->command, "433") == 0) {
+        char *space = strchr(message->trailing + 2, ' ');
+        int len     = space - message->trailing - 2;
+        char *name  = malloc(len + 2);
+        strncpy(name, message->trailing + 2, len);
+        name[len] = '_';
+        userJoin(name);
+        free(name);
     } else {
     }
 

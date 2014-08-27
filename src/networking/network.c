@@ -50,6 +50,22 @@ void disconnect(int sockfd)
     close(sockfd);
 }
 
+int userJoin(char *name)
+{
+    char nickCommand[20];
+    char joinCommand[20];
+    char userCommand[20];
+
+    sprintf(nickCommand, "NICK %s\n", name);
+    sprintf(userCommand, "USER %s 8 * :%s\n", name, name);
+    sprintf(joinCommand, "JOIN %s\n", CHANNEL);
+
+    write(sockfd, "PASS *\n", 7);
+    write(sockfd, nickCommand, strlen(nickCommand));
+    write(sockfd, userCommand, strlen(userCommand));
+    write(sockfd, joinCommand, strlen(joinCommand));
+}
+
 int Connect(char *name)
 {
 #ifdef DEBUG
@@ -73,18 +89,7 @@ int Connect(char *name)
         return -3; //TODO: error code
     }
 
-    char nickCommand[20];
-    char joinCommand[20];
-    char userCommand[20];
-
-    sprintf(nickCommand, "NICK %s\n", name);
-    sprintf(userCommand, "USER %s 8 * :%s\n", name, name);
-    sprintf(joinCommand, "JOIN %s\n", CHANNEL);
-
-    write(sockfd, "PASS *\n", 7);
-    write(sockfd, nickCommand, strlen(nickCommand));
-    write(sockfd, userCommand, strlen(userCommand));
-    write(sockfd, joinCommand, strlen(joinCommand));
+    userJoin(name);
 
     return sockfd;
 }
@@ -110,7 +115,7 @@ void deleteMessage(struct Message **message)
 struct Message *ircParse(char *str)
 {
 #ifdef DEBUG
-    fprintf(Log, "%s\n", str);
+    fprintf(Log, "%s", str);
 #endif
     char *p;
     while ((p = strchr(str, '\r'))) {

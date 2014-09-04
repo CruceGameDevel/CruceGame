@@ -23,6 +23,8 @@ static struct Parser *parser;
 int initParser()
 {
     parser = malloc(sizeof(struct Parser));
+    if (parser == NULL)
+        return ALLOC_ERROR;
     return NO_ERROR;
 }
 

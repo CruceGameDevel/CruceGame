@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+static struct Parser *parser;
+
 #define WRONG_COMMAND 2
 
 #define HANDLER_NAME(name) on##name
@@ -18,12 +20,19 @@
         return NO_ERROR;              \
     }
 
-int deleteParser(struct Parser **parser)
+int initParser()
 {
-    if (parser == NULL || *parser == NULL)
+    parser = malloc(sizeof(struct Parser));
+    return NO_ERROR;
+}
+
+int teardownParser()
+{
+    if (parser == NULL)
         return POINTER_NULL;
 
-    free(*parser);
+    free(parser);
+    parser = NULL;
 
     return NO_ERROR;
 }
@@ -39,12 +48,6 @@ BEGIN_PARSER_HANDLER(CREATE_GAME)
 END_PARSER_HANDLER
 
 const static parserHandlers handlers[] = {HANDLER_NAME(CREATE_GAME), NULL};
-
-struct Parser *createParser()
-{
-    struct Parser *parser = malloc(sizeof(struct Parser));
-    return parser;
-}
 
 int parse(const char *line, struct Parser *parser)
 {

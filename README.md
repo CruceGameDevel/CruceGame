@@ -16,7 +16,7 @@ Tools required
 - You must have autotools on your machine (```automake```, ```autoconf``` and
 ```libtool``` packages). Under Ubuntu they are found in ```build-essential```
 package.
-- You must have ncurses library installed on your machine. 
+- You must have ncurses library installed on your machine. Under Ubuntu you found it in ```libncurses5-dev``` and you can install with ```sudo apt-get install libncurses5-dev```.
 - You must have cutter framework installed (```cutter-test_framework```
 package) in order to be able to run tests, but this is not required to build
 the package.

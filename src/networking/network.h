@@ -27,5 +27,5 @@ void disconnect(int sockfd);
 void sendIrcMessage(char *message);
 void *readFromSocket(void *handlers);
 void readFromKeyboard(void *window);
-
+int channelExists(char *channel);
 #endif

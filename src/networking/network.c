@@ -289,3 +289,24 @@ void readFromKeyboard(void *window)
     }
 }
 
+int channelExists(char *channel)
+{
+    char checkCommand[strlen(channel) + 6];
+    sprintf(checkCommand, "MODE %s\n", channel);
+    write(sockfd, checkCommand, strlen(checkCommand) + 1);
+    char c = 0;
+    while (c != ' ')
+        read(sockfd, &c, 1);
+    int d = 0;
+    while (c != ' ') {
+        d += c - '0';
+        d *= 10;
+        read(sockfd, &c, 1);
+    }
+    while (c != '\n')
+        read(sockfd, &c, 1);
+    if (d == 403)
+        return 0;
+    else
+        return 1;
+}

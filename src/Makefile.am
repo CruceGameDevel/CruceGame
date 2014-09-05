@@ -1,4 +1,6 @@
-AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame -I$(top_srcdir)/src/networking
+AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
+	      -I$(top_srcdir)/src/networking   \
+	      -I$(top_srcdir)/src/parser
 LDFLAGS = -no-undefined
 CFLAGS += -std=c99
 
@@ -6,14 +8,14 @@ if DEBUG
 CFLAGS += -g -Wall -DDEBUG
 endif
 
-lib_LTLIBRARIES = libCruceGame.la libNetworking.la
+lib_LTLIBRARIES = libCruceGame.la libNetworking.la libParser.la
 bin_PROGRAMS = cruceGame
 
 cruceGame_SOURCES = multiplayerCurses/main.c        \
 		    multiplayerCurses/cli.c         \
 		    multiplayerCurses/ircHandlers.c
 
-cruceGame_LDADD = libCruceGame.la libNetworking.la
+cruceGame_LDADD = libCruceGame.la libNetworking.la libParser.la
 cruceGame_LDFLAGS = -lncursesw -lpthread
 
 libCruceGame_la_SOURCES = libCruceGame/deck.c \
@@ -23,3 +25,4 @@ libCruceGame_la_SOURCES = libCruceGame/deck.c \
 
 libNetworking_la_SOURCES = networking/network.c
 
+libParser_la_SOURCES = parser/parser.c

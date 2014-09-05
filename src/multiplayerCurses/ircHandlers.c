@@ -1,9 +1,11 @@
 #include "ircHandlers.h"
+#include <parser.h>
 
 int onPRIVMSG_handler(struct Privmsg *privmsg)
 {
     if (privmsg->message[0] == GAME_COMMAND_FLAG) {
         wprintw(getPrintWin(), "GAME COMMAND\n");
+        parse(privmsg->message);
     } else {
         wprintw(getPrintWin(), "%s %s\n", privmsg->nick, privmsg->message);
     }

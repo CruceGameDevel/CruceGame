@@ -17,13 +17,7 @@ struct Parser;
 /**
  * \typedef Represents a function pointer data type to parser handlers.
  */
-typedef int (*parserHandlers)(const char *line_noCommand, struct Parser *parser);
-
-/**
- * @var COMMAND_FLAG
- * @brief Flag found at the beginning of the game commands.
- */
-const char COMMAND_FLAG = '&';
+typedef int (*parserHandlers)(const char *line);
 
 /**
  * @struct Parser
@@ -50,7 +44,7 @@ struct Parser{
  *         successfully and it's a game command and positive value if the
  *         string is a chat line.
  */
-int parse(const char *line, struct Parser *parser);
+int parse(const char *line);
 
 /**
  * Function to allocate memory for a Parser structure. The allocated memory

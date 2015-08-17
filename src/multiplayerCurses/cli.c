@@ -24,18 +24,6 @@
 
 static WINDOW *printWin, *readWin;
 
-void welcomeMessage(WINDOW *win)
-{
-    wprintw(win,
-            "  _____                        _____                           \n"
-            " / ____|                      / ____|                          \n"
-            "| |     _ __ _   _  ___ ___  | |  __  __ _ _ __ ___   ___      \n"
-            "| |    | '__| | | |/ __/ _ \\ | | |_ |/ _` | '_ ` _ \\ / _ \\  \n"
-            "| |____| |  | |_| | (_|  __/ | |__| | (_| | | | | | |  __/     \n"
-            " \\_____|_|   \\__,_|\\___\\___|  \\_____|\\__,_|_| |_| |_|\\___|"
-            "\n\n");
-}
-
 char *getPlayerName(WINDOW *win)
 {
     char *name = malloc(MAX_NAME_SIZE);

@@ -14,15 +14,6 @@
 #define GAME_COMMAND_FLAG '#'
 
 /**
- * @brief Function to display a greeting message at the beginning of a new
- *        game.
- * 
- * @param win Pointer to the window in which the output will be displayed.
- * @return void.
- */
-void welcomeMessage(WINDOW *win);
-
-/**
  * @brief Function to get current player's name.
  *
  * @param win Pointer to the window from which the input will be obtained.

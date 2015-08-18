@@ -4,7 +4,7 @@
  *        This module is the controller.
  */
 
-#include "../cli/cli.h"
+#include <cli.h>
 #include <curses.h>
 #include <locale.h>
 #include <string.h>

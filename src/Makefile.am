@@ -8,7 +8,7 @@ if DEBUG
 CFLAGS += -g -Wall -DDEBUG
 endif
 
-lib_LTLIBRARIES = libCruceGame.la libNetworking.la libParser.la libCli.la
+lib_LTLIBRARIES = libCruceGame.la libNetworking.la libParser.la libCLI.la
 bin_PROGRAMS = cruceGame
 
 cruceGame_SOURCES = multiplayerCurses/multiplayerCurses.c \
@@ -16,7 +16,7 @@ cruceGame_SOURCES = multiplayerCurses/multiplayerCurses.c \
 		    singlePlayerCurses/singlePlayerCurses.c \
 		    main.c
 
-cruceGame_LDADD = libCruceGame.la libNetworking.la libParser.la libCli.la
+cruceGame_LDADD = libCruceGame.la libNetworking.la libParser.la libCLI.la
 cruceGame_LDFLAGS = -lncursesw -lpthread
 
 libCruceGame_la_SOURCES = libCruceGame/deck.c \
@@ -28,4 +28,4 @@ libNetworking_la_SOURCES = networking/network.c
 
 libParser_la_SOURCES = parser/parser.c
 
-libCli_la_SOURCES = cli/cli.c
+libCLI_la_SOURCES = cli/cli.c

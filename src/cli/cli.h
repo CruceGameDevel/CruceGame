@@ -1,3 +1,6 @@
+#ifndef CLI_H
+#define CLI_H
+
 /**
  * @file cli.h
  * @brief Contains declaration of the functions used for building the user
@@ -227,3 +230,5 @@ int onQUIT_handler(struct Message *message);
 
 WINDOW *getReadWin(); //TEMPORARY
 WINDOW *getPrintWin();
+
+#endif

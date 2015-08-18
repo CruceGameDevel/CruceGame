@@ -1,10 +1,10 @@
 /*
- * @file main.c
+ * @file multiplayerCurses.c
  * @brief The code in this file controls the activity of the whole game.
  *        This module is the controller.
  */
 
-#include "cli.h"
+#include "../cli/cli.h"
 #include <curses.h>
 #include <locale.h>
 #include <string.h>
@@ -29,11 +29,6 @@
  * @brief Define the version of current game
  */
 #define GAME_VERSION "0.4.0"
-
-/**
- * @bried Path to the game help
- */
-#define GAME_HELP_MANUAL "../docs/help.txt"
 
 /**
  * @brief Starts the game, connecting libraries and UI
@@ -74,7 +69,10 @@ int multiplayerLogic()
 
 #if defined(WIN32) && defined(NDEBUG)
 
-int CALLBACK multiplayerWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int CALLBACK multiplayerWinMain(HINSTANCE hInstance, 
+                                HINSTANCE hPrevInstance, 
+                                LPSTR lpCmdLine, 
+                                int nCmdShow)
 #else
 int multiplayerMain(int argc, char *argv[])
 #endif

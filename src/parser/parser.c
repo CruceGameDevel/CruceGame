@@ -1,5 +1,5 @@
 #include "parser.h"
-#include "../multiplayerCurses/cli.h"
+#include "../cli/cli.h"
 #include <ncurses.h>
 #include <cruceGame.h>
 #include <network.h>

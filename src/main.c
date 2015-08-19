@@ -146,7 +146,9 @@ int main(int argc, char *argv[])
 
 #ifndef WIN32
                 } else if (selected_item == 2) {
+                    endwin();
                     cruceGameHelp();
+                    initscr();
                     noecho();
                     keypad(menuWin, TRUE);
                     curs_set(0);

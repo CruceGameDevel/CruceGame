@@ -60,13 +60,26 @@ int main(int argc, char *argv[])
     init_pair(4, COLOR_BLUE, COLOR_BLACK);
     init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(7, COLOR_WHITE, COLOR_BLACK);
-    
+
+#ifdef WIN32
+    char menu_items[3][17] = {"1. Single Player", 
+                            "2. Multiplayer",  
+                            "3. Exit"};
+#else
     char menu_items[4][17] = {"1. Single Player", 
                             "2. Multiplayer", 
                             "3. Help", 
                             "4. Exit"};
+#endif
+
     char current_item[17];
     int selected_item = 0;
+
+#ifdef WIN32
+    int max_item = 3;
+#else
+    int max_item = 4;
+#endif
     
     WINDOW *menuWin = newwin(80, 79, 0, 0);
     noecho();
@@ -80,7 +93,7 @@ int main(int argc, char *argv[])
         welcomeMessage(menuWin);
         wprintw(menuWin, "\n\n\n");
         
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < max_item; i++) {
             if (i == selected_item) {
                 wattron(menuWin, COLOR_PAIR(3));
             } else {
@@ -97,7 +110,7 @@ int main(int argc, char *argv[])
         switch (ch) {
             case KEY_UP:
                 if (--selected_item < 0) {
-                    selected_item = 3;
+                    selected_item = max_item;
                 }
                 break;
                 
@@ -130,19 +143,20 @@ int main(int argc, char *argv[])
 #else
                     multiplayerMain(argc, argv);
 #endif
+
+#ifndef WIN32
                 } else if (selected_item == 2) {
-                    endwin();
-                    
-                    printf("---HELP---\n\n");
                     cruceGameHelp();
-                    printf("\nPress enter to continue...\n");
-                    getchar();
-                    
-                    initscr();
                     noecho();
                     keypad(menuWin, TRUE);
                     curs_set(0);
+#endif
+
+#ifdef WIN32
+                } else if (selected_item == 2) {
+#else
                 } else if (selected_item == 3) {
+#endif
                     delwin(menuWin);
                     endwin();
                     return EXIT_SUCCESS;

@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 #include <network.h>
-#include "cli.h"
+#include <cli.h>
 
 
 int onPRIVMSG_handler(struct Privmsg *privmsg);

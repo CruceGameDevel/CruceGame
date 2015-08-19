@@ -7,9 +7,11 @@
 
 #include "cli.h"
 
+#include <errno.h>
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #ifdef WIN32
 #include <Windows.h>
 #define sleep(s) Sleep(s*1000)
@@ -21,6 +23,16 @@
 #define MAX_NAME_SIZE 20
 #define ROUND_DIALOG_SCORE_SIZE 5
 #define SLEEP_TIME 2
+
+void cruceGameHelp()
+{   
+    char *command = malloc(strlen(GAME_HELP_MANUAL) + 14);
+    sprintf(command, "cat %s | less", GAME_HELP_MANUAL);
+    system("clear");
+    system(command);
+    system("clear");
+    free(command);
+}
 
 void welcomeMessage(WINDOW *win)
 {
@@ -814,5 +826,34 @@ int displayBids(WINDOW *win, const struct Game *game, const int currentPlayer)
     }
 
     return NO_ERROR;
+}
+
+static WINDOW *printWin, *readWin;
+
+char *getPlayerName(WINDOW *win)
+{
+    char *name = malloc(MAX_NAME_SIZE);
+    wprintw(win, "Insert your name: ");
+    wscanw(win, "%s", name);
+    return name;
+}
+
+void initWindows()
+{
+    printWin = newwin(35, 150, 0, 0);
+    readWin  = newwin(1,  79,  36, 0);
+
+    scrollok(readWin,  TRUE);
+    scrollok(printWin, TRUE);
+}
+
+WINDOW *getReadWin()
+{
+    return readWin;
+}
+
+WINDOW *getPrintWin()
+{
+    return printWin;
 }
 

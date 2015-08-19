@@ -1,10 +1,10 @@
 /*
- * @file main.c
+ * @file multiplayerCurses.c
  * @brief The code in this file controls the activity of the whole game.
  *        This module is the controller.
  */
 
-#include "cli.h"
+#include <cli.h>
 #include <curses.h>
 #include <locale.h>
 #include <string.h>
@@ -31,59 +31,10 @@
 #define GAME_VERSION "0.4.0"
 
 /**
- * @bried Path to the game help
- */
-#define GAME_HELP_MANUAL "../docs/help.txt"
-
-/**
- * @brief Prints the help manual of cruce game to the screen
- */
-void cruceGameHelp()
-{
-    char text;
-    FILE *helpFile;
-    helpFile = fopen(GAME_HELP_MANUAL, "r");
-    if(!(helpFile)) {
-        printf("Unable to open\n");
-        if(errno == ENOENT) {
-            printf("File manual not exist\n");
-        }
-        if(errno == EACCES) {
-            printf("No permission to read manual\n");
-        }
-        exit(EXIT_SUCCESS);
-    }
-
-    while( (text = fgetc(helpFile)) != EOF ) {
-        printf("%c", text);
-    }
-    fclose(helpFile);
-    exit(EXIT_SUCCESS);
-}
-
-/**
  * @brief Starts the game, connecting libraries and UI
  */
-int cruceGameLogic()
+int multiplayerLogic()
 {
-    setlocale(LC_ALL, "");
-    initscr();
-    cbreak();
-
-    if (has_colors() == FALSE) {
-        endwin();
-        printf("Your terminal does not support colors!");
-        return 0;
-    }
-
-    start_color();
-    init_pair(1, COLOR_RED, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(4, COLOR_BLUE, COLOR_BLACK);
-    init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(7, COLOR_WHITE, COLOR_BLACK);
-
     WINDOW *welcomeWin = newwin(80, 79, 0, 0);
     welcomeMessage(welcomeWin);
 
@@ -113,16 +64,17 @@ int cruceGameLogic()
 
     pthread_join(readFromSocket_var, NULL);
 
-    endwin();
     return EXIT_SUCCESS;
 }
 
 #if defined(WIN32) && defined(NDEBUG)
-#include <Windows.h>
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int CALLBACK multiplayerWinMain(HINSTANCE hInstance, 
+                                HINSTANCE hPrevInstance, 
+                                LPSTR lpCmdLine, 
+                                int nCmdShow)
 #else
-int main(int argc, char *argv[])
+int multiplayerMain(int argc, char *argv[])
 #endif
 {
 #ifndef WIN32
@@ -162,7 +114,7 @@ int main(int argc, char *argv[])
         }
     } else {
 #endif
-        cruceGameLogic();
+        multiplayerLogic();
 #ifndef WIN32
     }
 #endif

@@ -26,14 +26,10 @@
 
 void cruceGameHelp()
 {   
-#ifdef WIN32
-    printf("Windows not supported. We don't care. Switch to Linux.\n");
-#else
     char *command = malloc(strlen(GAME_HELP_MANUAL) + 14);
     sprintf(command, "cat %s | less", GAME_HELP_MANUAL);
     system(command);
     free(command);
-#endif
 }
 
 void welcomeMessage(WINDOW *win)

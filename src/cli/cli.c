@@ -11,6 +11,7 @@
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #ifdef WIN32
 #include <Windows.h>
 #define sleep(s) Sleep(s*1000)
@@ -24,24 +25,15 @@
 #define SLEEP_TIME 2
 
 void cruceGameHelp()
-{
-    char text;
-    FILE *helpFile;
-    helpFile = fopen(GAME_HELP_MANUAL, "r");
-    if(!(helpFile)) {
-        printf("Unable to open\n");
-        if(errno == ENOENT) {
-            printf("File manual not exist\n");
-        }
-        if(errno == EACCES) {
-            printf("No permission to read manual\n");
-        }
-    }
-
-    while( (text = fgetc(helpFile)) != EOF ) {
-        printf("%c", text);
-    }
-    fclose(helpFile);
+{   
+#ifdef WIN32
+    printf("Windows not supported. We don't care. Switch to Linux.\n");
+#else
+    char *command = malloc(strlen(GAME_HELP_MANUAL) + 14);
+    sprintf(command, "cat %s | less", GAME_HELP_MANUAL);
+    system(command);
+    free(command);
+#endif
 }
 
 void welcomeMessage(WINDOW *win)

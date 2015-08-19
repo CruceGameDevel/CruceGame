@@ -22,7 +22,6 @@
 #define MAX_NAME_SIZE 20
 #define ROUND_DIALOG_SCORE_SIZE 5
 #define SLEEP_TIME 2
-#define GAME_HELP_MANUAL "../docs/man1/help.txt"
 
 void cruceGameHelp()
 {

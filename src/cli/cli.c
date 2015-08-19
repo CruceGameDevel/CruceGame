@@ -28,7 +28,9 @@ void cruceGameHelp()
 {   
     char *command = malloc(strlen(GAME_HELP_MANUAL) + 14);
     sprintf(command, "cat %s | less", GAME_HELP_MANUAL);
+    system("clear");
     system(command);
+    system("clear");
     free(command);
 }
 

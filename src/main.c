@@ -82,20 +82,17 @@ int main(int argc, char *argv[])
         
         for (int i = 0; i < 4; i++) {
             if (i == selected_item) {
-                wattron(menuWin, COLOR_PAIR(1));
+                wattron(menuWin, COLOR_PAIR(3));
             } else {
-                wattroff(menuWin, COLOR_PAIR(1));
+                wattroff(menuWin, COLOR_PAIR(3));
             }
             sprintf(current_item, "%s", menu_items[i]);
             wprintw(menuWin, "%s\n", current_item);
-            wattroff(menuWin, COLOR_PAIR(1));
+            wattroff(menuWin, COLOR_PAIR(3));
         }
         wrefresh(menuWin);
         
         int ch = wgetch(menuWin);
-        FILE *f = fopen("t.txt", "w");
-        fprintf(f, "%d", ch);
-        fclose(f);
         
         switch (ch) {
             case KEY_UP:

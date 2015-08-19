@@ -120,6 +120,12 @@ int main(int argc, char *argv[])
                 }
                 break;
                 
+            case 'q':
+                delwin(menuWin);
+                endwin();
+                return EXIT_SUCCESS;
+                break;
+                
             case '\n':
                 echo();
                 curs_set(1);

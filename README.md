@@ -1,3 +1,5 @@
+![Build Passing](https://travis-ci.org/CruceGameDevel/CruceGame.svg)
+
 "Cruce" Game
 =========
 

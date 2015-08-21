@@ -1,6 +1,4 @@
-![Build Passing](https://travis-ci.org/CruceGameDevel/CruceGame.svg)
-
-"Cruce" Game
+"Cruce" Game ![Build Passing Icon](https://travis-ci.org/CruceGameDevel/CruceGame.svg)
 =========
 
 This is an open source effort to create a free PC Game based on the Romanian

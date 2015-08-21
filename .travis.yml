@@ -1,0 +1,20 @@
+notifications:
+    email:
+        recipients:
+            - cruce-development@googlegroups.com
+
+notifications:
+    irc: "chat.freenode.net#cruce-devel"
+
+language: c
+compiler: gcc
+sudo: required
+ 
+install:
+    - curl --silent --location https://raw.github.com/clear-code/cutter/master/data/travis/setup.sh | sh
+  
+script:
+    - ./autogen.sh
+    - ./configure
+    - make
+    - make check

@@ -18,6 +18,7 @@
 #define CHANNEL "#cruce-devel "
 #define PORT 6667
 #define HOST_NAME "irc.freenode.net"
+#define COMMAND_SIZE 20
 
 #define BUF_SIZE 1024
 
@@ -39,7 +40,7 @@ void printString(char *s) {
 
 void sendIrcMessage(char *message)   //TODO: errors
 {
-    char messageCommand[strlen(message) + strlen(CHANNEL) + 11];
+    char messageCommand[strlen(message) + strlen(CHANNEL) + COMMAND_SIZE];
     sprintf(messageCommand, "PRIVMSG %s:%s\n", CHANNEL, message);
     write(sockfd, messageCommand, strlen(messageCommand));
 }
@@ -52,9 +53,9 @@ void disconnect(int sockfd)
 
 void userJoin(char *name)
 {
-    char nickCommand[20];
-    char joinCommand[20];
-    char userCommand[20];
+    char nickCommand[COMMAND_SIZE + strlen(name)];
+    char joinCommand[COMMAND_SIZE + strlen(CHANNEL)];
+    char userCommand[COMMAND_SIZE + strlen(name) * 2];
 
     sprintf(nickCommand, "NICK %s\n", name);
     sprintf(userCommand, "USER %s 8 * :%s\n", name, name);
@@ -291,7 +292,7 @@ void readFromKeyboard(void *window)
 
 int channelExists(char *channel)
 {
-    char checkCommand[strlen(channel) + 6];
+    char checkCommand[strlen(channel) + COMMAND_SIZE ];
     sprintf(checkCommand, "MODE %s\n", channel);
     write(sockfd, checkCommand, strlen(checkCommand) + 1);
     char c = 0;

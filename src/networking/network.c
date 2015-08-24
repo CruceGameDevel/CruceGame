@@ -2,11 +2,13 @@
  * @file This file provides the implementation of network module.
  */
 
+#include <string.h>
+#include <stdlib.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
-#include <string.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 int sockfd;
 
@@ -45,6 +47,21 @@ int network_send(void *data, int size)
 
 int network_read(void *buffer, int size)
 {
+	if(sockfd == 0) {
+		return -4;
+	}
+
+	if(size <= 0) {
+		return -5;
+	}
+
+	int bytes_read = read(sockfd, buffer, size);
+
+	if(bytes_read < 1) {
+		return -6;
+	}
+
+	return bytes_read;
 }
 
 void network_disconnect()

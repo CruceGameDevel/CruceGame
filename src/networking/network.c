@@ -14,28 +14,28 @@ int sockfd;
 
 int network_connect(char *hostname, int port)
 {
-	sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if(sockfd < 0) {
-		return NET_ERROR; // error
-	}
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        return NET_ERROR; // error
+    }
 
-	struct hostent *server = gethostbyname(hostname);
-	if(server == NULL) {
-		return NET_ERROR; // warning
-	} 
+    struct hostent *server = gethostbyname(hostname);
+    if(server == NULL) {
+        return NET_ERROR; // warning
+    } 
 
-	struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr;
 
-	memset((char *)&serv_addr, sizeof(serv_addr), 0);
-	serv_addr.sin_family = AF_INET;
+    memset((char *)&serv_addr, sizeof(serv_addr), 0);
+    serv_addr.sin_family = AF_INET;
 
-	memmove((char *)server->h_addr_list[0], (char *)&serv_addr.sin_addr.s_addr, 
-		server->h_length);
+    memmove((char *)server->h_addr_list[0], (char *)&serv_addr.sin_addr.s_addr, 
+        server->h_length);
 
-	serv_addr.sin_port = htons(port);
+    serv_addr.sin_port = htons(port);
  	
- 	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
- 		return NET_ERROR; // warning
+    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+        return NET_ERROR; // warning
     }
 
     return NET_INFO;
@@ -43,36 +43,36 @@ int network_connect(char *hostname, int port)
 
 int network_send(void *data, size_t size)
 {
-	if(sockfd == 0) {
-		return NET_ERROR;
-	}
+    if(sockfd == 0) {
+        return NET_ERROR;
+    }
 
-	if(write(sockfd, data, size) <= 0) {
-		return NET_WARNING;
-	}
+    if(write(sockfd, data, size) <= 0) {
+        return NET_WARNING;
+    }
 
-	return NET_INFO;
+    return NET_INFO;
 }
 
 int network_read(void *buffer, size_t size)
 {
 	if(sockfd == 0) {
-		return NET_ERROR;
-	}
+        return NET_ERROR;
+    }
 
-	int bytes_read = read(sockfd, buffer, size);
+    int bytes_read = read(sockfd, buffer, size);
 
-	if(bytes_read < 1) {
-		return NET_WARNING;
-	}
+    if(bytes_read < 1) {
+        return NET_WARNING;
+    }
 
-	return bytes_read;
+    return bytes_read;
 }
 
 void network_disconnect()
 {
-	if(sockfd != 0) {
-		close(sockfd);
-	}
+    if(sockfd != 0) {
+        close(sockfd);
+    }
 }
 

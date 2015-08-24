@@ -6,20 +6,43 @@
 #define NETWORK_H
 
 /**
- * @brief Issued when there was a problem establishing the connection or at 
- *        sending/reading. 
+ * @brief Issued when you are trying to establish a connection when there is
+ *        already an active one.
  */
-#define NET_ERROR -2
+#define ERROR_SOCKET_IN_USE -1
 
 /**
- * @brief Issued when there was a probem at sending/reading a message. 
+ * @brief Issued when you are trying to establish a connection but the hostname
+ *        is invalid.
  */
-#define NET_WARNING -1
+#define ERROR_INVALID_HOST_NAME -2
 
 /**
- * @brief Issued when the action was completed successfully.
+ * @brief Issued when the internal call to `connect` returned an error status.
  */
-#define NET_INFO 0
+#define ERROR_CONNECTING_TO_SERVER -3
+
+/**
+ * @brief Issued when the function finished the job with no error.
+ */
+#define INFO_ACTION_COMPLETED_SUCCESSFULLY 0
+
+/**
+ * @brief You are trying to send/read from an uninitialized socket.
+ */
+#define ERROR_UNINITIALIZED_SOCKET -4
+
+/**
+ * @brief Issued when the internal call to `write` in `network_send` returns
+ *        an error status.
+ */
+#define ERROR_WRITING_TO_SERVER -5
+
+/**
+ * @brief Issued when the internal call to `read` in the function 'network_read'
+ *        returns an error status.
+ */
+#define ERROR_READING_FROM_SERVER -6
 
 /**
  * @brief Initialize a network connection.

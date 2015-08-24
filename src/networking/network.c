@@ -16,12 +16,12 @@ int network_connect(char *hostname, int port)
 {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd != 0) {
-        return ERROR_SOCKET_IN_USE;
+        return SOCKET_IN_USE;
     }
 
     struct hostent *server = gethostbyname(hostname);
     if(server == NULL) {
-        return ERROR_INVALID_HOSTNAME;
+        return INVALID_HOSTNAME;
     } 
 
     struct sockaddr_in serv_addr;
@@ -35,35 +35,35 @@ int network_connect(char *hostname, int port)
     serv_addr.sin_port = htons(port);
  	
     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-        return ERROR_CONNECTING_TO_SERVER;
+        return CONNECTING_ERROR;
     }
 
-    return INFO_ACTION_COMPLETED_SUCCESSFULLY;
+    return NO_ERROR;
 }
 
 int network_send(void *data, size_t size)
 {
     if(sockfd == 0) {
-        return ERROR_UNINITIALIZED_SOCKET;
+        return UNINITIALIZED_SOCKET;
     }
 
     if(write(sockfd, data, size) <= 0) {
-        return ERROR_WRITING_TO_SERVER;
+        return WRITING_ERROR;
     }
 
-    return INFO_ACTION_COMPLETED_SUCCESSFULLY;
+    return NO_ERROR;
 }
 
 int network_read(void *buffer, size_t size)
 {
 	if(sockfd == 0) {
-        return ERROR_UNINITIALIZED_SOCKET;
+        return UNINITIALIZED_SOCKET;
     }
 
     int bytes_read = read(sockfd, buffer, size);
 
     if(bytes_read < 1) {
-        return ERROR_READING_FROM_SERVER;
+        return READING_ERROR;
     }
 
     return bytes_read;

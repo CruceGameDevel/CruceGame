@@ -43,6 +43,19 @@ int network_connect(char *hostname, int port)
 
 int network_send(void *data, size_t size)
 {
+	if(sockfd == 0) {
+		return -4;
+	}
+
+	if(size <= 0) {
+		return -5;
+	}
+
+	if(write(sockfd, data, size) <= 0) {
+		return -6;
+	}
+
+	return 0;
 }
 
 int network_read(void *buffer, size_t size)

@@ -13,9 +13,7 @@ endif
 lib_LTLIBRARIES = libCruceGame.la libNetworking.la libParser.la libCli.la
 bin_PROGRAMS = cruceGame
 
-cruceGame_SOURCES = multiplayerCurses/multiplayerCurses.c \
-                    multiplayerCurses/ircHandlers.c \
-                    singlePlayerCurses/singlePlayerCurses.c \
+cruceGame_SOURCES = singlePlayerCurses/singlePlayerCurses.c \
                     main.c
 
 cruceGame_LDADD = libCruceGame.la libNetworking.la libParser.la libCli.la
@@ -28,6 +26,8 @@ libCruceGame_la_SOURCES = libCruceGame/deck.c \
 
 libNetworking_la_SOURCES = networking/network.c
 
-libParser_la_SOURCES = parser/parser.c
+libIrc_la_SOURCES = irc/irc.c
+
+libParser_la_SOURCES =# parser/parser.c
 
 libCli_la_SOURCES = cli/cli.c

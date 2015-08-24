@@ -29,7 +29,7 @@ extern int CALLBACK multiplayerWinMain(HINSTANCE hInstance,
                                         int nCmdShow);
 #else
 int singlePlayerMain(int argc, char *argv[]);
-int multiplayerMain(int argc, char *argv[]);
+//int multiplayerMain(int argc, char *argv[]);
 
 #endif
 
@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
                                         lpCmdLine, 
                                         nCmdShow);
 #else
-                    multiplayerMain(argc, argv);
+                    //multiplayerMain(argc, argv);
 #endif
 
 #ifndef WIN32

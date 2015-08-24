@@ -91,15 +91,22 @@ char *irc_getAvailableRooms();
 int irc_invite(char *nickname);
 
 /**
- * @brief Send an IRC message.
+ * @brief Send an IRC message to the lobby.
  *
  * @param message The message to be sent. Must be NUL terminated.
- * @param toRoom If 0, the message is sent to the lobby.
- *               Otherwise, it is sent to the joined room.
  *
  * @return 0 on success, other value on failure.
  */
-int irc_sendMessage(char *message, int toRoom);
+int irc_sendLobbyMessage(char *message);
+
+/**
+ * @brief Send an IRC message to the room.
+ *
+ * @param message The message to be sent. Must be NUL terminated.
+ *
+ * @return 0 on success, other value on failure.
+ */
+int irc_sendRoomMessage(char *message);
 
 /**
  * @brief Read a new message and handle it.

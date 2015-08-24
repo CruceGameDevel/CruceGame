@@ -24,7 +24,7 @@ void network_connect(char *hostname, int port);
  *
  * @return none
  */
-int network_send(void *data, int size);
+int network_send(void *data, size_t size);
 
 /**
  * @brief Read a message from the network.
@@ -36,7 +36,7 @@ int network_send(void *data, int size);
  *
  * @return The actual number of bytes read.
  */
-int network_read(void *buffer, int size);
+int network_read(void *buffer, size_t size);
 
 /**
  * @brief End a network connection.

@@ -41,11 +41,11 @@ int network_connect(char *hostname, int port)
     return 0;
 }
 
-int network_send(void *data, int size)
+int network_send(void *data, size_t size)
 {
 }
 
-int network_read(void *buffer, int size)
+int network_read(void *buffer, size_t size)
 {
 	if(sockfd == 0) {
 		return -4;

@@ -6,6 +6,22 @@
 #define NETWORK_H
 
 /**
+ * @brief Issued when there was a problem establishing the connection or at 
+ *        sending/reading. 
+ */
+#define NET_ERROR -2
+
+/**
+ * @brief Issued when there was a probem at sending/reading a message. 
+ */
+#define NET_WARNING -1
+
+/**
+ * @brief Issued when the action was completed successfully.
+ */
+#define NET_INFO 0
+
+/**
  * @brief Initialize a network connection.
  *
  * @param hostname The hostname to connect to.

@@ -52,7 +52,7 @@
  *
  * @return none
  */
-void network_connect(char *hostname, int port);
+int network_connect(char *hostname, int port);
 
 /**
  * @brief Send a message over the network.

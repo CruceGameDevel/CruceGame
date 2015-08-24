@@ -43,5 +43,8 @@ int network_read(void *buffer, int size)
 
 void network_disconnect()
 {
+	if(sockfd != 0) {
+		close(sockfd);
+	}
 }
 

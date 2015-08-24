@@ -2,6 +2,12 @@
  * @file This file provides the implementation of network module.
  */
 
+#include <sys/socket.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <arpa/inet.h>
+
 int sockfd;
 
 int network_connect(char *hostname, int port)

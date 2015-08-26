@@ -1,7 +1,44 @@
 #include <cutter.h>
 #include <unistd.h>
-#include <fnctl.h>
+#include <fcntl.h>
+#include <strings.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
 #include "../../src/networking/network.h"
+
+extern int sockfd;
+
+/**
+ * Helper to open a local server socket.
+ * Returns a sockfd.
+ */
+int openLocalhostSocket() {
+    int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
+    cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
+
+    struct sockaddr_in serv_addr, cli_addr;
+    bzero((char *)&serv_addr, sizeof(serv_addr));
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(8080);
+    cut_assert_true(bind(serverSockfd, (struct sockaddr *)&serv_addr,
+                    sizeof(serv_addr)) >= 0, "Server bind failed");
+
+    listen(serverSockfd, 5);
+    socklen_t clilen = sizeof(cli_addr);
+
+    int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
+
+    cut_assert_true(newsockfd >= 0, "Server accept failed");
+
+    return newsockfd;
+}
 
 /**
  * Test for network_connect.
@@ -24,25 +61,7 @@ void test_network_connect() {
 
     int pid = cut_fork();
     if (pid == 0) {
-        int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
-        cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
-
-        struct sockaddr_in serv_addr, cli_addr;
-        bzero((char *)&serv_addr, sizeof(serv_addr));
-
-        serv_addr.sin_family = AF_INET;
-        serv_addr.sin_addr.s_addr = INADDR_ANY;
-        serv_addr.sin_port = htons(8080);
-        cut_assert_true(bind(sockfd, (struct sockaddr *)&serv_addr,
-                        sizeof(serv_addr)) >= 0, "Server bind failed")
-
-        listen(sockfd,5);
-        socklen_t clilen = sizeof(cli_addr);
-
-        int newsockfd = cut_assert_true(accept(sockfd,
-                                               (struct sockaddr *)&cli_addr,
-                                               &clilen) >= 0,
-                                        "Server accept failed");
+        int newsockfd = openLocalhostSocket();
 
         write(newsockfd, "test", 5);
 
@@ -58,10 +77,10 @@ void test_network_connect() {
                     "Network connect failed; negative socket");
 
     char buffer[10];
-    read(newsockfd, buffer, 10);
+    read(sockfd, buffer, 10);
     cut_assert_equal_string("test", buffer, "Second data transfer failed");
 
-    write(newsockfd, "check", 6);
+    write(sockfd, "check", 6);
 
     read(sockfd, buffer, 10);
 
@@ -88,34 +107,10 @@ int fdIsValid(int fd)
  * module.
  */
 void test_network_disconnect() {
+
     int pid = cut_fork();
     if (pid == 0) {
-        int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
-        cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
-
-        struct sockaddr_in serv_addr, cli_addr;
-        bzero((char *)&serv_addr, sizeof(serv_addr));
-
-        serv_addr.sin_family = AF_INET;
-        serv_addr.sin_addr.s_addr = INADDR_ANY;
-        serv_addr.sin_port = htons(8080);
-        cut_assert_true(bind(sockfd, (struct sockaddr *)&serv_addr,
-                        sizeof(serv_addr)) >= 0, "Server bind failed")
-
-        listen(sockfd,5);
-        socklen_t clilen = sizeof(cli_addr);
-
-        int newsockfd = cut_assert_true(accept(sockfd,
-                                               (struct sockaddr *)&cli_addr,
-                                               &clilen) >= 0,
-                                        "Server accept failed");
-
-        write(newsockfd, "test", 5);
-
-        char buffer[10];
-        read(newsockfd, buffer, 10);
-        cut_assert_equal_string("check", buffer, "First data transfer failed");
-
+        int newsockfd = openLocalhostSocket();
         exit(EXIT_SUCCESS);
     }
 
@@ -128,7 +123,7 @@ void test_network_disconnect() {
     struct sockaddr_in serv_addr;
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr,
+    bcopy((char *)server->h_addr_list[0],
          (char *)&serv_addr.sin_addr.s_addr,
          server->h_length);
     serv_addr.sin_port = htons(8080);

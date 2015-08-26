@@ -6,6 +6,45 @@
 #define NETWORK_H
 
 /**
+ * @brief Issued when you are trying to establish a connection when there is
+ *        already an active one.
+ */
+#define SOCKET_IN_USE -1
+
+/**
+ * @brief Issued when you are trying to establish a connection but the hostname
+ *        is invalid.
+ */
+#define INVALID_HOSTNAME -2
+
+/**
+ * @brief Issued when the internal call to `connect` returned an error status.
+ */
+#define CONNECTING_ERROR -3
+
+/**
+ * @brief Issued when the function finished the job with no error.
+ */
+#define NO_ERROR 0
+
+/**
+ * @brief You are trying to send/read from an uninitialized socket.
+ */
+#define UNINITIALIZED_SOCKET -4
+
+/**
+ * @brief Issued when the internal call to `write` in `network_send` returns
+ *        an error status.
+ */
+#define WRITING_ERROR -5
+
+/**
+ * @brief Issued when the internal call to `read` in the function 'network_read'
+ *        returns an error status.
+ */
+#define READING_ERROR -6
+
+/**
  * @brief Initialize a network connection.
  *
  * @param hostname The hostname to connect to.
@@ -13,7 +52,7 @@
  *
  * @return none
  */
-void network_connect(char *hostname, int port);
+int network_connect(char *hostname, int port);
 
 /**
  * @brief Send a message over the network.
@@ -24,7 +63,7 @@ void network_connect(char *hostname, int port);
  *
  * @return none
  */
-int network_send(void *data, int size);
+int network_send(void *data, size_t size);
 
 /**
  * @brief Read a message from the network.
@@ -36,7 +75,7 @@ int network_send(void *data, int size);
  *
  * @return The actual number of bytes read.
  */
-int network_read(void *buffer, int size);
+int network_read(void *buffer, size_t size);
 
 /**
  * @brief End a network connection.

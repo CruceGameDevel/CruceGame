@@ -70,8 +70,80 @@ void test_network_connect() {
                              "previous disconnect");
 }
 
+/**
+ * Check id a file descriptor is valid (i.e. the resource is still open).
+ * It is used to test the disconnect function.
+ */
+int fdIsValid(int fd)
+{
+    return fcntl(fd, F_GETFD) != -1 || errno != EBADF;
+}
+
+/**
+ * Test for network_disconnect.
+ * It works by opening a socket in another process, opening it and calling
+ * network_disconnect on it.
+ *
+ * This function assumes the use of sockfd private variable in the networking
+ * module.
+ */
 void test_network_disconnect() {
-    cut_assert_equal_int(0, 0);
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
+        cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
+
+        struct sockaddr_in serv_addr, cli_addr;
+        bzero((char *)&serv_addr, sizeof(serv_addr));
+
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_addr.s_addr = INADDR_ANY;
+        serv_addr.sin_port = htons(8080);
+        cut_assert_true(bind(sockfd, (struct sockaddr *)&serv_addr,
+                        sizeof(serv_addr)) >= 0, "Server bind failed")
+
+        listen(sockfd,5);
+        socklen_t clilen = sizeof(cli_addr);
+
+        int newsockfd = cut_assert_true(accept(sockfd,
+                                               (struct sockaddr *)&cli_addr,
+                                               &clilen) >= 0,
+                                        "Server accept failed");
+
+        write(newsockfd, "test", 5);
+
+        char buffer[10];
+        read(newsockfd, buffer, 10);
+        cut_assert_equal_string("check", buffer, "First data transfer failed");
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_true(server == NULL, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr,
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(8080);
+
+    cut_assert_false(connect(sockfd,
+                             (struct sockaddr *)&serv_addr,
+                             sizeof(serv_addr)) < 0,
+                     "Error connecting to the server process");
+
+    network_disconnect();
+
+    cut_assert_false(fdIsValid(sockfd),
+                     "Network disconnect failed to disable socket "
+                     "file descriptor");
+
 }
 
 void test_network_read() {

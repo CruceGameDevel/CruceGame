@@ -61,7 +61,7 @@ void test_network_connect() {
 
     int pid = cut_fork();
     if (pid == 0) {
-        int newsockfd = openLocalhostSocket();
+        int newsockfd = openLocalhostSocket(8080);
 
         write(newsockfd, "test", 5);
 
@@ -110,7 +110,7 @@ void test_network_disconnect() {
 
     int pid = cut_fork();
     if (pid == 0) {
-        int newsockfd = openLocalhostSocket();
+        int newsockfd = openLocalhostSocket(8079);
         exit(EXIT_SUCCESS);
     }
 

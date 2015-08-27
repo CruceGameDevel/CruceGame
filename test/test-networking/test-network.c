@@ -144,7 +144,28 @@ void test_network_disconnect() {
 }
 
 void test_network_read() {
-    cut_assert_equal_int(0, 0);
+    char buffer[10] = {'\0'};
+
+    cut_assert_operator_int(0, >, network_read(buffer, 10));
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8078);
+        write(newsockfd, "test", 5);
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    network_connect("localhost", 8078);
+
+    cut_assert_equal_int(5, network_read(buffer, 10),
+                         "Not have been read all bytes");
+    cut_assert_equal_string("test", buffer, "Data transfer failed");
+
+    network_disconnect();
+
+    cut_assert_operator_int(0, >, network_read(buffer, 10));
 }
 
 void test_network_send() {

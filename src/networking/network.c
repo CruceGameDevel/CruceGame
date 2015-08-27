@@ -16,7 +16,7 @@ int sockfd;
 int network_connect(char *hostname, int port)
 {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if(sockfd != 0) {
+    if(sockfd < 0) {
         return SOCKET_IN_USE;
     }
 

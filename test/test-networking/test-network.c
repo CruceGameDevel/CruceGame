@@ -126,7 +126,7 @@ void test_network_disconnect() {
     bcopy((char *)server->h_addr_list[0],
          (char *)&serv_addr.sin_addr.s_addr,
          server->h_length);
-    serv_addr.sin_port = htons(8080);
+    serv_addr.sin_port = htons(8079);
 
     cut_assert_false(connect(sockfd,
                              (struct sockaddr *)&serv_addr,

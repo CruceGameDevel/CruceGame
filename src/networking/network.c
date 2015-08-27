@@ -27,7 +27,7 @@ int network_connect(char *hostname, int port)
 
     struct sockaddr_in serv_addr;
 
-    memset((char *)&serv_addr, sizeof(serv_addr), 0);
+    memset((char *)&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
 
     memmove((char *)server->h_addr_list[0], (char *)&serv_addr.sin_addr.s_addr, 

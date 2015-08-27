@@ -17,7 +17,7 @@ extern int sockfd;
  * Helper to open a local server socket.
  * Returns a sockfd.
  */
-int openLocalhostSocket() {
+int openLocalhostSocket(int port) {
     int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
     cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
 
@@ -26,7 +26,7 @@ int openLocalhostSocket() {
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(8080);
+    serv_addr.sin_port = htons(port);
     cut_assert_true(bind(serverSockfd, (struct sockaddr *)&serv_addr,
                     sizeof(serv_addr)) >= 0, "Server bind failed");
 

@@ -76,7 +76,7 @@ void test_network_connect() {
     cut_assert_true(sockfd >= 0,
                     "Network connect failed; negative socket");
 
-    char buffer[10];
+    char buffer[10] = {'\0'};
     read(sockfd, buffer, 10);
     cut_assert_equal_string("test", buffer, "Second data transfer failed");
 

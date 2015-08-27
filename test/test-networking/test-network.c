@@ -120,7 +120,7 @@ void test_network_disconnect() {
     cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
 
     struct hostent *server = gethostbyname("localhost");
-    cut_assert_true(server == NULL, "No such host");
+    cut_assert_true(server != NULL, "No such host");
 
     struct sockaddr_in serv_addr;
     bzero((char *) &serv_addr, sizeof(serv_addr));

@@ -72,6 +72,7 @@ void test_network_connect() {
         exit(EXIT_SUCCESS);
     }
 
+    sleep(1);
     network_connect("localhost", 8080);
     cut_assert_true(sockfd >= 0,
                     "Network connect failed; negative socket");
@@ -114,6 +115,7 @@ void test_network_disconnect() {
         exit(EXIT_SUCCESS);
     }
 
+    sleep(1);
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
 

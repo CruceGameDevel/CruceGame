@@ -50,7 +50,9 @@
  * @param hostname The hostname to connect to.
  * @param port The port to use.
  *
- * @return none
+ * @return NO_ERROR, if the connection succeeded;
+ *         INVALID_HOSTNAME, if the hostname is invalid;
+ *         CONNECTING_ERROR, if the call to api connect failed.
  */
 int network_connect(char *hostname, int port);
 
@@ -61,7 +63,9 @@ int network_connect(char *hostname, int port);
  * @param data Pointer to the data to be sent.
  * @param size The number of bytes to be sent.
  *
- * @return none
+ * @return NO_ERROR, if the connection succeeded;
+ *         UNINITIALIZED_SOCKET, if the connection has not been established;
+ *         WRITING_ERROR, if the internal write call failed.
  */
 int network_send(void *data, size_t size);
 
@@ -73,16 +77,20 @@ int network_send(void *data, size_t size);
  *               overwritten.
  * @param size The maximum number of bytes to read.
  *
- * @return The actual number of bytes read.
+ * @return The number of bytes read (positive value),
+ *              if the connection succeeded;
+ *         UNINITIALIZED_SOCKET, if the connection has not been established;
+ *         READING_ERROR, if the internal read call failed.
  */
 int network_read(void *buffer, size_t size);
 
 /**
  * @brief End a network connection.
  *
- * @return none
+ * @return NO_ERROR, if the operation succeeded;
+ *         UNINITIALIZED_SOCKET, if there is no connection to close.
  */
-void network_disconnect();
+int network_disconnect();
 
 #endif // end of include guard: NETWORK_H
 

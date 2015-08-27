@@ -169,6 +169,28 @@ void test_network_read() {
 }
 
 void test_network_send() {
-    cut_assert_equal_int(0, 0);
+    cut_assert_not_equal_int(0, network_send("test", 5),
+                             "Send data to non-existent server succeeded");
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8077);
+        char buffer[10] = {'\0'};
+        read(newsockfd, buffer, 10);
+
+        cut_assert_equal_string("test", buffer, "Data transfer failed");
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    network_connect("localhost", 8077);
+
+    cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
+
+    network_disconnect();
+
+    cut_assert_not_equal_int(0, network_send("test", 5),
+                             "Send data to non-existent server succeeded");
 }
 

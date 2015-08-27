@@ -146,7 +146,8 @@ void test_network_disconnect() {
 void test_network_read() {
     char buffer[10] = {'\0'};
 
-    cut_assert_operator_int(0, >, network_read(buffer, 10));
+    cut_assert_operator_int(0, >, network_read(buffer, 10),
+                            "Read data from non-existent server succeeded");
 
     int pid = cut_fork();
     if (pid == 0) {
@@ -165,7 +166,8 @@ void test_network_read() {
 
     network_disconnect();
 
-    cut_assert_operator_int(0, >, network_read(buffer, 10));
+    cut_assert_operator_int(0, >, network_read(buffer, 10),
+                            "Read data from non-existent server succeeded");
 }
 
 void test_network_send() {

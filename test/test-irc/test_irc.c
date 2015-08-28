@@ -19,8 +19,8 @@ void serverHelper(size_t count, char **expected_messages)
     test_server.sin_port = htons(8080);
 
     cut_assert_true(bind(server_sock, (struct sockaddr *)&test_server,
-        sizeof(test_server)) >= 0, "Failed to bind the "
-        "test server to socket");
+                         sizeof(test_server)) >= 0, "Failed to bind the "
+                         "test server to socket");
 
     cut_assert_true(listen(server_sock, 1) >= 0, "Test server failed "
                    "to lisent");
@@ -28,7 +28,7 @@ void serverHelper(size_t count, char **expected_messages)
     struct sockaddr_in test_client;
     socklen_t client_length = sizeof(test_client);
     int client_sock = accept(server_sock, (struct sockaddr *)&test_client,
-            &client_length);
+                             &client_length);
 
     cut_assert_true(client_sock >= 0, "Failed to accept connection");
 
@@ -43,7 +43,7 @@ void serverHelper(size_t count, char **expected_messages)
 
     for (int i = 0; i < count; i++) {
         cut_assert_true(read(client_sock, received_messages[i], 513) >= 0,
-                "Failed to read message from client");
+                        "Failed to read message from client");
         cut_assert_equal_string(expected_messages[i], received_messages[i]);
     }
 

@@ -11,6 +11,7 @@ CFLAGS += -g -Wall -DDEBUG
 endif
 
 lib_LTLIBRARIES = libCruceGame.la libNetworking.la libGameProtocol.la libCli.la
+lib_LTLIBRARIES += libIrc.la
 bin_PROGRAMS = cruceGame
 
 cruceGame_SOURCES = singlePlayerCurses/singlePlayerCurses.c \

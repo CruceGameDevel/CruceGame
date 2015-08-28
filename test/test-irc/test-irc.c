@@ -82,11 +82,10 @@ void test_irc_connect()
     strcpy(expected_messages[0], "PASS *\r\n");
     strcpy(expected_messages[1], "NICK test_user\r\n");
     strcpy(expected_messages[2], "USER test_user 8 * :test_user\r\n");
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
 
     int pid = cut_fork();
     if (pid == 0) {
-        serverHelper(4, expected_messages); // 4 messages are expected;
+        serverHelper(3, expected_messages); // 4 messages are expected;
         close(EXIT_SUCCESS);
     }
 
@@ -99,12 +98,10 @@ void test_irc_connect()
     strcpy(expected_messages[1], "NICK \r\n");
     memset(expected_messages[2], 0, 513);
     strcpy(expected_messages[2], "USER  8 * :\r\n");
-    memset(expected_messages[3], 0, 513);
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
 
     pid = cut_fork();
     if (pid == 0) {
-        serverHelper(4, expected_messages);
+        serverHelper(3, expected_messages);
         exit(EXIT_SUCCESS);
     }
 
@@ -117,12 +114,10 @@ void test_irc_connect()
     strcpy(expected_messages[1], "NICK test_user_\r\n");
     memset(expected_messages[2], 0, 513);
     strcpy(expected_messages[2], "USER test_user_ 8 * :test_user_\r\n");
-    memset(expected_messages[3], 0, 513);
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
 
     pid = cut_fork();
     if (pid == 0) {
-        serverHelper(4, expected_messages);
+        serverHelper(3, expected_messages);
         exit(EXIT_SUCCESS);
     }
 

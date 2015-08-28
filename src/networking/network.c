@@ -16,11 +16,14 @@ int sockfd = -1;
 int network_connect(char *hostname, int port)
 {
     if (sockfd > 0)
-        return SOCKET_IN_USE;
+        return CONNECTION_IN_USE;
+
+    if (hostname == NULL)
+        return NULL_PARAMETER;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
-        return SOCKET_CREATION_FAILED;
+        return CONNECTING_ERROR;
 
     struct hostent *server = gethostbyname(hostname);
     if (server == NULL)
@@ -44,8 +47,11 @@ int network_connect(char *hostname, int port)
 
 int network_send(void *data, size_t size)
 {
+    if (data == NULL)
+        return NULL_PARAMETER
+
     if (sockfd < 0)
-        return UNINITIALIZED_SOCKET;
+        return UNINITIALIZED_CONNECTION;
 
     if (write(sockfd, data, size) <= 0)
         return WRITING_ERROR;
@@ -55,8 +61,11 @@ int network_send(void *data, size_t size)
 
 int network_read(void *buffer, size_t size)
 {
+    if (buffer == NULL)
+        return NULL_PARAMETER
+
     if (sockfd < 0)
-        return UNINITIALIZED_SOCKET;
+        return UNINITIALIZED_CONNECTION;
 
     int bytes_read = read(sockfd, buffer, size);
 
@@ -66,11 +75,14 @@ int network_read(void *buffer, size_t size)
     return bytes_read;
 }
 
-void network_disconnect()
+int network_disconnect()
 {
-    if (sockfd > 0) {
+    if (sockfd < 0)
+        return UNINITIALIZED_CONNECTION;
+    else {
         close(sockfd);
         sockfd = -1;
+        return NO_ERROR;
     }
 }
 

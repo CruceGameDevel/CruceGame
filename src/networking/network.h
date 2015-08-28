@@ -9,7 +9,7 @@
  * @brief Issued when you are trying to establish a connection when there is
  *        already an active one.
  */
-#define SOCKET_IN_USE -1
+#define CONNECTION_IN_USE -1
 
 /**
  * @brief Issued when you are trying to establish a connection but the hostname
@@ -18,7 +18,7 @@
 #define INVALID_HOSTNAME -2
 
 /**
- * @brief Issued when the internal call to `connect` returned an error status.
+ * @brief Issued when the connection attempt failed.
  */
 #define CONNECTING_ERROR -3
 
@@ -30,7 +30,7 @@
 /**
  * @brief You are trying to send/read from an uninitialized socket.
  */
-#define UNINITIALIZED_SOCKET -4
+#define UNINITIALIZED_CONNECTION -4
 
 /**
  * @brief Issued when the internal call to `write` in `network_send` returns
@@ -43,6 +43,11 @@
  *        returns an error status.
  */
 #define READING_ERROR -6
+
+/**
+ * @brief Issued when a parameter is null.
+ */
+#define NULL_PARAMETER -7
 
 /**
  * @brief Initialize a network connection.

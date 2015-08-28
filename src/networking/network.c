@@ -21,6 +21,9 @@ int network_connect(char *hostname, int port)
     if (hostname == NULL)
         return NULL_PARAMETER;
 
+    if (port < 0 && port > 65535)
+        return PARAMETER_OUT_OF_RANGE;
+
     struct hostent *server = gethostbyname(hostname);
     if (server == NULL)
         return INVALID_HOSTNAME;
@@ -56,6 +59,9 @@ int network_send(void *data, size_t size)
     if (sockfd < 0)
         return UNINITIALIZED_CONNECTION;
 
+    if (size == 0)
+        return PARAMETER_OUT_OF_RANGE;
+
     if (write(sockfd, data, size) <= 0)
         return WRITING_ERROR;
 
@@ -69,6 +75,9 @@ int network_read(void *buffer, size_t size)
 
     if (sockfd < 0)
         return UNINITIALIZED_CONNECTION;
+
+    if (size == 0)
+        return PARAMETER_OUT_OF_RANGE;
 
     int bytes_read = read(sockfd, buffer, size);
 

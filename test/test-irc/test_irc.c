@@ -31,7 +31,7 @@ void serverHelper(size_t count, char **expected_messages)
 
     cut_assert_true(client_sock >= 0, "Failed to accept connection");
 
-    char **received_messages = malloc(count)
+    char **received_messages = malloc(count);
     cut_assert_true(recived_messages != NULL, "Malloc failed");
     for (int i = 0; i < count; i++) {
         // every irc line has at most 513 chars
@@ -47,7 +47,7 @@ void serverHelper(size_t count, char **expected_messages)
     }
 
     for (int i = 0; i < count; i++) {
-        free(received_messages[i])
+        free(received_messages[i]);
     }
     free(received_messages);
 

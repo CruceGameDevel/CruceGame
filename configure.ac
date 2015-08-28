@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT([cruceGame], [0.2.0])
+AC_INIT([cruceGame], [0.6.0])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADER([src/config.h])

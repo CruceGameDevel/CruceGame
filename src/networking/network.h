@@ -63,7 +63,7 @@ int network_connect(char *hostname, int port);
  * @param data Pointer to the data to be sent.
  * @param size The number of bytes to be sent.
  *
- * @return NO_ERROR, if the connection succeeded;
+ * @return NO_ERROR, if the network send succeeded;
  *         UNINITIALIZED_SOCKET, if the connection has not been established;
  *         WRITING_ERROR, if the internal write call failed.
  */

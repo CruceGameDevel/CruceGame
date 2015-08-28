@@ -127,7 +127,7 @@ void test_irc_connect()
         exit(EXIT_SUCCESS);
     }
 
-    irc_connect("test_test_");
+    irc_connect("test_user_");
 
     for (int i = 0; i < 4; ++i) {
         free(expected_messages[i]);

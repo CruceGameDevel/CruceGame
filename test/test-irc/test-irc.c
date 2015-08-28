@@ -191,12 +191,12 @@ void test_irc_sendLobbyMessage()
     strcpy(expected_messages, "PRVMSG #cruce-devel test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
-           "test test test test test test test test testtest test test test "
-           "test test test testtest test test test test test test testtest "
-           "test test test test test test testtest test test test test test "
-           "test testtest test test test test test test testtest test test "
-           "test test test test testtest test test test test test test  test "
-           "test test testte\r\n");
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test test test test test  test "
+           "test test\r\n");
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create socket");
@@ -208,12 +208,12 @@ void test_irc_sendLobbyMessage()
                          "test test test test test test test test test test "
                          "test test test test test test test test test test "
                          "test test test test test test test test test test "
-                         "test test test test testtest test test test test "
-                         "test test testtest test test test test test test "
-                         "testtest test test test test test test testtest "
-                         "test test test test test test testtest test test "
-                         "test test test test testtest test test test test "
-                         "test test testtest test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
                          "test test test test test test test");
 
     close(server_sock);

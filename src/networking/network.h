@@ -6,6 +6,11 @@
 #define NETWORK_H
 
 /**
+ * @brief Issued when the function finished the job with no error.
+ */
+#define NO_ERROR 0
+
+/**
  * @brief Issued when you are trying to establish a connection when there is
  *        already an active one.
  */
@@ -21,11 +26,6 @@
  * @brief Issued when the connection attempt failed.
  */
 #define CONNECTING_ERROR -3
-
-/**
- * @brief Issued when the function finished the job with no error.
- */
-#define NO_ERROR 0
 
 /**
  * @brief You are trying to send/read from an uninitialized socket.
@@ -50,13 +50,21 @@
 #define NULL_PARAMETER -7
 
 /**
+ * @brief Issued when a parameter is out of range.
+ */
+#define PARAMETER_OUT_OF_RANGE -8
+
+/**
  * @brief Initialize a network connection.
  *
  * @param hostname The hostname to connect to.
  * @param port The port to use.
  *
  * @return NO_ERROR, if the connection succeeded;
+ *         CONNECTION_IN_USE, if there is already a connection initialised;
+ *         NULL_PARAMETER, if the hostname is NULL;
  *         INVALID_HOSTNAME, if the hostname is invalid;
+ *         PARAMETER_OUT_OF_RANGE, if the port value is out of range 0-65535;
  *         CONNECTING_ERROR, if the call to api connect failed.
  */
 int network_connect(char *hostname, int port);
@@ -69,7 +77,9 @@ int network_connect(char *hostname, int port);
  * @param size The number of bytes to be sent.
  *
  * @return NO_ERROR, if the network send succeeded;
- *         UNINITIALIZED_SOCKET, if the connection has not been established;
+ *         UNINITIALIZED_CONNECTION, if the connection has not been established;
+ *         PARAMETER_OUT_OF_RANGE, if the size is 0;
+ *         NULL_PARAMETER, if the data pointer is NULL;
  *         WRITING_ERROR, if the internal write call failed.
  */
 int network_send(void *data, size_t size);
@@ -84,7 +94,9 @@ int network_send(void *data, size_t size);
  *
  * @return The number of bytes read (positive value),
  *              if the connection succeeded;
- *         UNINITIALIZED_SOCKET, if the connection has not been established;
+ *         UNINITIALIZED_CONNECTION, if the connection has not been established;
+ *         PARAMETER_OUT_OF_RANGE, if the size is 0;
+ *         NULL_PARAMETER, if the buffer pointer is NULL;
  *         READING_ERROR, if the internal read call failed.
  */
 int network_read(void *buffer, size_t size);

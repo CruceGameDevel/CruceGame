@@ -100,6 +100,8 @@ void test_network_connect() {
         read(newsockfd, buffer, 10);
         cut_assert_equal_string("check", buffer, "First data transfer failed");
 
+        close(newsockfd);
+
         exit(EXIT_SUCCESS);
     }
 
@@ -116,9 +118,22 @@ void test_network_connect() {
 
     read(sockfd, buffer, 10);
 
-    cut_assert_not_equal_int(0, network_connect("localhost", 8080),
+    sleep(1);
+
+    pid = cut_fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8081);
+
+        close(newsockfd);
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    cut_assert_not_equal_int(0, network_connect("localhost", 8081),
                              "Reconnection attempt succedeed without "
                              "previous disconnect");
+    connectToLocalhostSocket(8081);
 }
 
 /**

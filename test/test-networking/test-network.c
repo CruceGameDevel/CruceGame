@@ -158,13 +158,37 @@ void test_network_read() {
     }
 
     sleep(1);
-    network_connect("localhost", 8078);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_true(server != NULL, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr_list[0],
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(8078);
+
+    cut_assert_false(connect(sockfd,
+                             (struct sockaddr *)&serv_addr,
+                             sizeof(serv_addr)) < 0,
+                     "Error connecting to the server process");
 
     cut_assert_equal_int(5, network_read(buffer, 10),
                          "Not have been read all bytes");
     cut_assert_equal_string("test", buffer, "Data transfer failed");
 
-    network_disconnect();
+    cut_assert_operator_int(0, >, network_read(NULL, 0),
+                            "Read data succeeded into null string");
+    cut_assert_operator_int(0, >, network_read(NULL, 5),
+                            "Read data succeeded into null string");
+    cut_assert_operator_int(0, >, network_read(buffer, 0),
+                            "Read data succeeded into zero-length string");
+
+    close(sockfd);
 
     cut_assert_operator_int(0, >, network_read(buffer, 10),
                             "Read data from non-existent server succeeded");
@@ -186,11 +210,34 @@ void test_network_send() {
     }
 
     sleep(1);
-    network_connect("localhost", 8077);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_true(server != NULL, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr_list[0],
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(8077);
+
+    cut_assert_false(connect(sockfd,
+                             (struct sockaddr *)&serv_addr,
+                             sizeof(serv_addr)) < 0,
+                     "Error connecting to the server process");
 
     cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
+    cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 0),
+                             "Send wrong data succeeded");
+    cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 5),
+                             "Send wrong data succeeded");
+    cut_assert_not_equal_int(NO_ERROR, network_send("test", 0),
+                             "Send wrong data succeeded");
 
-    network_disconnect();
+    close(sockfd);
 
     cut_assert_not_equal_int(0, network_send("test", 5),
                              "Send data to non-existent server succeeded");

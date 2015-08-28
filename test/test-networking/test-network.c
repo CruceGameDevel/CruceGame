@@ -77,7 +77,7 @@ void test_network_connect() {
     cut_assert_true(sockfd >= 0,
                     "Network connect failed; negative socket");
 
-    char buffer[10] = {'\0'};
+    char buffer[10];
     read(sockfd, buffer, 10);
     cut_assert_equal_string("test", buffer, "Second data transfer failed");
 
@@ -144,7 +144,7 @@ void test_network_disconnect() {
 }
 
 void test_network_read() {
-    char buffer[10] = {'\0'};
+    char buffer[10];
 
     cut_assert_operator_int(0, >, network_read(buffer, 10),
                             "Read data from non-existent server succeeded");
@@ -177,7 +177,7 @@ void test_network_send() {
     int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8077);
-        char buffer[10] = {'\0'};
+        char buffer[10];
         read(newsockfd, buffer, 10);
 
         cut_assert_equal_string("test", buffer, "Data transfer failed");

@@ -217,6 +217,7 @@ void test_network_read() {
                             "Read data succeeded into zero-length string");
 
     close(sockfd);
+    sockfd = 0;
 
     cut_assert_operator_int(0, >, network_read(buffer, 10),
                             "Read data from non-existent server succeeded");
@@ -261,6 +262,7 @@ void test_network_send() {
                              "Send wrong data succeeded");
 
     close(sockfd);
+    sockfd = 0;
 
     cut_assert_not_equal_int(0, network_send("test", 5),
                              "Send data to non-existent server succeeded");

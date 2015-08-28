@@ -23,7 +23,7 @@ void serverHelper(size_t count, char **expected_messages)
                          "test server to socket");
 
     cut_assert_true(listen(server_sock, 1) >= 0, "Test server failed "
-                   "to lisent");
+                   "to listen");
 
     struct sockaddr_in test_client;
     socklen_t client_length = sizeof(test_client);

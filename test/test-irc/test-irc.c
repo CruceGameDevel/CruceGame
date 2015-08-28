@@ -144,7 +144,7 @@ void test_irc_sendLobbyMessage()
     test_server.sin_port = htons(8080);
 
     char **expected_messages = malloc(1);
-    expected_messages[1] = malloc(513); 
+    expected_messages[0] = malloc(513); 
     
     // test a message of average length: 39 chars
     memset(expected_messages, 0, 513);

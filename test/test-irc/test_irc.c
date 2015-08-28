@@ -22,7 +22,8 @@ void serverHelper(size_t count, char **expected_messages)
         sizeof(test_server)) >= 0, "Failed to bind the "
         "test server to socket");
 
-    cut_assert_true(listen(server_sock, 1) >= 0, "Test server failed to lisen");
+    cut_assert_true(listen(server_sock, 1) >= 0, "Test server failed "
+                   "to lisent");
 
     struct sockaddr_in test_client;
     socklen_t client_length = sizeof(test_client);

@@ -134,3 +134,89 @@ void test_irc_connect()
     free(expected_messages);
 }
 
+void test_irc_sendLobbyMessage()
+{
+    struct sockaddr_in test_server;
+    
+    memset(&test_server, 0, sizeof(test_server));
+    test_server.sin_family = AF_INET;
+    test_server.sin_addr.s_addr = inet_addr("localhost");
+    test_server.sin_port = htons(8080);
+
+    char **expected_messages = malloc(1);
+    expected_messages[1] = malloc(513); 
+    
+    // test a message of average length: 39 chars
+    memset(expected_messages, 0, 513);
+    strcpy(expected_messages, "PRVMSG #cruce-devel test test test test\r\n");
+
+    int pid = cut_fork();
+    if(pid == 0) {
+        serverHelper(1, expected_messages);
+        exit(EXIT_SUCCESS);
+    }
+
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    cut_assert_true(server_sock >= 0, "Failed to create socket");
+
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+                            sizeof(test_server)) >= 0, "Failed to connect");
+
+    irc_sendLobbyMessage("test test test test");
+    close(server_sock);
+
+    // test an empty message
+    memset(expected_messages, 0, 513);
+    strcpy(expected_messages, "PRVMSG #cruce-devel \r\n");
+
+    pid = cut_fork();
+    if(pid == 0) {
+        serverHelper(1, expected_messages);
+        exit(EXIT_SUCCESS);
+    }
+
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    cut_assert_true(server_sock >= 0, "Failed to create socket");
+
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+                            sizeof(test_server)) >= 0, "Failed to connect");
+
+    irc_sendLobbyMessage("");
+    close(server_sock);
+
+    // test a message that is longer than 512 (the standard irc line size)
+    memset(expected_messages, 0, 514);
+    // the message has exactly 512 chars 
+    strcpy(expected_messages, "PRVMSG #cruce-devel test test test test test "
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test test test test test test "
+           "test test test test test test test test testtest test test test "
+           "test test test testtest test test test test test test testtest "
+           "test test test test test test testtest test test test test test "
+           "test testtest test test test test test test testtest test test "
+           "test test test test testtest test test test test test test  test "
+           "test test testte\r\n");
+
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    cut_assert_true(server_sock >= 0, "Failed to create socket");
+
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+                            sizeof(test_server)) >= 0, "Failed to connect");
+
+    irc_sendLobbyMessage("test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test test test test test test test "
+                         "test test test test testtest test test test test "
+                         "test test testtest test test test test test test "
+                         "testtest test test test test test test testtest "
+                         "test test test test test test testtest test test "
+                         "test test test test testtest test test test test "
+                         "test test testtest test test test test test test "
+                         "test test test test test test test");
+
+    close(server_sock);
+
+    free(expected_messages[0]);
+    free(expected_messages);
+}

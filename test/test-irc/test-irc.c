@@ -71,19 +71,13 @@ void serverHelper(size_t count, char **expected_messages)
 
 void test_irc_connect()
 {
-    char **expected_messages = malloc(4);
-    cut_assert_not_null(expected_messages);
-    for (int i = 0; i < 4; ++i) {
-        expected_messages[i] = malloc(513);
-        memset(expected_messages[i], 0, 513);
-        cut_assert_not_null(expected_messages);
-    }
-
     // test for user name: test_user 
-    strcpy(expected_messages[0], "PASS *\r\n");
-    strcpy(expected_messages[1], "NICK test_user\r\n");
-    strcpy(expected_messages[2], "USER test_user 8 * :test_user\r\n");
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
+    char expected_messages[4][513] = {
+        "PASS *\r\n",
+        "NICK test_user\r\n",
+        "USER test_user 8 * :test_user\r\n",
+        "JOIN #cruce-devel\r\n"
+    };
 
     int pid = cut_fork();
     if (pid == 0) {
@@ -128,11 +122,6 @@ void test_irc_connect()
     }
 
     irc_connect("test_user_");
-
-    for (int i = 0; i < 4; ++i) {
-        free(expected_messages[i]);
-    }
-    free(expected_messages);
 }
 
 void test_irc_sendLobbyMessage()
@@ -144,12 +133,12 @@ void test_irc_sendLobbyMessage()
     test_server.sin_addr.s_addr = inet_addr("localhost");
     test_server.sin_port = htons(8080);
 
-    char **expected_messages = malloc(1);
-    expected_messages[0] = malloc(513); 
 
     // test a message of average length: 39 chars
-    memset(expected_messages, 0, 513);
-    strcpy(expected_messages, "PRVMSG #cruce-devel test test test test\r\n");
+    char expected_messages[4][513] = {
+        "PRVMSG #cruce-devel test test test test\r\n";
+    };
+
 
     int pid = cut_fork();
     if(pid == 0) {
@@ -218,6 +207,4 @@ void test_irc_sendLobbyMessage()
 
     close(server_sock);
 
-    free(expected_messages[0]);
-    free(expected_messages);
 }

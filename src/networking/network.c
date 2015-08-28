@@ -48,7 +48,7 @@ int network_connect(char *hostname, int port)
 int network_send(void *data, size_t size)
 {
     if (data == NULL)
-        return NULL_PARAMETER
+        return NULL_PARAMETER;
 
     if (sockfd < 0)
         return UNINITIALIZED_CONNECTION;
@@ -62,7 +62,7 @@ int network_send(void *data, size_t size)
 int network_read(void *buffer, size_t size)
 {
     if (buffer == NULL)
-        return NULL_PARAMETER
+        return NULL_PARAMETER;
 
     if (sockfd < 0)
         return UNINITIALIZED_CONNECTION;

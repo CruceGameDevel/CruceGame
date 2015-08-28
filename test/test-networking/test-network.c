@@ -15,6 +15,7 @@ extern int sockfd;
 
 /**
  * Helper to open a local server socket.
+ * Param port The port on which must be created the server.
  * Returns a sockfd.
  */
 int openLocalhostSocket(int port) {

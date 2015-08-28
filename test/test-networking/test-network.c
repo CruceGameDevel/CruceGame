@@ -41,6 +41,36 @@ int openLocalhostSocket(int port) {
 }
 
 /**
+ * Helper to connect to a local server socket.
+ * Param port The port on which runs the server.
+ * Returns none.
+ *
+ * This function assumes the use of sockfd private variable in the networking
+ * module.
+ */
+void connectToLocalhostSocket(int port)
+{
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_true(server != NULL, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr_list[0],
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(port);
+
+    cut_assert_false(connect(sockfd,
+                             (struct sockaddr *)&serv_addr,
+                             sizeof(serv_addr)) < 0,
+                     "Error connecting to the server process");
+}
+
+/**
  * Test for network_connect.
  * It works by testing some exceptional cases, then by creating a new process
  * that opens a socket and connecting to it. Some data is transfered back and
@@ -116,24 +146,7 @@ void test_network_disconnect() {
     }
 
     sleep(1);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_true(server != NULL, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(8079);
-
-    cut_assert_false(connect(sockfd,
-                             (struct sockaddr *)&serv_addr,
-                             sizeof(serv_addr)) < 0,
-                     "Error connecting to the server process");
+    connectToLocalhostSocket(8079);
 
     network_disconnect();
 
@@ -169,24 +182,7 @@ void test_network_read() {
     }
 
     sleep(1);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_true(server != NULL, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(8078);
-
-    cut_assert_false(connect(sockfd,
-                             (struct sockaddr *)&serv_addr,
-                             sizeof(serv_addr)) < 0,
-                     "Error connecting to the server process");
+    connectToLocalhostSocket(8078);
 
     cut_assert_equal_int(5, network_read(buffer, 10),
                          "Not have been read all bytes");
@@ -231,24 +227,7 @@ void test_network_send() {
     }
 
     sleep(1);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    cut_assert_true(sockfd >= 0, "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_true(server != NULL, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(8077);
-
-    cut_assert_false(connect(sockfd,
-                             (struct sockaddr *)&serv_addr,
-                             sizeof(serv_addr)) < 0,
-                     "Error connecting to the server process");
+    connectToLocalhostSocket(8077);
 
     cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
     cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 0),

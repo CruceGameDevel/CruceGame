@@ -142,6 +142,9 @@ void test_network_disconnect() {
     int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8079);
+
+        close(newsockfd);
+
         exit(EXIT_SUCCESS);
     }
 
@@ -177,6 +180,8 @@ void test_network_read() {
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8078);
         write(newsockfd, "test", 5);
+
+        close(newsockfd);
 
         exit(EXIT_SUCCESS);
     }
@@ -222,6 +227,8 @@ void test_network_send() {
         read(newsockfd, buffer, 10);
 
         cut_assert_equal_string("test", buffer, "Data transfer failed");
+
+        close(newsockfd);
 
         exit(EXIT_SUCCESS);
     }

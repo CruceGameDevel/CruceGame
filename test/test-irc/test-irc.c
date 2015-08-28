@@ -138,7 +138,7 @@ void test_irc_connect()
 void test_irc_sendLobbyMessage()
 {
     struct sockaddr_in test_server;
-    
+
     memset(&test_server, 0, sizeof(test_server));
     test_server.sin_family = AF_INET;
     test_server.sin_addr.s_addr = inet_addr("localhost");
@@ -146,7 +146,7 @@ void test_irc_sendLobbyMessage()
 
     char **expected_messages = malloc(1);
     expected_messages[0] = malloc(513); 
-    
+
     // test a message of average length: 39 chars
     memset(expected_messages, 0, 513);
     strcpy(expected_messages, "PRVMSG #cruce-devel test test test test\r\n");

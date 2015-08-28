@@ -11,13 +11,16 @@
 #include <unistd.h>
 #include "network.h"
 
-int sockfd;
+int sockfd = -1;
 
 int network_connect(char *hostname, int port)
 {
+    if (sockfd > 0)
+        return SOCKET_IN_USE;
+
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
-        return SOCKET_IN_USE;
+        return SOCKET_CREATION_FAILED;
 
     struct hostent *server = gethostbyname(hostname);
     if (server == NULL)
@@ -41,7 +44,7 @@ int network_connect(char *hostname, int port)
 
 int network_send(void *data, size_t size)
 {
-    if (sockfd == 0)
+    if (sockfd < 0)
         return UNINITIALIZED_SOCKET;
 
     if (write(sockfd, data, size) <= 0)
@@ -52,7 +55,7 @@ int network_send(void *data, size_t size)
 
 int network_read(void *buffer, size_t size)
 {
-    if (sockfd == 0)
+    if (sockfd < 0)
         return UNINITIALIZED_SOCKET;
 
     int bytes_read = read(sockfd, buffer, size);
@@ -65,7 +68,9 @@ int network_read(void *buffer, size_t size)
 
 void network_disconnect()
 {
-    if (sockfd != 0)
+    if (sockfd > 0) {
         close(sockfd);
+        sockfd = -1;
+    }
 }
 

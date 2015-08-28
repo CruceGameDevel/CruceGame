@@ -21,13 +21,13 @@ int network_connect(char *hostname, int port)
     if (hostname == NULL)
         return NULL_PARAMETER;
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
-        return CONNECTING_ERROR;
-
     struct hostent *server = gethostbyname(hostname);
     if (server == NULL)
         return INVALID_HOSTNAME;
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+        return CONNECTING_ERROR;
 
     struct sockaddr_in serv_addr;
 
@@ -39,8 +39,11 @@ int network_connect(char *hostname, int port)
 
     serv_addr.sin_port = htons(port);
 
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+        close(sockfd);
+        sockfd = -1;
         return CONNECTING_ERROR;
+    }
 
     return NO_ERROR;
 }

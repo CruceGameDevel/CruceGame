@@ -6,6 +6,18 @@
 #include <unistd.h>
 #include "../../src/irc/irc.h"
 
+/**
+ * @brief In order to test the irc module we have o intercept the messages sent 
+ *        by the functions in this module. To accomplish this task we have 
+ *        implemented this function which compares the messages sent by the
+ *        tested function with the expected result.
+ *
+ * @param count Number of expected messages.
+ * @param expected_messages An array of strings containing all the expected 
+ *        messages in the order they will be compared. 
+ *
+ * @return none.
+ */
 void serverHelper(size_t count, char **expected_messages)
 {
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);

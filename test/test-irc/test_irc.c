@@ -17,7 +17,7 @@ void serverHelper(size_t count, char **expected_messages)
     test_server.sin_family = AF_INET;
     test_server.sin_addr.s_addr = INADDR_ANY;
     test_server.sin_port = htons(8080);
-
+    
     cut_assert_true(bind(server_sock, (struct sockaddr *)&test_server,
                          sizeof(test_server)) >= 0, "Failed to bind the "
                          "test server to socket");
@@ -33,12 +33,12 @@ void serverHelper(size_t count, char **expected_messages)
     cut_assert_true(client_sock >= 0, "Failed to accept connection");
 
     char **received_messages = malloc(count);
-    cut_assert_true(recived_messages != NULL, "Malloc failed");
+    cut_assert_not_null(recived_messages);
     for (int i = 0; i < count; i++) {
         // every irc line has at most 513 chars
         received_messages[i] = malloc(513);
         memset(received_messages, 0, 513);
-        cut_assert_true(received_messages[i] != NULL, "Inner malloc failed");
+        cut_assert_not_null(received_messages[i]);
     }
 
     for (int i = 0; i < count; i++) {
@@ -59,11 +59,11 @@ void serverHelper(size_t count, char **expected_messages)
 void test_irc_connect()
 {
     char **expected_messages = malloc(4);
-    cut_assert_true(expected_messages != NULL, "Maloc Failed");
+    cut_assert_not_null(expected_messages);
     for (int i = 0; i < 4; ++i) {
         expected_messages[i] = malloc(513);
         memset(expected_messages[i], 0, 513);
-        cut_assert_true(expected_messages != NULL, "Inner malloc failed");
+        cut_assert_not_null(expected_messages);
     }
 
     strcpy(expected_messages[0], "PASS *\r\n");

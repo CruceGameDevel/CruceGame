@@ -66,6 +66,7 @@ void test_irc_connect()
         cut_assert_not_null(expected_messages);
     }
 
+    // test for user name: test_user 
     strcpy(expected_messages[0], "PASS *\r\n");
     strcpy(expected_messages[1], "NICK test_user\r\n");
     strcpy(expected_messages[2], "USER test_user 8 * :test_user\r\n");
@@ -78,6 +79,42 @@ void test_irc_connect()
     }
 
     irc_connect("test_user");
+
+    // test for user name: (empty user name)
+    memset(expected_messages[0], 0, 513);
+    strcpy(expected_messages[0], "PASS *\r\n");
+    memset(expected_messages[1], 0, 513);
+    strcpy(expected_messages[1], "NICK \r\n");
+    memset(expected_messages[2], 0, 513);
+    strcpy(expected_messages[2], "USER  8 * :\r\n");
+    memset(expected_messages[3], 0, 513);
+    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
+
+    pid = cut_fork();
+    if (pid == 0) {
+        serverHelper(4, expected_messages);
+        exit(EXIT_SUCCESS);
+    }
+
+    irc_connect("");
+
+    // test with a nick name bigger than 9 chars: test_user_ (10 chars)
+    memset(expected_messages[0], 0, 513);
+    strcpy(expected_messages[0], "PASS *\r\n");
+    memset(expected_messages[1], 0, 513);
+    strcpy(expected_messages[1], "NICK test_user_\r\n");
+    memset(expected_messages[2], 0, 513);
+    strcpy(expected_messages[2], "USER test_user_ 8 * :test_user_\r\n");
+    memset(expected_messages[3], 0, 513);
+    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
+
+    pid = cut_fork();
+    if (pid == 0) {
+        serverHelper(4, expected_messages);
+        exit(EXIT_SUCCESS);
+    }
+
+    irc_connect("test_test_");
 
     for (int i = 0; i < 4; ++i) {
         free(expected_messages[i]);

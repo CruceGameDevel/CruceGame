@@ -72,11 +72,12 @@ int irc_connect(char *name);
 int irc_joinRoom(int room_number);
 
 /**
- * @brief Leave the room.
+ * @brief Leave the current room using PART command:
+ *        PART #cruce-gameXXX (where XXX is current room number).
  *
  * @return 0 on success, other value on failure.
  */
-void irc_leaveRoom();
+int irc_leaveRoom();
 
 /**
  * @brief Send QUIT command to the IRC server and close the connection.

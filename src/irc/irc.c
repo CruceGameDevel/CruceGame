@@ -30,3 +30,15 @@ int irc_connect(char *name)
 
     return NO_ERROR;
 }
+
+int irc_disconnect()
+{
+    int send_ret = network_send("QUIT\r\n", 6);
+    int disconnect_ret = network_disconnect();
+
+    if (send_ret != NO_ERROR || disconnect_ret != NO_ERROR) {
+        return UNINITIALIZED_CONNECTION;
+    } else {
+        return NO_ERROR;
+    }
+}

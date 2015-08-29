@@ -40,6 +40,16 @@ int serverHelper()
     return client_sock;
 }
 
+/**
+ * @brief Almost every function in this module has to connect with the server,
+ *        in order to do that we have to do some initialization, thus resulting
+ *        a lot of duplicate code. The purpose of this function is to initialize
+ *        a `sockaddr_in` structure minimizing the amount of duplicate code.
+ *  
+ * @param test_server The structure to initialize.
+ *
+ * @return none.
+ */
 void initConnection(struct sockaddr_in *test_server)
 {
     memset(test_server, 0, sizeof(*test_server));

@@ -137,7 +137,7 @@ void test_irc_sendLobbyMessage()
 
     int pid = cut_fork();
     if(pid == 0) {
-        int server_sock = serverHelper(1, expected_messages);
+        int server_sock = serverHelper();
 
         char buffer[513];
         memset(buffer, 0, 513);
@@ -163,7 +163,7 @@ void test_irc_sendLobbyMessage()
 
     pid = cut_fork();
     if(pid == 0) {
-        int server_sock = serverHelper(1, expected_messages);
+        int server_sock = serverHelper();
 
         char buffer[513];
         memset(buffer, 0, 513);
@@ -199,7 +199,7 @@ void test_irc_sendLobbyMessage()
 
     pid = cut_fork();
     if (pid == 0) {
-        int server_sock = serverHelper(1, expected_messages);
+        int server_sock = serverHelper();
 
         char buffer[513];
         memset(buffer, 0, 513);

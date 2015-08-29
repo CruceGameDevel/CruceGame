@@ -131,7 +131,8 @@ char *irc_getAvailableRooms();
 int irc_invite(char *nickname);
 
 /**
- * @brief Send an IRC message to the lobby.
+ * @brief Send an IRC message to the lobby, using PRIVMSG:
+ *        PRIVMSG <channel> <message>
  *
  * @param message The message to be sent. Must be NUL terminated.
  *

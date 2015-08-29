@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "../../src/networking/network.h"
+#include <network.h>
 
 extern int sockfd;
 

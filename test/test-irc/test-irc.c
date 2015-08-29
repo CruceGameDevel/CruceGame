@@ -139,11 +139,7 @@ void test_irc_connect()
 void test_irc_sendLobbyMessage()
 {
     struct sockaddr_in test_server;
-
-    memset(&test_server, 0, sizeof(test_server));
-    test_server.sin_family = AF_INET;
-    test_server.sin_addr.s_addr = inet_addr("localhost");
-    test_server.sin_port = htons(8080);
+    initConnection(&test_server);
 
     // test a message of average length: 39 chars
     char expected_message1[513] = {
@@ -247,11 +243,7 @@ void test_irc_sendLobbyMessage()
 void test_irc_disconnect()
 {
     struct sockaddr_in test_server;
-
-    memset(&test_server, 0, sizeof(test_server));
-    test_server.sin_family = AF_INET;
-    test_server.sin_addr.s_addr = inet_addr("localhost");
-    test_server.sin_port = htons(8080);
+    initConnection(&test_server);
 
     char expected_message[513] = "QUIT\r\n";
 
@@ -279,11 +271,7 @@ void test_irc_disconnect()
 void test_irc_joinRoom()
 {
     struct sockaddr_in test_server;
-
-    memset(&test_server, 0, sizeof(test_server));
-    test_server.sin_family = AF_INET;
-    test_server.sin_addr.s_addr = inet_addr("localhost");
-    test_server.sin_port = htons(8080);
+    initConnection(&test_server)
 
     // test the room of the form #cruce-devel001
     char expected_message1[] = "JOIN #cruce-devel001\r\n";
@@ -384,11 +372,7 @@ void test_irc_joinRoom()
 void test_irc_leaveRoom()
 {
     struct sockaddr_in test_server;
-
-    memset(&test_server, 0, sizeof(test_server));
-    test_server.sin_family = AF_INET;
-    test_server.sin_addr.s_addr = inet_addr("localhost");
-    test_server.sin_port = htons(8080);
+    initConnection(&test_server);
 
     // test for a room of the form #cruce-devel002
     currentRoom = 2;

@@ -115,7 +115,7 @@ void test_irc_sendLobbyMessage()
     char expected_message1[3][513] = {
         "PRIVMSG #cruce-devel test test test test\r\n",
         "PRIVMSG #cruce-devel \r\n",
-        //begins here
+        // begins here
         "PRIVMSG #cruce-devel test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
@@ -146,15 +146,14 @@ void test_irc_sendLobbyMessage()
         // and ends here
     };
 
-    // if test_parametersp[i] == 1 then 
+    // if test_parametersp[i] == 1 then
     // cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0) will be issued
     // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0)
     int test_parameters[3] = {1, 1, 0};
 
     for (int i = 0; i < 3 i++) {
-    
         int pid = cut_fork();
-        if(pid == 0) {
+        if (pid == 0) {
             int server_sock = serverHelper();
 
             char buffer[513];
@@ -169,10 +168,11 @@ void test_irc_sendLobbyMessage()
         int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
         cut_assert_operator_int(server_sock, >=, 0);
 
-        cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                                sizeof(test_server)), >=, 0);
+        cut_assert_operator_int(connect(server_sock,
+                                        (struct sockaddr *)&test_server,
+                                        sizeof(test_server)), >=, 0);
 
-        if(test_parameters[i]) {
+        if (test_parameters[i]) {
             cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
         } else {
             cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
@@ -202,8 +202,9 @@ void test_irc_disconnect()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
+    cut_assert_operator_int(connect(server_sock,
+                                    (struct sockaddr *)&test_server,
+                                    sizeof(test_server)), >=, 0);
 
     cut_assert_equal_int(irc_disconnect(), 0);
     clsoe(server_sock);
@@ -237,7 +238,7 @@ void test_irc_joinRoom()
             if (test_parameters[i]) {
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
             } else {
-                // if we try to connect to an invalid room (`#cruce-devel1000`, 
+                // if we try to connect to an invalid room (`#cruce-devel1000`,
                 // for example) the server should not receive any message
                 // from the client. Thus, `read` will return 0.
                 cut_assert_equal_int(read(server_sock, buffer, 513), 0);
@@ -252,8 +253,9 @@ void test_irc_joinRoom()
         }
 
         int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                                sizeof(test_server)), >=, 0);
+        cut_assert_operator_int(connect(server_sock,
+                                        (struct sockaddr *)&test_server,
+                                        sizeof(test_server)), >=, 0);
 
         if (test_parameters[i]) {
             cut_assert_equal_int(irc_joinRoom(inputs[i]), 0);
@@ -283,8 +285,8 @@ void test_irc_leaveRoom()
 
             char buffer[513];
             memset(buffer, 0, 513);
-            
-            if(test_parameters[i]) {
+
+            if (test_parameters[i]) {
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
             } else {
                 // if we are on this branch it means we are testing the case
@@ -293,7 +295,7 @@ void test_irc_leaveRoom()
                 cut_assert_equal_int(read(server_sock, buffer, 513), 0);
             }
 
-            if(test_parameters[i]) {
+            if (test_parameters[i]) {
                 cut_assert_equal_strings(expected_message2, buffer);
             }
 
@@ -306,7 +308,7 @@ void test_irc_leaveRoom()
                                 (struct sockaddr *)&test_server,
                                  sizeof(test_server)), >=, 0);
 
-        if(test_parameters[i]) {
+        if (test_parameters[i]) {
             cut_assert_equal_int(irc_leaveRoom(), 0);
         } else {
             cut_assert_not_equal_int(irc_leaveRoom(), 0);

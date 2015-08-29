@@ -42,3 +42,20 @@ int irc_disconnect()
         return NO_ERROR;
     }
 }
+
+int irc_joinRoom(int room_number)
+{
+    char room_name[strlen(ROOM_FORMAT) + 3];
+    sprintf(room_name, ROOM_FORMAT, room_number);
+
+    char join_command[COMMAND_SIZE + strlen(room_name)];
+    sprintf(join_command, "JOIN %s\r\n", room_name);
+
+    int send_ret = network_send(join_command, strlen(join_command));
+    if (send_ret != NO_ERROR) {
+        return send_ret;
+    }
+
+    current_room = room_number;
+    return NO_ERROR;
+}

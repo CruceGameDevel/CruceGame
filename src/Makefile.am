@@ -1,7 +1,9 @@
 AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src/networking   \
               -I$(top_srcdir)/src/parser \
-              -I$(top_srcdir)/src/cli
+              -I$(top_srcdir)/src/cli \
+              -I$(top_srcdir)/src/irc
+              
 LDFLAGS = -no-undefined
 CFLAGS += -std=c99 \
           -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
@@ -18,6 +20,7 @@ cruceGame_SOURCES = singlePlayerCurses/singlePlayerCurses.c \
                     main.c
 
 cruceGame_LDADD = libCruceGame.la libNetworking.la libGameProtocol.la libCli.la
+cruceGame_LDADD += libIrc.la
 cruceGame_LDFLAGS = -lncursesw -lpthread
 
 libCruceGame_la_SOURCES = libCruceGame/deck.c \

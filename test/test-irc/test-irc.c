@@ -43,7 +43,7 @@ int serverHelper()
 void test_irc_connect()
 {
     // test for user name: test_user 
-    char expected_messages[4][513] = {
+    char expected_messages1[4][513] = {
         "PASS *\r\n",
         "NICK test_user\r\n",
         "USER test_user 8 * :test_user\r\n",
@@ -59,7 +59,7 @@ void test_irc_connect()
             memset(buffer, 0, 513);
             cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                             "Failed to read from server");
-            cut_assert_equal_strings(expected_messages[i], buffer);
+            cut_assert_equal_strings(expected_messages1[i], buffer);
         }
         close(server_sock);
 
@@ -69,14 +69,12 @@ void test_irc_connect()
     irc_connect("test_user");
 
     // test for user name: (empty user name)
-    memset(expected_messages[0], 0, 513);
-    strcpy(expected_messages[0], "PASS *\r\n");
-    memset(expected_messages[1], 0, 513);
-    strcpy(expected_messages[1], "NICK \r\n");
-    memset(expected_messages[2], 0, 513);
-    strcpy(expected_messages[2], "USER  8 * :\r\n");
-    memset(expected_messages[3], 0, 513);
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
+    char expected_messages2[4][513] = {
+        "PASS *\r\n",
+        "NICK \r\n",
+        "USER  8 * :\r\n",
+        "JOIN #cruce-devel\r\n"
+    };
 
     pid = cut_fork();
     if (pid == 0) {
@@ -87,7 +85,7 @@ void test_irc_connect()
             memset(buffer, 0, 513);
             cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                             "Failed to read from server");
-            cut_assert_equal_strings(expected_messages[i], buffer);
+            cut_assert_equal_strings(expected_messages2[i], buffer);
         }
         close(server_sock);
 
@@ -97,14 +95,12 @@ void test_irc_connect()
     irc_connect("");
 
     // test with a nick name bigger than 9 chars: test_user_ (10 chars)
-    memset(expected_messages[0], 0, 513);
-    strcpy(expected_messages[0], "PASS *\r\n");
-    memset(expected_messages[1], 0, 513);
-    strcpy(expected_messages[1], "NICK test_user_\r\n");
-    memset(expected_messages[2], 0, 513);
-    strcpy(expected_messages[2], "USER test_user_ 8 * :test_user_\r\n");
-    memset(expected_messages[3], 0, 513);
-    strcpy(expected_messages[3], "JOIN #cruce-devel\r\n");
+    char expected_message3[4][513] = {
+        "PASS *\r\n",
+        "NICK test_user_\r\n",
+        "USER test_user_ 8 * :test_user_\r\n",
+        "JOIN #cruce-devel\r\n"
+    };
 
     pid = cut_fork();
     if (pid == 0) {
@@ -115,7 +111,7 @@ void test_irc_connect()
             memset(buffer, 0, 513);
             cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                             "Failed to read from server");
-            cut_assert_equal_strings(expected_messages[i], buffer);
+            cut_assert_equal_strings(expected_messages3[i], buffer);
         }
         close(server_sock);
 
@@ -135,7 +131,7 @@ void test_irc_sendLobbyMessage()
     test_server.sin_port = htons(8080);
 
     // test a message of average length: 39 chars
-    char expected_messages[513] = {
+    char expected_message1[513] = {
         "PRVMSG #cruce-devel test test test test\r\n";
     };
 
@@ -147,7 +143,7 @@ void test_irc_sendLobbyMessage()
         memset(buffer, 0, 513);
         cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                         "Failed to read from server");
-        cut_assert_equal_strings(expected_messages, buffer);
+        cut_assert_equal_strings(expected_message1, buffer);
 
         close(server_sock);
         exit(EXIT_SUCCESS);
@@ -163,8 +159,7 @@ void test_irc_sendLobbyMessage()
     close(server_sock);
 
     // test an empty message
-    memset(expected_messages, 0, 513);
-    strcpy(expected_messages, "PRVMSG #cruce-devel \r\n");
+    char expected_message2[] = {"PRVMSG #cruce-devel \r\n"};
 
     pid = cut_fork();
     if(pid == 0) {
@@ -174,7 +169,7 @@ void test_irc_sendLobbyMessage()
         memset(buffer, 0, 513);
         cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                         "Failed to read from server");
-        cut_assert_equal_strings(expected_messages, buffer);
+        cut_assert_equal_strings(expected_message2, buffer);
 
         close(server_sock);
         exit(EXIT_SUCCESS);
@@ -189,10 +184,9 @@ void test_irc_sendLobbyMessage()
     irc_sendLobbyMessage("");
     close(server_sock);
 
-    // test a message that is longer than 512 (the standard irc line size)
-    memset(expected_messages, 0, 514);
     // the message has exactly 512 chars 
-    strcpy(expected_messages, "PRVMSG #cruce-devel test test test test test "
+    char expected_message3[] = {
+           "PRVMSG #cruce-devel test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
@@ -200,7 +194,8 @@ void test_irc_sendLobbyMessage()
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test  test "
-           "test test\r\n");
+           "test test\r\n"
+    };
 
     pid = cut_fork();
     if (pid == 0) {
@@ -210,7 +205,7 @@ void test_irc_sendLobbyMessage()
         memset(buffer, 0, 513);
         cut_assert_true(read(server_sock, buffer, 513) >= 0, 
                         "Failed to read from server");
-        cut_assert_equal_strings(expected_messages, buffer);
+        cut_assert_equal_strings(expected_message3, buffer);
 
         close(server_sock);
         exit(EXIT_SUCCESS);

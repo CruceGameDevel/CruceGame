@@ -65,11 +65,11 @@ int irc_connect(char *name);
  *        JOIN #cruce-gameXXX (where XXX is room number).
  *        AT MOST ONE ROOM CAN BE JOINED AT ANY TIME.
  *
- * @param room_number Number of the room to join. 
+ * @param roomNumber Number of the room to join. 
  *
  * @return 0 on success, other value on failure.
  */
-int irc_joinRoom(int room_number);
+int irc_joinRoom(int roomNumber);
 
 /**
  * @brief Leave the current room using PART command:

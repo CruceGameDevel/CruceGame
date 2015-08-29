@@ -4,76 +4,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int current_room = -1;
+int currentRoom = -1;
 
 int irc_connect(char *name)
 {
-    int connect_ret = network_connect(IRC_SERVER, IRC_PORT);
-    if (connect_ret != NO_ERROR) {
-        return connect_ret;
+    int connectRet = network_connect(IRC_SERVER, IRC_PORT);
+    if (connectRet != NO_ERROR) {
+        return connectRet;
     }
     
-    char *nick_command = malloc(COMMAND_SIZE + strlen(name));
-    char *user_command = malloc(COMMAND_SIZE + strlen(name) * 2);
-    char *join_command = malloc(COMMAND_SIZE + strlen(LOBBY_CHANNEL));
+    char *nickCommand = malloc(COMMAND_SIZE + strlen(name));
+    char *userCommand = malloc(COMMAND_SIZE + strlen(name) * 2);
+    char *joinCommand = malloc(COMMAND_SIZE + strlen(LOBBY_CHANNEL));
 
-    sprintf(nick_command, "NICK %s\r\n", name);
-    sprintf(user_command, "USER %s 8 * :%s\r\n", name, name);
-    sprintf(join_command, "JOIN %s\r\n", LOBBY_CHANNEL);
+    sprintf(nickCommand, "NICK %s\r\n", name);
+    sprintf(userCommand, "USER %s 8 * :%s\r\n", name, name);
+    sprintf(joinCommand, "JOIN %s\r\n", LOBBY_CHANNEL);
 
     network_send("PASS *\r\n", 8);
-    network_send(nick_command, strlen(nick_command));
-    network_send(user_command, strlen(user_command));
-    network_send(join_command, strlen(join_command));
+    network_send(nickCommand, strlen(nickCommand));
+    network_send(userCommand, strlen(userCommand));
+    network_send(joinCommand, strlen(joinCommand));
 
-    free(nick_command);
-    free(user_command);
-    free(join_command);
+    free(nickCommand);
+    free(userCommand);
+    free(joinCommand);
 
     return NO_ERROR;
 }
 
 int irc_disconnect()
 {
-    int send_ret = network_send("QUIT\r\n", 6);
-    int disconnect_ret = network_disconnect();
+    int sendRet = network_send("QUIT\r\n", 6);
+    int disconnectRet = network_disconnect();
 
-    if (send_ret != NO_ERROR || disconnect_ret != NO_ERROR) {
+    if (sendRet != NO_ERROR || disconnectRet != NO_ERROR) {
         return UNINITIALIZED_CONNECTION;
     } else {
         return NO_ERROR;
     }
 }
 
-int irc_joinRoom(int room_number)
+int irc_joinRoom(int roomNumber)
 {
-    char room_name[strlen(ROOM_FORMAT) + 3];
-    sprintf(room_name, ROOM_FORMAT, room_number);
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, roomNumber);
 
-    char join_command[COMMAND_SIZE + strlen(room_name)];
-    sprintf(join_command, "JOIN %s\r\n", room_name);
+    char joinCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(joinCommand, "JOIN %s\r\n", roomName);
 
-    int send_ret = network_send(join_command, strlen(join_command));
-    if (send_ret != NO_ERROR) {
-        return send_ret;
+    int sendRet = network_send(joinCommand, strlen(joinCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
     }
 
-    current_room = room_number;
+    currentRoom = roomNumber;
     return NO_ERROR;
 }
 
 int irc_leaveRoom()
 {
-    char room_name[strlen(ROOM_FORMAT) + 3];
-    if (current_room != -1) {
-        sprintf(room_name, ROOM_FORMAT, current_room);
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    if (currentRoom != -1) {
+        sprintf(roomName, ROOM_FORMAT, currentRoom);
 
-        char part_command[COMMAND_SIZE + strlen(room_name)];
-        sprintf(part_command, "PART %s\r\n", room_name);
+        char partCommand[COMMAND_SIZE + strlen(roomName)];
+        sprintf(partCommand, "PART %s\r\n", roomName);
 
-        int send_ret = network_send(part_command, strlen(part_command));
-        if (send_ret != NO_ERROR) {
-            return send_ret;
+        int sendRet = network_send(partCommand, strlen(partCommand));
+        if (sendRet != NO_ERROR) {
+            return sendRet;
         }
         return NO_ERROR;
     } else {
@@ -83,17 +83,17 @@ int irc_leaveRoom()
 
 int irc_sendLobbyMessage(char *message)
 {
-    char *lobby_message_command = malloc(COMMAND_SIZE 
+    char *lobbyMessageCommand = malloc(COMMAND_SIZE 
                                         + strlen(LOBBY_CHANNEL)
                                         + strlen(message));
-    sprintf(lobby_message_command, 
+    sprintf(lobbyMessageCommand, 
             "PRIVMSG %s %s\r\n", 
             LOBBY_CHANNEL, message);
-    int send_ret = network_send(lobby_message_command, strlen(lobby_message_command));
+    int sendRet = network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
     
-    free(lobby_message_command);
-    if (send_ret != NO_ERROR) {
-        return send_ret;
+    free(lobbyMessageCommand);
+    if (sendRet != NO_ERROR) {
+        return sendRet;
     } else {
         return NO_ERROR;
     }

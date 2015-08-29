@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include "../../src/irc/irc.h"
 
+extern int currentRoom;
+
 /**
  * @brief Creates a testing server that connects to the client then returns
  *        the file descriptor.
@@ -380,3 +382,60 @@ void test_irc_joinRoom()
     close(server_sock);
 }
 
+void test_irc_leaveRoom()
+{
+    struct sockaddr_in test_server;
+
+    memset(&test_server, 0, sizeof(test_server));
+    test_server.sin_family = AF_INET;
+    test_server.sin_addr.s_addr = inet_addr("localhost");
+    test_server.sin_port = htons(8080);
+
+    // test for a room of the form #cruce-devel002
+    currentRoom = 2;
+    char expected_message[] = "PART #cruce-devel002\r\n";
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int server_sock = serverHelper();
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
+                        "Failed to read message from client");
+        cut_assert_equal_strings(expected_message2, buffer);
+
+        close(server_sock);
+        exit(EXIT_SUCCESS);
+    }
+
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
+                            sizeof(test_server)) >= 0,
+                    "Failed o connect to the server");
+
+    cut_assert_equal_int(irc_leaveRoom(), 0);
+
+    // No message should be send to the server when the room number is invalid
+    currentRoom = -1000;
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int server_sock = serverHelper();
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_equal_int(read(server_sock, buffer, 513), 0);
+
+        close(server_sock);
+        exit(EXIT_SUCCESS);
+    }
+
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
+                            sizeof(test_server)) >= 0,
+                    "Failed o connect to the server");
+
+    cut_assert_not_equal_int(irc_leaveRoom(), 0);
+
+    close(server_sock);
+}

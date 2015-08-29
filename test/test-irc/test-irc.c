@@ -236,3 +236,35 @@ void test_irc_sendLobbyMessage()
 
     close(server_sock);
 }
+
+void test_irc_disconnect()
+{
+    struct sockaddr_in test_server;
+
+    memset(&test_server, 0, sizeof(test_server));
+    test_server.sin_family = AF_INET;
+    test_server.sin_addr.s_addr = inet_addr("localhost");
+    test_server.sin_port = htons(8080);
+
+    char expected_message[513] = "QUIT\r\n";
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int server_sock = serverHelper();
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+                        "Failed to read message from client");
+        cut_assert_equal_strings(expected_message, buffer);
+
+        close(server_sock);
+        exit(EXIT_SUCCESS);
+    }
+
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+                            sizeof(test_server)) >= 0, 
+                     "Failed o connect to the server");
+
+    irc_disconnect();
+}

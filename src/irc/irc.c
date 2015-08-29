@@ -59,3 +59,22 @@ int irc_joinRoom(int room_number)
     current_room = room_number;
     return NO_ERROR;
 }
+
+int irc_leaveRoom()
+{
+    char room_name[strlen(ROOM_FORMAT) + 3];
+    if (current_room != -1) {
+        sprintf(room_name, ROOM_FORMAT, current_room);
+
+        char part_command[COMMAND_SIZE + strlen(room_name)];
+        sprintf(part_command, "PART %s\r\n", room_name);
+
+        int send_ret = network_send(part_command, strlen(part_command));
+        if (send_ret != NO_ERROR) {
+            return send_ret;
+        }
+        return NO_ERROR;
+    } else {
+        return -1;
+    }
+}

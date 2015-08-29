@@ -115,7 +115,7 @@ void test_irc_sendLobbyMessage()
     char expected_messages[3][513] = {
         "PRIVMSG #cruce-devel test test test test\r\n",
         "PRIVMSG #cruce-devel \r\n",
-        // begins here
+        // Begins here
         "PRIVMSG #cruce-devel test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
@@ -125,13 +125,13 @@ void test_irc_sendLobbyMessage()
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test  test "
         "test tes\r\n"
-        // and ends here
+        // and ends here.
     };
 
     char inputs[3][514] = {
         "test test test test",
         "",
-        // begins here
+        // Begins here
         "test test test test test "
         "test test test test test test test test test test "
         "test test test test test test test test test test "
@@ -143,12 +143,12 @@ void test_irc_sendLobbyMessage()
         "test test test test test test test test test test "
         "test test test test test test test test test test "
         "test test test test test test test"
-        // and ends here
+        // and ends here.
     };
 
-    // if test_parametersp[i] == 1 then
+    // If test_parametersp[i] == 1 then
     // cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0) will be issued
-    // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0)
+    // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0).
     int test_parameters[3] = {1, 1, 0};
 
     for (int i = 0; i < 3 i++) {
@@ -237,7 +237,7 @@ void test_irc_joinRoom()
             if (test_parameters[i]) {
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
             } else {
-                // if we try to connect to an invalid room (`#cruce-devel1000`,
+                // If we try to connect to an invalid room (`#cruce-devel1000`,
                 // for example) the server should not receive any message
                 // from the client. Thus, `read` will return 0.
                 cut_assert_equal_int(read(server_sock, buffer, 513), 0);
@@ -287,9 +287,9 @@ void test_irc_leaveRoom()
             if (test_parameters[i]) {
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
             } else {
-                // if we are on this branch it means we are testing the case
+                // If we are on this branch it means we are testing the case
                 // where `currentRoom` has an invalid value, thus `read` should
-                // return `0`
+                // return `0`.
                 cut_assert_equal_int(read(server_sock, buffer, 513), 0);
             }
 

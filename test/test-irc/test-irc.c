@@ -262,11 +262,13 @@ void test_irc_disconnect()
         exit(EXIT_SUCCESS);
     }
 
+    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
                             sizeof(test_server)) >= 0, 
                      "Failed o connect to the server");
 
     cut_assert_equal_int(irc_disconnect(), 0);
+    clsoe(server_sock);
 }
 
 void test_irc_joinRoom()

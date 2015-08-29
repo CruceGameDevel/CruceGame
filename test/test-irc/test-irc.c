@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include "../../src/irc/irc.h"
+#include <irc.h>
 
 extern int currentRoom;
 

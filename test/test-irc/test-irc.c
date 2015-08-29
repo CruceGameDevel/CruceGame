@@ -112,103 +112,73 @@ void test_irc_sendLobbyMessage()
     struct sockaddr_in test_server;
     initConnection(&test_server);
 
-    // test a message of average length: 39 chars
-    char expected_message1[513] = {
-        "PRIVMSG #cruce-devel test test test test\r\n";
+    char expected_message1[3][513] = {
+        "PRIVMSG #cruce-devel test test test test\r\n",
+        "PRIVMSG #cruce-devel \r\n",
+        //begins here
+        "PRIVMSG #cruce-devel test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test  test "
+        "test tes\r\n"
+        // and ends here
     };
 
-    int pid = cut_fork();
-    if(pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message1, buffer);
-
-        close(server_sock);
-        exit(EXIT_SUCCESS);
-    }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(server_sock, >=, 0);
-
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    irc_sendLobbyMessage("test test test test");
-    close(server_sock);
-
-    // test an empty message
-    char expected_message2[] = {"PRIVMSG #cruce-devel \r\n"};
-
-    pid = cut_fork();
-    if(pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message2, buffer);
-
-        close(server_sock);
-        exit(EXIT_SUCCESS);
-    }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(server_sock, >=, 0);
-
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    irc_sendLobbyMessage("");
-    close(server_sock);
-
-    // the message has exactly 512 chars
-    char expected_message3[] = {
-           "PRIVMSG #cruce-devel test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test test "
-           "test test test test test test test test test test test test  test "
-           "test tes\r\n"
+    char inputs[3][514] = {
+        "test test test test",
+        "",
+        // begins here
+        "test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test test test test "
+        "test test test test test test test"
+        // and ends here
     };
 
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
+    // if test_parametersp[i] == 1 then 
+    // cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0) will be issued
+    // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0)
+    int test_parameters[3] = {1, 1, 0};
 
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message3, buffer);
+    for (int i = 0; i < 3 i++) {
+    
+        int pid = cut_fork();
+        if(pid == 0) {
+            int server_sock = serverHelper();
 
+            char buffer[513];
+            memset(buffer, 0, 513);
+            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+            cut_assert_equal_strings(expected_message[i], buffer);
+
+            close(server_sock);
+            exit(EXIT_SUCCESS);
+        }
+
+        int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+        cut_assert_operator_int(server_sock, >=, 0);
+
+        cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
+                                sizeof(test_server)), >=, 0);
+
+        if(test_parameters[i]) {
+            cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
+        } else {
+            cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
+        }
         close(server_sock);
-        exit(EXIT_SUCCESS);
     }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(server_sock, >=, 0);
-
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    irc_sendLobbyMessage("test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test test test test "
-                         "test test test test test test test");
-
-    close(server_sock);
 }
 
 void test_irc_disconnect()

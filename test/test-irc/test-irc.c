@@ -19,7 +19,7 @@
  *
  * @return none.
  */
-void serverHelper(size_t count, char **expected_messages)
+int serverHelper(size_t count, char **expected_messages)
 {
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create the server socket");
@@ -43,30 +43,7 @@ void serverHelper(size_t count, char **expected_messages)
     int client_sock = accept(server_sock, (struct sockaddr *)&test_client,
                              &client_length);
 
-    cut_assert_true(client_sock >= 0, "Failed to accept connection");
-
-    char **received_messages = malloc(count);
-    cut_assert_not_null(recived_messages);
-    for (int i = 0; i < count; i++) {
-        // every irc line has at most 513 chars
-        received_messages[i] = malloc(513);
-        memset(received_messages, 0, 513);
-        cut_assert_not_null(received_messages[i]);
-    }
-
-    for (int i = 0; i < count; i++) {
-        cut_assert_true(read(client_sock, received_messages[i], 513) >= 0,
-                        "Failed to read message from client");
-        cut_assert_equal_string(expected_messages[i], received_messages[i]);
-    }
-
-    for (int i = 0; i < count; i++) {
-        free(received_messages[i]);
-    }
-    free(received_messages);
-
-    close(client_sock);
-    close(server_sock);
+    return client_sock;
 }
 
 void test_irc_connect()

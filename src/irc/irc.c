@@ -13,12 +13,12 @@ int irc_connect(char *name)
     if (connectRet != NO_ERROR) {
         return connectRet;
     }
-    
+
     // Allocate memory for our variables.
     char *nickCommand = malloc(COMMAND_SIZE + strlen(name));
     char *userCommand = malloc(COMMAND_SIZE + strlen(name) * 2);
     char *joinCommand = malloc(COMMAND_SIZE + strlen(LOBBY_CHANNEL));
-    
+
     // Prepare commands.
     sprintf(nickCommand, "NICK %s\r\n", name);
     sprintf(userCommand, "USER %s 8 * :%s\r\n", name, name);
@@ -100,16 +100,16 @@ int irc_leaveRoom()
 int irc_sendLobbyMessage(char *message)
 {
     // Allocate memory for message command and prepare it.
-    char *lobbyMessageCommand = malloc(COMMAND_SIZE 
+    char *lobbyMessageCommand = malloc(COMMAND_SIZE
                                         + strlen(LOBBY_CHANNEL)
                                         + strlen(message));
-    sprintf(lobbyMessageCommand, 
-            "PRIVMSG %s %s\r\n", 
+    sprintf(lobbyMessageCommand,
+            "PRIVMSG %s %s\r\n",
             LOBBY_CHANNEL, message);
-    
+
     // Send message command.
     int sendRet = network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
-    
+
     // Free memory and test for errors.
     free(lobbyMessageCommand);
     if (sendRet != NO_ERROR) {

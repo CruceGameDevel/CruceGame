@@ -390,8 +390,9 @@ void test_irc_leaveRoom()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
+    cut_assert_operator_int(connect(server_sock,
+                            (struct sockaddr *)&test_server,
+                             sizeof(test_server)), >=, 0);
 
     cut_assert_equal_int(irc_leaveRoom(), 0);
 

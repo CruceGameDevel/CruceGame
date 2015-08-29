@@ -134,16 +134,22 @@ void test_irc_sendLobbyMessage()
     test_server.sin_addr.s_addr = inet_addr("localhost");
     test_server.sin_port = htons(8080);
 
-
     // test a message of average length: 39 chars
-    char expected_messages[4][513] = {
+    char expected_messages[513] = {
         "PRVMSG #cruce-devel test test test test\r\n";
     };
 
-
     int pid = cut_fork();
     if(pid == 0) {
-        serverHelper(1, expected_messages);
+        int server_sock = serverHelper(1, expected_messages);
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+                        "Failed to read from server");
+        cut_assert_equal_strings(expected_messages, buffer);
+
+        close(server_sock);
         exit(EXIT_SUCCESS);
     }
 
@@ -162,7 +168,15 @@ void test_irc_sendLobbyMessage()
 
     pid = cut_fork();
     if(pid == 0) {
-        serverHelper(1, expected_messages);
+        int server_sock = serverHelper(1, expected_messages);
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+                        "Failed to read from server");
+        cut_assert_equal_strings(expected_messages, buffer);
+
+        close(server_sock);
         exit(EXIT_SUCCESS);
     }
 
@@ -188,6 +202,20 @@ void test_irc_sendLobbyMessage()
            "test test test test test test test test test test test test  test "
            "test test\r\n");
 
+    pid = cut_fork();
+    if (pid == 0) {
+        int server_sock = serverHelper(1, expected_messages);
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+                        "Failed to read from server");
+        cut_assert_equal_strings(expected_messages, buffer);
+
+        close(server_sock);
+        exit(EXIT_SUCCESS);
+    }
+
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create socket");
 
@@ -207,5 +235,4 @@ void test_irc_sendLobbyMessage()
                          "test test test test test test test");
 
     close(server_sock);
-
 }

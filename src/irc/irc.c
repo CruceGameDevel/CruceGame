@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int current_room = -1;
+
 int irc_connect(char *name)
 {
     int connect_ret = network_connect(IRC_SERVER, IRC_PORT);

@@ -40,6 +40,14 @@ int serverHelper()
     return client_sock;
 }
 
+void initConnection(struct sockaddr_in *test_server)
+{
+    memset(test_server, 0, sizeof(*test_server));
+    test_server->sin_family = AF_INET;
+    test_server->sin_addr.s_addr = inet_addr("localhost");
+    test_server->sin_port = htons(8080);
+}
+
 void test_irc_connect()
 {
     // test for user name: test_user

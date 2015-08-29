@@ -46,11 +46,19 @@
 #define COMMAND_SIZE 30
 
 /**
- * @brief Connect to the irc server and join the looby.
+ * @brief Connect to the IRC server using 'network_connect' and
+ *        send necessary data for connection respecting IRC protocol:
+ *        1. PASS *  (the lobby doesn't have a password, just a convention).
+ *        2. NICK <name> (set the nick of the player).
+ *        3. USER <name> <mode> :<name> (set the user of the player).
+ *        4. JOIN <channel> (join to the lobby channel).
+ *        ALL COMMAND STRINGS MUST BE TERMINATED IN "\r\n".
+ *
+ * @param name The name of the user that wants to connect.
  *
  * @return 0 on success, other value on failure.
  */
-void irc_connect();
+int irc_connect(char *name);
 
 /**
  * @brief Join a room. AT MOST ONE ROOM CAN BE JOINED AT ANY TIME.

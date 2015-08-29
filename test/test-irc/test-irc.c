@@ -424,7 +424,7 @@ void test_irc_leaveRoom()
         int server_sock = serverHelper();
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_equal_int(read(server_sock, buffer, 513), 0);
+        cut_assert_not_equal_int(read(server_sock, buffer, 513), 0);
 
         close(server_sock);
         exit(EXIT_SUCCESS);

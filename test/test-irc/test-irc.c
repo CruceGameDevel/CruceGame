@@ -215,99 +215,42 @@ void test_irc_joinRoom()
     initConnection(&test_server)
 
     // test the room of the form #cruce-devel001
-    char expected_message1[] = "JOIN #cruce-devel001\r\n";
+    char expected_message1[4][513] = {
+        "JOIN #cruce-devel001\r\n",
+        "JOIN #cruce-devel000\r\n",
+        "JOIN #cruce-devel999\r\n",
+        "JOIN #cruce-devel1000\r\n"
+    };
 
-    int pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
+    int inputs[4] = {1, 0, 999, 1000};
 
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message1, buffer);
+    int test_parameters[4] = {1, 1, 1, 0};
 
+    for (int i = 0; i < 4; i++) {
+        int pid = cut_fork();
+        if (pid == 0) {
+            int server_sock = serverHelper();
+
+            char buffer[513];
+            memset(buffer, 0, 513);
+            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+            cut_assert_equal_strings(expected_message[i], buffer);
+
+            close(server_sock);
+            exit(EXIT_SUCCESS);
+        }
+
+        int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+        cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
+                                sizeof(test_server)), >=, 0);
+
+        if (test_parameters[i]) {
+            cut_assert_equal_int(irc_joinRoom(inputs[i]), 0);
+        } else {
+            cut_assert_not_equal_int(irc_joinRoom(inputs[i]), 0);
+        }
         close(server_sock);
-        exit(EXIT_SUCCESS);
     }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    cut_assert_equal_int(irc_joinRoom(1), 0);
-
-    close(server_sock);
-
-    // test for a room of the form #cruce-devel000
-    char expected_message2[] = "JOIN #cruce-devel000\r\n";
-
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message2, buffer);
-
-        close(server_sock);
-        exit(EXIT_SUCCESS);
-    }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    cut_assert_equal_int(irc_joinRoom(0), 0);
-
-    close(server_sock);
-
-    // test for a room of the form #cruce-devel999
-    char expected_message3[] = "JOIN #cruce-devel999\r\n";
-
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message3, buffer);
-
-        close(server_sock);
-        exit(EXIT_SUCCESS);
-    }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server,
-                            sizeof(test_server)), >=, 0);
-
-    cut_assert_equal_int(irc_joinRoom(999), 0);
-
-    close(server_sock);
-
-    // test for a room of the form #cruce-devel1000
-    char expected_message4[] = "JOIN #cruce-devel1000\r\n";
-
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        memset(buffer, 0, 513);
-        cut_assert_not_equal_int(read(server_sock, buffer, 513), 0);
-
-        close(server_sock);
-        exit(EXIT_SUCCESS);
-    }
-
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock, (struct sockaddr *)&test_server, 
-                            sizeof(test_server)), >=, 0);
-
-    cut_assert_not_equal_int(irc_joinRoom(1000), 0);
-
-    close(server_sock);
 }
 
 void test_irc_leaveRoom()

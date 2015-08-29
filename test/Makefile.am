@@ -1,6 +1,6 @@
 AM_CPPFLAGS = $(CUTTER_CFLAGS)  -I$(top_srcdir)/src/libCruceGame \
 				-I$(top_srcdir)/src/libAsciiGui \
-				-I$(top_srcdir)/src/libNetworking \
+				-I$(top_srcdir)/src/networking \
 				-DDEBUG
 
 LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined

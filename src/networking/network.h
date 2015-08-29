@@ -5,6 +5,8 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include <stddef.h>
+
 /**
  * @brief Issued when the function finished the job with no error.
  */

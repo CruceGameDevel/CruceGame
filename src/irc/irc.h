@@ -17,34 +17,74 @@
  * TODO: add handler register/unregister methods.
  */
 
-/**
- * @brief Connect to the irc server and join the looby.
- *
- * @return 0 on success, other value on failure.
- */
-void irc_connect();
+#ifndef IRC_H
+#define IRC_H
 
 /**
- * @brief Join a room. AT MOST ONE ROOM CAN BE JOINED AT ANY TIME.
- *
- * @return 0 on success, other value on failure.
+ * @brief Name of the IRC server for the game.
  */
-void irc_joinRoom();
+#define IRC_SERVER "irc.freenode.net"
 
 /**
- * @brief Leave the room.
- *
- * @return 0 on success, other value on failure.
+ * @brief Port number for connection to IRC.
  */
-void irc_leaveRoom();
+#define IRC_PORT 6667
 
 /**
- * @brief End the connection to the irc server, doing the necessary teardown
- *        operations.
+ * @brief Name of lobby channel.
+ */
+#define LOBBY_CHANNEL "#cruce-devel"
+
+/**
+ * @brief String format for room names.
+ */
+#define ROOM_FORMAT "#cruce-game%03d"
+
+/**
+ * @brief Minimum size for strings with IRC commands.
+ */
+#define COMMAND_SIZE 30
+
+/**
+ * @brief Connect to the IRC server using 'network_connect' and
+ *        send necessary data for connection respecting IRC protocol:
+ *        1. PASS *  (the lobby doesn't have a password, just a convention).
+ *        2. NICK <name> (set the nick of the player).
+ *        3. USER <name> <mode> :<name> (set the user of the player).
+ *        4. JOIN <channel> (join to the lobby channel).
+ *        ALL COMMAND STRINGS MUST BE TERMINATED IN "\r\n".
+ *
+ * @param name The name of the user that wants to connect.
  *
  * @return 0 on success, other value on failure.
  */
-void irc_disconnect();
+int irc_connect(char *name);
+
+/**
+ * @brief Join a room using JOIN command, like:
+ *        JOIN #cruce-gameXXX (where XXX is room number).
+ *        AT MOST ONE ROOM CAN BE JOINED AT ANY TIME.
+ *
+ * @param roomNumber Number of the room to join. 
+ *
+ * @return 0 on success, other value on failure.
+ */
+int irc_joinRoom(int roomNumber);
+
+/**
+ * @brief Leave the current room using PART command:
+ *        PART #cruce-gameXXX (where XXX is current room number).
+ *
+ * @return 0 on success, other value on failure.
+ */
+int irc_leaveRoom();
+
+/**
+ * @brief Send QUIT command to the IRC server and close the connection.
+ *
+ * @return 0 on success, other value on failure.
+ */
+int irc_disconnect();
 
 /**
  * @brief Create a new room and join it.
@@ -91,7 +131,8 @@ char *irc_getAvailableRooms();
 int irc_invite(char *nickname);
 
 /**
- * @brief Send an IRC message to the lobby.
+ * @brief Send an IRC message to the lobby, using PRIVMSG:
+ *        PRIVMSG <channel> <message>
  *
  * @param message The message to be sent. Must be NUL terminated.
  *
@@ -113,3 +154,4 @@ int irc_sendRoomMessage(char *message);
  */
 void irc_handleNextMessage();
 
+#endif

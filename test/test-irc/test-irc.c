@@ -294,7 +294,7 @@ void test_irc_leaveRoom()
             }
 
             if (test_parameters[i]) {
-                cut_assert_equal_strings(expected_message2, buffer);
+                cut_assert_equal_strings(expected_message, buffer);
             }
 
             close(server_sock);

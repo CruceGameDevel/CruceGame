@@ -215,7 +215,6 @@ void test_irc_joinRoom()
     struct sockaddr_in test_server;
     initConnection(&test_server)
 
-    // test the room of the form #cruce-devel001
     char expected_message1[4][513] = {
         "JOIN #cruce-devel001\r\n",
         "JOIN #cruce-devel000\r\n",
@@ -274,7 +273,6 @@ void test_irc_leaveRoom()
     char expected_message[] = "PART #cruce-devel002\r\n";
     int currentRoomValues[] = {2, -1000};
     int test_parameters[] = {1, 0};
-    // test for a room of the form #cruce-devel002
 
     for (int i = 0; i < 2; i++) {
         currentRoom = currentRoomValues[i];

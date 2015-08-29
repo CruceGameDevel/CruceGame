@@ -60,80 +60,51 @@ void initConnection(struct sockaddr_in *test_server)
 
 void test_irc_connect()
 {
-    // test for user name: test_user
-    char expected_messages1[4][513] = {
-        "PASS *\r\n",
-        "NICK test_user\r\n",
-        "USER test_user 8 * :test_user\r\n",
-        "JOIN #cruce-devel\r\n"
+    char expected_messages[3][4][513] = {
+        {
+            "PASS *\r\n",
+            "NICK test_user\r\n",
+            "USER test_user 8 * :test_user\r\n",
+            "JOIN #cruce-devel\r\n"
+        },
+        {
+            "PASS *\r\n",
+            "NICK \r\n",
+            "USER  8 * :\r\n",
+            "JOIN #cruce-devel\r\n"
+        },
+        {
+            "PASS *\r\n",
+            "NICK test_user_\r\n",
+            "USER test_user_ 8 * :test_user_\r\n",
+            "JOIN #cruce-devel\r\n"
+        }
     };
 
-    int pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        for (int i = 0; i < 4; i++) {
-            memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_messages1[i], buffer);
-        }
-        close(server_sock);
-
-        exit(EXIT_SUCCESS);
-    }
-
-    irc_connect("test_user");
-
-    // test for user name: (empty user name)
-    char expected_messages2[4][513] = {
-        "PASS *\r\n",
-        "NICK \r\n",
-        "USER  8 * :\r\n",
-        "JOIN #cruce-devel\r\n"
+    char inputs[3][10] = {
+        "test_user",
+        "",
+        "test_user_"
     };
 
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
+    for (int i = 0; i < 3; i++) {
+        int pid = cut_fork();
+        if (pid == 0) {
+            int server_sock = serverHelper();
 
-        char buffer[513];
-        for (int i = 0; i < 4; i++) {
-            memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_messages2[i], buffer);
+            char buffer[513];
+            for (int j = 0; j < 4; j++) {
+                memset(buffer, 0, 513);
+                cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+                cut_assert_equal_strings(expected_messages[i][j], buffer);
+            }
+            close(server_sock);
+
+            exit(EXIT_SUCCESS);
         }
-        close(server_sock);
 
-        exit(EXIT_SUCCESS);
+        irc_connect(inputs[i]);
     }
-
-    irc_connect("");
-
-    // test with a nick name bigger than 9 chars: test_user_ (10 chars)
-    char expected_message3[4][513] = {
-        "PASS *\r\n",
-        "NICK test_user_\r\n",
-        "USER test_user_ 8 * :test_user_\r\n",
-        "JOIN #cruce-devel\r\n"
-    };
-
-    pid = cut_fork();
-    if (pid == 0) {
-        int server_sock = serverHelper();
-
-        char buffer[513];
-        for (int i = 0; i < 4; i++) {
-            memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_messages3[i], buffer);
-        }
-        close(server_sock);
-
-        exit(EXIT_SUCCESS);
-    }
-
-    irc_connect("test_user_");
 }
 
 void test_irc_sendLobbyMessage()

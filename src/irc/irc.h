@@ -18,6 +18,31 @@
  */
 
 /**
+ * @brief Name of the IRC server for the game.
+ */
+#define IRC_SERVER "irc.freenode.net"
+
+/**
+ * @brief Port number for connection to IRC.
+ */
+#define IRC_PORT 6667
+
+/**
+ * @brief Name of lobby channel.
+ */
+#define LOBBY_CHANNEL "#cruce-devel"
+
+/**
+ * @brief String format for room names.
+ */
+#define ROOM_FORMAT "#cruce-game%03d"
+
+/**
+ * @brief Minimum size for strings with IRC commands.
+ */
+#define COMMAND_SIZE 30
+
+/**
  * @brief Connect to the irc server and join the looby.
  *
  * @return 0 on success, other value on failure.

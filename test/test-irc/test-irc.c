@@ -70,7 +70,7 @@ void test_irc_connect()
 
     pid = cut_fork();
     if (pid == 0) {
-        int server_sock = serverHelper(4, expected_messages);
+        int server_sock = serverHelper();
 
         char buffer[513];
         for (int i = 0; i < 4; i++) {
@@ -79,7 +79,6 @@ void test_irc_connect()
                             "Failed to read from server");
             cut_assert_equal_strings(expected_messages[i], buffer);
         }
-
         close(server_sock);
 
         exit(EXIT_SUCCESS);

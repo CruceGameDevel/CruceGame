@@ -78,3 +78,21 @@ int irc_leaveRoom()
         return -1;
     }
 }
+
+int irc_sendLobbyMessage(char *message)
+{
+    char *lobby_message_command = malloc(COMMAND_SIZE 
+                                        + strlen(LOBBY_CHANNEL)
+                                        + strlen(message));
+    sprintf(lobby_message_command, 
+            "PRIVMSG %s %s\r\n", 
+            LOBBY_CHANNEL, message);
+    int send_ret = network_send(lobby_message_command, strlen(lobby_message_command));
+    
+    free(lobby_message_command);
+    if (send_ret != NO_ERROR) {
+        return send_ret;
+    } else {
+        return NO_ERROR;
+    }
+}

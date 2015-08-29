@@ -8,16 +8,10 @@
 #include "../../src/irc/irc.h"
 
 /**
- * @brief In order to test the irc module we have o intercept the messages sent 
- *        by the functions in this module. To accomplish this task we have 
- *        implemented this function which compares the messages sent by the
- *        tested function with the expected result.
+ * @brief Creates a testing server that connects to the client then returns
+ *        the file descriptor.
  *
- * @param count Number of expected messages.
- * @param expected_messages An array of strings containing all the expected 
- *        messages in the order they will be compared. 
- *
- * @return none.
+ * @return The file descriptor of the server.
  */
 int serverHelper()
 {

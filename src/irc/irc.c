@@ -6,6 +6,19 @@
 
 int currentRoom = -1;
 
+/**
+ * Use network_connect to open a connection to IRC server.
+ *
+ * After, sends "PASS *" command (just a convention, because 
+ * lobby doesn't have a password), then sends "NICK <name>" 
+ * and "USER <name> 8 * :<name>" commands to set the player name and nick,
+ * where <name> is the name of the player and "8 *" is the user mode. 
+ *
+ * At last, it sends "JOIN <channel>" command to join the lobby, 
+ * where <channel> is the lobby channel name.
+ *
+ * ALL COMMANDS MUST BE TERMINATED IN "\r\n".
+ */
 int irc_connect(char *name)
 {
     // Connect to IRC server and test for errors.
@@ -38,6 +51,10 @@ int irc_connect(char *name)
     return NO_ERROR;
 }
 
+/**
+ * It simply sends the "QUIT" command and use network_disconnect
+ * to close the connection.
+ */
 int irc_disconnect()
 {
     // Send QUIT command and disconnect from server.
@@ -52,6 +69,11 @@ int irc_disconnect()
     }
 }
 
+/**
+ * Takes room number as argument and generates room name using the
+ * following format: "#cruce-gameXXX" where XXX is the number of room.
+ * After, it sends "JOIN #cruce-gameXXX" command to server to join the room.
+ */
 int irc_joinRoom(int roomNumber)
 {
     // Prepare room name.
@@ -74,6 +96,11 @@ int irc_joinRoom(int roomNumber)
     return NO_ERROR;
 }
 
+/**
+ * First test if player has joined in any room. If not, return -1, else
+ * generate room name using current room number and send "PART #cruce-gameXXX"
+ * command to leave the room.
+ */
 int irc_leaveRoom()
 {
     char roomName[strlen(ROOM_FORMAT) + 3];
@@ -97,6 +124,11 @@ int irc_leaveRoom()
     }
 }
 
+/**
+ * Send "PRIVMSG <channel> <message>" command for sending 
+ * a message to lobby, where <channel> is name of the lobby
+ * channel and <message> is message to send.
+ */
 int irc_sendLobbyMessage(char *message)
 {
     // Allocate memory for message command and prepare it.

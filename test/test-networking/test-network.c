@@ -138,6 +138,9 @@ void test_network_connect() {
                              "Reconnection attempt succedeed without "
                              "previous disconnect");
     connectToLocalhostSocket(8081);
+
+    close(sockfd);
+    sockfd = -1;
 }
 
 /**

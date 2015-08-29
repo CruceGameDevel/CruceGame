@@ -266,5 +266,7 @@ void test_irc_disconnect()
                             sizeof(test_server)) >= 0, 
                      "Failed o connect to the server");
 
-    irc_disconnect();
+    cut_assert_equal_int(irc_disconnect(), 0);
 }
+
+

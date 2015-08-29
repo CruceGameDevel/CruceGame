@@ -112,7 +112,7 @@ void test_irc_sendLobbyMessage()
     struct sockaddr_in test_server;
     initConnection(&test_server);
 
-    char expected_message1[3][513] = {
+    char expected_messages[3][513] = {
         "PRIVMSG #cruce-devel test test test test\r\n",
         "PRIVMSG #cruce-devel \r\n",
         // begins here
@@ -159,7 +159,7 @@ void test_irc_sendLobbyMessage()
             char buffer[513];
             memset(buffer, 0, 513);
             cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_message[i], buffer);
+            cut_assert_equal_strings(expected_messages[i], buffer);
 
             close(server_sock);
             exit(EXIT_SUCCESS);
@@ -215,7 +215,7 @@ void test_irc_joinRoom()
     struct sockaddr_in test_server;
     initConnection(&test_server)
 
-    char expected_message1[4][513] = {
+    char expected_messages[4][513] = {
         "JOIN #cruce-devel001\r\n",
         "JOIN #cruce-devel000\r\n",
         "JOIN #cruce-devel999\r\n",
@@ -244,7 +244,7 @@ void test_irc_joinRoom()
             }
 
             if (test_parameters[i]) {
-                cut_assert_equal_strings(expected_message[i], buffer);
+                cut_assert_equal_strings(expected_messages[i], buffer);
             }
 
             close(server_sock);

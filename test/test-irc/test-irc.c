@@ -44,7 +44,7 @@ int serverHelper()
 
 void test_irc_connect()
 {
-    // test for user name: test_user 
+    // test for user name: test_user
     char expected_messages1[4][513] = {
         "PASS *\r\n",
         "NICK test_user\r\n",
@@ -59,7 +59,7 @@ void test_irc_connect()
         char buffer[513];
         for (int i = 0; i < 4; i++) {
             memset(buffer, 0, 513);
-            cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+            cut_assert_true(read(server_sock, buffer, 513) >= 0,
                             "Failed to read from server");
             cut_assert_equal_strings(expected_messages1[i], buffer);
         }
@@ -85,7 +85,7 @@ void test_irc_connect()
         char buffer[513];
         for (int i = 0; i < 4; i++) {
             memset(buffer, 0, 513);
-            cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+            cut_assert_true(read(server_sock, buffer, 513) >= 0,
                             "Failed to read from server");
             cut_assert_equal_strings(expected_messages2[i], buffer);
         }
@@ -111,7 +111,7 @@ void test_irc_connect()
         char buffer[513];
         for (int i = 0; i < 4; i++) {
             memset(buffer, 0, 513);
-            cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+            cut_assert_true(read(server_sock, buffer, 513) >= 0,
                             "Failed to read from server");
             cut_assert_equal_strings(expected_messages3[i], buffer);
         }
@@ -143,7 +143,7 @@ void test_irc_sendLobbyMessage()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read from server");
         cut_assert_equal_strings(expected_message1, buffer);
 
@@ -154,7 +154,7 @@ void test_irc_sendLobbyMessage()
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create socket");
 
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
                             sizeof(test_server)) >= 0, "Failed to connect");
 
     irc_sendLobbyMessage("test test test test");
@@ -169,7 +169,7 @@ void test_irc_sendLobbyMessage()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read from server");
         cut_assert_equal_strings(expected_message2, buffer);
 
@@ -180,13 +180,13 @@ void test_irc_sendLobbyMessage()
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create socket");
 
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
                             sizeof(test_server)) >= 0, "Failed to connect");
 
     irc_sendLobbyMessage("");
     close(server_sock);
 
-    // the message has exactly 512 chars 
+    // the message has exactly 512 chars
     char expected_message3[] = {
            "PRIVMSG #cruce-devel test test test test test "
            "test test test test test test test test test test test test test "
@@ -205,7 +205,7 @@ void test_irc_sendLobbyMessage()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read from server");
         cut_assert_equal_strings(expected_message3, buffer);
 
@@ -216,7 +216,7 @@ void test_irc_sendLobbyMessage()
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create socket");
 
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
                             sizeof(test_server)) >= 0, "Failed to connect");
 
     irc_sendLobbyMessage("test test test test test "
@@ -251,7 +251,7 @@ void test_irc_disconnect()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read message from client");
         cut_assert_equal_strings(expected_message, buffer);
 
@@ -260,8 +260,8 @@ void test_irc_disconnect()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
-                            sizeof(test_server)) >= 0, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
+                            sizeof(test_server)) >= 0,
                      "Failed o connect to the server");
 
     cut_assert_equal_int(irc_disconnect(), 0);
@@ -286,7 +286,7 @@ void test_irc_joinRoom()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read message from client");
         cut_assert_equal_strings(expected_message1, buffer);
 
@@ -295,7 +295,7 @@ void test_irc_joinRoom()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
                             sizeof(test_server)) >= 0, 
                     "Failed o connect to the server");
 
@@ -312,7 +312,7 @@ void test_irc_joinRoom()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read message from client");
         cut_assert_equal_strings(expected_message2, buffer);
 
@@ -321,8 +321,8 @@ void test_irc_joinRoom()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
-                            sizeof(test_server)) >= 0, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
+                            sizeof(test_server)) >= 0,
                     "Failed o connect to the server");
 
     cut_assert_equal_int(irc_joinRoom(0), 0);
@@ -338,7 +338,7 @@ void test_irc_joinRoom()
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+        cut_assert_true(read(server_sock, buffer, 513) >= 0,
                         "Failed to read message from client");
         cut_assert_equal_strings(expected_message3, buffer);
 
@@ -347,8 +347,8 @@ void test_irc_joinRoom()
     }
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
-                            sizeof(test_server)) >= 0, 
+    cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server,
+                            sizeof(test_server)) >= 0,
                     "Failed o connect to the server");
 
     cut_assert_equal_int(irc_joinRoom(999), 0);
@@ -372,7 +372,7 @@ void test_irc_joinRoom()
 
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(connect(server_sock, (struct sockaddr *)&test_server, 
-                            sizeof(test_server)) >= 0, 
+                            sizeof(test_server)) >= 0,
                     "Failed o connect to the server");
 
     cut_assert_not_equal_int(irc_joinRoom(1000), 0);

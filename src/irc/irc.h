@@ -17,6 +17,9 @@
  * TODO: add handler register/unregister methods.
  */
 
+#ifndef IRC_H
+#define IRC_H
+
 /**
  * @brief Name of the IRC server for the game.
  */
@@ -138,3 +141,4 @@ int irc_sendRoomMessage(char *message);
  */
 void irc_handleNextMessage();
 
+#endif

@@ -19,7 +19,7 @@
  *
  * @return none.
  */
-int serverHelper(size_t count, char **expected_messages)
+int serverHelper()
 {
     int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     cut_assert_true(server_sock >= 0, "Failed to create the server socket");

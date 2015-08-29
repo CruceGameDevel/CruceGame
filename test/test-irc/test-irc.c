@@ -70,7 +70,16 @@ void test_irc_connect()
 
     pid = cut_fork();
     if (pid == 0) {
-        serverHelper(4, expected_messages);
+        int server_sock = serverHelper(4, expected_messages);
+
+        char buffer[513];
+        for (int i = 0; i < 4; i++) {
+            memset(buffer, 0, 513);
+            cut_assert_equal_strings(expected_messages[i], buffer);
+        }
+
+        close(server_sock);
+
         exit(EXIT_SUCCESS);
     }
 

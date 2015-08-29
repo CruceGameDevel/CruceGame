@@ -75,6 +75,8 @@ void test_irc_connect()
         char buffer[513];
         for (int i = 0; i < 4; i++) {
             memset(buffer, 0, 513);
+            cut_assert_true(read(server_sock, buffer, 513) >= 0, 
+                            "Failed to read from server");
             cut_assert_equal_strings(expected_messages[i], buffer);
         }
 

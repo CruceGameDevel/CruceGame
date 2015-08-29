@@ -24,7 +24,7 @@ int serverHelper()
     test_server.sin_family = AF_INET;
     test_server.sin_addr.s_addr = INADDR_ANY;
     test_server.sin_port = htons(8080);
-    
+
     cut_assert_true(bind(server_sock, (struct sockaddr *)&test_server,
                          sizeof(test_server)) >= 0, "Failed to bind the "
                          "test server to socket");

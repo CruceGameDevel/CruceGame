@@ -328,7 +328,7 @@ void test_irc_joinRoom()
     close(server_sock);
 
     // test for a room of the form #cruce-devel999
-    char expected_message3[] = "JOIN #cruce-devel99\r\n";
+    char expected_message3[] = "JOIN #cruce-devel999\r\n";
 
     pid = cut_fork();
     if (pid == 0) {

@@ -132,7 +132,7 @@ void test_irc_sendLobbyMessage()
 
     // test a message of average length: 39 chars
     char expected_message1[513] = {
-        "PRVMSG #cruce-devel test test test test\r\n";
+        "PRIVMSG #cruce-devel test test test test\r\n";
     };
 
     int pid = cut_fork();
@@ -159,7 +159,7 @@ void test_irc_sendLobbyMessage()
     close(server_sock);
 
     // test an empty message
-    char expected_message2[] = {"PRVMSG #cruce-devel \r\n"};
+    char expected_message2[] = {"PRIVMSG #cruce-devel \r\n"};
 
     pid = cut_fork();
     if(pid == 0) {
@@ -186,7 +186,7 @@ void test_irc_sendLobbyMessage()
 
     // the message has exactly 512 chars 
     char expected_message3[] = {
-           "PRVMSG #cruce-devel test test test test test "
+           "PRIVMSG #cruce-devel test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
@@ -194,7 +194,7 @@ void test_irc_sendLobbyMessage()
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test test "
            "test test test test test test test test test test test test  test "
-           "test test\r\n"
+           "test tes\r\n"
     };
 
     pid = cut_fork();

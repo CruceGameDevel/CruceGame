@@ -75,12 +75,11 @@ void irc_joinRoom();
 void irc_leaveRoom();
 
 /**
- * @brief End the connection to the irc server, doing the necessary teardown
- *        operations.
+ * @brief Send QUIT command to the IRC server and close the connection.
  *
  * @return 0 on success, other value on failure.
  */
-void irc_disconnect();
+int irc_disconnect();
 
 /**
  * @brief Create a new room and join it.

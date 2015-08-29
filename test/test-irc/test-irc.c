@@ -30,7 +30,7 @@ int serverHelper()
     cut_assert_operator_int(bind(server_sock, (struct sockaddr *)&test_server,
                          sizeof(test_server)), >=, 0);
 
-    cut_assert_operator_int(listen(server_sock, 1), >= 0);
+    cut_assert_operator_int(listen(server_sock, 1), >=, 0);
 
     struct sockaddr_in test_client;
     socklen_t client_length = sizeof(test_client);
@@ -96,7 +96,7 @@ void test_irc_connect()
             for (int j = 0; j < 4; j++) {
                 memset(buffer, 0, 513);
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-                cut_assert_equal_strings(expected_messages[i][j], buffer);
+                cut_assert_equal_string(expected_messages[i][j], buffer);
             }
             close(server_sock);
 
@@ -151,7 +151,7 @@ void test_irc_sendLobbyMessage()
     // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0).
     int test_parameters[3] = {1, 1, 0};
 
-    for (int i = 0; i < 3 i++) {
+    for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
         if (pid == 0) {
             int server_sock = serverHelper();
@@ -159,7 +159,7 @@ void test_irc_sendLobbyMessage()
             char buffer[513];
             memset(buffer, 0, 513);
             cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_messages[i], buffer);
+            cut_assert_equal_string(expected_messages[i], buffer);
 
             close(server_sock);
             exit(EXIT_SUCCESS);
@@ -195,7 +195,7 @@ void test_irc_disconnect()
         char buffer[513];
         memset(buffer, 0, 513);
         cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-        cut_assert_equal_strings(expected_message, buffer);
+        cut_assert_equal_string(expected_message, buffer);
 
         close(server_sock);
         exit(EXIT_SUCCESS);
@@ -207,13 +207,13 @@ void test_irc_disconnect()
                                     sizeof(test_server)), >=, 0);
 
     cut_assert_equal_int(irc_disconnect(), 0);
-    clsoe(server_sock);
+    close(server_sock);
 }
 
 void test_irc_joinRoom()
 {
     struct sockaddr_in test_server;
-    initConnection(&test_server)
+    initConnection(&test_server);
 
     char expected_messages[4][513] = {
         "JOIN #cruce-devel001\r\n",
@@ -244,7 +244,7 @@ void test_irc_joinRoom()
             }
 
             if (test_parameters[i]) {
-                cut_assert_equal_strings(expected_messages[i], buffer);
+                cut_assert_equal_string(expected_messages[i], buffer);
             }
 
             close(server_sock);
@@ -294,7 +294,7 @@ void test_irc_leaveRoom()
             }
 
             if (test_parameters[i]) {
-                cut_assert_equal_strings(expected_message, buffer);
+                cut_assert_equal_string(expected_message, buffer);
             }
 
             close(server_sock);

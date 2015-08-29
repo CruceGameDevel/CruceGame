@@ -233,8 +233,19 @@ void test_irc_joinRoom()
 
             char buffer[513];
             memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            cut_assert_equal_strings(expected_message[i], buffer);
+
+            if (test_parameters[i]) {
+                cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+            } else {
+                // if we try to connect to an invalid room (`#cruce-devel1000`, 
+                // for example) the server should not receive any message
+                // from the client. Thus, `read` will return 0.
+                cut_assert_equal_int(read(server_sock, buffer, 513), 0);
+            }
+
+            if (test_parameters[i]) {
+                cut_assert_equal_strings(expected_message[i], buffer);
+            }
 
             close(server_sock);
             exit(EXIT_SUCCESS);

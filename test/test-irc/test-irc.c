@@ -132,22 +132,20 @@ void test_irc_connect()
 
 void test_irc_sendLobbyMessage()
 {
-    struct sockaddr_in test_server;
-    initConnection(&test_server);
 
     char expected_messages[3][513] = {
-        "PRIVMSG #cruce-devel test test test test\r\n",
-        "PRIVMSG #cruce-devel \r\n",
+        "PRIVMSG " LOBBY_CHANNEL " test test test test\r\n",
+        "PRIVMSG " LOBBY_CHANNEL " \r\n",
         // Begins here
-        "PRIVMSG #cruce-devel test test test test test "
+        "PRIVMSG " LOBBY_CHANNEL " "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
         "test test test test test test test test test test test test test "
-        "test test test test test test test test test test test test  test "
-        "test tes\r\n"
+        "test test test test test test test test test test test test test "
+        "test test test test test test test\r\n"
         // and ends here.
     };
 

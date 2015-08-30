@@ -65,14 +65,17 @@ int irc_disconnect()
 {
     // Send QUIT command and disconnect from server.
     int sendRet = network_send("QUIT\r\n", 6);
-    int disconnectRet = network_disconnect();
 
-    // Test for errors.
-    if (sendRet != NO_ERROR || disconnectRet != NO_ERROR) {
-        return UNINITIALIZED_CONNECTION;
-    } else {
-        return NO_ERROR;
+    if (sendRet != NO_ERROR)
+        return sendRet;
+
+    int disconnRet = network_disconnect();
+
+    if (disconnRet != NO_ERROR) {
+        return disconnRet;
     }
+
+    return NO_ERROR;
 }
 
 /**

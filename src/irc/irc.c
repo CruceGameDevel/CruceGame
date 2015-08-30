@@ -85,6 +85,9 @@ int irc_disconnect()
  */
 int irc_joinRoom(int roomNumber)
 {
+    if (roomNumber < 0 || roomNumber > 999)
+        return PARAMETER_OUT_OF_RANGE;
+
     // Prepare room name.
     char roomName[strlen(ROOM_FORMAT) + 3];
     sprintf(roomName, ROOM_FORMAT, roomNumber);

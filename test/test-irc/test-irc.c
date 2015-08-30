@@ -234,14 +234,11 @@ void test_irc_disconnect()
 
 void test_irc_joinRoom()
 {
-    struct sockaddr_in test_server;
-    initConnection(&test_server);
-
     char expected_messages[4][513] = {
-        "JOIN #cruce-devel001\r\n",
-        "JOIN #cruce-devel000\r\n",
-        "JOIN #cruce-devel999\r\n",
-        "JOIN #cruce-devel1000\r\n"
+        "JOIN " LOBBY_CHANNEL "001\r\n",
+        "JOIN " LOBBY_CHANNEL "000\r\n",
+        "JOIN " LOBBY_CHANNEL "999\r\n",
+        "JOIN " LOBBY_CHANNEL "1000\r\n"
     };
 
     int inputs[4] = {1, 0, 999, 1000};
@@ -251,7 +248,7 @@ void test_irc_joinRoom()
     for (int i = 0; i < 4; i++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = serverHelper();
+            int server_sock = openLocalhostSocket(8100);
 
             char buffer[513];
             memset(buffer, 0, 513);
@@ -259,10 +256,10 @@ void test_irc_joinRoom()
             if (test_parameters[i]) {
                 cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
             } else {
-                // If we try to connect to an invalid room (`#cruce-devel1000`,
+                // If we try to connect to an invalid room (`" LOBBY_CHANNEL "1000`,
                 // for example) the server should not receive any message
                 // from the client. Thus, `read` will return 0.
-                cut_assert_equal_int(read(server_sock, buffer, 513), 0);
+                cut_assert_equal_int(0, read(server_sock, buffer, 513));
             }
 
             if (test_parameters[i]) {
@@ -273,17 +270,17 @@ void test_irc_joinRoom()
             exit(EXIT_SUCCESS);
         }
 
-        int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        cut_assert_operator_int(connect(server_sock,
-                                        (struct sockaddr *)&test_server,
-                                        sizeof(test_server)), >=, 0);
+        sleep(1);
+
+        network_connect("localhost", 8100);
 
         if (test_parameters[i]) {
-            cut_assert_equal_int(irc_joinRoom(inputs[i]), 0);
+            cut_assert_equal_int(0, irc_joinRoom(inputs[i]));
         } else {
-            cut_assert_not_equal_int(irc_joinRoom(inputs[i]), 0);
+            cut_assert_not_equal_int(0, irc_joinRoom(inputs[i]));
         }
-        close(server_sock);
+
+        network_disconnect();
     }
 }
 

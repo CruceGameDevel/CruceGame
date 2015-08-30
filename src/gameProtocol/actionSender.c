@@ -73,3 +73,23 @@ int actionSender_sendCard(struct Card *card)
 
     return sendMessageRet;
 }
+
+/**
+ * Send "$DISTRIBUTE_CARD <recipient> <value> <suit>" command to room using
+ * irc_sendRoomMessage().
+ */
+int actionSender_distributeCard(char *recipient, struct Card *card)
+{
+    if (recipient == NULL || card == NULL)
+        return NULL_PARAMETER;
+
+    char *command = malloc(24 + strlen(recipient));
+    sprintf(command, "$DISTRIBUTE_CARD %s %d %d", recipient, card->value,
+                                                  card->suit);
+
+    int sendMessageRet = irc_sendRoomMessage(command);
+
+    free(command);
+
+    return sendMessageRet;
+}

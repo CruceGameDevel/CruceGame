@@ -40,7 +40,8 @@ int actionSender_sendBid(int bidValue);
 int actionSender_requestCard(char *user);
 
 /**
- * @brief Function to send a card in reply to a REQUEST_CARD command.
+ * @brief Function to send a card in reply to a REQUEST_CARD command. Be sure
+ *        that card is a valid card.
  *
  * @param card The card to send.
  *

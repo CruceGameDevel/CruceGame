@@ -115,29 +115,29 @@ int irc_joinRoom(int roomNumber)
  */
 int irc_leaveRoom()
 {
-    char roomName[strlen(ROOM_FORMAT) + 3];
     // Test if player is in any room.
-    if (currentRoom != -1) {
-        // Prepare room name.
-        sprintf(roomName, ROOM_FORMAT, currentRoom);
+    if (currentRoom < 0)
+        return LEAVE_ROOM_ERROR;
 
-        // Prepare leave command.
-        char partCommand[COMMAND_SIZE + strlen(roomName)];
-        sprintf(partCommand, "PART %s\r\n", roomName);
+    char roomName[strlen(ROOM_FORMAT) + 3];
 
-        // Send leave command and test for errors.
-        int sendRet = network_send(partCommand, strlen(partCommand));
-        if (sendRet != NO_ERROR) {
-            return sendRet;
-        }
-        
-        // Reset current room to default value.
-        currentRoom = -1;
-        
-        return NO_ERROR;
-    } else {
-        return -1;
+    // Prepare room name.
+    sprintf(roomName, ROOM_FORMAT, currentRoom);
+
+    // Prepare leave command.
+    char partCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(partCommand, "PART %s\r\n", roomName);
+
+    // Send leave command and test for errors.
+    int sendRet = network_send(partCommand, strlen(partCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
     }
+
+    // Reset current room to default value.
+    currentRoom = -1;
+
+    return NO_ERROR;
 }
 
 /**

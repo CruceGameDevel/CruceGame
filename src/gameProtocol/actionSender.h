@@ -63,9 +63,9 @@ int actionSender_distributeCard(char *recipient, struct Card *card);
 /**
  * @brief Function to update the score. Used by the dealer (host).
  *
- * @param score???
+ * @param game The game from which is sent the score.
  *
  * @return NO_ERROR on success, other value on failure.
  */
-int actionSender_updateScore();
+int actionSender_updateScore(struct Game *game);
 

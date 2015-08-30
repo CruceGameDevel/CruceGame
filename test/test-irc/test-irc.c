@@ -153,52 +153,46 @@ void test_irc_sendLobbyMessage()
         "test test test test",
         "",
         // Begins here
-        "test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test test test test "
-        "test test test test test test test"
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test test test "
+        "test test test test test test test test test test test"
         // and ends here.
     };
 
     // If test_parametersp[i] == 1 then
     // cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0) will be issued
     // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0).
-    int test_parameters[3] = {1, 1, 0};
+    int test_parameters[3] = {1, 1, 1};
 
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = serverHelper();
+            int server_sock = openLocalhostSocket(8091 + i);
 
             char buffer[513];
             memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+            cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
             cut_assert_equal_string(expected_messages[i], buffer);
 
             close(server_sock);
             exit(EXIT_SUCCESS);
         }
 
-        int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        cut_assert_operator_int(server_sock, >=, 0);
+        sleep(1);
 
-        cut_assert_operator_int(connect(server_sock,
-                                        (struct sockaddr *)&test_server,
-                                        sizeof(test_server)), >=, 0);
+        network_connect("localhost", 8091 + i);
 
-        if (test_parameters[i]) {
-            cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
-        } else {
-            cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0);
-        }
-        close(server_sock);
+        if (test_parameters[i])
+            cut_assert_equal_int(0, irc_sendLobbyMessage(inputs[i]));
+        else
+            cut_assert_not_equal_int(0, irc_sendLobbyMessage(inputs[i]));
+
+        network_disconnect();
     }
 }
 

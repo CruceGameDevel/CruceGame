@@ -8,6 +8,8 @@
  * commands and user messages to the irc channel.
  */
 
+#include <cruceGame.h>
+
 /**
  * @brief Function to send a REQUEST_BID game command.
  *

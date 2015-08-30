@@ -22,3 +22,18 @@ int actionSender_requestBid(char *user)
 
     return sendMessageRet;
 }
+
+/**
+ * Send "$BID <value>" command to room using irc_sendRoomMessage().
+ */
+int actionSender_sendBid(int value)
+{
+    char *command = malloc(7);
+    sprintf(command, "$BID %c", value + 48); // value belongs [0,6]
+
+    int sendMessageRet = irc_sendRoomMessage(command);
+
+    free(command);
+
+    return sendMessageRet;
+}

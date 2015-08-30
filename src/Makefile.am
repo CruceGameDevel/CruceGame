@@ -2,7 +2,8 @@ AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src/networking   \
               -I$(top_srcdir)/src/parser \
               -I$(top_srcdir)/src/cli \
-              -I$(top_srcdir)/src/irc
+              -I$(top_srcdir)/src/irc \
+              -I$(top_srcdir)/src/gameProtocol
               
 LDFLAGS = -no-undefined
 CFLAGS += -std=c99 \

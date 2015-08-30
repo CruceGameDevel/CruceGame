@@ -13,34 +13,36 @@
 extern int currentRoom;
 
 /**
- * @brief Creates a testing server that connects to the client then returns
- *        the file descriptor.
- *
- * @return The file descriptor of the server.
+ * Helper to open a local server socket.
+ * Param port The port on which must be created the server.
+ * Returns a sockfd.
  */
-int serverHelper()
-{
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(server_sock, >=, 0);
+int openLocalhostSocket(int port) {
+    int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int optval = 1;
+    setsockopt(serverSockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
+    cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
 
-    struct sockaddr_in test_server;
+    struct sockaddr_in serv_addr, cli_addr;
+    bzero((char *)&serv_addr, sizeof(serv_addr));
 
-    memset(&test_server, 0, sizeof(test_server));
-    test_server.sin_family = AF_INET;
-    test_server.sin_addr.s_addr = INADDR_ANY;
-    test_server.sin_port = htons(8080);
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(port);
+    int bnd = bind(serverSockfd, (struct sockaddr *)&serv_addr,
+                   sizeof(serv_addr));
+    cut_assert_operator_int(bnd, >=, 0, "Server bind failed");
 
-    cut_assert_operator_int(bind(server_sock, (struct sockaddr *)&test_server,
-                         sizeof(test_server)), >=, 0);
+    listen(serverSockfd, 5);
+    socklen_t clilen = sizeof(cli_addr);
 
-    cut_assert_operator_int(listen(server_sock, 1), >=, 0);
+    int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
 
-    struct sockaddr_in test_client;
-    socklen_t client_length = sizeof(test_client);
-    int client_sock = accept(server_sock, (struct sockaddr *)&test_client,
-                             &client_length);
+    close(serverSockfd);
 
-    return client_sock;
+    cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
+
+    return newsockfd;
 }
 
 /**

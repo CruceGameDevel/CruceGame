@@ -37,3 +37,21 @@ int actionSender_sendBid(int value)
 
     return sendMessageRet;
 }
+
+/**
+ * Send "$REQUEST_CARD <user>" command to room using irc_sendRoomMessage().
+ */
+int actionSender_requestCard(char *user)
+{
+    if (user == NULL)
+        return NULL_PARAMETER;
+
+    char *command = malloc(15 + strlen(user));
+    sprintf(command, "$REQUEST_CARD %s", user);
+
+    int sendMessageRet = irc_sendRoomMessage(command);
+
+    free(command);
+
+    return sendMessageRet;
+}

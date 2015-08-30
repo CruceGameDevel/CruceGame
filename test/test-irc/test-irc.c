@@ -286,49 +286,41 @@ void test_irc_joinRoom()
 
 void test_irc_leaveRoom()
 {
-    struct sockaddr_in test_server;
-    initConnection(&test_server);
+    char *expected_message[] = {"PART " LOBBY_CHANNEL "004\r\n",
+                                "PART " LOBBY_CHANNEL "012\r\n",
+                                "PART " LOBBY_CHANNEL "345\r\n"};
 
-    char expected_message[] = "PART #cruce-devel002\r\n";
-    int currentRoomValues[] = {2, -1000};
-    int test_parameters[] = {1, 0};
+    int currentRoomValues[] = {5, 12, 345};
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         currentRoom = currentRoomValues[i];
 
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = serverHelper();
+            int server_sock = openLocalhostSocket(8110 + i);
 
             char buffer[513];
             memset(buffer, 0, 513);
 
-            if (test_parameters[i]) {
-                cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-            } else {
-                // If we are on this branch it means we are testing the case
-                // where `currentRoom` has an invalid value, thus `read` should
-                // return `0`.
-                cut_assert_equal_int(read(server_sock, buffer, 513), 0);
-            }
-
-            if (test_parameters[i]) {
-                cut_assert_equal_string(expected_message, buffer);
-            }
+            read(server_sock, buffer, 513);
+            cut_assert_equal_string(expected_message[i], buffer);
 
             close(server_sock);
             exit(EXIT_SUCCESS);
         }
 
-        int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        cut_assert_operator_int(connect(server_sock,
-                                (struct sockaddr *)&test_server,
-                                 sizeof(test_server)), >=, 0);
+        sleep(1);
 
-        if (test_parameters[i]) {
-            cut_assert_equal_int(irc_leaveRoom(), 0);
-        } else {
-            cut_assert_not_equal_int(irc_leaveRoom(), 0);
-        }
+        network_connect("localhost", 8110 + i);
+
+        cut_assert_equal_int(0, irc_leaveRoom());
+
+        // Check if the current room has became invalid.
+        cut_assert_operator_int(0, >, currentRoom);
+
+        network_disconnect();
     }
+
+    cut_assert_not_equal_int(0, irc_leaveRoom());
 }
+

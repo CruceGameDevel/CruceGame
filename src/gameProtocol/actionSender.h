@@ -19,7 +19,8 @@ int actionSender_requestBid(char *user);
 
 
 /**
- * @brief Function to send a bid in reply to a REQUEST_BID command.
+ * @brief Function to send a bid in reply to a REQUEST_BID command. Be sure that
+ *        bidValue is a valid bid.
  *
  * @param bidValue The value to bid.
  *

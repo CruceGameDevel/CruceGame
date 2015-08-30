@@ -130,6 +130,10 @@ int irc_leaveRoom()
         if (sendRet != NO_ERROR) {
             return sendRet;
         }
+        
+        // Reset current room to default value.
+        currentRoom = -1;
+        
         return NO_ERROR;
     } else {
         return -1;

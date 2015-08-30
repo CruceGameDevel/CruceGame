@@ -39,6 +39,8 @@ int openLocalhostSocket(int port) {
 
     int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
 
+    close(serverSockfd);
+
     cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
 
     return newsockfd;

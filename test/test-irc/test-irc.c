@@ -87,19 +87,19 @@ void test_irc_connect()
             "PASS *\r\n",
             "NICK test_user\r\n",
             "USER test_user 8 * :test_user\r\n",
-            "JOIN #cruce-devel\r\n"
+            "JOIN " LOBBY_CHANNEL "\r\n"
         },
         {
             "PASS *\r\n",
             "NICK \r\n",
             "USER  8 * :\r\n",
-            "JOIN #cruce-devel\r\n"
+            "JOIN " LOBBY_CHANNEL "\r\n"
         },
         {
             "PASS *\r\n",
             "NICK test_user_\r\n",
             "USER test_user_ 8 * :test_user_\r\n",
-            "JOIN #cruce-devel\r\n"
+            "JOIN " LOBBY_CHANNEL "\r\n"
         }
     };
 
@@ -112,7 +112,7 @@ void test_irc_connect()
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = serverHelper();
+            int server_sock = openLocalhostSocket(8090);
 
             char buffer[513];
             for (int j = 0; j < 4; j++) {
@@ -126,6 +126,7 @@ void test_irc_connect()
         }
 
         irc_connect(inputs[i]);
+        network_disconnect();
     }
 }
 

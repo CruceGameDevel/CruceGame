@@ -50,7 +50,8 @@ int actionSender_requestCard(char *user);
 int actionSender_sendCard(struct Card *card);
 
 /**
- * @brief Function to distribute a card. Used by the dealer (host).
+ * @brief Function to distribute a card. Used by the dealer (host). Be sure that
+ *        card is a valid card.
  *
  * @param recipient The name of the recipient of the card.
  * @param card The card to send.

@@ -46,21 +46,38 @@ int openLocalhostSocket(int port) {
 }
 
 /**
- * @brief Almost every function in this module has to connect with the server,
- *        in order to do that we have to do some initialization, thus resulting
- *        a lot of duplicate code. The purpose of this function is to initialize
- *        a `sockaddr_in` structure minimizing the amount of duplicate code.
- *  
- * @param test_server The structure to initialize.
+ * Helper to connect to a local server socket.
+ * Param port The port on which runs the server.
+ * Returns none.
  *
- * @return none.
+ * This function assumes the use of sockfd private variable in the networking
+ * module.
  */
-void initConnection(struct sockaddr_in *test_server)
+int connectToLocalhostSocket(int port)
 {
-    memset(test_server, 0, sizeof(*test_server));
-    test_server->sin_family = AF_INET;
-    test_server->sin_addr.s_addr = inet_addr("localhost");
-    test_server->sin_port = htons(8080);
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int optval = 1;
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
+    cut_assert_operator_int(sockfd, >=, 0,
+                            "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_not_null(server, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr_list[0],
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(port);
+
+    int conn = connect(sockfd, (struct sockaddr *)&serv_addr,
+                       sizeof(serv_addr));
+
+    cut_assert_operator_int(conn, >=, 0,
+                            "Error connecting to the server process");
+    return sockfd;
 }
 
 void test_irc_connect()

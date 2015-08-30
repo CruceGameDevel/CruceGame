@@ -204,31 +204,38 @@ void test_irc_sendLobbyMessage()
 
 void test_irc_disconnect()
 {
-    struct sockaddr_in test_server;
-    initConnection(&test_server);
 
-    char expected_message[513] = "QUIT\r\n";
+    char expected_message[] = "QUIT\r\n";
 
     int pid = cut_fork();
     if (pid == 0) {
-        int server_sock = serverHelper();
+        int server_sock = openLocalhostSocket(8087);
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+        cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
         cut_assert_equal_string(expected_message, buffer);
 
         close(server_sock);
+
+        server_sock = openLocalhostSocket(8088);
+        close(server_sock);
+
         exit(EXIT_SUCCESS);
     }
 
-    int server_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    cut_assert_operator_int(connect(server_sock,
-                                    (struct sockaddr *)&test_server,
-                                    sizeof(test_server)), >=, 0);
+    sleep(1);
 
-    cut_assert_equal_int(irc_disconnect(), 0);
-    close(server_sock);
+    cut_assert_equal_int(0, network_connect("localhost", 8087));
+    cut_assert_equal_int(0, irc_disconnect());
+
+    sleep(1);
+
+    // Check if connection is possible after irc_disconnect has been called;
+    // It should reset the connection.
+    cut_assert_equal_int(0, network_connect("localhost", 8088));
+
+    network_disconnect();
 }
 
 void test_irc_joinRoom()

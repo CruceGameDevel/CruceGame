@@ -140,22 +140,17 @@ int irc_leaveRoom()
  */
 int irc_sendLobbyMessage(char *message)
 {
+    if (strlen(message) > 512)
+        return MESSAGE_TOO_LONG;
+
     // Allocate memory for message command and prepare it.
-    char *lobbyMessageCommand = malloc(COMMAND_SIZE
-                                        + strlen(LOBBY_CHANNEL)
-                                        + strlen(message));
-    sprintf(lobbyMessageCommand,
-            "PRIVMSG %s %s\r\n",
-            LOBBY_CHANNEL, message);
+    char lobbyMessageCommand[COMMAND_SIZE
+                             + strlen(LOBBY_CHANNEL)
+                             + strlen(message)];
+
+    sprintf(lobbyMessageCommand, "PRIVMSG %s %s\r\n", LOBBY_CHANNEL, message);
 
     // Send message command.
-    int sendRet = network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
-
-    // Free memory and test for errors.
-    free(lobbyMessageCommand);
-    if (sendRet != NO_ERROR) {
-        return sendRet;
-    } else {
-        return NO_ERROR;
-    }
+    return network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
 }
+

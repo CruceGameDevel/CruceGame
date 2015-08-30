@@ -55,3 +55,21 @@ int actionSender_requestCard(char *user)
 
     return sendMessageRet;
 }
+
+/**
+ * Send "$CARD <value> <suit>" command to room using irc_sendRoomMessage().
+ */
+int actionSender_sendCard(struct Card *card)
+{
+    if (card == NULL)
+        return NULL_PARAMETER;
+
+    char *command = malloc(12);
+    sprintf(command, "$CARD %d %d", card->value, card->suit);
+
+    int sendMessageRet = irc_sendRoomMessage(command);
+
+    free(command);
+
+    return sendMessageRet;
+}

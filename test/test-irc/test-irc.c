@@ -125,8 +125,8 @@ void test_irc_connect()
             exit(EXIT_SUCCESS);
         }
 
-        irc_connect(inputs[i]);
-        network_disconnect();
+        cut_assert_equal_int(0, irc_connect(inputs[i]));
+        cut_assert_equal_int(0, network_disconnect());
     }
 }
 

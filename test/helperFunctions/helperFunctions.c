@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern int sockfd;
+
 /**
  * Open a localhost socket and waits a client to connect.
  */
@@ -38,4 +40,33 @@ int openLocalhostSocket(int port) {
     cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
 
     return newsockfd;
+}
+
+/**
+ * Connect to a local server socket.
+ */
+void connectToLocalhostSocket(int port)
+{
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int optval = 1;
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
+    cut_assert_operator_int(sockfd, >=, 0,
+                            "Could not connect to the server thread");
+
+    struct hostent *server = gethostbyname("localhost");
+    cut_assert_not_null(server, "No such host");
+
+    struct sockaddr_in serv_addr;
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr_list[0],
+         (char *)&serv_addr.sin_addr.s_addr,
+         server->h_length);
+    serv_addr.sin_port = htons(port);
+
+    int conn = connect(sockfd, (struct sockaddr *)&serv_addr,
+                       sizeof(serv_addr));
+
+    cut_assert_operator_int(conn, >=, 0,
+                            "Error connecting to the server process");
 }

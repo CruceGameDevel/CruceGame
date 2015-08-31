@@ -37,7 +37,7 @@ int network_connect(char *hostname, int port)
     memset((char *)&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
 
-    memmove((char *)server->h_addr_list[0], (char *)&serv_addr.sin_addr.s_addr,
+    memmove((char *)&serv_addr.sin_addr.s_addr, (char *)server->h_addr_list[0],
             server->h_length);
 
     serv_addr.sin_port = htons(port);

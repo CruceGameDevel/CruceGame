@@ -311,14 +311,14 @@ void test_irc_leaveRoom()
 
         sleep(1);
 
-        network_connect("localhost", 8110 + i);
+        cut_assert_equal_int(0, network_connect("localhost", 8110 + i));
 
         cut_assert_equal_int(0, irc_leaveRoom());
 
         // Check if the current room has became invalid.
         cut_assert_operator_int(0, >, currentRoom);
 
-        network_disconnect();
+        cut_assert_equal_int(0, network_disconnect());
     }
 
     cut_assert_not_equal_int(0, irc_leaveRoom());

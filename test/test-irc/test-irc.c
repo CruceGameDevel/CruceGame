@@ -229,7 +229,7 @@ void test_irc_disconnect()
     // It should reset the connection.
     cut_assert_equal_int(0, network_connect("localhost", 8088));
 
-    network_disconnect();
+    cut_assert_equal_int(0, network_disconnect());
 }
 
 void test_irc_joinRoom()

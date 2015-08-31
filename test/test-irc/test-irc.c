@@ -272,7 +272,7 @@ void test_irc_joinRoom()
 
         sleep(1);
 
-        network_connect("localhost", 8100);
+        cut_assert_equal_int(0, network_connect("localhost", 8100));
 
         if (test_parameters[i]) {
             cut_assert_equal_int(0, irc_joinRoom(inputs[i]));
@@ -280,7 +280,7 @@ void test_irc_joinRoom()
             cut_assert_not_equal_int(0, irc_joinRoom(inputs[i]));
         }
 
-        network_disconnect();
+        cut_assert_equal_int(0, network_disconnect());
     }
 }
 

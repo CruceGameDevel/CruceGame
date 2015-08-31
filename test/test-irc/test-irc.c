@@ -112,7 +112,7 @@ void test_irc_connect()
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = openLocalhostSocket(8090);
+            int server_sock = openLocalhostSocket(8090 + i);
 
             char buffer[513];
             for (int j = 0; j < 4; j++) {

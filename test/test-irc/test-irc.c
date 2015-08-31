@@ -185,14 +185,14 @@ void test_irc_sendLobbyMessage()
 
         sleep(1);
 
-        network_connect("localhost", 8091 + i);
+        cut_assert_equal_int(0, network_connect("localhost", 8091 + i));
 
         if (test_parameters[i])
             cut_assert_equal_int(0, irc_sendLobbyMessage(inputs[i]));
         else
             cut_assert_not_equal_int(0, irc_sendLobbyMessage(inputs[i]));
 
-        network_disconnect();
+        cut_assert_equal_int(0, network_disconnect());
     }
 }
 

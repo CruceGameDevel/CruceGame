@@ -43,9 +43,9 @@ int openLocalhostSocket(int port) {
 /**
  * Connect to a local server socket.
  */
-void connectToLocalhostSocket(int port)
+int connectToLocalhostSocket(int port)
 {
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     int optval = 1;
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
     cut_assert_operator_int(sockfd, >=, 0,
@@ -67,4 +67,6 @@ void connectToLocalhostSocket(int port)
 
     cut_assert_operator_int(conn, >=, 0,
                             "Error connecting to the server process");
+
+    return sockfd;
 }

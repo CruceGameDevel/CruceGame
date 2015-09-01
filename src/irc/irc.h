@@ -87,11 +87,13 @@ int irc_leaveRoom();
 int irc_disconnect();
 
 /**
- * @brief Create a new room and join it.
+ * @brief Search for a free channel using 'irc_getAvailableRoom' and
+ *        send "JOIN #cruce-gameXXX" command, where XXX is number of
+ *        the free channel, to join and after set its topic to WAITING.
  *
  * @return Room id on success, negative value on failure.
  */
-int irc_createRoom(char *channelName);
+int irc_createRoom();
 
 /**
  * @brief Toggle the status of the current room, using "TOPIC <channel>"

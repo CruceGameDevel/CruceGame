@@ -19,11 +19,8 @@ int openLocalhostSocket(int port);
  *
  * @param port The port on which runs the server.
  *
- * @return none.
- *
- * This function assumes the use of sockfd private variable in the networking
- * module.
+ * @return A sockfd which represents a connection with the server.
  */
-void connectToLocalhostSocket(int port);
+int connectToLocalhostSocket(int port);
 
 #endif

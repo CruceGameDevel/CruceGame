@@ -94,11 +94,16 @@ int irc_disconnect();
 int irc_createRoom(char *channelName);
 
 /**
- * @brief Toggle the status of the current room.
+ * @brief Toggle the status of the current room, using "TOPIC <channel>"
+ *        command.
+ * 
+ * @param roomNumber ID of the room to get status
  *
- * @return 0 on success, other value on failure.
+ * @return 0 if no status is set
+ *         1 if room status is WAITING
+ *         2 if room status is PLAYING
  */
-int irc_toggleRoomStatus();
+int irc_toggleRoomStatus(int roomNumber);
 
 /**
  * @brief Get all users from the lobby or from room.

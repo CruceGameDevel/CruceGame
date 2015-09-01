@@ -72,7 +72,7 @@ void test_network_connect() {
     cut_assert_not_equal_int(0, network_connect("localhost", 8081),
                              "Reconnection attempt succedeed without "
                              "previous disconnect");
-    connectToLocalhostSocket(8081);
+    sockfd = connectToLocalhostSocket(8081);
 
     close(sockfd);
     sockfd = -1;
@@ -106,7 +106,7 @@ void test_network_disconnect() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8079);
+    sockfd = connectToLocalhostSocket(8079);
 
     network_disconnect();
 
@@ -142,7 +142,7 @@ void test_network_read() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8078);
+    sockfd = connectToLocalhostSocket(8078);
 
     cut_assert_equal_int(5, network_read(buffer, 10),
                          "Not have been read all bytes");
@@ -191,7 +191,7 @@ void test_network_send() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8077);
+    sockfd = connectToLocalhostSocket(8077);
 
     cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
     cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 0),

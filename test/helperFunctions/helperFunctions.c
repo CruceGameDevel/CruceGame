@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern int sockfd;
-
 /**
  * Open a localhost socket and waits a client to connect.
  */

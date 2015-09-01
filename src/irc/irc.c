@@ -161,3 +161,47 @@ int irc_sendLobbyMessage(char *message)
     return network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
 }
 
+/**
+ * Generate room name using its ID and send "TOPIC <channel>"
+ * command to get the topic of the channel. After read it
+ * and if it is "topic not set", return 0. If it is 
+ * "WAITING" return 1 or "PLAYING" return 2.
+ */
+int irc_toggleRoomStatus(int roomNumber)
+{
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, roomNumber);
+
+    // Prepare topic command.
+    char topicCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(topicCommand, "TOPIC %s\r\n", roomName);
+
+    // Send command and test for errors.
+    int sendRet = network_send(topicCommand, strlen(topicCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    // Read response and test for errors.
+    char recvBuffer[512];
+    int readRet = network_read(recvBuffer, 512);
+    if (readRet != NO_ERROR) {
+        return readRet;
+    }
+    
+    // Check the topic of the channel
+    if (strstr(recvBuffer, ":No topic is set")) {
+        return 0;
+    }
+
+    if (strstr(recvBuffer, "WAITING")) {
+        return 1;
+    }
+
+    if (strstr(recvBuffer, "PLAYING")) {
+        return 2;
+    }
+
+    return -1;
+}

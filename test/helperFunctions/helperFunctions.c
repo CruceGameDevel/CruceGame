@@ -1,3 +1,7 @@
+/*
+ * @file This file provides the implementation some helper functions.
+ */
+
 #include <cutter.h>
 #include <unistd.h>
 #include <fcntl.h>

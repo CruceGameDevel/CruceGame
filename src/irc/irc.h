@@ -119,12 +119,12 @@ int irc_toggleRoomStatus(int roomNumber);
 char *irc_getNames(int isRoom);
 
 /**
- * @brief List all available rooms. Cannot be used if already joined in a room.
+ * @brief Search for a free channel and return its ID. Function can't
+ *        be used if you are already joined in a room.
  *
- * @return A string containing all the available rooms on success,
- *         NULL on failure.
+ * @return Room ID on success, -1 on failure.
  */
-char *irc_getAvailableRooms();
+int irc_getAvailableRoom();
 
 /**
  * @brief Invite to room. Cannot be used if not joined in a room.

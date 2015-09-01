@@ -229,3 +229,52 @@ int irc_getAvailableRoom()
     // Return -1 if all channels are used
     return -1;
 }
+
+/**
+ * Use irc_getAvailableRoom function to get first free channel ID,
+ * after generates room name using the ID and join it with 
+ * "JOIN <channel>" command. After joining, it sends "TOPIC <channel> WAITING"
+ * command to set the topic of the channel to WAITING.
+ */
+int irc_createRoom()
+{
+    // Get number of a free room.
+    int roomNumber = irc_getAvailableRoom();
+
+    // If there is no free room.
+    if (roomNumber == -1) {
+        return -1;
+    }
+    
+    // If user is already in a room, return error.
+    if (currentRoom != -1) {
+        return -1;
+    }
+    
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, roomNumber);
+
+    // Prepare join command.
+    char joinCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(joinCommand, "JOIN %s\r\n", roomName);
+
+    // Prepare topic command.
+    char topicCommand[COMMAND_SIZE + strlen(roomName) + 7];
+    sprintf(topicCommand, "TOPIC %s %s\r\n", roomName, "WAITING");
+
+    // Send join command and test for errors.
+    int sendRet = network_send(joinCommand, strlen(joinCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+    
+    // Send topic command and test for errors.
+    sendRet = network_send(topicCommand, strlen(topicCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    return roomNumber;
+}
+

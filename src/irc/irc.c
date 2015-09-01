@@ -205,3 +205,27 @@ int irc_toggleRoomStatus(int roomNumber)
 
     return -1;
 }
+
+/**
+ * Use irc_toggleRoomStatus to see if channel is used or
+ * not and return index of a free channel, or -1 if all
+ * channels are used.
+ */
+int irc_getAvailableRoom()
+{
+    // Value of isUsed is 1 if channel is in use.
+    int isUsed;
+
+    // Check all 1000 channels for a free one
+    for (int i = 0; i <= 999; i++) {
+        isUsed = irc_toggleRoomStatus(i);
+
+        // If there is a free channel return its index
+        if (!isUsed) {
+            return i;
+        }
+    }
+    
+    // Return -1 if all channels are used
+    return -1;
+}

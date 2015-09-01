@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <network.h>
+#include <helperFunctions.h>
 
 extern int sockfd;
 

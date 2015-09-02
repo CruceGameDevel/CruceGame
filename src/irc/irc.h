@@ -108,7 +108,9 @@ int irc_createRoom();
 int irc_toggleRoomStatus(int roomNumber);
 
 /**
- * @brief Get all users from the lobby or from room.
+ * @brief Get all users from the lobby or from room using NAMES command.
+ *        NAMES command return a names list with all nicknames separated
+ *        by a space.
  *
  * @param isRoom If 1, the users from the current room are returned.
  *               Otherwise, the users from the lobby are returned.

@@ -84,6 +84,52 @@ int connectToLocalhostSocket(int port)
     return sockfd;
 }
 
+char *sniffIrcSentPackets()
+{
+    FILE* fp;
+
+    // `2>/dev/null` because we don't want to pollute the result with meaningles
+    // data.
+    fp = popen("sudo timeout 10 tcpflow -C -i any port 6667 2>/dev/null", "r");
+
+    char* buffer = malloc(512); // 512, standard irc line size.
+    int size = 0;
+    int lines = 1;
+
+    // Store only the line sent from this machine, ignore what the irc server
+    // sends back.
+    char prevChar = '\n';
+    char currentChar = fgetc(fp);
+    bool beingParsed = false;
+    while (currentChar != EOF) {
+        fputc(currentChar, stderr);
+        if (prevChar == '\n') {
+            buffer = realloc(buffer, lines * 512);
+        }
+
+        if (!beingParsed && prevChar == '\n' && currentChar != ':') {
+            beingParsed = true;
+        }
+
+        if (beingParsed) {
+            buffer[size] = currentChar;
+            size++;
+            if (currentChar == '\n') {
+                beingParsed = false;
+                lines++; // One more line parsed.
+            }
+        }
+
+        prevChar = currentChar;
+        currentChar = fgetc(fp);
+    }
+
+    pclose(fp);
+
+    buffer[size] = '\0';
+    return buffer;
+}
+
 void test_irc_connect()
 {
     char expected_messages[3][4][513] = {

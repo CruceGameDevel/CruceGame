@@ -107,7 +107,7 @@ char *sniffIrcSentPackets()
     // sends back.
     char prevChar = '\n';
     char currentChar = fgetc(fp);
-    bool beingParsed = false;
+    int beingParsed = 0;
     while (currentChar != EOF) {
         fputc(currentChar, stderr);
         if (prevChar == '\n') {
@@ -115,14 +115,14 @@ char *sniffIrcSentPackets()
         }
 
         if (!beingParsed && prevChar == '\n' && currentChar != ':') {
-            beingParsed = true;
+            beingParsed = 1;
         }
 
         if (beingParsed) {
             buffer[size] = currentChar;
             size++;
             if (currentChar == '\n') {
-                beingParsed = false;
+                beingParsed = 0;
                 lines++; // One more line parsed.
             }
         }

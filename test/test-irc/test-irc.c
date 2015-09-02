@@ -133,24 +133,6 @@ char *sniffIrcSentPackets()
     return buffer;
 }
 
-bool hasLine(char* haystack, char* needle)
-{
-    char buffer[512];
-    char *next = strchr(haystack, '\n');
-    char *cur = haystack;
-    while (next != NULL) {
-        // +1, including the line feed.
-        sprintf(buffer, "%.*s", (int)(next - cur) + 1, cur);
-        if (!strcmp(buffer, needle)) {
-            return true;
-        }
-
-        cur = next + 1;
-        next = strchr(cur, '\n');
-    }
-    return false;
-}
-
 void test_irc_connect()
 {
     char expected_messages[3][4][513] = {

@@ -347,3 +347,46 @@ char *irc_getNames(int isRoom)
         return names;
     }
 }
+
+/**
+ * Test if the nickname is in the lobby and send "INVITE <channel> <nick>"
+ * command to invite the user to current room.
+ */
+int irc_invite(char *nickname)
+{
+    // If user didn't join any room.
+    if (currentRoom == -1) {
+        return -1;
+    }
+
+    // Get names in the lobby and test for errors.
+    char *channelNames = irc_getNames(0);
+    if (channelNames == NULL) {
+        return -1;
+    }
+    
+    // If nickname isn't in the lobby, return error.
+    if (strstr(channelNames, nickname) == NULL) {
+        free(channelNames);
+        return -1;
+    }
+
+    // Free names list.
+    free(channelNames);
+
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, currentRoom);
+
+    // Prepare invite command.
+    char inviteCommand[COMMAND_SIZE + strlen(roomName) + strlen(nickname)];
+    sprintf(inviteCommand, "INVITE %s %s\r\n", roomName, nickname);
+    
+    // Send invite command and test for errors.
+    int sendRet = network_send(inviteCommand, strlen(inviteCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    return 0;
+}

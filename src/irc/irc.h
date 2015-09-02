@@ -131,7 +131,8 @@ char *irc_getNames(int isRoom);
 int irc_getAvailableRoom();
 
 /**
- * @brief Invite to room. Cannot be used if not joined in a room.
+ * @brief Invite to room, using INVITE command. 
+ *        Cannot be used if not joined in a room.
  *
  * @param nickname The nickname of the user to be invited.
  *

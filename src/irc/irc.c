@@ -278,3 +278,72 @@ int irc_createRoom()
     return roomNumber;
 }
 
+
+/**
+ * Send "NAMES <channel>" command and read the response
+ * containing the names list. Response format is:
+ * "Users on <channel>: user1 user2 user3 ... userN".
+ */
+char *irc_getNames(int isRoom)
+{
+    // Buffer for response of the server.
+    char buffer[512];
+
+    // If isRoom is 1, get names from joined room.
+    if (isRoom) {
+        // If user didn't join any room, return error.
+        if (currentRoom == -1) {
+            return NULL;
+        }
+
+        // Prepare room name.
+        char roomName[strlen(ROOM_FORMAT) + 3];
+        sprintf(roomName, ROOM_FORMAT, currentRoom);
+        
+        // Prepare names command.
+        char namesCommand[COMMAND_SIZE + strlen(roomName)];
+        sprintf(namesCommand, "NAMES %s\r\n", roomName);
+
+        // Send command and test for errors.
+        int sendRet = network_send(namesCommand, strlen(namesCommand));
+        if (sendRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Read response and test for errors.
+        int readRet = network_read(buffer, 512);
+        if (readRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Allocate space for names list and create it.
+        char *names = malloc(512);
+        char *namesListStart = strchr(buffer, ':');
+        strcpy(names, namesListStart);
+
+        return names;
+    } else {
+        // Prepare names command.
+        char namesCommand[COMMAND_SIZE + strlen(LOBBY_CHANNEL)];
+        sprintf(namesCommand, "NAMES %s\r\n", LOBBY_CHANNEL);
+        
+        // Send command and test for errors.
+        int sendRet = network_send(namesCommand, strlen(namesCommand));
+        if (sendRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Read response and test for errors.
+        int readRet = network_read(buffer, 512);
+        if (readRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Allocate space for names list and create it.
+        char *names = malloc(512);
+        char *namesListStart = strchr(buffer, ':');
+        strcpy(names, namesListStart);
+
+        return names;
+    }
+}

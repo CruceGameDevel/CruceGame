@@ -84,6 +84,13 @@ int connectToLocalhostSocket(int port)
     return sockfd;
 }
 
+/**
+ * Helper to track packages sent from this computer to the irc server.
+ * 
+ * Return dynamically allocated array of chars containing the packets sent from
+ * this computer to the irc server. You have to free the memory after you are 
+ * done with the buffer.
+ */
 char *sniffIrcSentPackets()
 {
     FILE* fp;

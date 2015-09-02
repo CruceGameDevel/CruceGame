@@ -102,29 +102,29 @@ char *sniffIrcSentPackets()
 
     // Store only the line sent from this machine, ignore what the irc server
     // sends back.
-    char prevChar = '\n';
-    char currentChar = fgetc(fp);
-    int beingParsed = 0;
-    while (currentChar != EOF) {
-        if (prevChar == '\n') {
+    char prev_char = '\n';
+    char current_char = fgetc(fp);
+    int being_parsed = 0;
+    while (current_char != EOF) {
+        if (prev_char == '\n') {
             buffer = realloc(buffer, lines * 512);
         }
 
-        if (!beingParsed && prevChar == '\n' && currentChar != ':') {
+        if (!being_parsed && prev_char == '\n' && current_char != ':') {
             beingParsed = 1;
         }
 
-        if (beingParsed) {
-            buffer[size] = currentChar;
+        if (being_parsed) {
+            buffer[size] = current_char;
             size++;
-            if (currentChar == '\n') {
-                beingParsed = 0;
+            if (current_char == '\n') {
+                being_parsed = 0;
                 lines++; // One more line parsed.
             }
         }
 
-        prevChar = currentChar;
-        currentChar = fgetc(fp);
+        prev_char = current_char;
+        current_char = fgetc(fp);
     }
 
     pclose(fp);

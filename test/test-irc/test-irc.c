@@ -109,7 +109,6 @@ char *sniffIrcSentPackets()
     char currentChar = fgetc(fp);
     int beingParsed = 0;
     while (currentChar != EOF) {
-        fputc(currentChar, stderr);
         if (prevChar == '\n') {
             buffer = realloc(buffer, lines * 512);
         }
@@ -179,6 +178,7 @@ void test_irc_connect()
                 cut_assert_equal_int(0, irc_connect(inputs[i]));
             } else {
                 cut_assert_not_equal_int(0, irc_connect(inputs[i]));
+                fprintf(stderr, "<<<<cineva aici?>>>>>>\n");
             }
             exit(EXIT_SUCCESS);
         }

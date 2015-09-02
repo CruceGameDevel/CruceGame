@@ -198,22 +198,9 @@ void test_irc_connect()
         char *irc_messages = sniffIrcSentPackets();
         int matches = 0;
         for (int j = 0; j < 4; j++) {
-            char buffer[512];
-
-            // Read the string line by line.
-            char *next = strchr(irc_messages, '\n');
-            char *cur = irc_messages;
-            while (next != NULL) {
-                // +1, including the line feed.
-                sprintf(buffer, "%.*s", (int)(next - cur) + 1, cur);
-                if (!strcmp(buffer, expected_messages[i][j])) {
-                    matches++;
-                }
-
-                cur = next + 1;
-                next = strchr(cur, '\n');
+            if (strstr(irc_messages, expected_messages[i][j]) != NULL) {
+                matches++;
             }
-
         }
         free(irc_messages);
 

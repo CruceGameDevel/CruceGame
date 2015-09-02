@@ -104,6 +104,20 @@ int network_send(void *data, size_t size);
 int network_read(void *buffer, size_t size);
 
 /**
+ * @brief Read one line (a string of characters up to the first occurence of
+ *        /n) from the network connection. It is meant to be used for line
+ *        based protocols, such as IRC or HTTP. The newline character is
+ *        replaced with a NUL character in the returned buffer.
+ *
+ * @param buffer Pointer to a memory region where the line will be stored.
+ *               The buffer is NUL terminated and includes the newline
+ *               character, if one has been found.
+ * @param size The maximum number of characters to read, including the NUL
+ *             character.
+ */
+int network_readLine(char *buffer, size_t size);
+
+/**
  * @brief End a network connection.
  *
  * @return NO_ERROR, if the operation succeeded;

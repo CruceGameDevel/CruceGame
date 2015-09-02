@@ -1,6 +1,7 @@
 #include <cutter.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -9,6 +10,9 @@
 #include <irc.h>
 #include <network.h>
 #include <errno.h>
+
+#undef IRC_SERVER
+#define IRC_SERVER "test"
 
 extern int currentRoom;
 
@@ -109,24 +113,46 @@ void test_irc_connect()
         "test_user_"
     };
 
+    int expected_results[] = {1, 1, 0};
+
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
+
         if (pid == 0) {
-            int server_sock = openLocalhostSocket(8090 + i);
-
-            char buffer[513];
-            for (int j = 0; j < 4; j++) {
-                memset(buffer, 0, 513);
-                cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
-                cut_assert_equal_string(expected_messages[i][j], buffer);
+            // In order to have meaningful results, `tcpflow` should start 
+            // first.
+            sleep(5);
+            if (expected_results[i]) {
+                cut_assert_equal_int(0, irc_connect(inputs[i]));
+            } else {
+                cut_assert_not_equal_int(0, irc_connect(inputs[i]));
             }
-            close(server_sock);
-
             exit(EXIT_SUCCESS);
         }
 
-        cut_assert_equal_int(0, irc_connect(inputs[i]));
-        cut_assert_equal_int(0, network_disconnect());
+        char *irc_messages = sniffIrcSentPackets();
+        int matches = 0;
+        for (int j = 0; j < 4; j++) {
+            char buffer[512];
+
+            // Read the string line by line.
+            char *next = strchr(irc_messages, '\n');
+            char *cur = irc_messages;
+            while (next != NULL) {
+                // +1, including the line feed.
+                sprintf(buffer, "%.*s", (int)(next - cur) + 1, cur);
+                if (!strcmp(buffer, expected_messages[i][j])) {
+                    matches++;
+                }
+
+                cur = next + 1;
+                next = strchr(cur, '\n');
+            }
+
+        }
+        free(irc_messages);
+
+        cut_assert_equal_int(4, matches);
     }
 }
 

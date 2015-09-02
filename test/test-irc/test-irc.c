@@ -11,9 +11,6 @@
 #include <network.h>
 #include <errno.h>
 
-#undef IRC_SERVER
-#define IRC_SERVER "test"
-
 extern int currentRoom;
 
 /**
@@ -170,16 +167,31 @@ void test_irc_connect()
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
 
+        // Test the return type.
+        if(pid == 0) {
+            // The process will stop after 10 seconds.
+            char *irc_messages = sniffIrcSentPackets();
+            free(irc_messages);
+            exit(EXIT_SUCCESS);
+        }
+
+        sleep(5);
+        if (expected_results[i]) {
+            cut_assert_equal_int(0, irc_connect(inputs[i]));
+        } else {
+            cut_assert_not_equal_int(0, irc_connect(inputs[i]));
+        }
+
+        cut_assert_equal_int(0, network_disconnect());
+        
+        // Now test if it works.
+        pid = cut_fork();
         if (pid == 0) {
             // In order to have meaningful results, `tcpflow` should start 
             // first.
             sleep(5);
-            if (expected_results[i]) {
-                cut_assert_equal_int(0, irc_connect(inputs[i]));
-            } else {
-                cut_assert_not_equal_int(0, irc_connect(inputs[i]));
-                fprintf(stderr, "<<<<cineva aici?>>>>>>\n");
-            }
+            irc_connect(inputs[i]);
+            network_disconnect();
             exit(EXIT_SUCCESS);
         }
 
@@ -403,3 +415,12 @@ void test_irc_leaveRoom()
     cut_assert_not_equal_int(0, irc_leaveRoom());
 }
 
+void test_foo()
+{
+    int pid = cut_fork();
+    if (pid == 0) {
+        cut_assert_equal_int(1, 2000);
+        exit(EXIT_SUCCESS);
+    }
+    // cut_assert_equal_int(1, 2000);
+}

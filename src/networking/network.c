@@ -98,3 +98,30 @@ int network_disconnect()
     }
 }
 
+int network_readLine(char *buffer, size_t size)
+{
+    // Create a temporary buffer to read data of maximum size.
+    char *tempBuffer = malloc(size);
+
+    // Read data and test for errors.
+    int bytesRead = network_read(tempBuffer, size);
+    if (bytesRead < 1) {
+        return READING_ERROR;
+    }
+
+    // Iterate over all tempBuffer elements and copy to buffer
+    // until current character is a new line.
+    int bufferIndex = 0;
+    while (tempBuffer[bufferIndex] != '\n') {
+        buffer[bufferIndex] = tempBuffer[bufferIndex];
+        bufferIndex++;
+    }
+
+    // Set last character to be a NUL.
+    buffer[bufferIndex] = '\0';
+
+    // Free our temp buffer.
+    free(tempBuffer);
+
+    return NO_ERROR;
+}

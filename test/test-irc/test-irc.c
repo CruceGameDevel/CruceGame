@@ -111,7 +111,7 @@ char *sniffIrcSentPackets()
         }
 
         if (!being_parsed && prev_char == '\n' && current_char != ':') {
-            beingParsed = 1;
+            being_parsed = 1;
         }
 
         if (being_parsed) {

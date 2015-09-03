@@ -8,55 +8,6 @@
 #include <stddef.h>
 
 /**
- * @brief Issued when the function finished the job with no error.
- */
-#define NO_ERROR 0
-
-/**
- * @brief Issued when you are trying to establish a connection when there is
- *        already an active one.
- */
-#define CONNECTION_IN_USE -1
-
-/**
- * @brief Issued when you are trying to establish a connection but the hostname
- *        is invalid.
- */
-#define INVALID_HOSTNAME -2
-
-/**
- * @brief Issued when the connection attempt failed.
- */
-#define CONNECTING_ERROR -3
-
-/**
- * @brief You are trying to send/read from an uninitialized socket.
- */
-#define UNINITIALIZED_CONNECTION -4
-
-/**
- * @brief Issued when the internal call to `write` in `network_send` returns
- *        an error status.
- */
-#define WRITING_ERROR -5
-
-/**
- * @brief Issued when the internal call to `read` in the function 'network_read'
- *        returns an error status.
- */
-#define READING_ERROR -6
-
-/**
- * @brief Issued when a parameter is null.
- */
-#define NULL_PARAMETER -7
-
-/**
- * @brief Issued when a parameter is out of range.
- */
-#define PARAMETER_OUT_OF_RANGE -8
-
-/**
  * @brief Initialize a network connection.
  *
  * @param hostname The hostname to connect to.

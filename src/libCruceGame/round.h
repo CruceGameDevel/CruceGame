@@ -10,7 +10,7 @@
 #include "deck.h"
 #include "team.h"
 #include "constants.h"
-#include "errors.h"
+#include <errors.h>
 
 /**
  * @struct Hand

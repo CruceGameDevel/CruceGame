@@ -100,28 +100,39 @@ int network_disconnect()
 
 int network_readLine(char *buffer, size_t size)
 {
-    // Create a temporary buffer to read data of maximum size.
-    char *tempBuffer = malloc(size);
+    // Cannot read a line longer than the buffer size.
+    if (size > BUFFER_SIZE)
+        return PARAMETER_OUT_OF_RANGE;
 
-    // Read data and test for errors.
-    int bytesRead = network_read(tempBuffer, size);
+    // Create a temporary buffer.
+    static char internalBuffer[BUFFER_SIZE];
+    static int bufferedBytes = 0;
+
+    int bytesRead = network_read(internalBuffer + bufferedBytes,
+                                 size - 1 - bufferedBytes);
+
     if (bytesRead < 1) {
         return READING_ERROR;
     }
 
-    // Iterate over all tempBuffer elements and copy to buffer
-    // until current character is a new line.
+    bufferedBytes += bytesRead;
+
+    // Iterate over the internalBuffer elements and copy them to the parameter
+    // buffer until current character is a new line or the size of the
+    // parameter buffer has been exceeded.
     int bufferIndex = 0;
-    while (tempBuffer[bufferIndex] != '\n') {
-        buffer[bufferIndex] = tempBuffer[bufferIndex];
+    while (internalBuffer[bufferIndex] != '\n' && bufferIndex < size - 1) {
+        buffer[bufferIndex] = internalBuffer[bufferIndex];
+        bufferIndex++;
+    }
+
+    if (internalBuffer[bufferIndex] == '\n') {
+        buffer[bufferIndex] = internalBuffer[bufferIndex];
         bufferIndex++;
     }
 
     // Set last character to be a NUL.
     buffer[bufferIndex] = '\0';
-
-    // Free our temp buffer.
-    free(tempBuffer);
 
     return NO_ERROR;
 }

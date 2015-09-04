@@ -8,6 +8,11 @@
 #include <stddef.h>
 
 /**
+ * @brief The size of the internal buffer of network_readLine().
+ */
+#define BUFFER_SIZE 1024
+
+/**
  * @brief Initialize a network connection.
  *
  * @param hostname The hostname to connect to.

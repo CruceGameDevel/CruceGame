@@ -11,75 +11,9 @@
 #include <errno.h>
 #include <network.h>
 #include <errors.h>
+#include <helperFunctions.h>
 
 extern int sockfd;
-
-/**
- * Helper to open a local server socket.
- * Param port The port on which must be created the server.
- * Returns a sockfd.
- */
-int openLocalhostSocket(int port) {
-    int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(serverSockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
-
-    struct sockaddr_in serv_addr, cli_addr;
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(port);
-    int bnd = bind(serverSockfd, (struct sockaddr *)&serv_addr,
-                   sizeof(serv_addr));
-    cut_assert_operator_int(bnd, >=, 0, "Server bind failed");
-
-    listen(serverSockfd, 5);
-    socklen_t clilen = sizeof(cli_addr);
-
-    int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
-
-    close(serverSockfd);
-
-    cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
-
-    return newsockfd;
-}
-
-/**
- * Helper to connect to a local server socket.
- * Param port The port on which runs the server.
- * Returns none.
- *
- * This function assumes the use of sockfd private variable in the networking
- * module.
- */
-void connectToLocalhostSocket(int port)
-{
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_operator_int(sockfd, >=, 0,
-                            "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_not_null(server, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(port);
-
-    int conn = connect(sockfd, (struct sockaddr *)&serv_addr,
-                       sizeof(serv_addr));
-
-    cut_assert_operator_int(conn, >=, 0,
-                            "Error connecting to the server process");
-}
 
 /**
  * Test for network_connect.
@@ -140,7 +74,7 @@ void test_network_connect() {
     cut_assert_not_equal_int(0, network_connect("localhost", 8081),
                              "Reconnection attempt succedeed without "
                              "previous disconnect");
-    connectToLocalhostSocket(8081);
+    sockfd = connectToLocalhostSocket(8081);
 
     close(sockfd);
     sockfd = -1;
@@ -174,7 +108,7 @@ void test_network_disconnect() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8079);
+    sockfd = connectToLocalhostSocket(8079);
 
     network_disconnect();
 
@@ -210,7 +144,7 @@ void test_network_read() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8078);
+    sockfd = connectToLocalhostSocket(8078);
 
     cut_assert_equal_int(5, network_read(buffer, 10),
                          "Not have been read all bytes");
@@ -259,7 +193,7 @@ void test_network_send() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8077);
+    sockfd = connectToLocalhostSocket(8077);
 
     cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
     cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 0),

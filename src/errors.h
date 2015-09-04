@@ -16,57 +16,77 @@
  *        in the game.
  */
 enum ERROR_CODE {
-    NO_ERROR      = 0,   //!< Normal behaviour, no error is recieved. 
+    NO_ERROR                   = 0,   //!< Normal behaviour, no error reported.
 
-    POINTER_NULL  = -1,  //!< The parameter of the function is NULL. 
-    MALLOC_ERROR  = -2,  //!< This error status is encountered when malloc faild to allocate memory. 
+    POINTER_NULL               = -1,  //!< One parameter is NULL.
+    MALLOC_ERROR               = -2,  //!< Malloc faild to allocate memory.
 
-    CARD_NULL     = -3,  //!< The player's card is NULL.
-    DECK_NULL     = -4,  //!< The deck of the current player is NULL. 
-    PLAYER_NULL   = -5,  //!< The value of the variable that points to a Player is equal to NULL.
-    TEAM_NULL     = -6,  //!< The value of the argument that points to a Team is equal to NULL.
+    CARD_NULL                  = -3,  //!< The player's card is NULL.
+    DECK_NULL                  = -4,  //!< The deck of the current player
+                                      //   is NULL.
+    PLAYER_NULL                = -5,  //!< The value of the variable that
+                                      //   points to a Player is equal to NULL.
+    TEAM_NULL                  = -6,  //!< The value of the argument that
+                                      //   points to a Team is equal to NULL.
 
-    TEAM_FULL     = -7,  //!< There are no free spaces in the current team.
-    TEAM_EMPTY    = -8,  //!< An attempt to operate on a team that has no members.
+    TEAM_FULL                  = -7,  //!< There are no free slots in the
+                                      //   current team.
+    TEAM_EMPTY                 = -8,  //!< An attempt to operate on a team that
+                                      //   has no members.
 
-    DUPLICATE     = -9,  //!< There is one more player or card with that name.
-    NOT_FOUND     = -10, //!< The item you are operating on was not found.
+    DUPLICATE                  = -9,  //!< There is one more player or card
+                                      //   with that name.
+    NOT_FOUND                  = -10, //!< The requested item was not found.
 
-    ROUND_NULL    = -11, //!< The value of the argument that is supposed to point to a Round is equal to NULL.
-    HAND_NULL     = -12, //!< The value of the argument that is supposed to point to a Hand is equal to NULL.
+    ROUND_NULL                 = -11, //!< The Round pointer is NULL.
+    HAND_NULL                  = -12, //!< The Hand pointer is NULL.
 
-    ILLEGAL_VALUE = -13, //!< The bid's value o the player's id is not a valid one.
+    ILLEGAL_VALUE              = -13, //!< The bid value is not valid.
 
-    FULL          = -14, //!< There is no place left for one more player or hand.
-    ERROR_COMPARE = -15, //!< In this context, the values you are trying to compare are illegal.
+    FULL                       = -14, //!< There is no slot left for one more
+                                      //   player or hand.
+    ERROR_COMPARE              = -15, //!< In this context, the comparison
+                                      //   is illegal.
 
-    HAND_EMPTY    = -16, //!< The current hand is empty.
-    DECK_EMPTY    = -17, //!< Can't distriute cards from an empty deck.
+    HAND_EMPTY                 = -16, //!< The current hand is empty.
+    DECK_EMPTY                 = -17, //!< Can't distriute cards from an empty
+                                      //   deck.
 
-    INSUFFICIENT_PLAYERS  = -18, //!< In this context, the number of players is not big enough.
-    LESS_CARDS    = -19, //!< The operation can't be completed due to the insufficient number of cards.
+    INSUFFICIENT_PLAYERS       = -18, //!< In this context, the number of
+                                      //   players is not big enough.
+    LESS_CARDS                 = -19, //!< The operation can't be completed due
+                                      //   to the insufficient number of cards.
 
-    GAME_NULL     = -20, //!< The value of the argument that should point to a Game is equal to NULL.
-    ROUND_EMPTY   = -21, //!< There are no players in a round.
-    GAME_EMPTY    = -22, //!< There are no players in a game.
+    GAME_NULL                  = -20, //!< The Game pointer is NULL.
+    ROUND_EMPTY                = -21, //!< There are no players in a round.
+    GAME_EMPTY                 = -22, //!< There are no players in a game.
 
-    DUPLICATE_NAME = -23, //!< There is one more player with this name.
+    DUPLICATE_NAME             = -23, //!< There is one more player with this
+                                      //   name.
 
-    ALLOC_ERROR   = -24,  //!< There have been a memory allocation error.
+    ALLOC_ERROR                = -24, //!< There has been a memory allocation
+                                      //   error.
 
-    CONNECTION_IN_USE = -25, //!< There is already an active one.
-    INVALID_HOSTNAME = -26, //!< The hostname is invalid.
-    CONNECTING_ERROR = -27, //!< The connection attempt failed.
-    UNINITIALIZED_CONNECTION = -28, //!< Send/read to/from uninitialized socket.
-    WRITING_ERROR = -29, //!< The internal call to `write` in `network_send`
-                         // returns an error status.
-    READING_ERROR = -30, //!< The internal call to `read` in `network_read`
-                         // returns an error status.
-    PARAMETER_OUT_OF_RANGE = -31, //!< The parameter is out of range.
-    MESSAGE_TOO_LONG = -32, //!< The message is too long.
-    DISCONNECT_ERROR = -33, //!< The disconnect attempt failed.
-    LEAVE_ROOM_ERROR = -34, //!< The trying to leave the room failed.
-    SEND_LOBBY_MESSAGE_FAILURE = -35 //!< Sending message to lobby failed.
+    CONNECTION_IN_USE          = -25, //!< There is already an active
+                                      //   connection.
+    INVALID_HOSTNAME           = -26, //!< The hostname is invalid.
+    CONNECTING_ERROR           = -27, //!< The connection attempt failed.
+
+    UNINITIALIZED_CONNECTION   = -28, //!< Trying to perform a netowrk operation
+                                      //   on an unitialized connection.
+
+    WRITING_ERROR              = -29, //!< The internal call to `write` in
+                                      //   \ref network_send returns an error
+                                      //   code.
+    READING_ERROR              = -30, //!< The internal call to `read` in
+                                      //   \ref network_read returns an error
+                                      //   code.
+    PARAMETER_OUT_OF_RANGE     = -31, //!< The parameter's value is out of
+                                      //   range.
+    MESSAGE_TOO_LONG           = -32, //!< The message is too long.
+    DISCONNECT_ERROR           = -33, //!< The disconnect attempt failed.
+    LEAVE_ROOM_ERROR           = -34, //!< The attmept to leave the room failed.
+    SEND_LOBBY_MESSAGE_FAILURE = -35  //!< Sending message to lobby failed.
 };
 
 #ifdef __cplusplus

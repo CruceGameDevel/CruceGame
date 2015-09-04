@@ -210,3 +210,67 @@ void test_network_send() {
                              "Send data to non-existent server succeeded");
 }
 
+/**
+ * Test for network_readLine.
+ * It works by testing a exceptional case, then by creating a new process that
+ * opens a socket and connecting to it. Some data is transfered from server to
+ * client and the client read the data from server using network_readLine. Then
+ * the client checks if the data has been transfered correctly from server.
+ * Then are tested some exceptional cases.
+ *
+ * This function assumes the use of sockfd private variable in the networking
+ * module.
+ */
+void test_network_readLine()
+{
+    char buffer[10];
+    cut_assert_operator_int(0, >, network_readLine(buffer, 10),
+                            "Read data from non-existent server succeeded");
+
+    int pid = fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8076);
+        char serverBuffer[10];
+
+        write(newsockfd, "test1\ntest2\ntest", 16);
+
+        read(newsockfd, serverBuffer, 9);
+
+        write(newsockfd, "3\n", 2);
+
+        close(newsockfd);
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    sockfd = connectToLocalhostSocket(8076);
+
+    cut_assert_operator_int(0, >, network_readLine(NULL, 5),
+                            "Read data succeeded into null string");
+    cut_assert_operator_int(0, >, network_readLine(buffer, 0),
+                            "Read data succeeded into zero-length string");
+
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test1", buffer);
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test2", buffer);
+    cut_assert_equal_int(0, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("", buffer);
+
+    write(sockfd, "passed", 6);
+
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test3", buffer);
+
+    close(sockfd);
+    sockfd = -1;
+
+    cut_assert_operator_int(0, >, network_readLine(buffer, 10),
+                            "Read data from non-existent server succeeded");
+}
+

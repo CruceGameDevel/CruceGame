@@ -9,6 +9,7 @@
 #include <irc.h>
 #include <network.h>
 #include <errno.h>
+#include <errors.h>
 
 extern int currentRoom;
 

@@ -52,7 +52,21 @@ enum ERROR_CODE {
 
     DUPLICATE_NAME = -23, //!< There is one more player with this name.
 
-    ALLOC_ERROR   = -24  //!< There have been a memory allocation error.
+    ALLOC_ERROR   = -24,  //!< There have been a memory allocation error.
+
+    CONNECTION_IN_USE = -25, //!< There is already an active one.
+    INVALID_HOSTNAME = -26, //!< The hostname is invalid.
+    CONNECTING_ERROR = -27, //!< The connection attempt failed.
+    UNINITIALIZED_CONNECTION = -28, //!< Send/read to/from uninitialized socket.
+    WRITING_ERROR = -29, //!< The internal call to `write` in `network_send`
+                         // returns an error status.
+    READING_ERROR = -30, //!< The internal call to `read` in `network_read`
+                         // returns an error status.
+    PARAMETER_OUT_OF_RANGE = -31, //!< The parameter is out of range.
+    MESSAGE_TOO_LONG = -32, //!< The message is too long.
+    DISCONNECT_ERROR = -33, //!< The disconnect attempt failed.
+    LEAVE_ROOM_ERROR = -34, //!< The trying to leave the room failed.
+    SEND_LOBBY_MESSAGE_FAILURE = -35 //!< Sending message to lobby failed.
 };
 
 #ifdef __cplusplus

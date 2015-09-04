@@ -10,75 +10,10 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <network.h>
+#include <errors.h>
+#include <helperFunctions.h>
 
 extern int sockfd;
-
-/**
- * Helper to open a local server socket.
- * Param port The port on which must be created the server.
- * Returns a sockfd.
- */
-int openLocalhostSocket(int port) {
-    int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(serverSockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
-
-    struct sockaddr_in serv_addr, cli_addr;
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(port);
-    int bnd = bind(serverSockfd, (struct sockaddr *)&serv_addr,
-                   sizeof(serv_addr));
-    cut_assert_operator_int(bnd, >=, 0, "Server bind failed");
-
-    listen(serverSockfd, 5);
-    socklen_t clilen = sizeof(cli_addr);
-
-    int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
-
-    close(serverSockfd);
-
-    cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
-
-    return newsockfd;
-}
-
-/**
- * Helper to connect to a local server socket.
- * Param port The port on which runs the server.
- * Returns none.
- *
- * This function assumes the use of sockfd private variable in the networking
- * module.
- */
-void connectToLocalhostSocket(int port)
-{
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_operator_int(sockfd, >=, 0,
-                            "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_not_null(server, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(port);
-
-    int conn = connect(sockfd, (struct sockaddr *)&serv_addr,
-                       sizeof(serv_addr));
-
-    cut_assert_operator_int(conn, >=, 0,
-                            "Error connecting to the server process");
-}
 
 /**
  * Test for network_connect.
@@ -139,7 +74,7 @@ void test_network_connect() {
     cut_assert_not_equal_int(0, network_connect("localhost", 8081),
                              "Reconnection attempt succedeed without "
                              "previous disconnect");
-    connectToLocalhostSocket(8081);
+    sockfd = connectToLocalhostSocket(8081);
 
     close(sockfd);
     sockfd = -1;
@@ -173,7 +108,7 @@ void test_network_disconnect() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8079);
+    sockfd = connectToLocalhostSocket(8079);
 
     network_disconnect();
 
@@ -209,7 +144,7 @@ void test_network_read() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8078);
+    sockfd = connectToLocalhostSocket(8078);
 
     cut_assert_equal_int(5, network_read(buffer, 10),
                          "Not have been read all bytes");
@@ -258,7 +193,7 @@ void test_network_send() {
     }
 
     sleep(1);
-    connectToLocalhostSocket(8077);
+    sockfd = connectToLocalhostSocket(8077);
 
     cut_assert_equal_int(NO_ERROR, network_send("test", 5), "Send data failed");
     cut_assert_not_equal_int(NO_ERROR, network_send(NULL, 0),
@@ -273,5 +208,69 @@ void test_network_send() {
 
     cut_assert_not_equal_int(0, network_send("test", 5),
                              "Send data to non-existent server succeeded");
+}
+
+/**
+ * Test for network_readLine.
+ * It works by testing a exceptional case, then by creating a new process that
+ * opens a socket and connecting to it. Some data is transfered from server to
+ * client and the client read the data from server using network_readLine. Then
+ * the client checks if the data has been transfered correctly from server.
+ * Then are tested some exceptional cases.
+ *
+ * This function assumes the use of sockfd private variable in the networking
+ * module.
+ */
+void test_network_readLine()
+{
+    char buffer[10];
+    cut_assert_operator_int(0, >, network_readLine(buffer, 10),
+                            "Read data from non-existent server succeeded");
+
+    int pid = fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8076);
+        char serverBuffer[10];
+
+        write(newsockfd, "test1\ntest2\ntest", 16);
+
+        read(newsockfd, serverBuffer, 9);
+
+        write(newsockfd, "3\n", 2);
+
+        close(newsockfd);
+
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    sockfd = connectToLocalhostSocket(8076);
+
+    cut_assert_operator_int(0, >, network_readLine(NULL, 5),
+                            "Read data succeeded into null string");
+    cut_assert_operator_int(0, >, network_readLine(buffer, 0),
+                            "Read data succeeded into zero-length string");
+
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test1", buffer);
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test2", buffer);
+    cut_assert_equal_int(0, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("", buffer);
+
+    write(sockfd, "passed", 6);
+
+    cut_assert_equal_int(5, network_readLine(buffer, 10),
+                         "Not had been the correct number of bytes");
+    cut_assert_equal_string("test3", buffer);
+
+    close(sockfd);
+    sockfd = -1;
+
+    cut_assert_operator_int(0, >, network_readLine(buffer, 10),
+                            "Read data from non-existent server succeeded");
 }
 

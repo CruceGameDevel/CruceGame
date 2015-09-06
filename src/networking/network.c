@@ -159,5 +159,5 @@ int network_readLine(char *buffer, size_t size)
     // Set last character to be a NUL.
     buffer[bufferIndex] = '\0';
 
-    return NO_ERROR;
+    return bufferIndex;
 }

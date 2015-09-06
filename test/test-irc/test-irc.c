@@ -302,3 +302,44 @@ void test_irc_sendRoomMessage()
     currentRoom = -1;
 }
 
+void test_irc_invite()
+{
+    cut_assert_not_equal_int(NO_ERROR, irc_invite("user"));
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8201), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "INVITE user #cruce-game001") != 0)
+            returnedValue++;
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8201));
+    currentRoom = 1;
+
+    int value;
+
+    cut_assert_equal_int(NO_ERROR, irc_invite("user"), "Invite user failed");
+    cut_assert_operator_int(NO_ERROR, >, irc_invite(NULL));
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+
+    currentRoom = -1;
+}
+

@@ -261,8 +261,8 @@ void test_irc_leaveRoom()
 
 void test_irc_sendRoomMessage()
 {
-    cut_assert_not_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
-                             "Send data to non-existent room succeeded");
+    cut_assert_operator_int(NO_ERROR, >, irc_sendRoomMessage("message"),
+                            "Send data to non-existent room succeeded");
 
     currentRoom = 1;
     int pid = cut_fork();
@@ -290,8 +290,8 @@ void test_irc_sendRoomMessage()
 
     cut_assert_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
                          "Send data failed");
-    cut_assert_not_equal_int(NO_ERROR, irc_sendRoomMessage(NULL),
-                             "Send wrong data succeeded");
+    cut_assert_operator_int(NO_ERROR, >, irc_sendRoomMessage(NULL),
+                            "Send wrong data succeeded");
 
     wait(&value);
 

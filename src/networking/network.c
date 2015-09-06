@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/types.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -115,14 +117,28 @@ int network_readLine(char *buffer, size_t size)
     static char internalBuffer[BUFFER_SIZE];
     static int bufferedBytes = 0;
 
-    int bytesRead = network_read(internalBuffer + bufferedBytes,
-                                 size - 1 - bufferedBytes);
+    if (size - 1 - bufferedBytes > 0) {
 
-    if (bytesRead < 1) {
-        return READING_ERROR;
+        fd_set rfds;
+        struct timeval tv;
+
+        FD_ZERO(&rfds);
+        FD_SET(sockfd, &rfds);
+
+        tv.tv_sec = 5;
+        tv.tv_usec = 0;
+
+        if (select(1, &rfds, NULL, NULL, &tv)) {
+            int bytesRead = network_read(internalBuffer + bufferedBytes,
+                                         size - 1 - bufferedBytes);
+
+            if (bytesRead < 1) {
+                return READING_ERROR;
+            }
+
+            bufferedBytes += bytesRead;
+        }
     }
-
-    bufferedBytes += bytesRead;
 
     // Iterate over the internalBuffer elements and copy them to the parameter
     // buffer until current character is a new line or the size of the

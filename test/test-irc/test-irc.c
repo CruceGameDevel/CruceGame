@@ -463,9 +463,14 @@ void test_irc_getNames()
     sprintf(server_output[0][1], ":test.freenode.net 366 dummy "
             ROOM_FORMAT " :End of /NAMES list.", currentRoom);
     sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
-            LOBBY_CHANNEL " :user1 user2");
+            LOBBY_CHANNEL " :user3 user4");
     sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
             LOBBY_CHANNEL " :End of /NAMES list.");
+
+    char user_list[2][512] = {
+        "user1 user2",
+        "user3 user4"
+    };
 
     int inputs[] = {1, 200};
 
@@ -487,8 +492,7 @@ void test_irc_getNames()
         cut_assert_equal_int(0, network_connect("localhost", 8018 + i));
         char *names = irc_getNames(inputs[i]);
 
-        int padding = (i == 1) ? 47 : 45;
-        cut_assert_equal_string(server_output[i][0] + padding, names);
+        cut_assert_equal_string(user_list[i], names);
 
         cut_assert_equal_int(0, network_disconnect());
         free(names);

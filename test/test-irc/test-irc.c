@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <netdb.h>
 #include <irc.h>
 #include <network.h>
@@ -12,7 +13,7 @@
 #include <errors.h>
 #include <helperFunctions.h>
 
-extern int currentRoom;
+extern int currentRoom, sockfd;
 
 void test_irc_connect()
 {
@@ -256,5 +257,48 @@ void test_irc_leaveRoom()
     }
 
     cut_assert_not_equal_int(0, irc_leaveRoom());
+}
+
+void test_irc_sendRoomMessage()
+{
+    cut_assert_not_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
+                             "Send data to non-existent room succeeded");
+
+    currentRoom = 1;
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8200), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "PRIVMSG #cruce-game001 :message") != 0)
+            returnedValue++;
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    sockfd = connectToLocalhostSocket(8200);
+    int value;
+
+    cut_assert_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
+                         "Send data failed");
+    cut_assert_not_equal_int(NO_ERROR, irc_sendRoomMessage(NULL),
+                             "Send wrong data succeeded");
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    close(sockfd);
+    sockfd = -1;
+    currentRoom = -1;
 }
 

@@ -101,8 +101,14 @@ int network_disconnect()
 
 int network_readLine(char *buffer, size_t size)
 {
+    if (sockfd < 0)
+        return UNINITIALIZED_CONNECTION;
+
+    if (buffer == NULL)
+        return POINTER_NULL;
+
     // Cannot read a line longer than the buffer size.
-    if (size > BUFFER_SIZE)
+    if (size == 0 || size > BUFFER_SIZE)
         return PARAMETER_OUT_OF_RANGE;
 
     // Create a temporary buffer.

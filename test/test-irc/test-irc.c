@@ -407,5 +407,56 @@ void test_irc_leaveRoom()
 
 void test_irc_toggleRoomStatus()
 {
-    
+    char serverMessages[4][512] = {
+        "WAITING\r\n",
+        "PLAYING\r\n",
+        ":No topic is set\r\n",
+        ":No topic is set\r\n"
+    };
+    int room_numbers[] = {0, 50, 999, 1000};
+    int outputs[] = {1, 2, 0, 0};
+
+    for (int i = 0; i < 4; i++) {
+        // First, we test the correctness of the return type.
+        int pid = cut_fork();
+        if (pid == 0) {
+            // It doesn't make sense to do assertions in the child process
+            // since they are not executed.
+            int sockfd = openLocalhostSocket(8008 + i);
+            write(sockfd, serverMessages[i], 512);
+            close(sockfd);
+            exit(EXIT_SUCCESS);
+        }
+
+        sleep(1); // Wait a little bit before connecting to the server.
+        cut_assert_equal_int(0, network_connect("localhost", 8008 + i));
+        cut_assert_equal_int(outputs[i], irc_toggleRoomStatus(room_numbers[i]));
+        cut_assert_equal_int(0, network_disconnect());
+
+        // Then we test the behavior of the function (if it sends the right
+        // thing to the server).
+
+        int sockfd = openLocalhostSocket(8099 + i);
+        cut_assert_operator_int(sockfd, >=, 0);
+
+        pid = cut_fork();
+
+        if (pid == 0) {
+            sleep(1);
+            network_connect("localhost", 8099 + i);
+            irc_toggleRoomStatus(room_numbers[i]);
+            network_disconnect();
+            exit(EXIT_SUCCESS);
+        }
+
+        char received_message[512];
+        cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
+
+        close(sockfd);
+
+        char expected_message[512];
+        sprintf(expected_message, ROOM_FORMAT, room_numbers[i]);
+
+        cut_assert_equal_string(expected_message, received_message);
+    }
 }

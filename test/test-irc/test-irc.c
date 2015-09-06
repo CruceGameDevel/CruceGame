@@ -13,7 +13,7 @@
 #include <errors.h>
 #include <helperFunctions.h>
 
-extern int currentRoom, sockfd;
+extern int currentRoom;
 
 void test_irc_connect()
 {

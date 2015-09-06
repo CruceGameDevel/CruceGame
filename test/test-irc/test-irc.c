@@ -465,7 +465,7 @@ void test_irc_getNames()
     sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
             LOBBY_CHANNEL " :user1 user2");
     sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
-            LOBBY_CHANNEL " :End of /NAMES list."1);
+            LOBBY_CHANNEL " :End of /NAMES list.");
 
     int inputs[] = {1, 200};
 
@@ -494,7 +494,7 @@ void test_irc_getNames()
         free(names);
 
         // Then test if the behavior is the right one.
-        sockfd = openLocalhostSocket(8029 + i);
+        int sockfd = openLocalhostSocket(8029 + i);
         cut_assert_operator_int(sockfd, >=, 0);
 
         pid = cut_fork();
@@ -505,7 +505,7 @@ void test_irc_getNames()
             // In this case we shouldn't care about what it returns, but we
             // risk a memory leak if we don't free that memory.
             char *names = irc_getNames(inputs[i]);
-            free(name);
+            free(names);
 
             network_disconnect();
             exit(EXIT_SUCCESS);

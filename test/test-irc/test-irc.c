@@ -10,6 +10,8 @@
 #include <irc.h>
 #include <network.h>
 #include <errno.h>
+#include <errors.h>
+#include <helperFunctions.h>
 
 extern int currentRoom;
 
@@ -132,6 +134,7 @@ char *sniffIrcSentPackets()
     buffer[size] = '\0';
     return buffer;
 }
+
 
 void test_irc_connect()
 {
@@ -402,12 +405,7 @@ void test_irc_leaveRoom()
     cut_assert_not_equal_int(0, irc_leaveRoom());
 }
 
-void test_foo()
+void test_irc_toggleRoomStatus()
 {
-    int pid = cut_fork();
-    if (pid == 0) {
-        cut_assert_equal_int(1, 2000);
-        exit(EXIT_SUCCESS);
-    }
-    // cut_assert_equal_int(1, 2000);
+    
 }

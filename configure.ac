@@ -31,6 +31,7 @@ fi
 AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 test/helperFunctions/Makefile
                  test/Makefile])
 
 AC_OUTPUT

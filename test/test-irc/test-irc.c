@@ -168,17 +168,8 @@ void test_irc_connect()
     int expected_results[] = {1, 1, 0};
 
     for (int i = 0; i < 3; i++) {
-        int pid = cut_fork();
 
         // Test the return type.
-        if(pid == 0) {
-            // The process will stop after 10 seconds.
-            char *irc_messages = sniffIrcSentPackets();
-            free(irc_messages);
-            exit(EXIT_SUCCESS);
-        }
-
-        sleep(5);
         if (expected_results[i]) {
             cut_assert_equal_int(0, irc_connect(inputs[i]));
         } else {
@@ -188,7 +179,7 @@ void test_irc_connect()
         cut_assert_equal_int(0, network_disconnect());
         
         // Now test if it works.
-        pid = cut_fork();
+        int pid = cut_fork();
         if (pid == 0) {
             // In order to have meaningful results, `tcpflow` should start 
             // first.

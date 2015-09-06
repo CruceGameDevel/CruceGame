@@ -446,7 +446,7 @@ void test_irc_toggleRoomStatus()
         close(sockfd);
 
         char expected_message[512];
-        sprintf(expected_message, ROOM_FORMAT, room_numbers[i]);
+        sprintf(expected_message, "TOPIC " ROOM_FORMAT "\r\n", room_numbers[i]);
 
         cut_assert_equal_string(expected_message, received_message);
     }

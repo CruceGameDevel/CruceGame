@@ -285,7 +285,7 @@ void test_irc_sendRoomMessage()
 
     sleep(1);
 
-    sockfd = connectToLocalhostSocket(8200);
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8200));
     int value;
 
     cut_assert_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
@@ -297,8 +297,8 @@ void test_irc_sendRoomMessage()
 
     cut_assert_equal_int(0, value);
 
-    close(sockfd);
-    sockfd = -1;
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+
     currentRoom = -1;
 }
 

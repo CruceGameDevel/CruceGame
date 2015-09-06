@@ -460,3 +460,78 @@ void test_irc_toggleRoomStatus()
         cut_assert_equal_string(expected_message, received_message);
     }
 }
+
+void test_irc_getNames()
+{
+    currentRoom = 122; // Assign some random-chosen value.
+
+    char server_output[2][2][512];
+    // Build the server's output.
+    sprintf(server_output[0][0], ":test.freenode.net 353 dummy = "
+            ROOM_FORMAT " :user1 user2", currentRoom);
+    sprintf(server_output[0][1], ":test.freenode.net 366 dummy "
+            ROOM_FORMAT " :End of /NAMES list.", currentRoom);
+    sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
+            LOBBY_CHANNEL " :user1 user2");
+    sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
+            LOBBY_CHANNEL " :End of /NAMES list."1);
+
+    int inputs[] = {1, 200};
+
+    for (int i = 0; i < 2; i++) {
+        // Test the correctness of the return type.
+        int pid = cut_fork();
+
+        if (pid == 0) {
+            int sockfd = openLocalhostSocket(8018 + i);
+
+            write(sockfd, server_output[i][0], 512);
+            write(sockfd, server_output[i][1], 512);
+
+            close(sockfd);
+            exit(EXIT_SUCCESS);
+        }
+
+        sleep(1);
+        cut_assert_equal_int(0, network_connect("localhost", 8018 + i));
+        char *names = irc_getNames(inputs[i]);
+
+        int padding = (i == 1) ? 47 : 45;
+        cut_assert_equal_string(server_output[i][0] + padding, names);
+
+        cut_assert_equal_int(0, network_disconnect());
+        free(names);
+
+        // Then test if the behavior is the right one.
+        sockfd = openLocalhostSocket(8029 + i);
+        cut_assert_operator_int(sockfd, >=, 0);
+
+        pid = cut_fork();
+        if (pid == 0) {
+            sleep(1);
+            network_connect("localhost", 8029 + i);
+
+            // In this case we shouldn't care about what it returns, but we
+            // risk a memory leak if we don't free that memory.
+            char *names = irc_getNames(inputs[i]);
+            free(name);
+
+            network_disconnect();
+            exit(EXIT_SUCCESS);
+        }
+
+        char received_message[512];
+        cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
+
+        close(sockfd);
+
+        char expected_message[512];
+        if (i == 1) {
+            sprintf(expected_message, "NAMES " ROOM_FORMAT "\r\n", currentRoom);
+        } else {
+            sprintf(expected_message, "NAMES " LOBBY_CHANNEL "\r\n");
+        }
+
+        cut_assert_equal_string(expected_message, received_message);
+    }
+}

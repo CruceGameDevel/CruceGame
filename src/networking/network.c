@@ -159,5 +159,8 @@ int network_readLine(char *buffer, size_t size)
     // Set last character to be a NUL.
     buffer[bufferIndex] = '\0';
 
+    if (bufferedBytes > 0)
+        strncpy(internalBuffer, internalBuffer + bufferIndex, bufferedBytes);
+
     return bufferIndex;
 }

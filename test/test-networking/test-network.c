@@ -230,16 +230,11 @@ void test_network_readLine()
     int pid = fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8076);
-        char serverBuffer[10];
+        char string[] = "abcde\nfghij\n123klmno";
 
-        write(newsockfd, "test1\ntest2\ntest", 16);
-
-        read(newsockfd, serverBuffer, 9);
-
-        write(newsockfd, "3\n", 2);
+        write(newsockfd, string, sizeof(string));
 
         close(newsockfd);
-
         exit(EXIT_SUCCESS);
     }
 
@@ -251,21 +246,27 @@ void test_network_readLine()
     cut_assert_operator_int(0, >, network_readLine(buffer, 0),
                             "Read data succeeded into zero-length string");
 
-    cut_assert_equal_int(5, network_readLine(buffer, 10),
-                         "Not had been the correct number of bytes");
-    cut_assert_equal_string("test1", buffer);
-    cut_assert_equal_int(5, network_readLine(buffer, 10),
-                         "Not had been the correct number of bytes");
-    cut_assert_equal_string("test2", buffer);
-    cut_assert_equal_int(0, network_readLine(buffer, 10),
-                         "Not had been the correct number of bytes");
-    cut_assert_equal_string("", buffer);
+    cut_assert_equal_int(2, network_readLine(buffer, 3),
+                         "First reading did not return the correct number"
+                         "of bytes");
+    cut_assert_equal_string("ab", buffer);
+    cut_assert_equal_int(4, network_readLine(buffer, 10),
+                         "Second reading did not return the correct number "
+                         "of bytes");
+    cut_assert_equal_string("cde\n", buffer);
+    cut_assert_equal_int(6, network_readLine(buffer, 10),
+                         "Third reading did not return the correct number "
+                         "of bytes");
+    cut_assert_equal_string("fghij\n", buffer);
 
-    write(sockfd, "passed", 6);
+    cut_assert_equal_int(3, network_readLine(buffer, 3),
+                         "Fourth reading did not return the correct number"
+                         "of bytes");
+    cut_assert_equal_string("123", buffer);
 
     cut_assert_equal_int(5, network_readLine(buffer, 10),
                          "Not had been the correct number of bytes");
-    cut_assert_equal_string("test3", buffer);
+    cut_assert_equal_string("klmno", buffer);
 
     close(sockfd);
     sockfd = -1;

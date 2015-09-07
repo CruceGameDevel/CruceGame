@@ -86,7 +86,9 @@ enum ERROR_CODE {
     MESSAGE_TOO_LONG           = -32, //!< The message is too long.
     DISCONNECT_ERROR           = -33, //!< The disconnect attempt failed.
     LEAVE_ROOM_ERROR           = -34, //!< The attmept to leave the room failed.
-    SEND_LOBBY_MESSAGE_FAILURE = -35  //!< Sending message to lobby failed.
+    SEND_LOBBY_MESSAGE_FAILURE = -35, //!< Sending message to lobby failed.
+    DATA_NOT_READY             = -36, //!< The data is not ready yet to be
+                                      //   processed.
 };
 
 #ifdef __cplusplus

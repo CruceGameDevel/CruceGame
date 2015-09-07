@@ -8,6 +8,85 @@
 int currentRoom = -1;
 
 /**
+ * @brief Structure used to store an IRC message.
+ */
+struct IrcMessage {
+    char *prefix;   /**< The prefix of the message.            */
+    char *command;  /**< The command sent in this message.     */
+    char *trailing; /**< The trailing part of the IRC message. */
+};
+
+/**
+ * @brief Private function to get the next IRC message and parse it to generate
+ *        a \ref IrcMessage structure that stores it.
+ *
+ * -----------------------------
+ * The Backus-Naur form of the message is:
+ *
+ * message =  [ ":" prefix SPACE ] command [ params ] crlf
+ *
+ * The prefix is used to indicate the origin of the message.
+ * The clients should not send a prefix.
+ *
+ * The command must be either an IRC command or a three digit value.
+ *
+ * The maximum size of a message is 512 bytes.
+ * -----------------------------
+ * [extract form RFC 2812, section 2.3]
+ *
+ * @param str The message to be parsed.
+ */
+struct IrcMessage *getNextMessage()
+{
+
+    static char str[MAX_MESSAGE_SIZE];
+    // TODO: Create a line 
+
+    int prefixLen = 0;
+
+    if (str[0] == ':') {
+        char *prefixEnd = strchr(str, ' ') - 1;
+        prefixLen       = prefixEnd - str - 1;
+    }
+
+    char *trailingStart = strchr(prefixEnd + 2, ' ') + 1; //parsing trailing
+    int   trailingLen   = strlen(trailingStart) - 1;
+
+    char *commandStart  = prefixEnd + 2; //parsing command
+    char *commandEnd    = trailingStart - 2;
+    int   commandLen    = commandEnd - commandStart + 1;
+
+    struct IrcMessage *message = malloc(sizeof(struct IrcMessage));
+    message->prefix            = malloc(prefixLen + 1);
+    message->command           = malloc(commandLen + 1);
+    message->trailing          = malloc(trailingLen + 1);
+
+    strncpy(message->prefix,   str + 1,       prefixLen);
+    strncpy(message->command,  commandStart,  commandLen);
+    strncpy(message->trailing, trailingStart, trailingLen);
+
+    message->prefix[prefixLen]     = '\0';
+    message->command[commandLen]   = '\0';
+    message->trailing[trailingLen] = '\0';
+
+    return message;
+}
+
+/**
+ * @brief Private function to delete a \ref IrcMessage object returned by
+ *        \ref parseMessage.
+ */
+void deleteMessage(struct IrcMessage **message)
+{
+    free((*message)->prefix);
+    free((*message)->command);
+    free((*message)->trailing);
+    free( *message);
+    *message = NULL;
+}
+
+
+/**
  * Use network_connect to open a connection to IRC server.
  *
  * After, sends "PASS *" command (just a convention, because 

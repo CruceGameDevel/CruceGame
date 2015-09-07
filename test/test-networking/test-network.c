@@ -230,9 +230,16 @@ void test_network_readLine()
     int pid = fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8076);
-        char string[] = "abcde\nfghij\n123klmno";
+        char string[] = "bcde\nfghij\n123klmno";
 
-        write(newsockfd, string, sizeof(string));
+        write(newsockfd, "a", 1);
+        write(newsockfd, string, sizeof(string) - 1);
+
+        // Use a timeout synchronization mechanism to test reading incomplete
+        // messages (that do not end in a newline).
+        sleep(1);
+
+        write(newsockfd, "p\n", 2);
 
         close(newsockfd);
         exit(EXIT_SUCCESS);
@@ -259,14 +266,21 @@ void test_network_readLine()
                          "of bytes");
     cut_assert_equal_string("fghij\n", buffer);
 
-    cut_assert_equal_int(3, network_readLine(buffer, 3),
+    cut_assert_equal_int(3, network_readLine(buffer, 4),
                          "Fourth reading did not return the correct number"
                          "of bytes");
     cut_assert_equal_string("123", buffer);
 
-    cut_assert_equal_int(5, network_readLine(buffer, 10),
-                         "Not had been the correct number of bytes");
-    cut_assert_equal_string("klmno", buffer);
+    cut_assert_operator_int(0, >, network_readLine(buffer, 10),
+                            "Read incomplete message succeeded");
+
+    // Wait for the child process to send the newline message.
+    sleep(1);
+
+    cut_assert_equal_int(7, network_readLine(buffer, 10),
+                         "Fifth reading did not return the correct number"
+                         "of bytes");
+    cut_assert_equal_string("klmnop\n", buffer);
 
     close(sockfd);
     sockfd = -1;

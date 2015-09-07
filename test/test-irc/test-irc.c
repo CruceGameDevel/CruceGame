@@ -259,6 +259,17 @@ void test_irc_leaveRoom()
     cut_assert_not_equal_int(0, irc_leaveRoom());
 }
 
+/**
+ * Test for irc_sendRoomMessage.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_sendRoomMessage and the server checks if the data has been
+ * transfered correctly. Then is tested another one exceptional case.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
 void test_irc_sendRoomMessage()
 {
     cut_assert_operator_int(NO_ERROR, >, irc_sendRoomMessage("message"),
@@ -302,6 +313,17 @@ void test_irc_sendRoomMessage()
     currentRoom = -1;
 }
 
+/**
+ * Test for irc_invite.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_invite and the server checks if the data has been transfered
+ * correctly. Then is tested another one exceptional case.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
 void test_irc_invite()
 {
     cut_assert_not_equal_int(NO_ERROR, irc_invite("user"));
@@ -343,6 +365,19 @@ void test_irc_invite()
     currentRoom = -1;
 }
 
+/**
+ * Test for irc_getAvailableRooms.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_getAvailableRooms and the server checks if the data has been
+ * transfered correctly and if the data bas been trasfered correctly the server
+ * send two available rooms to client. Then is tested a exceptional case and
+ * if the server sent two available rooms.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
 void test_irc_getAvailableRooms()
 {
     cut_assert_equal_pointer(NULL, irc_getAvailableRooms());

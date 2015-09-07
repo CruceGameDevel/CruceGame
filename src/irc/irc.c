@@ -41,8 +41,8 @@ struct IrcMessage {
 struct IrcMessage *getNextMessage()
 {
 
-    static char str[MAX_MESSAGE_SIZE];
-    // TODO: Create a line 
+     char str[MAX_MESSAGE_SIZE];
+     network_readLine(str, MAX_MESSAGE_SIZE);
 
     int prefixLen = 0;
 

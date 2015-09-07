@@ -19,6 +19,8 @@ struct IrcMessage {
 /**
  * @brief Private function to get the next IRC message and parse it to generate
  *        a \ref IrcMessage structure that stores it.
+ *        It is meant to be used by the irc parser to retrieve a new message
+ *        and do some basic processing on it.
  *
  * -----------------------------
  * The Backus-Naur form of the message is:
@@ -34,7 +36,7 @@ struct IrcMessage {
  * -----------------------------
  * [extract form RFC 2812, section 2.3]
  *
- * @param str The message to be parsed.
+ * @param str The message to be parsed. MUST BE DELETED USING deleteMessage().
  */
 struct IrcMessage *getNextMessage()
 {

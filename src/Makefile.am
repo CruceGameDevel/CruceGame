@@ -13,25 +13,25 @@ if DEBUG
 AM_CFLAGS += -g -Wall -DDEBUG
 endif
 
-lib_LTLIBRARIES = libCruceGame.la libNetworking.la libGameProtocol.la libCli.la
-lib_LTLIBRARIES += libIrc.la
+lib_LTLIBRARIES = libCruceGame.la libNetworking.la libGameProtocol.la \
+                  libCli.la libIrc.la
 bin_PROGRAMS = cruceGame
 
 cruceGame_SOURCES = singlePlayerCurses/singlePlayerCurses.c \
                     main.c
 
-cruceGame_LDADD = libCruceGame.la libNetworking.la libGameProtocol.la libCli.la
-cruceGame_LDADD += libIrc.la
+cruceGame_LDADD = libCruceGame.la libNetworking.la libGameProtocol.la \
+                  libCli.la libIrc.la
 cruceGame_LDFLAGS = -lncursesw -lpthread
 
-libCruceGame_la_SOURCES = libCruceGame/deck.c \
-                          libCruceGame/team.c \
-                          libCruceGame/round.c \
-                          libCruceGame/game.c
+libCruceGame_la_SOURCES    = libCruceGame/deck.c  \
+                             libCruceGame/team.c  \
+                             libCruceGame/round.c \
+                             libCruceGame/game.c
 
-libNetworking_la_SOURCES = networking/network.c
+libNetworking_la_SOURCES   = networking/network.c
 
-libIrc_la_SOURCES = irc/irc.c
+libIrc_la_SOURCES          = irc/irc.c
 
 libGameProtocol_la_SOURCES = gameProtocol/actionReceiver.c \
                              gameProtocol/actionSender.c

@@ -6,7 +6,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src
               
 AM_LDFLAGS = -no-undefined
-AM_CFLAGS += -std=c99 \
+AM_CFLAGS  = -std=c99 \
              -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
 
 if DEBUG
@@ -37,3 +37,25 @@ libGameProtocol_la_SOURCES = gameProtocol/actionReceiver.c \
                              gameProtocol/actionSender.c
 
 libCli_la_SOURCES = cli/cli.c
+
+
+# Test Libs
+lib_LTLIBRARIES += libCruceGameCheck.la libNetworkingCheck.la \
+                   libGameProtocolCheck.la libCliCheck.la libIrcCheck.la
+
+libIrcCheck_la_CPPFLAGS = $(AM_CPPFLAGS) -DIRC_SERVER="localhost"
+
+libCruceGameCheck_la_SOURCES    = libCruceGame/deck.c  \
+                                  libCruceGame/team.c  \
+                                  libCruceGame/round.c \
+                                  libCruceGame/game.c
+
+libNetworkingCheck_la_SOURCES   = networking/network.c
+
+libIrcCheck_la_SOURCES          = irc/irc.c
+
+libGameProtocolCheck_la_SOURCES = gameProtocol/actionReceiver.c \
+                                  gameProtocol/actionSender.c
+
+libCliCheck_la_SOURCES = cli/cli.c
+

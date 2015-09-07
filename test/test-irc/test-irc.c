@@ -459,13 +459,13 @@ void test_irc_getNames()
     char server_output[2][2][512];
     // Build the server's output.
     sprintf(server_output[0][0], ":test.freenode.net 353 dummy = "
-            ROOM_FORMAT " :user1 user2", currentRoom);
+            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
     sprintf(server_output[0][1], ":test.freenode.net 366 dummy "
-            ROOM_FORMAT " :End of /NAMES list.", currentRoom);
+            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
     sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
-            LOBBY_CHANNEL " :user3 user4");
+            LOBBY_CHANNEL " :user3 user4\r\n");
     sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
-            LOBBY_CHANNEL " :End of /NAMES list.");
+            LOBBY_CHANNEL " :End of /NAMES list.\r\n");
 
     char user_list[2][512] = {
         "user1 user2",

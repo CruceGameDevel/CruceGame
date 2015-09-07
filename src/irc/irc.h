@@ -46,6 +46,11 @@
 #define COMMAND_SIZE 30
 
 /**
+ * @brief The maximum size of a message, including the tralining CRLF and NUL.
+ */
+#define MAX_MESSAGE_SIZE 513
+
+/**
  * @brief Connect to the IRC server using 'network_connect' and
  *        send necessary data for connection respecting IRC protocol:
  *        1. PASS *  (the lobby doesn't have a password, just a convention).

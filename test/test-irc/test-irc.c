@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <netdb.h>
 #include <irc.h>
 #include <network.h>
@@ -14,74 +15,6 @@
 #include <helperFunctions.h>
 
 extern int currentRoom;
-
-/**
- * Helper to open a local server socket.
- * Param port The port on which must be created the server.
- * Returns a sockfd.
- */
-int openLocalhostSocket(int port) {
-    int serverSockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(serverSockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_true(serverSockfd >= 0, "Server socket opening failed");
-
-    struct sockaddr_in serv_addr, cli_addr;
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(port);
-    int bnd = bind(serverSockfd, (struct sockaddr *)&serv_addr,
-                   sizeof(serv_addr));
-    cut_assert_operator_int(bnd, >=, 0, "Server bind failed");
-
-    listen(serverSockfd, 5);
-    socklen_t clilen = sizeof(cli_addr);
-
-    int newsockfd = accept(serverSockfd, (struct sockaddr *)&cli_addr, &clilen);
-
-    close(serverSockfd);
-
-    cut_assert_operator_int(newsockfd, >=, 0, "Server accept failed");
-
-    return newsockfd;
-}
-
-/**
- * Helper to connect to a local server socket.
- * Param port The port on which runs the server.
- * Returns none.
- *
- * This function assumes the use of sockfd private variable in the networking
- * module.
- */
-int connectToLocalhostSocket(int port)
-{
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int optval = 1;
-    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
-    cut_assert_operator_int(sockfd, >=, 0,
-                            "Could not connect to the server thread");
-
-    struct hostent *server = gethostbyname("localhost");
-    cut_assert_not_null(server, "No such host");
-
-    struct sockaddr_in serv_addr;
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr_list[0],
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(port);
-
-    int conn = connect(sockfd, (struct sockaddr *)&serv_addr,
-                       sizeof(serv_addr));
-
-    cut_assert_operator_int(conn, >=, 0,
-                            "Error connecting to the server process");
-    return sockfd;
-}
 
 /**
  * Helper to track packages sent from this computer to the irc server.
@@ -631,3 +564,167 @@ void test_irc_createRoom()
         close(sockfd);
     }
 }
+
+/**
+ * Test for irc_sendRoomMessage.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_sendRoomMessage and the server checks if the data has been
+ * transfered correctly. Then is tested another one exceptional case.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
+void test_irc_sendRoomMessage()
+{
+    cut_assert_operator_int(NO_ERROR, >, irc_sendRoomMessage("message"),
+                            "Send data to non-existent room succeeded");
+
+    currentRoom = 1;
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8200), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "PRIVMSG #cruce-game001 :message") != 0)
+            returnedValue++;
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8200));
+    int value;
+
+    cut_assert_equal_int(NO_ERROR, irc_sendRoomMessage("message"),
+                         "Send data failed");
+    cut_assert_operator_int(NO_ERROR, >, irc_sendRoomMessage(NULL),
+                            "Send wrong data succeeded");
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+
+    currentRoom = -1;
+}
+
+/**
+ * Test for irc_invite.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_invite and the server checks if the data has been transfered
+ * correctly. Then is tested another one exceptional case.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
+void test_irc_invite()
+{
+    cut_assert_not_equal_int(NO_ERROR, irc_invite("user"));
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8201), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "INVITE user #cruce-game001") != 0)
+            returnedValue++;
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8201));
+    currentRoom = 1;
+
+    int value;
+
+    cut_assert_equal_int(NO_ERROR, irc_invite("user"), "Invite user failed");
+    cut_assert_operator_int(NO_ERROR, >, irc_invite(NULL));
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+
+    currentRoom = -1;
+}
+
+/**
+ * Test for irc_getAvailableRooms.
+ * It works by testing a exceptional case, then is created a new process that
+ * opens a socket, connecting to it and to a room. Some data is transfered to
+ * server using irc_getAvailableRooms and the server checks if the data has been
+ * transfered correctly and if the data bas been trasfered correctly the server
+ * send two available rooms to client. Then is tested a exceptional case and
+ * if the server sent two available rooms.
+ * Then deconnecting from the server and the room.
+ *
+ * This function assumes the use of currentRoom private variable in the irc
+ * module.
+ */
+void test_irc_getAvailableRooms()
+{
+    cut_assert_equal_pointer(NULL, irc_getAvailableRooms());
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8202), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "LIST") != 0)
+            returnedValue++;
+        else
+            write(serverSockfd, "#cruce-game001 #cruce-game512", 29);
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8202));
+
+    int value;
+    char *rooms = irc_getAvailableRooms();
+
+    currentRoom = 2;
+    cut_assert_equal_pointer(NULL, irc_getAvailableRooms());
+    currentRoom = -1;
+
+    cut_assert_equal_string("#cruce-game001 #cruce-game512", rooms);
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+}
+

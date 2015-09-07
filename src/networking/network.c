@@ -113,31 +113,26 @@ int network_readLine(char *buffer, size_t size)
     if (size == 0 || size > BUFFER_SIZE)
         return PARAMETER_OUT_OF_RANGE;
 
-    // Create a temporary buffer.
+    // Create a temporary buffer and a buffer count.
     static char internalBuffer[BUFFER_SIZE];
     static int bufferedBytes = 0;
 
-    if (size - 1 - bufferedBytes > 0) {
+    // Use this to check if the internal buffer already contains a line.
+    char *newline = strchr(internalBuffer, '\n');
 
-        fd_set rfds;
-        struct timeval tv;
+    if (size > bufferedBytes + 1 || newline == NULL ||
+        newline - buffer >= size ) {
 
-        FD_ZERO(&rfds);
-        FD_SET(sockfd, &rfds);
+        int bytesRead = network_read(internalBuffer + bufferedBytes,
+                                     size - 1 - bufferedBytes);
 
-        tv.tv_sec = 5;
-        tv.tv_usec = 0;
+        // Even if the read failed, there may be buffered bytes that can be
+        // used (even an entire line that can be returned).
+        if (bytesRead < 1 && bufferedBytes == 0)
+            return READING_ERROR;
 
-        if (select(1, &rfds, NULL, NULL, &tv)) {
-            int bytesRead = network_read(internalBuffer + bufferedBytes,
-                                         size - 1 - bufferedBytes);
-
-            if (bytesRead < 1) {
-                return READING_ERROR;
-            }
-
+        if (bytesRead > 0)
             bufferedBytes += bytesRead;
-        }
     }
 
     // Iterate over the internalBuffer elements and copy them to the parameter
@@ -149,10 +144,14 @@ int network_readLine(char *buffer, size_t size)
         bufferIndex++;
     }
 
-    if (internalBuffer[bufferIndex] == '\n') {
+    // Copy the newline if a full line does fit in the external buffer.
+    // Return an error code if there is not a full line in the internalBuffer
+    // and neither enough data to fill up the external buffer.
+    if (bufferedBytes > bufferIndex && internalBuffer[bufferIndex] == '\n') {
         buffer[bufferIndex] = internalBuffer[bufferIndex];
         bufferIndex++;
-    }
+    } else if (bufferIndex < size - 1)
+        return DATA_NOT_READY;
 
     bufferedBytes -= bufferIndex;
 

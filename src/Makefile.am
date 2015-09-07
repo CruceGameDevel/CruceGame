@@ -5,12 +5,12 @@ AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src/irc \
               -I$(top_srcdir)/src
               
-LDFLAGS = -no-undefined
-CFLAGS += -std=c99 \
-          -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
+AM_LDFLAGS = -no-undefined
+AM_CFLAGS += -std=c99 \
+             -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
 
 if DEBUG
-CFLAGS += -g -Wall -DDEBUG
+AM_CFLAGS += -g -Wall -DDEBUG
 endif
 
 lib_LTLIBRARIES = libCruceGame.la libNetworking.la libGameProtocol.la libCli.la

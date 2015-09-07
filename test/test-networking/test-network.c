@@ -34,7 +34,7 @@ void test_network_connect() {
     cut_assert_not_equal_int(0, network_connect("localhost", 70000),
                              "Connection to port 70000 succeeded");
 
-    int pid = fork();
+    int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8080);
 
@@ -61,7 +61,7 @@ void test_network_connect() {
 
     write(sockfd, "check", 6);
 
-    pid = fork();
+    pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8081);
 
@@ -98,7 +98,7 @@ int fdIsValid(int fd)
  * module.
  */
 void test_network_disconnect() {
-    int pid = fork();
+    int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8079);
 
@@ -133,7 +133,7 @@ void test_network_read() {
     cut_assert_operator_int(0, >=, network_read(buffer, 10),
                             "Read data from non-existent server succeeded");
 
-    int pid = fork();
+    int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8078);
         write(newsockfd, "test", 5);
@@ -179,7 +179,7 @@ void test_network_send() {
     cut_assert_not_equal_int(0, network_send("test", 5),
                              "Send data to non-existent server succeeded");
 
-    int pid = fork();
+    int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8077);
         char buffer[10];
@@ -227,7 +227,7 @@ void test_network_readLine()
     cut_assert_operator_int(0, >, network_readLine(buffer, 10),
                             "Read data from non-existent server succeeded");
 
-    int pid = fork();
+    int pid = cut_fork();
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8076);
         char string[] = "bcde\nfghij\n123klmno";

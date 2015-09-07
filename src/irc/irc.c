@@ -238,3 +238,232 @@ int irc_sendLobbyMessage(char *message)
     return network_send(lobbyMessageCommand, strlen(lobbyMessageCommand));
 }
 
+/**
+ * Generate room name using its ID and send "TOPIC <channel>"
+ * command to get the topic of the channel. After read it
+ * and if it is "topic not set", return 0. If it is 
+ * "WAITING" return 1 or "PLAYING" return 2.
+ */
+int irc_toggleRoomStatus(int roomNumber)
+{
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, roomNumber);
+
+    // Prepare topic command.
+    char topicCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(topicCommand, "TOPIC %s\r\n", roomName);
+
+    // Send command and test for errors.
+    int sendRet = network_send(topicCommand, strlen(topicCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    // Read response and test for errors.
+    char recvBuffer[512];
+    int readRet = network_read(recvBuffer, 512);
+    if (readRet != NO_ERROR) {
+        return readRet;
+    }
+    
+    // Check the topic of the channel
+    if (strstr(recvBuffer, ":No topic is set")) {
+        return 0;
+    }
+
+    if (strstr(recvBuffer, "WAITING")) {
+        return 1;
+    }
+
+    if (strstr(recvBuffer, "PLAYING")) {
+        return 2;
+    }
+
+    return -1;
+}
+
+/**
+ * Use irc_toggleRoomStatus to see if channel is used or
+ * not and return index of a free channel, or -1 if all
+ * channels are used.
+ */
+int irc_getAvailableRoom()
+{
+    // Value of isUsed is 1 if channel is in use.
+    int isUsed;
+
+    // Check all 1000 channels for a free one
+    for (int i = 0; i <= 999; i++) {
+        isUsed = irc_toggleRoomStatus(i);
+
+        // If there is a free channel return its index
+        if (!isUsed) {
+            return i;
+        }
+    }
+    
+    // Return -1 if all channels are used
+    return -1;
+}
+
+/**
+ * Use irc_getAvailableRoom function to get first free channel ID,
+ * after generates room name using the ID and join it with 
+ * "JOIN <channel>" command. After joining, it sends "TOPIC <channel> WAITING"
+ * command to set the topic of the channel to WAITING.
+ */
+int irc_createRoom()
+{
+    // Get number of a free room.
+    int roomNumber = irc_getAvailableRoom();
+
+    // If there is no free room.
+    if (roomNumber == -1) {
+        return -1;
+    }
+    
+    // If user is already in a room, return error.
+    if (currentRoom != -1) {
+        return -1;
+    }
+    
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, roomNumber);
+
+    // Prepare join command.
+    char joinCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(joinCommand, "JOIN %s\r\n", roomName);
+
+    // Prepare topic command.
+    char topicCommand[COMMAND_SIZE + strlen(roomName) + 7];
+    sprintf(topicCommand, "TOPIC %s %s\r\n", roomName, "WAITING");
+
+    // Send join command and test for errors.
+    int sendRet = network_send(joinCommand, strlen(joinCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+    
+    // Send topic command and test for errors.
+    sendRet = network_send(topicCommand, strlen(topicCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    return roomNumber;
+}
+
+
+/**
+ * Send "NAMES <channel>" command and read the response
+ * containing the names list. Response format is:
+ * "Users on <channel>: user1 user2 user3 ... userN".
+ */
+char *irc_getNames(int isRoom)
+{
+    // Buffer for response of the server.
+    char buffer[512];
+
+    // If isRoom is 1, get names from joined room.
+    if (isRoom) {
+        // If user didn't join any room, return error.
+        if (currentRoom == -1) {
+            return NULL;
+        }
+
+        // Prepare room name.
+        char roomName[strlen(ROOM_FORMAT) + 3];
+        sprintf(roomName, ROOM_FORMAT, currentRoom);
+        
+        // Prepare names command.
+        char namesCommand[COMMAND_SIZE + strlen(roomName)];
+        sprintf(namesCommand, "NAMES %s\r\n", roomName);
+
+        // Send command and test for errors.
+        int sendRet = network_send(namesCommand, strlen(namesCommand));
+        if (sendRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Read response and test for errors.
+        int readRet = network_read(buffer, 512);
+        if (readRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Allocate space for names list and create it.
+        char *names = malloc(512);
+        char *namesListStart = strchr(buffer, ':');
+        strcpy(names, namesListStart);
+
+        return names;
+    } else {
+        // Prepare names command.
+        char namesCommand[COMMAND_SIZE + strlen(LOBBY_CHANNEL)];
+        sprintf(namesCommand, "NAMES %s\r\n", LOBBY_CHANNEL);
+        
+        // Send command and test for errors.
+        int sendRet = network_send(namesCommand, strlen(namesCommand));
+        if (sendRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Read response and test for errors.
+        int readRet = network_read(buffer, 512);
+        if (readRet != NO_ERROR) {
+            return NULL;
+        }
+
+        // Allocate space for names list and create it.
+        char *names = malloc(512);
+        char *namesListStart = strchr(buffer, ':');
+        strcpy(names, namesListStart);
+
+        return names;
+    }
+}
+
+/**
+ * Test if the nickname is in the lobby and send "INVITE <channel> <nick>"
+ * command to invite the user to current room.
+ */
+int irc_invite(char *nickname)
+{
+    // If user didn't join any room.
+    if (currentRoom == -1) {
+        return -1;
+    }
+
+    // Get names in the lobby and test for errors.
+    char *channelNames = irc_getNames(0);
+    if (channelNames == NULL) {
+        return -1;
+    }
+    
+    // If nickname isn't in the lobby, return error.
+    if (strstr(channelNames, nickname) == NULL) {
+        free(channelNames);
+        return -1;
+    }
+
+    // Free names list.
+    free(channelNames);
+
+    // Prepare room name.
+    char roomName[strlen(ROOM_FORMAT) + 3];
+    sprintf(roomName, ROOM_FORMAT, currentRoom);
+
+    // Prepare invite command.
+    char inviteCommand[COMMAND_SIZE + strlen(roomName) + strlen(nickname)];
+    sprintf(inviteCommand, "INVITE %s %s\r\n", roomName, nickname);
+    
+    // Send invite command and test for errors.
+    int sendRet = network_send(inviteCommand, strlen(inviteCommand));
+    if (sendRet != NO_ERROR) {
+        return sendRet;
+    }
+
+    return 0;
+}

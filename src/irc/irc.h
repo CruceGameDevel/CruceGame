@@ -92,21 +92,30 @@ int irc_leaveRoom();
 int irc_disconnect();
 
 /**
- * @brief Create a new room and join it.
+ * @brief Search for a free channel using 'irc_getAvailableRoom' and
+ *        send "JOIN #cruce-gameXXX" command, where XXX is number of
+ *        the free channel, to join and after set its topic to WAITING.
  *
  * @return Room id on success, negative value on failure.
  */
-int irc_createRoom(char *channelName);
+int irc_createRoom();
 
 /**
- * @brief Toggle the status of the current room.
+ * @brief Toggle the status of the current room, using "TOPIC <channel>"
+ *        command.
+ * 
+ * @param roomNumber ID of the room to get status
  *
- * @return 0 on success, other value on failure.
+ * @return 0 if no status is set
+ *         1 if room status is WAITING
+ *         2 if room status is PLAYING
  */
-int irc_toggleRoomStatus();
+int irc_toggleRoomStatus(int roomNumber);
 
 /**
- * @brief Get all users from the lobby or from room.
+ * @brief Get all users from the lobby or from room using NAMES command.
+ *        NAMES command return a names list with all nicknames separated
+ *        by a space.
  *
  * @param isRoom If 1, the users from the current room are returned.
  *               Otherwise, the users from the lobby are returned.
@@ -119,15 +128,16 @@ int irc_toggleRoomStatus();
 char *irc_getNames(int isRoom);
 
 /**
- * @brief List all available rooms. Cannot be used if already joined in a room.
+ * @brief Search for a free channel and return its ID. Function can't
+ *        be used if you are already joined in a room.
  *
- * @return A string containing all the available rooms on success,
- *         NULL on failure.
+ * @return Room ID on success, -1 on failure.
  */
-char *irc_getAvailableRooms();
+int irc_getAvailableRoom();
 
 /**
- * @brief Invite to room. Cannot be used if not joined in a room.
+ * @brief Invite to room, using INVITE command. 
+ *        Cannot be used if not joined in a room.
  *
  * @param nickname The nickname of the user to be invited.
  *

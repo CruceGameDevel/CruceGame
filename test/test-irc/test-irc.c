@@ -530,3 +530,104 @@ void test_irc_getNames()
         cut_assert_equal_string(expected_message, received_message);
     }
 }
+
+void test_irc_createRoom()
+{
+    int free_rooms[] = {38, 1000}; // 1000 means that all rooms are in use.
+    char server_output[2][512];
+
+    for (int i = 0; i < 2; i++) {
+        // Test the correctness of the return value first.
+        int pid = cut_fork();
+        if (pid == 0) {
+            int sockfd = openLocalhostSocket(8038 + i);
+
+            for (int j = 0; j <= 999; j++) {
+                // We are generating the server response as all the options are
+                // checked. This way it will contain meaningful data about the
+                // room name.
+                if (j == free_rooms[i]) {
+                    sprintf(server_output[0], ":test.freenode.net 353 dummy = "
+                        ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+
+                    write(sockfd, server_output[0], 512);
+                }
+
+                sprintf(server_output[1], ":test.freenode.net 366 dummy "
+                    ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+
+                write(sockfd, server_output[1], 512);
+
+                if (j == free_rooms[i]) {
+                    break; // We have reached the first empty channel.
+                }
+            }
+
+            close(sockfd);
+
+            exit(EXIT_SUCCESS);
+        }
+
+        sleep(1);
+        cut_assert_equal_int(0, network_connect("localhost", 8038 + i));
+
+        if (free_rooms[i] <= 999) {
+            cut_assert_operator_int(irc_createRoom(), >=, 0);
+        } else {
+            cut_assert_operator_int(irc_createRoom(), <, 0);
+        }
+
+        cut_assert_equal_int(0, network_disconnect());
+
+        // Now we are testing the behavior of the function.
+
+        int sockfd = openLocalhostSocket(8049 + i);
+        cut_assert_operator_int(sockfd, >=, 0);
+
+        pid = cut_fork();
+        if (pid == 0) {
+            sleep(1);
+            network_connect("localhost", 8049 + i);
+
+            irc_createRoom();
+
+            network_disconnect();
+
+            exit(EXIT_SUCCESS);
+        }
+
+        for (int j = 0; j <= 999; j++) {
+            char received_message[512];
+            cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
+
+            char expected_message[512];
+            sprintf(expected_message, "NAME " ROOM_FORMAT "\r\n", j);
+
+            cut_assert_equal_string(expected_message, received_message);
+
+            if (j == free_rooms[i]) {
+                sprintf(server_output[0], ":test.freenode.net 353 dummy = "
+                    ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+
+                write(sockfd, server_output[0], 512);
+            }
+
+            sprintf(server_output[1], ":test.freenode.net 366 dummy "
+                ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+
+            write(sockfd, server_output[1], 512);
+
+            if (j == free_rooms[i]) {
+                cut_assert_operator_int(read(sockfd, received_message, 512),
+                                        >=, 0);
+                sprintf(expected_message, "JOIN " ROOM_FORMAT "\r\n", j);
+
+                cut_assert_equal_string(expected_message, received_message);
+
+                break;
+            }
+        }
+
+        close(sockfd);
+    }
+}

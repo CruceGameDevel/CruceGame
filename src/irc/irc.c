@@ -44,11 +44,12 @@ struct IrcMessage *getNextMessage()
      char str[MAX_MESSAGE_SIZE];
      network_readLine(str, MAX_MESSAGE_SIZE);
 
+    char *prefixEnd;
     int prefixLen = 0;
 
     if (str[0] == ':') {
-        char *prefixEnd = strchr(str, ' ') - 1;
-        prefixLen       = prefixEnd - str - 1;
+        prefixEnd = strchr(str, ' ') - 1;
+        prefixLen = prefixEnd - str - 1;
     }
 
     char *trailingStart = strchr(prefixEnd + 2, ' ') + 1; //parsing trailing

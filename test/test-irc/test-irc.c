@@ -343,3 +343,47 @@ void test_irc_invite()
     currentRoom = -1;
 }
 
+void test_irc_getAvailableRooms()
+{
+    cut_assert_equal_pointer(NULL, irc_getAvailableRooms());
+
+    int pid = cut_fork();
+    if (pid == 0) {
+        int serverSockfd = openLocalhostSocket(8202), returnedValue = 0;
+
+        char buffer[513];
+        memset(buffer, 0, 513);
+
+        read(serverSockfd, buffer, 513);
+        if (strcmp(buffer, "LIST") != 0)
+            returnedValue++;
+        else
+            write(serverSockfd, "#cruce-game001 #cruce-game512", 29);
+
+        close(serverSockfd);
+
+        sleep(1);
+
+        exit(returnedValue);
+    }
+
+    sleep(1);
+
+    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8202));
+
+    int value;
+    char *rooms = irc_getAvailableRooms();
+
+    currentRoom = 2;
+    cut_assert_equal_pointer(NULL, irc_getAvailableRooms());
+    currentRoom = -1;
+
+    cut_assert_equal_string("#cruce-game001 #cruce-game512", rooms);
+
+    wait(&value);
+
+    cut_assert_equal_int(0, value);
+
+    cut_assert_equal_int(NO_ERROR, network_disconnect());
+}
+

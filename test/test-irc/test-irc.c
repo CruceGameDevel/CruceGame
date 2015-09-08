@@ -98,40 +98,37 @@ void test_irc_connect()
         "testsUser_"
     };
 
-    int expected_results[] = {1, 1, 0};
+    int expected_results[] = {1, 0, 0};
 
-    for (int i = 0; i < 3; i++) {
+    for (int test = 0; test < 3; test++) {
+        // Test the return value.
+        if (expected_results[test]) {
+            cut_assert_equal_int(0, irc_connect(inputs[test]));
+            cut_assert_equal_int(0, network_disconnect());
+        } else
+            cut_assert_not_equal_int(0, irc_connect(inputs[test]));
 
-        // Test the return type.
-        if (expected_results[i]) {
-            cut_assert_equal_int(0, irc_connect(inputs[i]));
-        } else {
-            cut_assert_not_equal_int(0, irc_connect(inputs[i]));
-        }
-
-        cut_assert_equal_int(0, network_disconnect());
-        
         // Now test if it works.
         int pid = cut_fork();
         if (pid == 0) {
             // In order to have meaningful results, `tcpflow` should start 
             // first.
-            sleep(5);
-            irc_connect(inputs[i]);
+            sleep(1);
+            irc_connect(inputs[test]);
             network_disconnect();
             exit(EXIT_SUCCESS);
         }
 
-        char *irc_messages = sniffIrcSentPackets();
-        int matches = 0;
-        for (int j = 0; j < 4; j++) {
-            if (strstr(irc_messages, expected_messages[i][j]) != NULL) {
-                matches++;
+        if (expected_results[test]) {
+            char *irc_messages = sniffIrcSentPackets();
+            for (int subtest = 0; subtest < 4; subtest++) {
+                char *lineStart = strstr(irc_messages,
+                                         expected_messages[test][subtest]);
+                cut_assert_not_null(lineStart);
             }
-        }
-        free(irc_messages);
 
-        cut_assert_equal_int(4, matches);
+            free(irc_messages);
+        }
     }
 }
 

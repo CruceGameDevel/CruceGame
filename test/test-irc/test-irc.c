@@ -74,8 +74,8 @@ void test_irc_connect()
     char expected_messages[3][4][513] = {
         {
             "PASS *\r\n",
-            "NICK test_user\r\n",
-            "USER test_user 8 * :test_user\r\n",
+            "NICK testUser\r\n",
+            "USER testUser 8 * :testUser\r\n",
             "JOIN " LOBBY_CHANNEL "\r\n"
         },
         {
@@ -86,16 +86,16 @@ void test_irc_connect()
         },
         {
             "PASS *\r\n",
-            "NICK test_user_\r\n",
-            "USER test_user_ 8 * :test_user_\r\n",
+            "NICK testUser_\r\n",
+            "USER testUser_ 8 * :testUser_\r\n",
             "JOIN " LOBBY_CHANNEL "\r\n"
         }
     };
 
     char inputs[3][10] = {
-        "test_user",
+        "testUser",
         "",
-        "test_user_"
+        "testsUser_"
     };
 
     int expected_results[] = {1, 1, 0};

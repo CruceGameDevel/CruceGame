@@ -104,6 +104,10 @@ void deleteMessage(struct IrcMessage **message)
  */
 int irc_connect(char *name)
 {
+    int nameSize = strlen(name);
+    if (nameSize == 0 || nameSize > 9)
+        return PARAMETER_OUT_OF_RANGE;
+
     // Connect to IRC server and test for errors.
     int connectRet = network_connect(IRC_SERVER, IRC_PORT);
     if (connectRet != NO_ERROR) {

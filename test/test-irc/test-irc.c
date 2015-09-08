@@ -247,26 +247,24 @@ void test_irc_joinRoom()
 
     int test_parameters[4] = {1, 1, 1, 0};
 
-    for (int i = 0; i < 4; i++) {
+    for (int test = 0; test < 4; test++) {
         int pid = cut_fork();
         if (pid == 0) {
             int server_sock = openLocalhostSocket(8100);
 
             char buffer[513];
-            memset(buffer, 0, 513);
 
-            if (test_parameters[i]) {
-                cut_assert_operator_int(read(server_sock, buffer, 513), >=, 0);
+            if (test_parameters[test]) {
+                cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
             } else {
-                // If we try to connect to an invalid room (`" LOBBY_CHANNEL "1000`,
+                // If we try to connect to an invalid room (with id 1000,
                 // for example) the server should not receive any message
-                // from the client. Thus, `read` will return 0.
+                // from the client. Thus, read() will return 0.
                 cut_assert_equal_int(0, read(server_sock, buffer, 513));
             }
 
-            if (test_parameters[i]) {
-                cut_assert_equal_string(expected_messages[i], buffer);
-            }
+            if (test_parameters[test])
+                cut_assert_equal_string(expected_messages[test], buffer);
 
             close(server_sock);
             exit(EXIT_SUCCESS);
@@ -276,10 +274,10 @@ void test_irc_joinRoom()
 
         cut_assert_equal_int(0, network_connect("localhost", 8100));
 
-        if (test_parameters[i]) {
-            cut_assert_equal_int(0, irc_joinRoom(inputs[i]));
+        if (test_parameters[test]) {
+            cut_assert_equal_int(0, irc_joinRoom(inputs[test]));
         } else {
-            cut_assert_not_equal_int(0, irc_joinRoom(inputs[i]));
+            cut_assert_not_equal_int(0, irc_joinRoom(inputs[test]));
         }
 
         cut_assert_equal_int(0, network_disconnect());

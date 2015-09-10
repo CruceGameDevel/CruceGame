@@ -89,6 +89,8 @@ enum ERROR_CODE {
     SEND_LOBBY_MESSAGE_FAILURE = -35, //!< Sending message to lobby failed.
     DATA_NOT_READY             = -36, //!< The data is not ready yet to be
                                       //   processed.
+    TOGGLE_ROOM_STATUS_ERROR   = -37  //!< The status of a room couldn't be
+                                      //   toggled.
 };
 
 #ifdef __cplusplus

@@ -37,29 +37,29 @@ char *sniffIrcSentPackets()
 
     // Store only the line sent from this machine, ignore what the irc server
     // sends back.
-    char prev_char = '\n';
-    char current_char = fgetc(fp);
-    int being_parsed = 0;
-    while (current_char != EOF) {
-        if (prev_char == '\n') {
+    char prevChar = '\n';
+    char currentChar = fgetc(fp);
+    int beingParsed = 0;
+    while (currentChar != EOF) {
+        if (prevChar == '\n') {
             buffer = realloc(buffer, lines * 512);
         }
 
-        if (!being_parsed && prev_char == '\n' && current_char != ':') {
-            being_parsed = 1;
+        if (!beingParsed && prevChar == '\n' && currentChar != ':') {
+            beingParsed = 1;
         }
 
-        if (being_parsed) {
-            buffer[size] = current_char;
+        if (beingParsed) {
+            buffer[size] = currentChar;
             size++;
-            if (current_char == '\n') {
-                being_parsed = 0;
+            if (currentChar == '\n') {
+                beingParsed = 0;
                 lines++; // One more line parsed.
             }
         }
 
-        prev_char = current_char;
-        current_char = fgetc(fp);
+        prevChar = currentChar;
+        currentChar = fgetc(fp);
     }
 
     pclose(fp);
@@ -71,7 +71,7 @@ char *sniffIrcSentPackets()
 
 void test_irc_connect()
 {
-    char expected_messages[3][4][513] = {
+    char expectedMessages[3][4][513] = {
         {
             "PASS *\r\n",
             "NICK testUser\r\n",
@@ -98,11 +98,11 @@ void test_irc_connect()
         "testsUser_"
     };
 
-    int expected_results[] = {1, 0, 0};
+    int expectedResults[] = {1, 0, 0};
 
     for (int test = 0; test < 3; test++) {
         // Test the return value.
-        if (expected_results[test]) {
+        if (expectedResults[test]) {
             cut_assert_equal_int(0, irc_connect(inputs[test]));
             cut_assert_equal_int(0, network_disconnect());
         } else
@@ -119,15 +119,15 @@ void test_irc_connect()
             exit(EXIT_SUCCESS);
         }
 
-        if (expected_results[test]) {
-            char *irc_messages = sniffIrcSentPackets();
+        if (expectedResults[test]) {
+            char *ircMessages = sniffIrcSentPackets();
             for (int subtest = 0; subtest < 4; subtest++) {
-                char *lineStart = strstr(irc_messages,
-                                         expected_messages[test][subtest]);
+                char *lineStart = strstr(ircMessages,
+                                         expectedMessages[test][subtest]);
                 cut_assert_not_null(lineStart);
             }
 
-            free(irc_messages);
+            free(ircMessages);
         }
     }
 }
@@ -135,7 +135,7 @@ void test_irc_connect()
 void test_irc_sendLobbyMessage()
 {
 
-    char expected_messages[3][513] = {
+    char expectedMessages[3][513] = {
         "PRIVMSG " LOBBY_CHANNEL " test test test test\r\n",
         "PRIVMSG " LOBBY_CHANNEL " \r\n",
         // Begins here
@@ -166,22 +166,22 @@ void test_irc_sendLobbyMessage()
         // and ends here.
     };
 
-    // If test_parametersp[i] == 1 then
+    // If testParametersp[i] == 1 then
     // cut_assert_equal_int(irc_sendLobbyMessage(inputs[i]), 0) will be issued
     // otherwise cut_assert_not_equal_int(irc_sendLobbyMessage(inputs[i]), 0).
-    int test_parameters[3] = {1, 1, 1};
+    int testParameters[3] = {1, 1, 1};
 
     for (int i = 0; i < 3; i++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = openLocalhostSocket(8091 + i);
+            int serverSock = openLocalhostSocket(8091 + i);
 
             char buffer[513];
             memset(buffer, 0, 513);
-            cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
-            cut_assert_equal_string(expected_messages[i], buffer);
+            cut_assert_operator_int(read(serverSock, buffer, 513), >, 0);
+            cut_assert_equal_string(expectedMessages[i], buffer);
 
-            close(server_sock);
+            close(serverSock);
             exit(EXIT_SUCCESS);
         }
 
@@ -189,7 +189,7 @@ void test_irc_sendLobbyMessage()
 
         cut_assert_equal_int(0, network_connect("localhost", 8091 + i));
 
-        if (test_parameters[i])
+        if (testParameters[i])
             cut_assert_equal_int(0, irc_sendLobbyMessage(inputs[i]));
         else
             cut_assert_not_equal_int(0, irc_sendLobbyMessage(inputs[i]));
@@ -201,21 +201,21 @@ void test_irc_sendLobbyMessage()
 void test_irc_disconnect()
 {
 
-    char expected_message[] = "QUIT\r\n";
+    char expectedMessage[] = "QUIT\r\n";
 
     int pid = cut_fork();
     if (pid == 0) {
-        int server_sock = openLocalhostSocket(8087);
+        int serverSock = openLocalhostSocket(8087);
 
         char buffer[513];
         memset(buffer, 0, 513);
-        cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
-        cut_assert_equal_string(expected_message, buffer);
+        cut_assert_operator_int(read(serverSock, buffer, 513), >, 0);
+        cut_assert_equal_string(expectedMessage, buffer);
 
-        close(server_sock);
+        close(serverSock);
 
-        server_sock = openLocalhostSocket(8088);
-        close(server_sock);
+        serverSock = openLocalhostSocket(8088);
+        close(serverSock);
 
         exit(EXIT_SUCCESS);
     }
@@ -236,7 +236,7 @@ void test_irc_disconnect()
 
 void test_irc_joinRoom()
 {
-    char expected_messages[4][513] = {
+    char expectedMessages[4][513] = {
         "JOIN " LOBBY_CHANNEL "001\r\n",
         "JOIN " LOBBY_CHANNEL "000\r\n",
         "JOIN " LOBBY_CHANNEL "999\r\n",
@@ -245,28 +245,28 @@ void test_irc_joinRoom()
 
     int inputs[4] = {1, 0, 999, 1000};
 
-    int test_parameters[4] = {1, 1, 1, 0};
+    int testParameters[4] = {1, 1, 1, 0};
 
     for (int test = 0; test < 4; test++) {
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = openLocalhostSocket(8100);
+            int serverSock = openLocalhostSocket(8100);
 
             char buffer[513];
 
-            if (test_parameters[test]) {
-                cut_assert_operator_int(read(server_sock, buffer, 513), >, 0);
+            if (testParameters[test]) {
+                cut_assert_operator_int(read(serverSock, buffer, 513), >, 0);
             } else {
                 // If we try to connect to an invalid room (with id 1000,
                 // for example) the server should not receive any message
                 // from the client. Thus, read() will return 0.
-                cut_assert_equal_int(0, read(server_sock, buffer, 513));
+                cut_assert_equal_int(0, read(serverSock, buffer, 513));
             }
 
-            if (test_parameters[test])
-                cut_assert_equal_string(expected_messages[test], buffer);
+            if (testParameters[test])
+                cut_assert_equal_string(expectedMessages[test], buffer);
 
-            close(server_sock);
+            close(serverSock);
             exit(EXIT_SUCCESS);
         }
 
@@ -274,7 +274,7 @@ void test_irc_joinRoom()
 
         cut_assert_equal_int(0, network_connect("localhost", 8100));
 
-        if (test_parameters[test]) {
+        if (testParameters[test]) {
             cut_assert_equal_int(0, irc_joinRoom(inputs[test]));
         } else {
             cut_assert_not_equal_int(0, irc_joinRoom(inputs[test]));
@@ -286,7 +286,7 @@ void test_irc_joinRoom()
 
 void test_irc_leaveRoom()
 {
-    char *expected_message[] = {"PART " LOBBY_CHANNEL "004\r\n",
+    char *expectedMessage[] = {"PART " LOBBY_CHANNEL "004\r\n",
                                 "PART " LOBBY_CHANNEL "012\r\n",
                                 "PART " LOBBY_CHANNEL "345\r\n"};
 
@@ -297,15 +297,15 @@ void test_irc_leaveRoom()
 
         int pid = cut_fork();
         if (pid == 0) {
-            int server_sock = openLocalhostSocket(8110 + i);
+            int serverSock = openLocalhostSocket(8110 + i);
 
             char buffer[513];
             memset(buffer, 0, 513);
 
-            read(server_sock, buffer, 513);
-            cut_assert_equal_string(expected_message[i], buffer);
+            read(serverSock, buffer, 513);
+            cut_assert_equal_string(expectedMessage[i], buffer);
 
-            close(server_sock);
+            close(serverSock);
             exit(EXIT_SUCCESS);
         }
 
@@ -333,11 +333,11 @@ void test_irc_toggleRoomStatus()
         ":No topic is set\r\n",
         ""
     };
-    int room_numbers[] = {-1, 50, 125, 999, 1000};
+    int roomNumbers[] = {-1, 50, 125, 999, 1000};
     int outputs[] = {PARAMETER_OUT_OF_RANGE, NO_ERROR, NO_ERROR,
                      TOGGLE_ROOM_STATUS_ERROR, PARAMETER_OUT_OF_RANGE};
 
-    char expected_messages_format[5][2][512] = {
+    char expectedMessagesFormat[5][2][512] = {
         {"", ""},
         {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " PLAYING\r\n"},
         {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " WAITING\r\n"},
@@ -360,7 +360,7 @@ void test_irc_toggleRoomStatus()
         sleep(1); // Wait a little bit before connecting to the server.
         cut_assert_equal_int(0, network_connect("localhost", 8008));
         cut_assert_equal_int(outputs[test],
-                             irc_toggleRoomStatus(room_numbers[test]));
+                             irc_toggleRoomStatus(roomNumbers[test]));
         cut_assert_equal_int(0, network_disconnect());
 
         // Then we test the behavior of the function (if it sends the right
@@ -369,7 +369,7 @@ void test_irc_toggleRoomStatus()
 
         if (pid == 0) {
             network_connect("localhost", 8099);
-            irc_toggleRoomStatus(room_numbers[test]);
+            irc_toggleRoomStatus(roomNumbers[test]);
             network_disconnect();
             exit(EXIT_SUCCESS);
         }
@@ -378,20 +378,20 @@ void test_irc_toggleRoomStatus()
 
         write(sockfd, serverMessages[test], sizeof(serverMessages[test]));
 
-        char received_message[512];
-        char expected_message[512];
+        char receivedMessage[512];
+        char expectedMessage[512];
 
         for (int subtest = 0; subtest < 2; subtest++) {
-            memset(expected_message, 0, sizeof(expected_message));
-            memset(received_message, 0, sizeof(received_message));
+            memset(expectedMessage, 0, sizeof(expectedMessage));
+            memset(receivedMessage, 0, sizeof(receivedMessage));
 
-            cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
-            if (strlen(expected_messages_format[test][subtest]))
-                sprintf(expected_message,
-                        expected_messages_format[test][subtest],
-                        room_numbers[test]);
+            cut_assert_operator_int(read(sockfd, receivedMessage, 512), >=, 0);
+            if (strlen(expectedMessagesFormat[test][subtest]))
+                sprintf(expectedMessage,
+                        expectedMessagesFormat[test][subtest],
+                        roomNumbers[test]);
 
-            cut_assert_equal_string(expected_message, received_message);
+            cut_assert_equal_string(expectedMessage, receivedMessage);
         }
 
         close(sockfd);

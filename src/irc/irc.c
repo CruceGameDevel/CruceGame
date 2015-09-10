@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <errors.h>
 
+#include <errno.h>
+
 int currentRoom = -1;
 
 /**
@@ -250,41 +252,43 @@ int irc_sendLobbyMessage(char *message)
  */
 int irc_toggleRoomStatus(int roomNumber)
 {
+    if (roomNumber < 0 || roomNumber > 999)
+        return PARAMETER_OUT_OF_RANGE;
+
     // Prepare room name.
     char roomName[strlen(ROOM_FORMAT) + 3];
     sprintf(roomName, ROOM_FORMAT, roomNumber);
 
     // Prepare topic command.
-    char topicCommand[COMMAND_SIZE + strlen(roomName)];
-    sprintf(topicCommand, "TOPIC %s\r\n", roomName);
+    char fetchTopicCommand[COMMAND_SIZE + strlen(roomName)];
+    sprintf(fetchTopicCommand, "TOPIC %s\r\n", roomName);
 
     // Send command and test for errors.
-    int sendRet = network_send(topicCommand, strlen(topicCommand));
+    int sendRet = network_send(fetchTopicCommand, strlen(fetchTopicCommand));
     if (sendRet != NO_ERROR) {
         return sendRet;
     }
 
-    // Read response and test for errors.
+    // Read the channel's status response and test for errors.
     char recvBuffer[512];
     int readRet = network_read(recvBuffer, 512);
-    if (readRet != NO_ERROR) {
+    if (readRet < 0) {
         return readRet;
     }
     
-    // Check the topic of the channel
-    if (strstr(recvBuffer, ":No topic is set")) {
-        return 0;
-    }
-
+    // Change the topic of the channel
+    char newTopicCommand[COMMAND_SIZE + strlen(roomName)];
     if (strstr(recvBuffer, "WAITING")) {
-        return 1;
+        sprintf(newTopicCommand, "TOPIC %s PLAYING\r\n", roomName);
+    } else if (strstr(recvBuffer, "PLAYING")) {
+        sprintf(newTopicCommand, "TOPIC %s WAITING\r\n", roomName);
+    } else {
+        return TOGGLE_ROOM_STATUS_ERROR;
     }
 
-    if (strstr(recvBuffer, "PLAYING")) {
-        return 2;
-    }
+    sendRet = network_send(newTopicCommand, strlen(newTopicCommand));
 
-    return -1;
+    return NO_ERROR;
 }
 
 /**

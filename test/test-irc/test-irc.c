@@ -326,234 +326,72 @@ void test_irc_leaveRoom()
 
 void test_irc_toggleRoomStatus()
 {
-    char serverMessages[4][512] = {
+    char serverMessages[5][512] = {
+        "",
         "WAITING\r\n",
         "PLAYING\r\n",
         ":No topic is set\r\n",
-        ":No topic is set\r\n"
+        ""
     };
-    int room_numbers[] = {0, 50, 999, 1000};
-    int outputs[] = {1, 2, 0, 0};
+    int room_numbers[] = {-1, 50, 125, 999, 1000};
+    int outputs[] = {PARAMETER_OUT_OF_RANGE, NO_ERROR, NO_ERROR,
+                     TOGGLE_ROOM_STATUS_ERROR, PARAMETER_OUT_OF_RANGE};
 
-    for (int i = 0; i < 4; i++) {
+    char expected_messages_format[5][2][512] = {
+        {"", ""},
+        {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " PLAYING\r\n"},
+        {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " WAITING\r\n"},
+        {"TOPIC " ROOM_FORMAT "\r\n", ""},
+        {"", ""}
+    };
+
+    for (int test = 0; test < 5; test++) {
         // First, we test the correctness of the return type.
         int pid = cut_fork();
         if (pid == 0) {
             // It doesn't make sense to do assertions in the child process
             // since they are not executed.
-            int sockfd = openLocalhostSocket(8008 + i);
-            write(sockfd, serverMessages[i], 512);
+            int sockfd = openLocalhostSocket(8008);
+            write(sockfd, serverMessages[test], sizeof(serverMessages[test]));
             close(sockfd);
             exit(EXIT_SUCCESS);
         }
 
         sleep(1); // Wait a little bit before connecting to the server.
-        cut_assert_equal_int(0, network_connect("localhost", 8008 + i));
-        cut_assert_equal_int(outputs[i], irc_toggleRoomStatus(room_numbers[i]));
+        cut_assert_equal_int(0, network_connect("localhost", 8008));
+        cut_assert_equal_int(outputs[test],
+                             irc_toggleRoomStatus(room_numbers[test]));
         cut_assert_equal_int(0, network_disconnect());
 
         // Then we test the behavior of the function (if it sends the right
         // thing to the server).
-
-        int sockfd = openLocalhostSocket(8099 + i);
-        cut_assert_operator_int(sockfd, >=, 0);
-
         pid = cut_fork();
 
         if (pid == 0) {
-            sleep(1);
-            network_connect("localhost", 8099 + i);
-            irc_toggleRoomStatus(room_numbers[i]);
+            network_connect("localhost", 8099);
+            irc_toggleRoomStatus(room_numbers[test]);
             network_disconnect();
             exit(EXIT_SUCCESS);
         }
+
+        int sockfd = openLocalhostSocket(8099);
+
+        write(sockfd, serverMessages[test], sizeof(serverMessages[test]));
 
         char received_message[512];
-        cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
-
-        close(sockfd);
-
         char expected_message[512];
-        sprintf(expected_message, "TOPIC " ROOM_FORMAT "\r\n", room_numbers[i]);
 
-        cut_assert_equal_string(expected_message, received_message);
-    }
-}
+        for (int subtest = 0; subtest < 2; subtest++) {
+            memset(expected_message, 0, sizeof(expected_message));
+            memset(received_message, 0, sizeof(received_message));
 
-void test_irc_getNames()
-{
-    currentRoom = 122; // Assign some random-chosen value.
-
-    char server_output[2][2][512];
-    // Build the server's output.
-    sprintf(server_output[0][0], ":test.freenode.net 353 dummy = "
-            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
-    sprintf(server_output[0][1], ":test.freenode.net 366 dummy "
-            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
-    sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
-            LOBBY_CHANNEL " :user3 user4\r\n");
-    sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
-            LOBBY_CHANNEL " :End of /NAMES list.\r\n");
-
-    char user_list[2][512] = {
-        "user1 user2",
-        "user3 user4"
-    };
-
-    int inputs[] = {1, 200};
-
-    for (int i = 0; i < 2; i++) {
-        // Test the correctness of the return type.
-        int pid = cut_fork();
-
-        if (pid == 0) {
-            int sockfd = openLocalhostSocket(8018 + i);
-
-            write(sockfd, server_output[i][0], 512);
-            write(sockfd, server_output[i][1], 512);
-
-            close(sockfd);
-            exit(EXIT_SUCCESS);
-        }
-
-        sleep(1);
-        cut_assert_equal_int(0, network_connect("localhost", 8018 + i));
-        char *names = irc_getNames(inputs[i]);
-
-        cut_assert_equal_string(user_list[i], names);
-
-        cut_assert_equal_int(0, network_disconnect());
-        free(names);
-
-        // Then test if the behavior is the right one.
-        int sockfd = openLocalhostSocket(8029 + i);
-        cut_assert_operator_int(sockfd, >=, 0);
-
-        pid = cut_fork();
-        if (pid == 0) {
-            sleep(1);
-            network_connect("localhost", 8029 + i);
-
-            // In this case we shouldn't care about what it returns, but we
-            // risk a memory leak if we don't free that memory.
-            char *names = irc_getNames(inputs[i]);
-            free(names);
-
-            network_disconnect();
-            exit(EXIT_SUCCESS);
-        }
-
-        char received_message[512];
-        cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
-
-        close(sockfd);
-
-        char expected_message[512];
-        if (i == 1) {
-            sprintf(expected_message, "NAMES " ROOM_FORMAT "\r\n", currentRoom);
-        } else {
-            sprintf(expected_message, "NAMES " LOBBY_CHANNEL "\r\n");
-        }
-
-        cut_assert_equal_string(expected_message, received_message);
-    }
-}
-
-void test_irc_createRoom()
-{
-    int free_rooms[] = {38, 1000}; // 1000 means that all rooms are in use.
-    char server_output[2][512];
-
-    for (int i = 0; i < 2; i++) {
-        // Test the correctness of the return value first.
-        int pid = cut_fork();
-        if (pid == 0) {
-            int sockfd = openLocalhostSocket(8038 + i);
-
-            for (int j = 0; j <= 999; j++) {
-                // We are generating the server response as all the options are
-                // checked. This way it will contain meaningful data about the
-                // room name.
-                if (j == free_rooms[i]) {
-                    sprintf(server_output[0], ":test.freenode.net 353 dummy = "
-                        ROOM_FORMAT " :user1 user2\r\n", currentRoom);
-
-                    write(sockfd, server_output[0], 512);
-                }
-
-                sprintf(server_output[1], ":test.freenode.net 366 dummy "
-                    ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
-
-                write(sockfd, server_output[1], 512);
-
-                if (j == free_rooms[i]) {
-                    break; // We have reached the first empty channel.
-                }
-            }
-
-            close(sockfd);
-
-            exit(EXIT_SUCCESS);
-        }
-
-        sleep(1);
-        cut_assert_equal_int(0, network_connect("localhost", 8038 + i));
-
-        if (free_rooms[i] <= 999) {
-            cut_assert_operator_int(irc_createRoom(), >=, 0);
-        } else {
-            cut_assert_operator_int(irc_createRoom(), <, 0);
-        }
-
-        cut_assert_equal_int(0, network_disconnect());
-
-        // Now we are testing the behavior of the function.
-
-        int sockfd = openLocalhostSocket(8049 + i);
-        cut_assert_operator_int(sockfd, >=, 0);
-
-        pid = cut_fork();
-        if (pid == 0) {
-            sleep(1);
-            network_connect("localhost", 8049 + i);
-
-            irc_createRoom();
-
-            network_disconnect();
-
-            exit(EXIT_SUCCESS);
-        }
-
-        for (int j = 0; j <= 999; j++) {
-            char received_message[512];
             cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
-
-            char expected_message[512];
-            sprintf(expected_message, "NAME " ROOM_FORMAT "\r\n", j);
+            if (strlen(expected_messages_format[test][subtest]))
+                sprintf(expected_message,
+                        expected_messages_format[test][subtest],
+                        room_numbers[test]);
 
             cut_assert_equal_string(expected_message, received_message);
-
-            if (j == free_rooms[i]) {
-                sprintf(server_output[0], ":test.freenode.net 353 dummy = "
-                    ROOM_FORMAT " :user1 user2\r\n", currentRoom);
-
-                write(sockfd, server_output[0], 512);
-            }
-
-            sprintf(server_output[1], ":test.freenode.net 366 dummy "
-                ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
-
-            write(sockfd, server_output[1], 512);
-
-            if (j == free_rooms[i]) {
-                cut_assert_operator_int(read(sockfd, received_message, 512),
-                                        >=, 0);
-                sprintf(expected_message, "JOIN " ROOM_FORMAT "\r\n", j);
-
-                cut_assert_equal_string(expected_message, received_message);
-
-                break;
-            }
         }
 
         close(sockfd);

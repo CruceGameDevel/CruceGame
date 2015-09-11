@@ -374,63 +374,85 @@ char *irc_getNames(int isRoom)
     // Buffer for response of the server.
     char buffer[512];
 
-    // If isRoom is 1, get names from joined room.
-    if (isRoom) {
+    // Create an array large enough to store the names command.
+    char namesCommand[COMMAND_SIZE + 64];
+
+    // If isRoom is 1, get names from joined room,
+    // if isRoom is 0, get names from lobby,
+    // otherwise return an error.
+    if (isRoom == 1) {
         // If user didn't join any room, return error.
-        if (currentRoom == -1) {
+        if (currentRoom == -1)
             return NULL;
-        }
 
         // Prepare room name.
         char roomName[strlen(ROOM_FORMAT) + 3];
         sprintf(roomName, ROOM_FORMAT, currentRoom);
-        
+
         // Prepare names command.
-        char namesCommand[COMMAND_SIZE + strlen(roomName)];
         sprintf(namesCommand, "NAMES %s\r\n", roomName);
 
-        // Send command and test for errors.
-        int sendRet = network_send(namesCommand, strlen(namesCommand));
-        if (sendRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Read response and test for errors.
-        int readRet = network_read(buffer, 512);
-        if (readRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Allocate space for names list and create it.
-        char *names = malloc(512);
-        char *namesListStart = strchr(buffer, ':');
-        strcpy(names, namesListStart);
-
-        return names;
-    } else {
+    } else if (isRoom == 0) {
         // Prepare names command.
         char namesCommand[COMMAND_SIZE + strlen(LOBBY_CHANNEL)];
-        sprintf(namesCommand, "NAMES %s\r\n", LOBBY_CHANNEL);
-        
+        sprintf(namesCommand, "NAMES " LOBBY_CHANNEL "\r\n");
+
         // Send command and test for errors.
-        int sendRet = network_send(namesCommand, strlen(namesCommand));
-        if (sendRet != NO_ERROR) {
+        int sendRet = network_send(namesCommand, strlen(namesCommand) + 1);
+        if (sendRet != NO_ERROR)
             return NULL;
-        }
+    } else
+        return NULL;
 
-        // Read response and test for errors.
-        int readRet = network_read(buffer, 512);
-        if (readRet != NO_ERROR) {
-            return NULL;
-        }
+    // Send command and test for errors.
+    int sendRet = network_send(namesCommand, strlen(namesCommand) + 1);
+    if (sendRet != NO_ERROR)
+        return NULL;
 
+    // Create an array names, that will store the final string. It is allocated
+    // using a memory pool technique.
+    // namesSize is the size of the array.
+    // namesLen is the size of the current stored string in the names array.
+    int namesSize = 256;
+    char *names   = malloc(namesSize);
+    int namesLen  = 0;
+    names[0] = '\0';
+
+    int readRet;
+    if ((readRet = network_read(buffer, 512)) < 0)
+        return NULL;
+    else
+        buffer[readRet] = '\0';
+
+    // Read response and test for errors.
+    do {
         // Allocate space for names list and create it.
-        char *names = malloc(512);
-        char *namesListStart = strchr(buffer, ':');
-        strcpy(names, namesListStart);
+        char *namesListStart = strchr(buffer + 1, ':') + 1;
+        int namesListSize = strlen(namesListStart) - 2;
+        namesListStart[namesListSize++] = ' ';
+        namesListStart[namesListSize]   = '\0';
 
-        return names;
-    }
+        // Check if the current message plus the new message exceeds the size
+        // of the array.
+        if (namesLen + namesListSize > namesSize) {
+            names = realloc(names, namesSize + 512);
+            namesSize += 512;
+        }
+
+        // Append the new message.
+        strcat(names, namesListStart);
+        namesLen += namesListSize;
+
+        if ((readRet = network_read(buffer, 512)) < 0)
+            return NULL;
+        else
+            buffer[readRet] = '\0';
+
+    } while (!strstr(buffer, "End of /NAMES list"));
+
+    names[namesLen - 1] = '\0';
+
+    return names;
 }
 
 /**

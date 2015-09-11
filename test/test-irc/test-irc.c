@@ -398,6 +398,220 @@ void test_irc_toggleRoomStatus()
     }
 }
 
+void test_irc_getNames()
+{
+    // Build the server's output.
+    char server_output[8][3][512];
+    // Parameter negative.
+    sprintf(server_output[0][0], ":test.freenode.net 353 dummy = "
+            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+    sprintf(server_output[0][1], ":test.freenode.net 366 dummy "
+            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+    sprintf(server_output[0][2], "");
+
+    // Parameter too large.
+    sprintf(server_output[1][0], ":test.freenode.net 353 dummy = "
+            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+    sprintf(server_output[1][1], ":test.freenode.net 366 dummy "
+            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+    sprintf(server_output[1][2], "");
+
+    // Get names from room, without being joined.
+    sprintf(server_output[2][0], ":test.freenode.net 353 dummy = "
+            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+    sprintf(server_output[2][1], ":test.freenode.net 366 dummy "
+            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+    sprintf(server_output[2][2], "");
+
+    // Get names from lobby, without being joined.
+    sprintf(server_output[3][0], ":test.freenode.net 353 dummy = "
+            LOBBY_CHANNEL " :user3 user4\r\n");
+    sprintf(server_output[3][1], ":test.freenode.net 366 dummy "
+            LOBBY_CHANNEL " :End of /NAMES list.\r\n");
+    sprintf(server_output[3][2], "");
+
+    // Get names from room, after joining a room.
+    sprintf(server_output[4][0], ":test.freenode.net 353 dummy = "
+            ROOM_FORMAT " :user1 user2\r\n", currentRoom);
+    sprintf(server_output[4][1], ":test.freenode.net 366 dummy "
+            ROOM_FORMAT " :End of /NAMES list.\r\n", currentRoom);
+    sprintf(server_output[4][2], "");
+
+    // Get names from lobby, after joining a room.
+    sprintf(server_output[5][0], ":test.freenode.net 353 dummy = "
+            LOBBY_CHANNEL " :user3 user4\r\n");
+    sprintf(server_output[5][1], ":test.freenode.net 366 dummy "
+            LOBBY_CHANNEL " :End of /NAMES list.\r\n");
+    sprintf(server_output[5][2], "");
+
+    // Get a list of names from room that requires 2 messages.
+    sprintf(server_output[6][0],
+            ":leguin.freenode.net 353 barfoo =" ROOM_FORMAT " :danemacmillan "
+            "qpok dasmith91 unic0rn aawe WizBright evilmidget38 Artpicre "
+            "Remram heftig ReScO +sbrg emma Watcher7 Legiion cartwright "
+            "pinkmuffinere JStoker GGMethos +piou edran_ SirCmpwn Rubennn "
+            "alexblom clamstar +mniip trwired Liothen BytesAndCoffee CoJaBo "
+            "lego mkasu Twix Th0mas_ JaTochNietDan indigo Alex` tkmedia dhtns "
+            "+sunnymilk ssta zymurgy Max-P frlttrwrd redj dostoyevsky "
+            "EnergyCoffee ji0n adam12 sirecote Foxboron RudyValencia "
+            "bobey6 sharkz vect0rx\r\n",
+            currentRoom);
+    sprintf(server_output[6][1],
+            ":leguin.freenode.net 353 barfoo = " ROOM_FORMAT " :dan64 drdanick "
+            "RODRIGO_PULSENOV Ch3ck +JX7P daurnimator gothos R0b0t1 IanWizard "
+            "Dumle29_ zaphomet dantarion ktwo thegameg LiENUS patarr James_T "
+            "architekt ulkesh vlad003 dbkaplun weyer Shayanjm DistantStar "
+            "koollman wolfmitchell Exagone313 ploopkazoo Dumle29 Mo0O "
+            "Sornaensis spjt AllenJB digdilem integral Diabolik vin-ivar "
+            "hatseflats mathu eric ephemer0l nopf idstam ianP +jrslepak "
+            "Guest8787 salparadise +axion Jupelius cruxeternus\r\n",
+            currentRoom);
+    sprintf(server_output[6][2],
+            ":leguin.freenode.net 366 barfoo " ROOM_FORMAT
+            " :End of /NAMES list.\r\n");
+
+    // Get a list of names from lobby that requires 2 messages.
+    sprintf(server_output[7][0],
+            ":leguin.freenode.net 353 barfoo =" LOBBY_CHANNEL " :danemacmillan "
+            "qpok dasmith91 unic0rn aawe WizBright evilmidget38 Artpicre "
+            "Remram heftig ReScO +sbrg emma Watcher7 Legiion cartwright "
+            "pinkmuffinere JStoker GGMethos +piou edran_ SirCmpwn Rubennn "
+            "alexblom clamstar +mniip trwired Liothen BytesAndCoffee CoJaBo "
+            "lego mkasu Twix Th0mas_ JaTochNietDan indigo Alex` tkmedia dhtns "
+            "+sunnymilk ssta zymurgy Max-P frlttrwrd redj dostoyevsky "
+            "EnergyCoffee ji0n adam12 sirecote Foxboron RudyValencia "
+            "bobey6 sharkz vect0rx\r\n");
+    sprintf(server_output[7][1],
+            ":leguin.freenode.net 353 barfoo = " LOBBY_CHANNEL " :dan64 drdanick "
+            "RODRIGO_PULSENOV Ch3ck +JX7P daurnimator gothos R0b0t1 IanWizard "
+            "Dumle29_ zaphomet dantarion ktwo thegameg LiENUS patarr James_T "
+            "architekt ulkesh vlad003 dbkaplun weyer Shayanjm DistantStar "
+            "koollman wolfmitchell Exagone313 ploopkazoo Dumle29 Mo0O "
+            "Sornaensis spjt AllenJB digdilem integral Diabolik vin-ivar "
+            "hatseflats mathu eric ephemer0l nopf idstam ianP +jrslepak "
+            "Guest8787 salparadise +axion Jupelius cruxeternus\r\n");
+    sprintf(server_output[7][2],
+            ":leguin.freenode.net 366 barfoo " LOBBY_CHANNEL
+            " :End of /NAMES list.\r\n");
+
+    char expected_output[8][1024] = {
+        "",
+        "",
+
+        "",
+        "user3 user4",
+
+        "user1 user2",
+        "user3 user4",
+
+        "danemacmillan qpok dasmith91 unic0rn aawe WizBright evilmidget38 "
+        "Artpicre Remram heftig ReScO +sbrg emma Watcher7 Legiion cartwright "
+        "pinkmuffinere JStoker GGMethos +piou edran_ SirCmpwn Rubennn "
+        "alexblom clamstar +mniip trwired Liothen BytesAndCoffee CoJaBo "
+        "lego mkasu Twix Th0mas_ JaTochNietDan indigo Alex` tkmedia dhtns "
+        "+sunnymilk ssta zymurgy Max-P frlttrwrd redj dostoyevsky "
+        "EnergyCoffee ji0n adam12 sirecote Foxboron RudyValencia bobey6 sharkz "
+        "vect0rx dan64 drdanick RODRIGO_PULSENOV Ch3ck +JX7P daurnimator "
+        "gothos R0b0t1 IanWizard Dumle29_ zaphomet dantarion ktwo thegameg "
+        "LiENUS patarr James_T architekt ulkesh vlad003 dbkaplun weyer "
+        "Shayanjm DistantStar koollman wolfmitchell Exagone313 ploopkazoo "
+        "Dumle29 Mo0O Sornaensis spjt AllenJB digdilem integral Diabolik "
+        "vin-ivar hatseflats mathu eric ephemer0l nopf idstam ianP +jrslepak "
+        "Guest8787 salparadise +axion Jupelius cruxeternus",
+
+        "danemacmillan qpok dasmith91 unic0rn aawe WizBright evilmidget38 "
+        "Artpicre Remram heftig ReScO +sbrg emma Watcher7 Legiion cartwright "
+        "pinkmuffinere JStoker GGMethos +piou edran_ SirCmpwn Rubennn "
+        "alexblom clamstar +mniip trwired Liothen BytesAndCoffee CoJaBo "
+        "lego mkasu Twix Th0mas_ JaTochNietDan indigo Alex` tkmedia dhtns "
+        "+sunnymilk ssta zymurgy Max-P frlttrwrd redj dostoyevsky "
+        "EnergyCoffee ji0n adam12 sirecote Foxboron RudyValencia bobey6 sharkz "
+        "vect0rx dan64 drdanick RODRIGO_PULSENOV Ch3ck +JX7P daurnimator "
+        "gothos R0b0t1 IanWizard Dumle29_ zaphomet dantarion ktwo thegameg "
+        "LiENUS patarr James_T architekt ulkesh vlad003 dbkaplun weyer "
+        "Shayanjm DistantStar koollman wolfmitchell Exagone313 ploopkazoo "
+        "Dumle29 Mo0O Sornaensis spjt AllenJB digdilem integral Diabolik "
+        "vin-ivar hatseflats mathu eric ephemer0l nopf idstam ianP +jrslepak "
+        "Guest8787 salparadise +axion Jupelius cruxeternus"
+    };
+
+    // The tests are: parameter negative, parameter with value 2,
+    //                room without being joined, lobby without being joined,
+    //                room joined, lobby joined,
+    //                room joined exceeding, lobby joined exceeding
+    int inputs[] = {-1, 2, 1, 0, 1, 0, 1, 0};
+
+    for (int test = 0; test < 8; test++) {
+        // Test the correctness of the return value.
+        int pid = cut_fork();
+
+        if (pid == 0) {
+            int sockfd = openLocalhostSocket(8018);
+
+            write(sockfd, server_output[test][0], 512);
+            write(sockfd, server_output[test][1], 512);
+            write(sockfd, server_output[test][2], 512);
+
+            sleep(1);
+            close(sockfd);
+            exit(EXIT_SUCCESS);
+        }
+
+        sleep(1);
+        cut_assert_equal_int(0, network_connect("localhost", 8018));
+        char *names = irc_getNames(inputs[test]);
+
+        if (test < 3)
+            cut_assert_null(names);
+        else {
+            cut_assert_equal_string(expected_output[test], names);
+            free(names);
+        }
+
+        cut_assert_equal_int(0, network_disconnect());
+
+
+        pid = cut_fork();
+        if (pid == 0) {
+            sleep(1);
+            network_connect("localhost", 8039);
+
+            char *names = irc_getNames(inputs[test]);
+            if (names != NULL)
+                free(names);
+
+            network_disconnect();
+            exit(EXIT_SUCCESS);
+        }
+
+        // Then test if the behavior is the right one.
+        int sockfd = openLocalhostSocket(8039);
+        cut_assert_operator_int(sockfd, >=, 0);
+
+
+        char received_message[2048];
+        cut_assert_operator_int(read(sockfd, received_message, 512), >=, 0);
+
+        close(sockfd);
+
+        if (test > 1) {
+            char expected_message[512];
+            if (test == 4 || test == 6)
+                sprintf(expected_message, "NAMES " ROOM_FORMAT "\r\n",
+                        currentRoom);
+            else if (test == 3 || test == 5 || test == 7)
+                sprintf(expected_message, "NAMES " LOBBY_CHANNEL "\r\n");
+            else
+                sprintf(expected_message, "");
+
+            cut_assert_equal_string(expected_message, received_message);
+        }
+
+        if (test == 2)
+            currentRoom = 122; // Assign some random-chosen value.
+    }
+}
+
 /**
  * Test for irc_sendRoomMessage.
  * It works by testing a exceptional case, then is created a new process that

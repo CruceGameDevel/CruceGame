@@ -163,3 +163,33 @@ int network_readLine(char *buffer, size_t size)
 
     return bufferIndex;
 }
+
+/**
+ * This function is a wrapper for select function from C library,
+ * it checks if there is any data incoming and return 1 if it is,
+ * else return 0.
+ */
+int network_checkForData(int timeout)
+{
+    // Prepare structures.
+    fd_set rfds;
+    struct timeval tv;
+    int retval;
+
+    // Set to 0.
+    FD_ZERO(&rfds);
+    FD_SET(0, &rfds);
+
+    // Set waiting time.
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
+
+    // Wait and see if there is any data.
+    retval = select(sockfd, &rfds, NULL, NULL, &tv);
+
+    if (retval) {
+        return 1;
+    } else {
+        return 0;
+    }
+}

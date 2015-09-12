@@ -81,5 +81,14 @@ int network_readLine(char *buffer, size_t size);
  */
 int network_disconnect();
 
+/**
+ * @brief Check if there is any incoming data.
+ *
+ * @param timeout Maximum of seconds to wait for input.
+ *
+ * @return 1 if there is input data, 0 if not.
+ */
+int network_checkForData(int timeout);
+
 #endif // end of include guard: NETWORK_H
 

@@ -174,7 +174,6 @@ int network_checkForData(int timeout)
     // Prepare structures.
     fd_set rfds;
     struct timeval tv;
-    int retval;
 
     // Set to 0.
     FD_ZERO(&rfds);
@@ -185,7 +184,7 @@ int network_checkForData(int timeout)
     tv.tv_usec = 0;
 
     // Wait and see if there is any data.
-    retval = select(sockfd, &rfds, NULL, NULL, &tv);
+    int retval = select(sockfd, &rfds, NULL, NULL, &tv);
 
     if (retval) {
         return 1;

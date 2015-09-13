@@ -169,7 +169,7 @@ int network_readLine(char *buffer, size_t size)
  * it checks if there is any data incoming and return 1 if it is,
  * else return 0.
  */
-int network_checkForData(int timeout)
+int network_checkForData()
 {
     // Prepare structures.
     fd_set rfds;

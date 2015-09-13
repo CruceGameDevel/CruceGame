@@ -180,7 +180,7 @@ int network_checkForData()
     FD_SET(0, &rfds);
 
     // Set waiting time.
-    tv.tv_sec = timeout;
+    tv.tv_sec = 0;
     tv.tv_usec = 0;
 
     // Wait and see if there is any data.

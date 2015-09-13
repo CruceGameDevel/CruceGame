@@ -183,6 +183,11 @@ int network_checkForData()
     tv.tv_sec = 0;
     tv.tv_usec = 0;
 
+    // If socket is not initialized, return error;
+    if (sockfd < 0) {
+        return UNINITIALIZED_CONNECTION;
+    }
+
     // Wait and see if there is any data.
     int retval = select(sockfd, &rfds, NULL, NULL, &tv);
 

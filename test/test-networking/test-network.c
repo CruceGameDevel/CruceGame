@@ -289,3 +289,42 @@ void test_network_readLine()
                             "Read data from non-existent server succeeded");
 }
 
+/**
+ * Test network_checkForData() by creating a localhost server, connect to it
+ * and perform checks on this connection.
+ */
+void test_network_checkForData()
+{
+    // Check error condition.
+    cut_assert_operator_int(0, >=, network_checkForData());
+
+    // Open localhost server and perform data sending.
+    // The tests are synchronized by timeouts.
+    int pid = cut_fork();
+    if (pid == 0) {
+        int newsockfd = openLocalhostSocket(8090);
+        sleep(2);
+        write(newsockfd, "ok", 2);
+
+        close(newsockfd);
+        exit(EXIT_SUCCESS);
+    }
+
+    sleep(1);
+    sockfd = connectToLocalhostSocket(8090);
+    // The data has not been sent by the server yet.
+    cut_assert_equal_int(0, network_checkForData());
+    sleep(2);
+    // The data has been sent. Check if it is available.
+    cut_assert_equal_int(1, network_checkForData());
+
+    // Clear the socket.
+    char buffer[10];
+    read(sockfd, buffer, 10);
+
+    // Check if the socket has been cleared.
+    cut_assert_equal_int(0, network_checkForData());
+
+    close(sockfd);
+
+}

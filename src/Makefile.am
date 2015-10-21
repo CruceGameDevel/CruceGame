@@ -6,7 +6,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src
               
 AM_LDFLAGS = -no-undefined
-AM_CFLAGS  = -std=c99 \
+AM_CFLAGS  = -std=gnu99 \
              -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
 
 if DEBUG

@@ -6,7 +6,7 @@ AM_CPPFLAGS = $(CUTTER_CFLAGS)  -I$(top_srcdir)/src/libCruceGame \
 				-DDEBUG
 
 AM_LDFLAGS = -module -rpath $(libdir) -avoid-version -no-undefined
-AM_CFLAGS = -std=c99
+AM_CFLAGS = -std=gnu99
 TESTS_ENVIRONMENT = NO_MAKE=yes CUTTER="$(CUTTER)"
 echo-cutter:
 	@echo $(CUTTER)

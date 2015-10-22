@@ -304,7 +304,7 @@ void test_network_checkForData()
     if (pid == 0) {
         int newsockfd = openLocalhostSocket(8090);
         sleep(2);
-        write(newsockfd, "ok", 2);
+        write(newsockfd, "ok", 3);
 
         close(newsockfd);
         exit(EXIT_SUCCESS);
@@ -313,17 +313,19 @@ void test_network_checkForData()
     sleep(1);
     sockfd = connectToLocalhostSocket(8090);
     // The data has not been sent by the server yet.
-    cut_assert_equal_int(0, network_checkForData());
-    sleep(2);
+    cut_assert_equal_int(0, network_checkForData(0));
+    sleep(3);
     // The data has been sent. Check if it is available.
-    cut_assert_equal_int(1, network_checkForData());
+    cut_assert_equal_int(1, network_checkForData(0));
 
     // Clear the socket.
     char buffer[10];
-    read(sockfd, buffer, 10);
+    int ret = read(sockfd, buffer, 10);
+    printf("Read ret %d. We have read %s\n", ret, buffer);
+    sleep(1);
 
-    // Check if the socket has been cleared.
-    cut_assert_equal_int(0, network_checkForData());
+ //   // Check if the socket has been cleared.
+    cut_assert_equal_int(0, network_checkForData(1));
 
     close(sockfd);
 

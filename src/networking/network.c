@@ -169,7 +169,7 @@ int network_readLine(char *buffer, size_t size)
  * it checks if there is any data incoming and return 1 if it is,
  * else return 0.
  */
-int network_checkForData()
+int network_checkForData(int rd)
 {
     // Prepare structures.
     fd_set rfds;
@@ -177,7 +177,7 @@ int network_checkForData()
 
     // Set to 0.
     FD_ZERO(&rfds);
-    FD_SET(0, &rfds);
+    FD_SET(sockfd, &rfds);
 
     // Set waiting time.
     tv.tv_sec = 0;
@@ -189,7 +189,8 @@ int network_checkForData()
     }
 
     // Wait and see if there is any data.
-    int retval = select(sockfd, &rfds, NULL, NULL, &tv);
+    int retval = select(sockfd + 1, &rfds, NULL, NULL, &tv);
+    printf("Select retval %d\n", retval);
 
     if (retval) {
         return 1;

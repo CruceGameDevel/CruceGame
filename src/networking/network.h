@@ -81,5 +81,15 @@ int network_readLine(char *buffer, size_t size);
  */
 int network_disconnect();
 
+/**
+ * @brief Set the internal socket file descriptor used for network
+ *        communication.
+ *
+ * @param fileDescriptor The value of the new socket file descriptor.
+ *
+ * @return none.
+ */
+void network_setSockfd(int fileDescriptor);
+
 #endif // end of include guard: NETWORK_H
 

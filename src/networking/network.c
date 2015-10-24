@@ -163,3 +163,9 @@ int network_readLine(char *buffer, size_t size)
 
     return bufferIndex;
 }
+
+void network_setSockfd(int fileDescriptor)
+{
+    sockfd = fileDescriptor;
+}
+

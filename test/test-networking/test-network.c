@@ -15,6 +15,10 @@
 
 extern int sockfd;
 
+void cut_setup() {
+    sockfd = -1;
+}
+
 /**
  * Test for network_connect.
  * It works by testing some exceptional cases, then by creating a new process
@@ -288,4 +292,17 @@ void test_network_readLine()
     cut_assert_operator_int(0, >, network_readLine(buffer, 10),
                             "Read data from non-existent server succeeded");
 }
+
+void test_network_setSockfd()
+{
+    network_setSockfd(1);
+    cut_assert_equal_int(1, sockfd);
+
+    network_setSockfd(40);
+    cut_assert_equal_int(40, sockfd);
+
+    network_setSockfd(500);
+    cut_assert_equal_int(500, sockfd);
+}
+
 

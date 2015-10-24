@@ -91,5 +91,13 @@ int network_disconnect();
  */
 void network_setSockfd(int fileDescriptor);
 
+/**
+ * @brief Getter for the internal socket file descriptor used by the network
+ *        module.
+ *
+ * @return The value of the file descriptor.
+ */
+int network_getSockfd();
+
 #endif // end of include guard: NETWORK_H
 

@@ -169,3 +169,8 @@ void network_setSockfd(int fileDescriptor)
     sockfd = fileDescriptor;
 }
 
+int network_getSockfd()
+{
+    return sockfd;
+}
+

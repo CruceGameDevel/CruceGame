@@ -23,7 +23,7 @@
 /**
  * @brief Name of the IRC server for the game.
  */
-#define IRC_SERVER "irc.freenode.net"
+//#define IRC_SERVER "irc.freenode.net"
 
 /**
  * @brief Port number for connection to IRC.

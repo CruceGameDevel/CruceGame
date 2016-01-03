@@ -6,7 +6,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/src/libCruceGame \
               -I$(top_srcdir)/src
               
 AM_LDFLAGS = -no-undefined
-AM_CFLAGS  = -std=c99 \
+AM_CFLAGS  = -std=gnu99 \
              -DGAME_HELP_MANUAL="\"$(abs_top_builddir)/docs/man1/help.txt\""
 
 if DEBUG
@@ -16,6 +16,8 @@ endif
 lib_LTLIBRARIES = libCruceGame.la libNetworking.la libGameProtocol.la \
                   libCli.la libIrc.la
 bin_PROGRAMS = cruceGame
+
+libIrc_la_CPPFLAGS = $(AM_CPPFLAGS) -DIRC_SERVER=\"irc.freenode.net\"
 
 cruceGame_SOURCES = singlePlayerCurses/singlePlayerCurses.c \
                     main.c
@@ -41,9 +43,10 @@ libCli_la_SOURCES = cli/cli.c
 
 # Test Libs
 lib_LTLIBRARIES += libCruceGameCheck.la libNetworkingCheck.la \
+                   libNetworkingMock.la \
                    libGameProtocolCheck.la libCliCheck.la libIrcCheck.la
 
-libIrcCheck_la_CPPFLAGS = $(AM_CPPFLAGS) -DIRC_SERVER="localhost"
+libIrcCheck_la_CPPFLAGS = $(AM_CPPFLAGS) -DIRC_SERVER=\"localhost\"
 
 libCruceGameCheck_la_SOURCES    = libCruceGame/deck.c  \
                                   libCruceGame/team.c  \
@@ -51,6 +54,8 @@ libCruceGameCheck_la_SOURCES    = libCruceGame/deck.c  \
                                   libCruceGame/game.c
 
 libNetworkingCheck_la_SOURCES   = networking/network.c
+
+libNetworkingMock_la_SOURCES    = networking/network-mock.c
 
 libIrcCheck_la_SOURCES          = irc/irc.c
 

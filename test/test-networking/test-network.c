@@ -305,4 +305,14 @@ void test_network_setSockfd()
     cut_assert_equal_int(500, sockfd);
 }
 
+void test_network_getSockfd()
+{
+    cut_assert_equal_int(sockfd, network_getSockfd());
+    sockfd = 10;
+    cut_assert_equal_int(sockfd, network_getSockfd());
+    sockfd = 40;
+    cut_assert_equal_int(sockfd, network_getSockfd());
+    sockfd = 900;
+    cut_assert_equal_int(sockfd, network_getSockfd());
+}
 

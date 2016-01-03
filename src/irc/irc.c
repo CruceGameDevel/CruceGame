@@ -43,8 +43,8 @@ struct IrcMessage {
 struct IrcMessage *getNextMessage()
 {
 
-     char str[MAX_MESSAGE_SIZE];
-     network_readLine(str, MAX_MESSAGE_SIZE);
+    char str[MAX_MESSAGE_SIZE];
+    network_readLine(str, MAX_MESSAGE_SIZE);
 
     char *prefixEnd;
     int prefixLen = 0;
@@ -127,15 +127,25 @@ int irc_connect(char *name)
     sprintf(joinCommand, "JOIN %s\r\n", LOBBY_CHANNEL);
 
     // Send commands to the server.
-    network_send("PASS *\r\n", 8);
-    network_send(nickCommand, strlen(nickCommand));
-    network_send(userCommand, strlen(userCommand));
-    network_send(joinCommand, strlen(joinCommand));
+    int commandSequenceLength = 8 + strlen(nickCommand) +
+                                    strlen(userCommand) +
+                                    strlen(joinCommand);
+
+    char *commandSequence = malloc(commandSequenceLength);
+
+    sprintf(commandSequence, "PASS *\r\n%s%s%s",
+                             nickCommand, userCommand, joinCommand);
+
+    int sendRet = network_send(commandSequence, commandSequenceLength);
+
+    if (sendRet != NO_ERROR)
+        return sendRet;
 
     // Free our variables.
     free(nickCommand);
     free(userCommand);
     free(joinCommand);
+    free(commandSequence);
 
     return NO_ERROR;
 }
@@ -266,13 +276,16 @@ int irc_toggleRoomStatus(int roomNumber)
     // Send command and test for errors.
     int sendRet = network_send(fetchTopicCommand, strlen(fetchTopicCommand));
     if (sendRet != NO_ERROR) {
+        printf("Send failed\n");
         return sendRet;
     }
 
     // Read the channel's status response and test for errors.
     char recvBuffer[512];
     int readRet = network_read(recvBuffer, 512);
+    printf("Read %s in trs\n", recvBuffer);
     if (readRet < 0) {
+        printf("Read failed\n");
         return readRet;
     }
     
@@ -374,72 +387,60 @@ char *irc_getNames(int isRoom)
     // Buffer for response of the server.
     char buffer[512];
 
+    char *namesCommand;
+
     // If isRoom is 1, get names from joined room.
     if (isRoom) {
         // If user didn't join any room, return error.
         if (currentRoom == -1) {
+            printf("Here1");
             return NULL;
         }
 
         // Prepare room name.
         char roomName[strlen(ROOM_FORMAT) + 3];
         sprintf(roomName, ROOM_FORMAT, currentRoom);
-        
+
         // Prepare names command.
-        char namesCommand[COMMAND_SIZE + strlen(roomName)];
+        namesCommand = malloc(COMMAND_SIZE + strlen(roomName));
         sprintf(namesCommand, "NAMES %s\r\n", roomName);
-
-        // Send command and test for errors.
-        int sendRet = network_send(namesCommand, strlen(namesCommand));
-        if (sendRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Read response and test for errors.
-        int readRet = network_read(buffer, 512);
-        if (readRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Allocate space for names list and create it.
-        char *names = malloc(512);
-        char *namesListStart = strchr(buffer, ':');
-        strcpy(names, namesListStart);
-
-        return names;
     } else {
         // Prepare names command.
-        char namesCommand[COMMAND_SIZE + strlen(LOBBY_CHANNEL)];
+        namesCommand = malloc(COMMAND_SIZE + strlen(LOBBY_CHANNEL));
         sprintf(namesCommand, "NAMES %s\r\n", LOBBY_CHANNEL);
-        
-        // Send command and test for errors.
-        int sendRet = network_send(namesCommand, strlen(namesCommand));
-        if (sendRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Read response and test for errors.
-        int readRet = network_read(buffer, 512);
-        if (readRet != NO_ERROR) {
-            return NULL;
-        }
-
-        // Allocate space for names list and create it.
-        char *names = malloc(512);
-        char *namesListStart = strchr(buffer, ':');
-        strcpy(names, namesListStart);
-
-        return names;
     }
+    printf("SENDING NAMES COMMAND %s\n", namesCommand);
+
+    // Send command and test for errors.
+    int sendRet = network_send(namesCommand, strlen(namesCommand));
+    free(namesCommand);
+    if (sendRet != NO_ERROR) {
+            printf("Here2");
+        return NULL;
+    }
+
+    // Read response and test for errors.
+    int readRet = network_read(buffer, 512);
+    if (readRet < 0) {
+            printf("Here3 %d\n", readRet);
+        return NULL;
+    }
+
+    // Allocate space for names list and create it.
+    char *namesListStart = strchr(buffer, ':');
+    char *names = malloc(strlen(namesListStart));
+    strcpy(names, namesListStart);
+
+    return names;
 }
 
 /**
- * Test if the nickname is in the lobby and send "INVITE <channel> <nick>"
- * command to invite the user to current room.
- */
+* Test if the nickname is in the lobby and send "INVITE <channel> <nick>"
+* command to invite the user to current room.
+*/
 int irc_invite(char *nickname)
 {
-    // If user didn't join any room.
+// If user didn't join any room.
     if (currentRoom == -1) {
         return -1;
     }
@@ -447,13 +448,13 @@ int irc_invite(char *nickname)
     // Get names in the lobby and test for errors.
     char *channelNames = irc_getNames(0);
     if (channelNames == NULL) {
-        return -1;
+        return -2;
     }
-    
+    printf("OUT %s\n", channelNames);
     // If nickname isn't in the lobby, return error.
     if (strstr(channelNames, nickname) == NULL) {
         free(channelNames);
-        return -1;
+        return -3;
     }
 
     // Free names list.

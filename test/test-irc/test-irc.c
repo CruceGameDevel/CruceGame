@@ -21,7 +21,7 @@ char buffer[1024];
 
 // Open a pipe to test the result.
 void cut_setup() {
-    cut_assert_equal_int(0, pipe(fd));
+    cut_assert_equal_int(0, socketpair(AF_LOCAL, SOCK_STREAM, 0, fd));
     network_setSockfd(fd[1]);
     memset(buffer, 0, 1024);
 }

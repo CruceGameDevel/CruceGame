@@ -21,7 +21,7 @@ char buffer[1024];
 
 // Open a pipe to test the result.
 void cut_setup() {
-    cut_assert_equal_int(0, socketpair(AF_LOCAL, SOCK_STREAM, 0, fd));
+    cut_assert_equal_int(0, socketpair(AF_LOCAL, SOCK_STREAM | SOCK_NONBLOCK, 0, fd));
     network_setSockfd(fd[1]);
     memset(buffer, 0, 1024);
 }
@@ -201,70 +201,38 @@ void test_irc_toggleRoomStatus()
                      TOGGLE_ROOM_STATUS_ERROR, PARAMETER_OUT_OF_RANGE};
 
     char expectedMessagesFormat[5][2][512] = {
-        {"", ""},
-        {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " PLAYING\r\n"},
-        {"TOPIC " ROOM_FORMAT "\r\n", "TOPIC " ROOM_FORMAT " WAITING\r\n"},
-        {"TOPIC " ROOM_FORMAT "\r\n", ""},
-        {"", ""}
+        {"",""},
+        {"TOPIC " ROOM_FORMAT "\r\n","TOPIC " ROOM_FORMAT " PLAYING\r\n"},
+        {"TOPIC " ROOM_FORMAT "\r\n","TOPIC " ROOM_FORMAT " WAITING\r\n"},
+        {"TOPIC " ROOM_FORMAT "\r\n",""},
+        {"",""}
     };
 
     for (int test = 0; test < 5; test++) {
-        printf("Begun test %d\n", test);
+        // Simulate server message.
         write(fd[0], serverMessages[test], strlen(serverMessages[test]));
+
         cut_assert_equal_int(outputs[test],
                              irc_toggleRoomStatus(roomNumbers[test]));
+        memset(buffer, 0, 1024);
 
-//
-//        // First, we test the correctness of the return type.
-//        int pid = cut_fork();
-//        if (pid == 0) {
-//            // It doesn't make sense to do assertions in the child process
-//            // since they are not executed.
-//            int sockfd = openLocalhostSocket(8008);
-//            write(sockfd, serverMessages[test], sizeof(serverMessages[test]));
-//            close(sockfd);
-//            exit(EXIT_SUCCESS);
-//        }
-//
-//        sleep(1); // Wait a little bit before connecting to the server.
-//        cut_assert_equal_int(0, network_connect("localhost", 8008));
-//        cut_assert_equal_int(outputs[test],
-//                             irc_toggleRoomStatus(roomNumbers[test]));
-//        cut_assert_equal_int(0, network_disconnect());
-//
-//        // Then we test the behavior of the function (if it sends the right
-//        // thing to the server).
-//        pid = cut_fork();
-//
-//        if (pid == 0) {
-//            network_connect("localhost", 8099);
-//            irc_toggleRoomStatus(roomNumbers[test]);
-//            network_disconnect();
-//            exit(EXIT_SUCCESS);
-//        }
-//
-//        int sockfd = openLocalhostSocket(8099);
-//
-//        write(sockfd, serverMessages[test], sizeof(serverMessages[test]));
-//
-//        char receivedMessage[512];
-//        char expectedMessage[512];
-//
-//        for (int subtest = 0; subtest < 2; subtest++) {
-//            memset(expectedMessage, 0, sizeof(expectedMessage));
-//            memset(receivedMessage, 0, sizeof(receivedMessage));
-//
-//            cut_assert_operator_int(read(sockfd, receivedMessage, 512), >=, 0);
-//            if (strlen(expectedMessagesFormat[test][subtest]))
-//                sprintf(expectedMessage,
-//                        expectedMessagesFormat[test][subtest],
-//                        roomNumbers[test]);
-//
-//            cut_assert_equal_string(expectedMessage, receivedMessage);
+        // read might fail with EAGAIN error if there is nothing to read.
+        cut_assert_equal_int(read(fd[0], buffer, 1024) == 0 || errno == EAGAIN, 1);
+
+        // Form expected message based on the expectedMessagesFormat.
+        char expectedMessages[2][512];
+        for (int submessage = 0; submessage < 2; submessage++) {
+            if (strchr(expectedMessagesFormat[test][submessage], '%'))
+                sprintf(expectedMessages[submessage],
+                        expectedMessagesFormat[test][submessage],
+                        roomNumbers[test]);
+            else
+                expectedMessages[submessage][0] = '\0';
         }
+        strcat(expectedMessages[0], expectedMessages[1]);
 
- //       close(sockfd);
-   // }
+        cut_assert_equal_string(expectedMessages[0], buffer);
+    }
 }
 
 /**

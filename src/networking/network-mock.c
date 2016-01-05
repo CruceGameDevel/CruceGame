@@ -21,9 +21,6 @@
 
 int sockfd = -1;
 
-size_t networkInternalBufferLen;
-char networkInternalBuffer[BUFFER_SIZE];
-
 int network_connect(char *hostname, int port)
 {
     network_send(hostname, strlen(hostname));
@@ -62,11 +59,7 @@ int network_send(void *data, size_t size)
 
 int network_read(void *buffer, size_t size)
 {
-    size_t transferSize = min(size, networkInternalBufferLen);
-    memcpy(networkInternalBuffer, networkInternalBuffer, transferSize);
-    memcpy(networkInternalBuffer, networkInternalBuffer + transferSize,
-           BUFFER_SIZE - transferSize);
-    return transferSize;
+    return read(sockfd, buffer, size);
 }
 
 int network_disconnect()

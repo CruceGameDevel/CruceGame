@@ -283,9 +283,7 @@ int irc_toggleRoomStatus(int roomNumber)
     // Read the channel's status response and test for errors.
     char recvBuffer[512];
     int readRet = network_read(recvBuffer, 512);
-    printf("Read %s in trs\n", recvBuffer);
     if (readRet < 0) {
-        printf("Read failed\n");
         return readRet;
     }
     

@@ -21,6 +21,7 @@ char buffer[1024];
 
 // Open a pipe to test the result.
 void cut_setup() {
+    currentRoom = -1;
     cut_assert_equal_int(0, socketpair(AF_LOCAL, SOCK_STREAM | SOCK_NONBLOCK, 0, fd));
     network_setSockfd(fd[1]);
     memset(buffer, 0, 1024);
@@ -301,52 +302,39 @@ void test_irc_toggleRoomStatus()
  * This function assumes the use of currentRoom private variable in the irc
  * module.
  */
-//void test_irc_invite()
-//{
-//    cut_assert_not_equal_int(NO_ERROR, irc_invite("user"));
-//
-//    int pid = cut_fork();
-//    if (pid == 0) {
-//        cut_assert_equal_int(2, 3);
-//        int serverSockfd = openLocalhostSocket(8201);
-//        char userList[] =
-//          ":weber.freenode.net 353 Paul1234 = #cruce-devel :user1 user2 user3\n"
-//          ":weber.freenode.net 366 Paul1234 #cruce-devel :End of /NAMES list.";
-//
-//        char buffer[513];
-//        int returnedValue = 0;
-//
-//        read(serverSockfd, buffer, 513);
-//        if (strcmp(buffer, "INVITE user #cruce-game001") != 0)
-//            returnedValue++;
-//
-//        close(serverSockfd);
-//
-//        sleep(1);
-//
-//        exit(returnedValue);
-//    exit(1);
-//    }
+void test_irc_invite()
+{
+    cut_assert_not_equal_int(NO_ERROR, irc_invite("user"));
 
-//    sleep(1);
-//
-//    cut_assert_equal_int(NO_ERROR, network_connect("localhost", 8201));
-//    sleep(1);
-//    currentRoom = 1;
-//
-//    int value;
-//
-//    cut_assert_equal_int(NO_ERROR, irc_invite("user"), "Invite user failed");
- //   cut_assert_operator_int(NO_ERROR, >, irc_invite(NULL));
+    char userList[] =
+        ":weber.freenode.net 353 user1234 = #cruce-devel :user1 user2 user3\n"
+        ":weber.freenode.net 366 user1234 #cruce-devel :End of /NAMES list.";
 
- //   wait(&value);
+    int currentRooms[] = {123, 123, 962};
 
- //   cut_assert_equal_int(0, value);
+    char expectedResult[3][512] = {
+                       "NAMES #cruce-devel\r\n",
+                       "NAMES #cruce-devel\r\nINVITE #cruce-game123 user1\r\n",
+                       "NAMES #cruce-devel\r\nINVITE #cruce-game962 user3\r\n"};
 
- //   cut_assert_equal_int(NO_ERROR, network_disconnect());
+    char invitedUser[3][10] = {"user5", "user1", "user3"};
 
- //   currentRoom = -1;
-//}
+    for (int test = 0; test < 3; test++) {
+        currentRoom = currentRooms[test];
+
+        write(fd[0], userList, strlen(userList));
+        if (test == 0)
+            cut_assert_not_equal_int(NO_ERROR, irc_invite(invitedUser[test]));
+        else
+            cut_assert_equal_int(NO_ERROR, irc_invite(invitedUser[test]));
+
+        int readRet = read(fd[0], buffer, 512);
+        cut_assert_operator_int(readRet, >, 0);
+        buffer[readRet] = '\0';
+
+        cut_assert_equal_string(buffer, expectedResult[test]);
+    }
+}
 
 /**
  * Test for irc_getAvailableRooms.

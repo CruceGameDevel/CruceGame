@@ -407,20 +407,17 @@ char *irc_getNames(int isRoom)
         namesCommand = malloc(COMMAND_SIZE + strlen(LOBBY_CHANNEL));
         sprintf(namesCommand, "NAMES %s\r\n", LOBBY_CHANNEL);
     }
-    printf("SENDING NAMES COMMAND %s\n", namesCommand);
 
     // Send command and test for errors.
     int sendRet = network_send(namesCommand, strlen(namesCommand));
     free(namesCommand);
     if (sendRet != NO_ERROR) {
-            printf("Here2");
         return NULL;
     }
 
     // Read response and test for errors.
     int readRet = network_read(buffer, 512);
     if (readRet < 0) {
-            printf("Here3 %d\n", readRet);
         return NULL;
     }
 
@@ -448,7 +445,6 @@ int irc_invite(char *nickname)
     if (channelNames == NULL) {
         return -2;
     }
-    printf("OUT %s\n", channelNames);
     // If nickname isn't in the lobby, return error.
     if (strstr(channelNames, nickname) == NULL) {
         free(channelNames);
